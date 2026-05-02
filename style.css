@@ -674,11 +674,15 @@ section {
     gap: 50px;
     text-align: center;
   }
+
+  .about-logo-wrap {
+    margin: 0 auto; /* 🔥 CENTER FIX */
+  }
+
   .about-logo-block { order: -1; }
   .section-desc { margin: 0 auto; }
   .feature-list li { justify-content: center; }
   .about-intro { text-align: left; }
-  
 }
 
 /* ============ SERVICES ============ */
