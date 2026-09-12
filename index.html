@@ -5,19 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdFlare - Meta Ads Specialist</title>
 
-   <!-- Favicon -->
+  <!-- Favicon -->
 
-<link rel="icon" type="image/png" href="IMG/favicon.png">
-<link rel="shortcut icon" href="IMG/favicon.png">
+<link rel="icon" type="image/x-icon" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png?v=2">
+<link rel="shortcut icon" href="img/favicon.png">
 
   <meta name="description" content="AdFlare is a Meta Ads specialist agency. We scale your business with high-converting Facebook & Instagram ad campaigns." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Custom Cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <!-- ===== COMING SOON GLASS TOAST ===== -->
+  <div class="glass-toast" id="glassToast" role="status" aria-live="polite">
+    <div class="glass-toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+    </div>
+    <div class="glass-toast-text">
+      <strong>Coming Soon</strong>
+      <span>Call booking isn't live yet. Message us on WhatsApp for now.</span>
+    </div>
+    <a href="https://wa.me/9607862274" target="_blank" class="glass-toast-cta" id="glassToastWaBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+  </div>
 
   <!-- ===== NAVBAR ===== -->
   <nav id="navbar">
@@ -30,9 +41,9 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#why">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#contact" class="nav-cta">Book Now</a></li>
     </ul>
 
     <div class="hamburger" id="hamburger">
@@ -44,9 +55,10 @@
   <div class="mobile-nav" id="mobileNav">
     <a href="#about" class="mobile-link">About</a>
     <a href="#services" class="mobile-link">Services</a>
+    <a href="#pricing" class="mobile-link">Pricing</a>
     <a href="#why" class="mobile-link">Why Us</a>
     <a href="#contact" class="mobile-link">Contact</a>
-    <a href="#contact" class="mobile-link mobile-nav-cta">Book a Call</a>
+    <a href="#contact" class="mobile-link mobile-nav-cta book-now-btn">Book a Call</a>
   </div>
 
   <!-- ===== HERO ===== -->
@@ -57,11 +69,6 @@
     <div class="orb orb-2"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Meta Ads Specialist
-      </div>
-
       <h1 class="hero-title">
         Ignite Your Brand<br>
         With <span class="accent">Meta Ads</span><br>
@@ -69,11 +76,11 @@
       </h1>
 
       <p class="hero-sub">
-        AdFlare crafts data-driven Facebook &amp; Instagram campaigns that turn cold audiences into loyal customers. We don't just run ads — we build growth machines.
+        AdFlare crafts data-driven Facebook &amp; Instagram campaigns that turn cold audiences into loyal customers. We don't just run ads. We build growth machines.
       </p>
 
       <div class="hero-cta-group">
-        <a href="#contact" class="btn-primary">
+        <a href="#contact" class="btn-primary book-now-btn">
            Book a Free Strategy Call
         </a>
         <a href="#services" class="btn-outline">
@@ -99,25 +106,12 @@
       </div>
     </div>
 
-    <div class="scroll-indicator">
-      
-      <div class="scroll-line"></div>
-    </div>
   </section>
 
   <!-- ===== ABOUT ===== -->
   <section id="about">
+    <div class="about-bg" id="aboutBg"></div>
     <div class="about-grid">
-
-      <div class="about-logo-block">
-        <div class="about-logo-wrap">
-          <div class="about-logo-ring"></div>
-          <!-- Full AF Logo PNG -->
-
-          <img src="IMG/logo.png" alt="AdFlare Logo">
-
-        </div>
-      </div>
 
       <div class="about-content reveal">
         <span class="section-label">About AdFlare</span>
@@ -129,102 +123,45 @@
           Whether you're a growing brand or scaling an e-commerce store, we build ad systems designed to get you <strong>maximum return on every peso spent</strong>.
         </p>
         <ul class="feature-list">
-          <li>100% focused on Meta Ads — Facebook &amp; Instagram</li>
+          <li>100% focused on Meta Ads: Facebook &amp; Instagram</li>
           <li>Custom creatives tailored to your audience</li>
           <li>Full campaign management: setup, testing, scaling</li>
-          <li>Transparent reporting — you see exactly what's working</li>
+          <li>Transparent reporting: you see exactly what's working</li>
           <li>Retargeting funnels that bring back lost customers</li>
         </ul>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ===== SERVICES ===== -->
-  <section id="services">
-    <div class="services-header reveal">
-      <span class="section-label">What We Offer</span>
-      <h2 class="section-title">Meta Ads Services<br>Built to Scale</h2>
-      <p class="section-desc">Everything you need to dominate your market on Facebook and Instagram — handled by specialists.</p>
-    </div>
-
-    <div class="services-grid">
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">🎯</div>
-        <h3>Campaign Strategy</h3>
-        <p>Deep audience research and funnel mapping to ensure your ads reach the right people at the right time with the right message.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">🎨</div>
-        <h3>Ad Creative Design</h3>
-        <p>Scroll-stopping visuals and compelling copy crafted to grab attention and drive clicks in a crowded news feed.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">📊</div>
-        <h3>Campaign Management</h3>
-        <p>Daily monitoring, A/B testing, and budget optimization to continuously improve performance and lower your cost per result.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-4">
-        <div class="service-icon">🔄</div>
-        <h3>Retargeting Funnels</h3>
-        <p>Multi-stage retargeting campaigns that re-engage warm audiences and guide them through the buyer journey to conversion.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">📈</div>
-        <h3>Scaling &amp; Growth</h3>
-        <p>Proven frameworks to scale your winning campaigns aggressively while maintaining profitability and audience quality.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">📋</div>
-        <h3>Analytics &amp; Reporting</h3>
-        <p>Clear, weekly reports that show exactly what's working, what's not, and the action plan moving forward.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WHY US ===== -->
-  <section id="why">
-    <div class="why-grid">
-
-      <div class="reveal">
-        <span class="section-label">Why AdFlare</span>
-        <h2 class="section-title">We're Not a<br>General Agency</h2>
-        <p class="section-desc" style="margin-bottom: 0;">We specialize in one thing and do it exceptionally well — Meta Ads.</p>
-        <ul class="why-list">
-          <li class="why-item">
-            <span class="why-num">01</span>
-            <div>
-              <h4>Pure Meta Specialization</h4>
-              <p>Unlike full-service agencies, 100% of our expertise is on Facebook &amp; Instagram. Deeper knowledge = better results.</p>
-            </div>
-          </li>
-          <li class="why-item">
-            <span class="why-num">02</span>
-            <div>
-              <h4>Data-First Approach</h4>
-              <p>Every decision is backed by real numbers. We let the data guide strategy, not guesswork or trends.</p>
-            </div>
-          </li>
-          <li class="why-item">
-            <span class="why-num">03</span>
-            <div>
-              <h4>Transparent & Accountable</h4>
-              <p>No hidden fees, no vague reports. You get full visibility into your campaign performance at all times.</p>
-            </div>
-          </li>
-          <li class="why-item">
-            <span class="why-num">04</span>
-            <div>
-              <h4>Fast Execution</h4>
-              <p>Campaigns go live quickly. We move fast, test faster, and scale winners without wasting your budget.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="reveal reveal-delay-2">
+      <div class="reveal reveal-delay-2 about-metrics-wrap">
         <div class="metrics-card">
-          <div class="metrics-card-title">📊 Average Client Results</div>
+
+          <div class="chart-block">
+            <div class="chart-block-head">
+              <div>
+                <span class="chart-block-label">Client Growth Trend</span>
+                <div class="chart-block-value" id="chartValue">+0%</div>
+              </div>
+              <span class="chart-trend">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                Scaling Up
+              </span>
+            </div>
+            <div class="chart-wrap">
+              <svg class="growth-chart" viewBox="0 0 400 140" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(255,43,43,0.4)"/>
+                    <stop offset="100%" stop-color="rgba(255,43,43,0)"/>
+                  </linearGradient>
+                </defs>
+                <path class="chart-area" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3 L400,140 L0,140 Z" fill="url(#chartFill)"/>
+                <path class="chart-line" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3" fill="none"/>
+                <circle class="chart-dot-pulse" cx="400" cy="3" r="5"/>
+                <circle class="chart-dot" cx="400" cy="3" r="4.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="metrics-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" style="vertical-align:-2px;margin-right:6px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Average Client Results</div>
           <div class="metric-row">
             <div class="metric-label-row">
               <span>Return on Ad Spend (ROAS)</span>
@@ -281,33 +218,253 @@
     </div>
   </section>
 
+  <!-- ===== SERVICES ===== -->
+  <section id="services">
+    <div class="services-header reveal">
+      <span class="section-label">What We Offer</span>
+      <h2 class="section-title">Meta Ads Services<br>Built to Scale</h2>
+      <p class="section-desc">Everything you need to dominate your market on Facebook and Instagram, handled by specialists.</p>
+    </div>
+
+    <div class="services-slider-wrap">
+      <div class="services-slider">
+        <div class="services-track" id="servicesTrack">
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Campaign Strategy</h3>
+          <p>Deep audience research and funnel mapping to ensure your ads reach the right people at the right time with the right message.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <h3>Ad Creative Design</h3>
+          <p>Scroll-stopping visuals and compelling copy crafted to grab attention and drive clicks in a crowded news feed.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <h3>Campaign Management</h3>
+          <p>Daily monitoring, A/B testing, and budget optimization to continuously improve performance and lower your cost per result.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+          <h3>Retargeting Funnels</h3>
+          <p>Multi-stage retargeting campaigns that re-engage warm audiences and guide them through the buyer journey to conversion.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <h3>Scaling &amp; Growth</h3>
+          <p>Proven frameworks to scale your winning campaigns aggressively while maintaining profitability and audience quality.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div>
+          <h3>Analytics &amp; Reporting</h3>
+          <p>Clear, weekly reports that show exactly what's working, what's not, and the action plan moving forward.</p>
+        </div>
+        <div class="service-card service-card-soon">
+          <span class="soon-badge">Coming Soon</span>
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg></div>
+          <h3>Web Development</h3>
+          <p>Fast, conversion-focused websites and landing pages built to match your brand and turn your ad traffic into customers.</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing">
+    <div class="pricing-header reveal">
+      <span class="section-label">Investment</span>
+      <h2 class="section-title">Simple, Transparent<br>Pricing</h2>
+      <p class="section-desc">Pick the package that fits where your brand is right now. Scale up anytime as results come in.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal reveal-delay-1">
+        <div class="price-card-head">
+          <h3>Starter</h3>
+          <p class="price-tag"><span class="price-amount">$99</span><span class="price-period">/month</span></p>
+          <p class="price-desc">For brands just getting started on social.</p>
+        </div>
+        <ul class="price-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 high-quality posts/month</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Basic graphic design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 reels/month</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Caption writing</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Page posting &amp; scheduling</li>
+        </ul>
+        <a href="#contact" class="btn-outline price-cta book-now-btn">Get Started</a>
+      </div>
+
+      <div class="price-card featured reveal reveal-delay-2">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-card-head">
+          <h3>Basic</h3>
+          <p class="price-tag"><span class="price-amount">$249</span><span class="price-period">/month</span></p>
+          <p class="price-desc">For growing brands ready to run real ad campaigns.</p>
+        </div>
+        <ul class="price-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>12 professional posts</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 reels / short videos</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Story content</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom graphic designs</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Caption &amp; content strategy</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Onsite content shooting (if needed)</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Facebook &amp; Instagram ads management</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Audience targeting</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Basic ads boosting support</li>
+        </ul>
+        <a href="#contact" class="btn-primary price-cta book-now-btn">Get Started</a>
+      </div>
+
+      <div class="price-card reveal reveal-delay-3">
+        <div class="price-card-head">
+          <h3>Growth</h3>
+          <p class="price-tag"><span class="price-amount">$399</span><span class="price-period">/month</span></p>
+          <p class="price-desc">Full-scale management for brands serious about growth.</p>
+        </div>
+        <ul class="price-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Full social media management</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>20 high-quality posts</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>15 reels / promotional videos</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Daily stories</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Advanced video editing</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Marketing campaign planning</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ads optimization &amp; scaling</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Brand-focused content strategy</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Competitor Analysis &amp; Market Research</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Community &amp; Engagement Management</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Professional Copywriting &amp; CTA Strategy</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lead Generation Strategy</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly Performance Report &amp; Strategy Review</li>
+        </ul>
+        <a href="#contact" class="btn-outline price-cta book-now-btn">Get Started</a>
+      </div>
+    </div>
+
+    <div class="addons-wrap reveal">
+      <h3 class="addons-title">Add-On Services</h3>
+      <div class="addons-grid">
+        <div class="addon-item">
+          <span class="addon-name">Extra Reel Editing</span>
+          <span class="addon-price">from $25</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Custom Poster Design</span>
+          <span class="addon-price">from $10</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Product Photo Editing</span>
+          <span class="addon-price">from $15</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Meta Ads Setup &amp; Optimization</span>
+          <span class="addon-price">from $20</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Caption Writing Only</span>
+          <span class="addon-price">from $5/post</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Monthly Content Calendar</span>
+          <span class="addon-price">from $30</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">On-Site Content Shooting</span>
+          <span class="addon-price">custom</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Product Promotion Campaigns</span>
+          <span class="addon-price">from $40</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Logo Design &amp; Branding</span>
+          <span class="addon-price">from $50</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Basic Website / Link-in-Bio Setup</span>
+          <span class="addon-price">from $40</span>
+        </div>
+        <div class="addon-item">
+          <span class="addon-name">Analytics &amp; Insights Report</span>
+          <span class="addon-price">from $25</span>
+        </div>
+        <div class="addon-item addon-item-soon">
+          <span class="addon-name">Web Development</span>
+          <span class="addon-badge-soon">Coming Soon</span>
+        </div>
+      </div>
+      <div class="pricing-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Ad budget is paid separately by the client.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY US ===== -->
+  <section id="why">
+    <div class="why-grid">
+
+      <div class="reveal">
+        <span class="section-label">Why AdFlare</span>
+        <h2 class="section-title">We're Not a<br>General Agency</h2>
+        <p class="section-desc" style="margin-bottom: 0;">We specialize in one thing and do it exceptionally well: Meta Ads.</p>
+        <ul class="why-list">
+          <li class="why-item">
+            <span class="why-num">01</span>
+            <div>
+              <h4>Pure Meta Specialization</h4>
+              <p>Unlike full-service agencies, 100% of our expertise is on Facebook &amp; Instagram. Deeper knowledge = better results.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <span class="why-num">02</span>
+            <div>
+              <h4>Data-First Approach</h4>
+              <p>Every decision is backed by real numbers. We let the data guide strategy, not guesswork or trends.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <span class="why-num">03</span>
+            <div>
+              <h4>Transparent & Accountable</h4>
+              <p>No hidden fees, no vague reports. You get full visibility into your campaign performance at all times.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <span class="why-num">04</span>
+            <div>
+              <h4>Fast Execution</h4>
+              <p>Campaigns go live quickly. We move fast, test faster, and scale winners without wasting your budget.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===== CONTACT ===== -->
   <section id="contact">
     <div class="contact-wrapper">
       <span class="section-label reveal">Get In Touch</span>
       <h2 class="section-title reveal" style="margin-bottom: 16px;">Ready to Scale<br>Your Business?</h2>
-      <p class="contact-intro reveal">Let's talk about your goals. Book a free strategy call or reach out directly — we respond fast.</p>
+      <p class="contact-intro reveal">Let's talk about your goals. Book a free strategy call or reach out directly. We respond fast.</p>
 
       <div class="contact-cards reveal">
         <a href="tel:+9607862274" class="contact-card">
-          <div class="contact-card-icon">📞</div>
+          <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
           <span class="contact-card-type">Phone</span>
           <span class="contact-card-val">+960 7862274</span>
         </a>
         <a href="https://wa.me/9607862274" target="_blank" class="contact-card">
-          <div class="contact-card-icon">💬</div>
+          <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
           <span class="contact-card-type">WhatsApp / Viber</span>
           <span class="contact-card-val">+960 7862274</span>
         </a>
         <a href="mailto:adflare@gmail.com" class="contact-card">
-          <div class="contact-card-icon">✉️</div>
+          <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
           <span class="contact-card-type">Email</span>
           <span class="contact-card-val">adflare@gmail.com</span>
-        </a>
-        <a href="https://www.adflare.com" target="_blank" class="contact-card">
-          <div class="contact-card-icon">🌐</div>
-          <span class="contact-card-type">Website</span>
-          <span class="contact-card-val">www.adflare.com</span>
         </a>
       </div>
 
@@ -315,7 +472,7 @@
         <a href="https://wa.me/9607862274" target="_blank" class="btn-primary">
            Message Us on WhatsApp
         </a>
-        <a href="mailto:adflare@gmail.com" class="btn-outline">
+        <a href="mailto:adflare@gmail.com" class="btn-outline book-now-btn" id="bookCallBtn">
            Book a Strategy Call
         </a>
       </div>
@@ -325,53 +482,103 @@
   <!-- ===== FOOTER ===== -->
   <footer>
     <div class="footer-logo">Ad<span>Flare</span></div>
-    <p class="footer-copy">© 2026 AdFlare. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="#" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v3.5H8V21h3.5v-7.5h3l.5-3.5h-3.5V7.5A1.5 1.5 0 0 1 12.5 6H15V3z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="Email" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="X (Twitter)" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10"/><path d="M17 7 7 17"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v10.5a3.3 3.3 0 1 1-3.3-3.3c.28 0 .55.03.8.08"/><path d="M14 3a5.2 5.2 0 0 0 5.2 5.2"/></svg>
+      </a>
+    </div>
     <div class="footer-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
     </div>
+    <p class="footer-copy">© 2026 AdFlare. All rights reserved.</p>
   </footer>
+
+  <!-- ===== WHATSAPP CHAT WIDGET ===== -->
+  <div class="wa-chat-widget" id="waChatWidget" role="dialog" aria-label="AdFlare WhatsApp chat" aria-hidden="true">
+    <div class="wa-chat-header">
+      <button class="wa-chat-close" id="waChatClose" aria-label="Close chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="wa-chat-avatar">
+        <img src="img/favicon.png" alt="AdFlare">
+      </div>
+      <div class="wa-chat-info">
+        <div class="wa-chat-name">
+          AdFlare
+          <svg class="wa-verified-badge" width="15" height="15" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Verified">
+            <path d="M11 0l2.163 1.176L15.535.63l1.318 2.017 2.34.388.478 2.328L21.8 6.8l-1.06 2.14L21.8 11l-1.13 1.06.982 2.152-1.928 1.39-.31 2.35-2.34.388-1.318 2.017-2.203-.546L11 21l-2.163-1.19-2.203.546-1.318-2.017-2.34-.388-.31-2.35-1.928-1.39.983-2.151L.2 11l1.06-2.06L.2 6.8l1.363-1.437.478-2.328 2.34-.388L5.7.63l2.372.546L11 0z" fill="#3897F0"/>
+            <path d="M7.2 11.2l2.4 2.4 5-5.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="wa-chat-status"><span class="wa-status-dot"></span>Online</div>
+      </div>
+    </div>
+
+    <div class="wa-chat-body">
+      <div class="wa-chat-bubble">
+        Welcome to <strong>AdFlare</strong>! 👋 How can we help you scale your Meta Ads today?
+      </div>
+    </div>
+
+    <form class="wa-chat-footer" id="waChatForm">
+      <input type="text" id="waChatInput" placeholder="Type here..." autocomplete="off">
+      <button type="submit" class="wa-chat-send" aria-label="Send message on WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </form>
+  </div>
 
   <!-- ===== FLOATING ACTION BUTTONS ===== -->
   <div class="fab-group">
-    <a href="https://wa.me/9607862274" target="_blank" class="fab fab-wa">
+    <button type="button" class="fab fab-wa" id="waFabToggle" aria-label="Open WhatsApp chat">
       <span class="fab-tooltip">Message on WhatsApp</span>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
-    </a>
-    <a href="#contact" class="fab fab-primary">
-      <span class="fab-tooltip">Book a Call</span>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-    </a>
+    </button>
   </div>
 
   <!-- Back to top -->
-  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+
+  <!-- ===== PRICING OFFER MODAL (full view of a plan) ===== -->
+  <div class="offer-modal" id="offerModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="offer-modal-backdrop" id="offerModalBackdrop"></div>
+    <div class="offer-modal-content">
+      <button class="offer-modal-close" id="offerModalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="offer-modal-badge" id="offerModalBadge"></div>
+      <h3 class="offer-modal-title" id="offerModalTitle"></h3>
+      <p class="offer-modal-price">
+        <span class="offer-modal-amount" id="offerModalAmount"></span>
+        <span class="offer-modal-period" id="offerModalPeriod"></span>
+      </p>
+      <p class="offer-modal-desc" id="offerModalDesc"></p>
+      <ul class="offer-modal-features" id="offerModalFeatures"></ul>
+      <a href="#contact" class="btn-primary offer-modal-cta book-now-btn" id="offerModalCta">Get Started</a>
+    </div>
+  </div>
 
   <!-- ===== SCRIPTS ===== -->
   <script>
-    // --- Custom Cursor ---
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
+    
     // --- Navbar scroll ---
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -393,31 +600,227 @@
       });
     });
 
-    // --- Scroll Reveal ---
+    // --- Text Assemble Animation (headings split into words) ---
+    document.querySelectorAll('.section-title').forEach(el => {
+      const segments = el.innerHTML.split(/(<br\s*\/?>)/i);
+      let idx = 0;
+      el.innerHTML = segments.map(seg => {
+        if (/^<br/i.test(seg)) return seg;
+        return seg.split(' ').filter(Boolean).map(word => {
+          const rot = (idx % 2 === 0) ? '8deg' : '-8deg';
+          const delay = (idx * 0.07).toFixed(2);
+          idx++;
+          return `<span class="word"><span class="word-inner" style="--wr:${rot};transition-delay:${delay}s">${word}</span></span>`;
+        }).join(' ');
+      }).join('');
+    });
+    const titleObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('assembled', entry.isIntersecting);
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('.section-title').forEach(el => titleObserver.observe(el));
+
+    // --- Pricing cards: tap a plan to view it full-screen ---
+    const offerModal = document.getElementById('offerModal');
+    const offerModalBackdrop = document.getElementById('offerModalBackdrop');
+    const offerModalClose = document.getElementById('offerModalClose');
+    const offerModalBadge = document.getElementById('offerModalBadge');
+    const offerModalTitle = document.getElementById('offerModalTitle');
+    const offerModalAmount = document.getElementById('offerModalAmount');
+    const offerModalPeriod = document.getElementById('offerModalPeriod');
+    const offerModalDesc = document.getElementById('offerModalDesc');
+    const offerModalFeatures = document.getElementById('offerModalFeatures');
+    const offerModalCta = document.getElementById('offerModalCta');
+    const priceCards = document.querySelectorAll('.price-card');
+
+    function openOfferModal(card) {
+      const badgeEl = card.querySelector('.price-badge');
+      const ctaEl = card.querySelector('.price-cta');
+
+      if (badgeEl) {
+        offerModalBadge.textContent = badgeEl.textContent;
+        offerModalBadge.style.display = 'inline-block';
+      } else {
+        offerModalBadge.textContent = '';
+        offerModalBadge.style.display = 'none';
+      }
+      offerModalTitle.textContent = card.querySelector('h3')?.textContent || '';
+      offerModalAmount.textContent = card.querySelector('.price-amount')?.textContent || '';
+      offerModalPeriod.textContent = card.querySelector('.price-period')?.textContent || '';
+      offerModalDesc.textContent = card.querySelector('.price-desc')?.textContent || '';
+      offerModalFeatures.innerHTML = card.querySelector('.price-features')?.innerHTML || '';
+      if (ctaEl) {
+        offerModalCta.setAttribute('href', ctaEl.getAttribute('href') || '#contact');
+        offerModalCta.textContent = ctaEl.textContent;
+      }
+
+      offerModal.classList.add('open');
+      offerModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeOfferModal() {
+      offerModal.classList.remove('open');
+      offerModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    priceCards.forEach(card => {
+      card.classList.add('price-card-clickable');
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.price-cta')) return; // let "Get Started" button handle its own click (Coming Soon toast)
+        openOfferModal(card);
+      });
+    });
+
+    if (offerModalBackdrop) offerModalBackdrop.addEventListener('click', closeOfferModal);
+    if (offerModalClose) offerModalClose.addEventListener('click', closeOfferModal);
+    if (offerModalCta) offerModalCta.addEventListener('click', closeOfferModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && offerModal.classList.contains('open')) closeOfferModal();
+    });
+
+    // --- Scroll Reveal (replays both scrolling down and up) ---
+    // --- Services infinite loop slider: duplicate cards, drag/swipe + arrows ---
+    const servicesTrack = document.getElementById('servicesTrack');
+    const servicesSlider = document.querySelector('.services-slider');
+
+    if (servicesTrack && servicesSlider) {
+      // Duplicate cards once for a seamless loop
+      const originalCards = Array.from(servicesTrack.children);
+      originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        servicesTrack.appendChild(clone);
+      });
+
+      let offset = 0;
+      let halfWidth = 0;
+      let paused = false;
+      let isDragging = false;
+      let startX = 0;
+      let startOffset = 0;
+      const speed = 0.55; // px per frame auto-scroll
+
+      function measure() {
+        halfWidth = servicesTrack.scrollWidth / 2;
+      }
+      measure();
+      window.addEventListener('resize', measure);
+
+      function applyTransform() {
+        servicesTrack.style.transform = `translateX(${-offset}px)`;
+      }
+
+      function wrapOffset() {
+        if (halfWidth <= 0) return;
+        while (offset >= halfWidth) offset -= halfWidth;
+        while (offset < 0) offset += halfWidth;
+      }
+
+      // Auto-scroll loop
+      function tick() {
+        if (!paused && !isDragging) {
+          offset += speed;
+          wrapOffset();
+          applyTransform();
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      // Hover pause (desktop)
+      servicesSlider.addEventListener('mouseenter', () => { paused = true; });
+      servicesSlider.addEventListener('mouseleave', () => { if (!isDragging) paused = false; });
+
+      // Drag / swipe (mouse + touch via Pointer Events)
+      function dragStart(e) {
+        isDragging = true;
+        paused = true;
+        servicesTrack.classList.add('dragging');
+        servicesTrack.style.transition = '';
+        startX = e.touches ? e.touches[0].clientX : e.clientX;
+        startOffset = offset;
+      }
+      function dragMove(e) {
+        if (!isDragging) return;
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        offset = startOffset - (x - startX);
+        wrapOffset();
+        applyTransform();
+      }
+      function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        servicesTrack.classList.remove('dragging');
+        setTimeout(() => { paused = false; }, 400);
+      }
+
+      servicesTrack.addEventListener('mousedown', dragStart);
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('mouseup', dragEnd);
+
+      servicesTrack.addEventListener('touchstart', dragStart, { passive: true });
+      servicesTrack.addEventListener('touchmove', dragMove, { passive: true });
+      servicesTrack.addEventListener('touchend', dragEnd);
+
+      servicesTrack.addEventListener('dragstart', (e) => e.preventDefault());
+    }
+
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        entry.target.classList.toggle('visible', entry.isIntersecting);
       });
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // --- Metric bars animation ---
+    // --- Metric bars + growth chart animation (replays scrolling down and up) ---
+    const chartTimers = new WeakMap();
+    function animateChartValue(el, target, duration = 1800) {
+      if (chartTimers.has(el)) clearInterval(chartTimers.get(el));
+      let current = 0;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+          chartTimers.delete(el);
+        }
+        el.textContent = '+' + Math.floor(current) + '%';
+      }, 16);
+      chartTimers.set(el, timer);
+    }
     const barObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
+        const card = entry.target;
+        const chartVal = card.querySelector('.chart-block-value');
         if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.metric-bar-fill').forEach(bar => {
+          card.querySelectorAll('.metric-bar-fill').forEach(bar => {
             bar.style.width = bar.dataset.width + '%';
           });
+          card.classList.add('chart-visible');
+          if (chartVal) setTimeout(() => animateChartValue(chartVal, 120, 3000), 200);
+        } else {
+          card.querySelectorAll('.metric-bar-fill').forEach(bar => {
+            bar.style.width = '0%';
+          });
+          card.classList.remove('chart-visible');
+          if (chartVal) {
+            if (chartTimers.has(chartVal)) clearInterval(chartTimers.get(chartVal));
+            chartVal.textContent = '+0%';
+          }
         }
       });
     }, { threshold: 0.3 });
     document.querySelectorAll('.metrics-card').forEach(card => barObserver.observe(card));
 
-    // --- Counter animation ---
+    // --- Counter animation (replays scrolling down and up) ---
+    const counterTimers = new WeakMap();
     function animateCounter(el, target, suffix = '') {
+      if (counterTimers.has(el)) clearInterval(counterTimers.get(el));
       let current = 0;
       const duration = 2000;
       const step = target / (duration / 16);
@@ -426,26 +829,180 @@
         if (current >= target) {
           current = target;
           clearInterval(timer);
+          counterTimers.delete(el);
         }
         el.textContent = Math.floor(current) + suffix;
       }, 16);
+      counterTimers.set(el, timer);
     }
     const statsObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
+        const nums = entry.target.querySelectorAll('.stat-num');
         if (entry.isIntersecting) {
-          const nums = entry.target.querySelectorAll('.stat-num');
           nums[0].innerHTML = '<span id="c1">0</span><span>×</span>';
           nums[1].innerHTML = '<span id="c2">0</span><span>+</span>';
           nums[2].innerHTML = '<span id="c3">0</span><span>%</span>';
           setTimeout(() => animateCounter(document.getElementById('c1'), 3), 200);
           setTimeout(() => animateCounter(document.getElementById('c2'), 50), 400);
           setTimeout(() => animateCounter(document.getElementById('c3'), 98), 600);
-          statsObserver.disconnect();
         }
       });
     }, { threshold: 0.5 });
     const heroStats = document.querySelector('.hero-stats');
     if (heroStats) statsObserver.observe(heroStats);
+
+    // --- About section parallax (JS-based, works on desktop AND mobile) ---
+    const aboutSection = document.getElementById('about');
+    const aboutBg = document.getElementById('aboutBg');
+    if (aboutSection && aboutBg) {
+      // Respect users who prefer reduced motion by toning the movement down,
+      // but never disable it completely.
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const maxShift = prefersReducedMotion ? 12 : 40; // px travel distance
+      let ticking = false;
+
+      function updateAboutParallax() {
+        const rect = aboutSection.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        // Only animate while the section is anywhere near the viewport
+        if (rect.bottom >= -200 && rect.top <= vh + 200) {
+          const total = vh + rect.height;
+          const progress = Math.min(1, Math.max(0, (vh - rect.top) / total));
+          const offset = (progress - 0.5) * maxShift * 2;
+          aboutBg.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+        }
+        ticking = false;
+      }
+
+      function onScrollOrResize() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateAboutParallax);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScrollOrResize, { passive: true });
+      window.addEventListener('resize', onScrollOrResize);
+      window.addEventListener('orientationchange', onScrollOrResize);
+      updateAboutParallax();
+    }
+
+    // --- Any "Book Now" / "Book a Call" CTA -> Coming Soon glass toast ---
+    const glassToast = document.getElementById('glassToast');
+    let glassToastTimer;
+
+    function showGlassToast() {
+      if (!glassToast) return;
+      glassToast.classList.add('show');
+      clearTimeout(glassToastTimer);
+      glassToastTimer = setTimeout(() => glassToast.classList.remove('show'), 4500);
+    }
+
+    document.querySelectorAll('.book-now-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showGlassToast();
+      });
+    });
+
+    // --- Swipe the toast left to dismiss it, like a phone notification ---
+    if (glassToast) {
+      let dragging = false;
+      let dragStartX = 0;
+      let dragX = 0;
+
+      function toastDragStart(e) {
+        if (!glassToast.classList.contains('show')) return;
+        if (e.target.closest('.glass-toast-cta')) return; // let the WhatsApp button click normally
+        dragging = true;
+        dragX = 0;
+        glassToast.classList.add('dragging');
+        dragStartX = e.touches ? e.touches[0].clientX : e.clientX;
+      }
+      function toastDragMove(e) {
+        if (!dragging) return;
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        dragX = Math.min(0, x - dragStartX); // only allow swiping left
+        glassToast.style.setProperty('--drag-x', dragX + 'px');
+        glassToast.style.opacity = Math.max(0.2, 1 - Math.abs(dragX) / 180);
+      }
+      function toastDragEnd() {
+        if (!dragging) return;
+        dragging = false;
+        glassToast.classList.remove('dragging');
+        if (dragX < -70) {
+          // swiped far enough: fly off and dismiss
+          clearTimeout(glassToastTimer);
+          glassToast.classList.add('dismissing');
+          glassToast.style.setProperty('--drag-x', '-420px');
+          glassToast.style.opacity = '0';
+          setTimeout(() => {
+            glassToast.classList.remove('show', 'dismissing');
+            glassToast.style.removeProperty('--drag-x');
+            glassToast.style.removeProperty('opacity');
+          }, 350);
+        } else {
+          // not far enough: snap back
+          glassToast.style.setProperty('--drag-x', '0px');
+          glassToast.style.opacity = '1';
+        }
+      }
+
+      glassToast.addEventListener('mousedown', toastDragStart);
+      window.addEventListener('mousemove', toastDragMove);
+      window.addEventListener('mouseup', toastDragEnd);
+      glassToast.addEventListener('touchstart', toastDragStart, { passive: true });
+      glassToast.addEventListener('touchmove', toastDragMove, { passive: true });
+      glassToast.addEventListener('touchend', toastDragEnd);
+    }
+
+    // --- WhatsApp chat widget ---
+    const waNumber = '9607862274';
+    const waWidget = document.getElementById('waChatWidget');
+    const waFabToggle = document.getElementById('waFabToggle');
+    const waChatClose = document.getElementById('waChatClose');
+    const waChatForm = document.getElementById('waChatForm');
+    const waChatInput = document.getElementById('waChatInput');
+
+    function openWaWidget() {
+      waWidget.classList.add('open');
+      waWidget.setAttribute('aria-hidden', 'false');
+      setTimeout(() => waChatInput.focus(), 200);
+    }
+    function closeWaWidget() {
+      waWidget.classList.remove('open');
+      waWidget.setAttribute('aria-hidden', 'true');
+    }
+
+    if (waFabToggle && waWidget) {
+      waFabToggle.addEventListener('click', () => {
+        waWidget.classList.contains('open') ? closeWaWidget() : openWaWidget();
+      });
+    }
+    if (waChatClose) {
+      waChatClose.addEventListener('click', closeWaWidget);
+    }
+    document.addEventListener('click', (e) => {
+      if (waWidget.classList.contains('open') &&
+          !waWidget.contains(e.target) &&
+          !waFabToggle.contains(e.target)) {
+        closeWaWidget();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && waWidget.classList.contains('open')) closeWaWidget();
+    });
+
+    if (waChatForm) {
+      waChatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const msg = waChatInput.value.trim() || "Hi AdFlare! I'd like to know more about your Meta Ads services.";
+        const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+        waChatInput.value = '';
+      });
+    }
   </script>
 
 </body>
