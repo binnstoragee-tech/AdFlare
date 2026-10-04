@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>AdFlare - Meta Ads Specialist</title>
 
   <!-- Favicon -->
 
-<link rel="icon" type="IMG/favicon.png" href="IMG/favicon.png">
-<link rel="icon" type="IMG/favicon.png" sizes="32x32" href="IMG/favicon.png">
-<link rel="shortcut icon" href="IMG/favicon.png">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
+<link rel="shortcut icon" href="img/favicon.png">
 
   <meta name="description" content="AdFlare is a Meta Ads specialist agency. We scale your business with high-converting Facebook & Instagram ad campaigns." />
   <link rel="stylesheet" href="style.css" />
@@ -25,7 +26,7 @@
       <strong>Coming Soon</strong>
       <span>Call booking isn't live yet. Message us on WhatsApp for now.</span>
     </div>
-    <a href="https://wa.me/9607862274" target="_blank" class="glass-toast-cta" id="glassToastWaBtn">
+    <a href="https://wa.me/9607862274" target="_blank" rel="noopener noreferrer" class="glass-toast-cta" id="glassToastWaBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
     </a>
   </div>
@@ -61,6 +62,7 @@
 
   <!-- ===== HERO ===== -->
   <section id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="orb orb-1"></div>
@@ -112,9 +114,9 @@
     <div class="about-grid">
 
       <div class="about-content reveal">
-        <img src="IMG/favicon.png" alt="AdFlare" class="about-logo">
+        <img src="img/favicon.png" alt="AdFlare" class="about-logo">
         <span class="section-label">About AdFlare</span>
-        <h2 class="section-title">We Live &amp; Breathe<br>Meta Advertising</h2>
+        <h2 class="section-title">We Live &amp; Breathe Meta Advertising</h2>
         <p class="about-intro">
           <strong>AdFlare</strong> is a dedicated Meta Ads agency focused exclusively on <strong>Facebook and Instagram advertising</strong>, built to get you <strong>maximum return on every spent</strong>.
         </p>
@@ -126,86 +128,110 @@
       </div>
 
       <div class="reveal reveal-delay-2 about-metrics-wrap">
-        <div class="metrics-card">
+        <div class="dash is-paused" id="dash">
 
-          <div class="chart-block">
-            <div class="chart-block-head">
-              <div>
-                <span class="chart-block-label">Client Growth Trend</span>
-                <div class="chart-block-value" id="chartValue">+0%</div>
-              </div>
-              <span class="chart-trend">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                Scaling Up
+          <div class="dash-window">
+            <div class="dash-bar">
+              <span class="dash-dots"><i></i><i></i><i></i></span>
+              <span class="dash-url">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <span class="dash-url-text">adflare.local/reports/growth</span>
               </span>
+              <span class="dash-live"><i></i>Live</span>
             </div>
-            <div class="chart-wrap">
-              <svg class="growth-chart" viewBox="0 0 400 140" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="rgba(255,43,43,0.4)"/>
-                    <stop offset="100%" stop-color="rgba(255,43,43,0)"/>
-                  </linearGradient>
-                </defs>
-                <path class="chart-area" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3 L400,140 L0,140 Z" fill="url(#chartFill)"/>
-                <path class="chart-line" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3" fill="none"/>
-                <circle class="chart-dot-pulse" cx="400" cy="3" r="5"/>
-                <circle class="chart-dot" cx="400" cy="3" r="4.5"/>
-              </svg>
+
+            <div class="dash-body">
+
+              <!-- Panel 1: Client growth -->
+              <div class="dash-panel is-active" data-panel="0">
+                <div class="chart-block">
+                  <div class="chart-block-head">
+                    <div>
+                      <span class="chart-block-label">Client Growth Trend</span>
+                      <div class="chart-block-value" id="chartValue">+0%</div>
+                    </div>
+                    <span class="chart-trend">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      Scaling Up
+                    </span>
+                  </div>
+                  <div class="chart-wrap">
+                    <svg class="growth-chart" viewBox="0 0 400 140" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="rgba(255,43,43,0.4)"/>
+                          <stop offset="100%" stop-color="rgba(255,43,43,0)"/>
+                        </linearGradient>
+                      </defs>
+                      <path class="chart-area" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3 L400,140 L0,140 Z" fill="url(#chartFill)"/>
+                      <path class="chart-line" d="M0,100 C30,95 45,70 70,75 C95,80 110,50 140,55 C170,60 185,25 215,30 C245,35 260,75 290,65 C320,55 335,15 365,10 C380,7 390,5 400,3" fill="none"/>
+                    </svg>
+                    <span class="chart-dot"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Panel 2: Average client results -->
+              <div class="dash-panel" data-panel="1">
+                <div class="metrics-card-title">Average Client Results</div>
+                <div class="metric-row">
+                  <div class="metric-label-row"><span>Return on Ad Spend (ROAS)</span><span>3.8×</span></div>
+                  <div class="metric-bar-track"><div class="metric-bar-fill" style="--w:76%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-label-row"><span>Click-Through Rate (CTR)</span><span>4.2%</span></div>
+                  <div class="metric-bar-track"><div class="metric-bar-fill" style="--w:84%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-label-row"><span>Cost Per Lead Reduction</span><span>-48%</span></div>
+                  <div class="metric-bar-track"><div class="metric-bar-fill" style="--w:68%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-label-row"><span>Conversion Rate Lift</span><span>+120%</span></div>
+                  <div class="metric-bar-track"><div class="metric-bar-fill" style="--w:90%"></div></div>
+                </div>
+              </div>
+
+              <!-- Panel 3: Totals -->
+              <div class="dash-panel" data-panel="2">
+                <div class="metrics-card-title">Overall Numbers</div>
+                <div class="dash-stats">
+                  <div class="dash-stat">
+                    <span class="dash-stat-key">Campaigns</span>
+                    <span class="dash-stat-val">50<span>+</span></span>
+                  </div>
+                  <div class="dash-stat">
+                    <span class="dash-stat-key">Ad Spend Managed</span>
+                    <span class="dash-stat-val">$2M<span>+</span></span>
+                  </div>
+                  <div class="dash-stat">
+                    <span class="dash-stat-key">Client Satisfaction</span>
+                    <span class="dash-stat-val">98<span>%</span></span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <div class="metrics-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" style="vertical-align:-2px;margin-right:6px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Average Client Results</div>
-          <div class="metric-row">
-            <div class="metric-label-row">
-              <span>Return on Ad Spend (ROAS)</span>
-              <span>3.8×</span>
-            </div>
-            <div class="metric-bar-track">
-              <div class="metric-bar-fill" data-width="76"></div>
-            </div>
+          <div class="dash-tabs" role="tablist">
+            <button type="button" class="dash-tab is-active" role="tab" aria-selected="true" data-url="adflare.local/reports/growth">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span>Growth</span>
+              <i class="dash-tab-bar"></i>
+            </button>
+            <button type="button" class="dash-tab" role="tab" aria-selected="false" data-url="adflare.local/reports/results">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <span>Results</span>
+              <i class="dash-tab-bar"></i>
+            </button>
+            <button type="button" class="dash-tab" role="tab" aria-selected="false" data-url="adflare.local/reports/totals">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+              <span>Totals</span>
+              <i class="dash-tab-bar"></i>
+            </button>
           </div>
-          <div class="metric-row">
-            <div class="metric-label-row">
-              <span>Click-Through Rate (CTR)</span>
-              <span>4.2%</span>
-            </div>
-            <div class="metric-bar-track">
-              <div class="metric-bar-fill" data-width="84"></div>
-            </div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-label-row">
-              <span>Cost Per Lead Reduction</span>
-              <span>-48%</span>
-            </div>
-            <div class="metric-bar-track">
-              <div class="metric-bar-fill" data-width="68"></div>
-            </div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-label-row">
-              <span>Conversion Rate Lift</span>
-              <span>+120%</span>
-            </div>
-            <div class="metric-bar-track">
-              <div class="metric-bar-fill" data-width="90"></div>
-            </div>
-          </div>
-          <div class="metrics-footer">
-            <div class="mf-item">
-              <span class="mf-val">50<span>+</span></span>
-              <span class="mf-key">Campaigns</span>
-            </div>
-            <div class="mf-item">
-              <span class="mf-val">$2M<span>+</span></span>
-              <span class="mf-key">Ad Spend Managed</span>
-            </div>
-            <div class="mf-item">
-              <span class="mf-val">98<span>%</span></span>
-              <span class="mf-key">Satisfaction</span>
-            </div>
-          </div>
+
         </div>
       </div>
 
@@ -220,8 +246,565 @@
         <p class="promo-sub">With AdFlare</p>
       </div>
       <div class="promo-graphic reveal reveal-slide-right">
-        <img src="IMG/1.png" alt="Stay ahead with AdFlare" loading="lazy">
+        <img src="img/1.png" alt="Stay ahead with AdFlare" loading="lazy">
       </div>
+    </div>
+  </section>
+
+  <!-- ===== SAMPLE CONTENTS (6 slots, 1080 x 1350) ===== -->
+  <section id="samples">
+    <div class="samples-header reveal">
+      <span class="section-label">Our Work</span>
+      <h2 class="section-title">Sample Contents</h2>
+      <p class="section-desc">A look at the ad contents and reels we create for Facebook &amp; Instagram campaigns.</p>
+    </div>
+
+    <div class="sg-showcase reveal reveal-delay-1" id="sgShowcase">
+    <div class="sg-tabs" role="tablist" aria-label="Sample categories">
+      <button type="button" class="sg-nav" data-dir="-1" aria-label="Previous category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="15 6 9 12 15 18"/></svg></button>
+      <div class="sg-tablist">
+        <button type="button" class="sg-tab is-active" role="tab" aria-selected="true" aria-controls="sgPanel0"><span>Premium</span></button>
+        <button type="button" class="sg-tab" role="tab" aria-selected="false" aria-controls="sgPanel1"><span>Standard</span></button>
+        <button type="button" class="sg-tab" role="tab" aria-selected="false" aria-controls="sgPanel2"><span>Reels</span></button>
+        <button type="button" class="sg-tab" role="tab" aria-selected="false" aria-controls="sgPanel3"><span>Websites</span></button>
+      </div>
+      <button type="button" class="sg-nav" data-dir="1" aria-label="Next category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 6 15 12 9 18"/></svg></button>
+    </div>
+
+    <div class="sg-viewport">
+      <div class="sg-track">
+        <div class="sg-panel is-current" id="sgPanel0" role="tabpanel" data-tier="premium">
+    <div class="sg-stage">
+      <div class="sg-slides">
+        <article class="sg-slide is-active" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_contents/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 01</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Get Your <span>Visa Approved</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>USA VISA</b><small>Sample 1 · 1080 × 1350</small></div><img src="img/sample_contents/1.png" alt="AdFlare sample content 1: USA Visa" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Book Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)">
+          <div class="sg-bg"><img src="img/sample_contents/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 02</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Fill Your <span>Seminar</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>SEMINAR</b><small>Sample 2 · 1080 × 1350</small></div><img src="img/sample_contents/2.png" alt="AdFlare sample content 2: Seminar & Coaching" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Sign Up</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_contents/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 03</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Sell Your <span>Harvest</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>FRESH HARVEST</b><small>Sample 3 · 1080 × 1350</small></div><img src="img/sample_contents/3.png" alt="AdFlare sample content 3: Fresh Produce" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Order Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_contents/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 04</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Your Brand <span>Goes Here</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>YOUR BRAND</b><small>Sample 4 · 1080 × 1350</small></div><img src="img/sample_contents/4.png" alt="AdFlare sample content 4: Your Brand Here" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Learn More</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_contents/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 05</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Level Up <span>Your Reach</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>GAME ON</b><small>Sample 5 · 1080 × 1350</small></div><img src="img/sample_contents/5.png" alt="AdFlare sample content 5: Game Promo" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Play Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_contents/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 06</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Sell Cars <span>Faster</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>SOLD!</b><small>Sample 6 · 1080 × 1350</small></div><img src="img/sample_contents/6.png" alt="AdFlare sample content 6: Vehicle Sales" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Send Message</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+      </div>
+
+      <div class="sg-rail">
+        <button type="button" class="sg-item" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)" aria-label="Show sample 1: USA Visa">
+          <span class="sg-label"><strong>USA Visa</strong><small>Travel &amp; Visa Consulting</small></span>
+          <span class="sg-thumb"><em>01</em><img src="img/sample_contents/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)" aria-label="Show sample 2: Seminar & Coaching">
+          <span class="sg-label"><strong>Seminar &amp; Coaching</strong><small>Education</small></span>
+          <span class="sg-thumb"><em>02</em><img src="img/sample_contents/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)" aria-label="Show sample 3: Fresh Produce">
+          <span class="sg-label"><strong>Fresh Produce</strong><small>Farm &amp; Agriculture</small></span>
+          <span class="sg-thumb"><em>03</em><img src="img/sample_contents/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)" aria-label="Show sample 4: Your Brand Here">
+          <span class="sg-label"><strong>Your Brand Here</strong><small>Any Industry</small></span>
+          <span class="sg-thumb"><em>04</em><img src="img/sample_contents/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)" aria-label="Show sample 5: Game Promo">
+          <span class="sg-label"><strong>Game Promo</strong><small>Gaming &amp; Entertainment</small></span>
+          <span class="sg-thumb"><em>05</em><img src="img/sample_contents/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)" aria-label="Show sample 6: Vehicle Sales">
+          <span class="sg-label"><strong>Vehicle Sales</strong><small>Cars &amp; Dealership</small></span>
+          <span class="sg-thumb"><em>06</em><img src="img/sample_contents/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+      </div>
+
+      <div class="sg-dots"><button type="button" class="sg-dot" aria-label="Go to sample 1"></button><button type="button" class="sg-dot" aria-label="Go to sample 2"></button><button type="button" class="sg-dot" aria-label="Go to sample 3"></button><button type="button" class="sg-dot" aria-label="Go to sample 4"></button><button type="button" class="sg-dot" aria-label="Go to sample 5"></button><button type="button" class="sg-dot" aria-label="Go to sample 6"></button></div>
+    </div>
+        </div>
+        <div class="sg-panel" id="sgPanel1" role="tabpanel" data-tier="standard">
+    <div class="sg-stage">
+      <div class="sg-slides">
+        <article class="sg-slide is-active" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_standard/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 01</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Get Your <span>Visa Approved</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>USA VISA</b><small>Sample 1 · 1080 × 1350</small></div><img src="img/sample_standard/1.png" alt="AdFlare sample content 1: USA Visa" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Book Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)">
+          <div class="sg-bg"><img src="img/sample_standard/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 02</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Fill Your <span>Seminar</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>SEMINAR</b><small>Sample 2 · 1080 × 1350</small></div><img src="img/sample_standard/2.png" alt="AdFlare sample content 2: Seminar & Coaching" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Sign Up</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_standard/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 03</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Sell Your <span>Harvest</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>FRESH HARVEST</b><small>Sample 3 · 1080 × 1350</small></div><img src="img/sample_standard/3.png" alt="AdFlare sample content 3: Fresh Produce" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Order Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_standard/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 04</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Your Brand <span>Goes Here</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>YOUR BRAND</b><small>Sample 4 · 1080 × 1350</small></div><img src="img/sample_standard/4.png" alt="AdFlare sample content 4: Your Brand Here" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Learn More</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_standard/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 05</b><i>Instagram Ad</i></span>
+            <h3 class="sg-title">Level Up <span>Your Reach</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-ig"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored</small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>GAME ON</b><small>Sample 5 · 1080 × 1350</small></div><img src="img/sample_standard/5.png" alt="AdFlare sample content 5: Game Promo" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-ig"><span>Play Now</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 6 15 12 9 18"/></svg></div><div class="ad-acts ig"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg></div></div>
+        </article>
+
+        <article class="sg-slide" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_standard/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 06</b><i>Facebook Ad</i></span>
+            <h3 class="sg-title">Sell Cars <span>Faster</span></h3>
+            <a href="#contact" class="sg-btn">Get a Design Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-fb"><div class="ad-head"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><span class="ad-who"><strong><span class="ad-brand">Ad<em>Flare</em></span><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></strong><small>Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></small></span><span class="ad-more">···</span></div><div class="ad-art"><div class="ad-art-ph"><b>SOLD!</b><small>Sample 6 · 1080 × 1350</small></div><img src="img/sample_standard/6.png" alt="AdFlare sample content 6: Vehicle Sales" width="1080" height="1350" loading="lazy" onerror="this.style.display='none'"></div><div class="ad-cta-fb"><span>adflare.com</span><em>Send Message</em></div><div class="ad-acts fb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Comment</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>Share</span></div></div>
+        </article>
+      </div>
+
+      <div class="sg-rail">
+        <button type="button" class="sg-item" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)" aria-label="Show sample 1: USA Visa">
+          <span class="sg-label"><strong>USA Visa</strong><small>Travel &amp; Visa Consulting</small></span>
+          <span class="sg-thumb"><em>01</em><img src="img/sample_standard/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)" aria-label="Show sample 2: Seminar & Coaching">
+          <span class="sg-label"><strong>Seminar &amp; Coaching</strong><small>Education</small></span>
+          <span class="sg-thumb"><em>02</em><img src="img/sample_standard/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)" aria-label="Show sample 3: Fresh Produce">
+          <span class="sg-label"><strong>Fresh Produce</strong><small>Farm &amp; Agriculture</small></span>
+          <span class="sg-thumb"><em>03</em><img src="img/sample_standard/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)" aria-label="Show sample 4: Your Brand Here">
+          <span class="sg-label"><strong>Your Brand Here</strong><small>Any Industry</small></span>
+          <span class="sg-thumb"><em>04</em><img src="img/sample_standard/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)" aria-label="Show sample 5: Game Promo">
+          <span class="sg-label"><strong>Game Promo</strong><small>Gaming &amp; Entertainment</small></span>
+          <span class="sg-thumb"><em>05</em><img src="img/sample_standard/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+
+        <button type="button" class="sg-item" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)" aria-label="Show sample 6: Vehicle Sales">
+          <span class="sg-label"><strong>Vehicle Sales</strong><small>Cars &amp; Dealership</small></span>
+          <span class="sg-thumb"><em>06</em><img src="img/sample_standard/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+      </div>
+
+      <div class="sg-dots"><button type="button" class="sg-dot" aria-label="Go to sample 1"></button><button type="button" class="sg-dot" aria-label="Go to sample 2"></button><button type="button" class="sg-dot" aria-label="Go to sample 3"></button><button type="button" class="sg-dot" aria-label="Go to sample 4"></button><button type="button" class="sg-dot" aria-label="Go to sample 5"></button><button type="button" class="sg-dot" aria-label="Go to sample 6"></button></div>
+    </div>
+        </div>
+        <div class="sg-panel" id="sgPanel2" role="tabpanel" data-tier="reels">
+    <div class="sg-stage" data-media="video">
+      <div class="sg-slides">
+        <article class="sg-slide is-active" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_reels/1.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 01</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Make Them <span>Stop Scrolling</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/1.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 01</span><b class="rs-l1">Make Them</b><b class="rs-l2">Stop Scrolling</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/1.jpg" aria-label="AdFlare reel sample 1: Promo Reel"><source src="img/sample_reels/1.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Fresh deals, short and loud. Built to stop the scroll.</p>
+              <div class="reel-cta">Shop Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)">
+          <div class="sg-bg"><img src="img/sample_reels/2.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 02</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Your Brand, <span>In Motion</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/2.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 02</span><b class="rs-l1">Your Brand,</b><b class="rs-l2">In Motion</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/2.jpg" aria-label="AdFlare reel sample 2: Brand Story"><source src="img/sample_reels/2.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Tell your story in 15 seconds or less.</p>
+              <div class="reel-cta">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_reels/3.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 03</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Launch <span>With a Bang</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/3.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 03</span><b class="rs-l1">Launch With</b><b class="rs-l2">a Bang</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/3.jpg" aria-label="AdFlare reel sample 3: Product Launch"><source src="img/sample_reels/3.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Show the product. Show the vibe. Get the clicks.</p>
+              <div class="reel-cta">Order Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_reels/4.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 04</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Book More <span>Guests</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/4.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 04</span><b class="rs-l1">Book</b><b class="rs-l2">More Guests</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/4.jpg" aria-label="AdFlare reel sample 4: Travel and Resort"><source src="img/sample_reels/4.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Turn views into bookings with cinematic reels.</p>
+              <div class="reel-cta">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_reels/5.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 05</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Sell More <span>Every Day</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/5.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 05</span><b class="rs-l1">Sell More</b><b class="rs-l2">Every Day</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/5.jpg" aria-label="AdFlare reel sample 5: Food and Dining"><source src="img/sample_reels/5.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Make them hungry in 15 seconds flat.</p>
+              <div class="reel-cta">Order Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_reels/6.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-copy">
+            <span class="sg-pill"><b>Sample 06</b><i>Reels Video</i></span>
+            <h3 class="sg-title">Drive <span>Real Results</span></h3>
+            <a href="#contact" class="sg-btn">Get a Reel Like This <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></a>
+          </div>
+          <div class="sg-poster ad-reel">
+            <div class="reel-media">
+              <div class="reel-scene"><img class="reel-poster" src="img/sample_reels/6.jpg" alt="" onerror="this.style.display='none'"><i class="rs-blob b1"></i><i class="rs-blob b2"></i><div class="rs-text"><span class="rs-kick">Reel 06</span><b class="rs-l1">Drive</b><b class="rs-l2">Real Results</b></div></div>
+              <video muted playsinline preload="metadata" poster="img/sample_reels/6.jpg" aria-label="AdFlare reel sample 6: Events and Promo"><source src="img/sample_reels/6.mp4" type="video/mp4" onerror="var v=this.parentNode;v.dataset.failed=1;v.style.display='none';this.closest('.ad-reel').classList.add('no-video')"></video>
+            </div>
+            <div class="reel-shade"></div>
+            <div class="reel-prog"><i></i></div>
+            <div class="reel-top"><span>Reels</span><button type="button" class="reel-sound" aria-label="Toggle sound"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button></div>
+            <div class="reel-hearts" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></i></div><div class="reel-side"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></span></div>
+            <div class="reel-info">
+              <div class="reel-who"><span class="ad-ava"><b>AF</b><img src="img/favicon.png" alt="" onerror="this.style.display='none'"></span><strong>AdFlare</strong><svg class="ad-verified" viewBox="0 0 24 24" aria-label="Verified"><path fill="#1d9bf0" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3L2.6 15.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M7.8 12.3l3 3 5.4-6"/></svg></div>
+              <small class="reel-spons">Sponsored</small>
+              <p class="reel-cap">Announce it big and get seen by the right people.</p>
+              <div class="reel-cta">Sign Up <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="9 6 15 12 9 18"/></svg></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="sg-rail">
+        <button type="button" class="sg-item" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)" aria-label="Show reel 1: Promo Reel">
+          <span class="sg-label"><strong>Promo Reel</strong><small>Business &amp; Retail</small></span>
+          <span class="sg-thumb"><em>01</em><img src="img/sample_reels/1.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)" aria-label="Show reel 2: Brand Story">
+          <span class="sg-label"><strong>Brand Story</strong><small>Any Industry</small></span>
+          <span class="sg-thumb"><em>02</em><img src="img/sample_reels/2.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)" aria-label="Show reel 3: Product Launch">
+          <span class="sg-label"><strong>Product Launch</strong><small>Retail &amp; Lifestyle</small></span>
+          <span class="sg-thumb"><em>03</em><img src="img/sample_reels/3.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)" aria-label="Show reel 4: Travel &amp; Resort">
+          <span class="sg-label"><strong>Travel &amp; Resort</strong><small>Hospitality</small></span>
+          <span class="sg-thumb"><em>04</em><img src="img/sample_reels/4.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)" aria-label="Show reel 5: Food &amp; Dining">
+          <span class="sg-label"><strong>Food &amp; Dining</strong><small>Restaurants &amp; Cafes</small></span>
+          <span class="sg-thumb"><em>05</em><img src="img/sample_reels/5.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)" aria-label="Show reel 6: Events &amp; Promo">
+          <span class="sg-label"><strong>Events &amp; Promo</strong><small>Offers &amp; Launches</small></span>
+          <span class="sg-thumb"><em>06</em><img src="img/sample_reels/6.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+      </div>
+
+      <div class="sg-dots"><button type="button" class="sg-dot" aria-label="Go to reel 1"></button><button type="button" class="sg-dot" aria-label="Go to reel 2"></button><button type="button" class="sg-dot" aria-label="Go to reel 3"></button><button type="button" class="sg-dot" aria-label="Go to reel 4"></button><button type="button" class="sg-dot" aria-label="Go to reel 5"></button><button type="button" class="sg-dot" aria-label="Go to reel 6"></button></div>
+    </div>
+        </div>
+        <div class="sg-panel" id="sgPanel3" role="tabpanel" data-tier="websites">
+    <div class="sg-stage">
+      <div class="sg-slides">
+        <!-- ===== 6 WEBSITE SAMPLES (landscape) =====
+             Per slide, change the lines marked EDIT: screenshot (img/sample_websites/1.png ... 6.png, ~1900x910),
+             website link (https://example.com, 2 places), address-bar text.
+             Titles / names are free text. Rail names are in the <button class="sg-item"> blocks below. -->
+        <article class="sg-slide web-slide is-active" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_websites/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>mazigeneraltrade.com</span>
+            </div>
+            <a class="web-shot" href="https://www.mazigeneraltrade.com/" target="_blank" rel="noopener noreferrer" aria-label="Open MAZI GENERAL TRADE in a new tab">
+              <div class="web-ph"><b>WEBSITE 01</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/1.png" alt="Website sample 1: MAZI GENERAL TRADE" width="1900" height="910" loading="lazy" onerror="this.style.display='none'">
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://www.mazigeneraltrade.com/" target="_blank" rel="noopener noreferrer">
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide web-slide" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)">
+          <div class="sg-bg"><img src="img/sample_websites/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>dhaankolhu.com</span>
+            </div>
+            <a class="web-shot" href="https://www.dhaankolhu.com/" target="_blank" rel="noopener noreferrer" aria-label="Open DHAANKOLHU in a new tab">
+              <div class="web-ph"><b>WEBSITE 02</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/2.png" alt="Website sample 2: DHAANKOLHU" width="1900" height="910" loading="lazy" onerror="this.style.display='none'">
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://www.dhaankolhu.com/" target="_blank" rel="noopener noreferrer">
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide web-slide" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_websites/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>example.com</span><!-- EDIT 3: address bar text -->
+            </div>
+            <a class="web-shot" href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Open ZAMI MART in a new tab"><!-- EDIT 3: website link -->
+              <div class="web-ph"><b>ZAMI MART</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/3.png" alt="Website sample 3: ZAMI MART" width="1900" height="910" loading="lazy" onerror="this.style.display='none'"><!-- EDIT 3: img/sample_websites/3.png = your screenshot -->
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://example.com" target="_blank" rel="noopener noreferrer"><!-- EDIT 3: website link (same as above) -->
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide web-slide" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)">
+          <div class="sg-bg"><img src="img/sample_websites/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>example.com</span><!-- EDIT 4: address bar text -->
+            </div>
+            <a class="web-shot" href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Open MAZI HARDWARE in a new tab"><!-- EDIT 4: website link -->
+              <div class="web-ph"><b>MAZI HARDWARE</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/4.png" alt="Website sample 4: MAZI HARDWARE" width="1900" height="910" loading="lazy" onerror="this.style.display='none'"><!-- EDIT 4: img/sample_websites/4.png = your screenshot -->
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://example.com" target="_blank" rel="noopener noreferrer"><!-- EDIT 4: website link (same as above) -->
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide web-slide" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_websites/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>example.com</span><!-- EDIT 5: address bar text -->
+            </div>
+            <a class="web-shot" href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Open website 5 in a new tab"><!-- EDIT 5: website link -->
+              <div class="web-ph"><b>WEBSITE 05</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/5.png" alt="Website sample 5: Game Promo" width="1900" height="910" loading="lazy" onerror="this.style.display='none'"><!-- EDIT 5: img/sample_websites/5.png = your screenshot -->
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://example.com" target="_blank" rel="noopener noreferrer"><!-- EDIT 5: website link (same as above) -->
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-slide web-slide" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)">
+          <div class="sg-bg"><img src="img/sample_websites/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="sg-poster ad-web">
+            <div class="web-bar">
+              <span class="web-dots"><i></i><i></i><i></i></span>
+              <span class="web-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>example.com</span><!-- EDIT 6: address bar text -->
+            </div>
+            <a class="web-shot" href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Open website 6 in a new tab"><!-- EDIT 6: website link -->
+              <div class="web-ph"><b>WEBSITE 06</b><small>Screenshot · 1900 × 910</small></div>
+              <img src="img/sample_websites/6.png" alt="Website sample 6: Vehicle Sales" width="1900" height="910" loading="lazy" onerror="this.style.display='none'"><!-- EDIT 6: img/sample_websites/6.png = your screenshot -->
+            </a>
+            <div class="web-foot">
+              <span class="web-live"><i></i>Live Website</span>
+              <a class="web-link" href="https://example.com" target="_blank" rel="noopener noreferrer"><!-- EDIT 6: website link (same as above) -->
+                <span>Visit Website</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="sg-rail">
+        <button type="button" class="sg-item" style="--g1:rgba(255,43,43,.5);--g2:rgba(184,0,0,.4)" aria-label="Show website 1: MAZI GENERAL TRADE">
+          <span class="sg-label"><strong>MAZI GENERAL TRADE</strong><small>Online Store</small></span>
+          <span class="sg-thumb"><em>01</em><img src="img/sample_websites/1.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(255,120,40,.45);--g2:rgba(255,43,43,.35)" aria-label="Show website 2: DHAANKOLHU">
+          <span class="sg-label"><strong>DHAANKOLHU</strong><small>Resort &amp; Hospitality</small></span>
+          <span class="sg-thumb"><em>02</em><img src="img/sample_websites/2.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(90,120,255,.4);--g2:rgba(255,43,43,.32)" aria-label="Show website 3: ZAMI MART">
+          <span class="sg-label"><strong>ZAMI MART</strong><small>Wholesale &amp; Retail</small></span>
+          <span class="sg-thumb"><em>03</em><img src="img/sample_websites/3.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(255,190,60,.38);--g2:rgba(184,0,0,.4)" aria-label="Show website 4: MAZI HARDWARE">
+          <span class="sg-label"><strong>MAZI HARDWARE</strong><small>Construction Supplies</small></span>
+          <span class="sg-thumb"><em>04</em><img src="img/sample_websites/4.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(200,60,255,.38);--g2:rgba(255,43,43,.32)" aria-label="Show website 5: Game Promo">
+          <span class="sg-label"><strong>Game Promo</strong><small>Gaming & Entertainment</small></span>
+          <span class="sg-thumb"><em>05</em><img src="img/sample_websites/5.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+        <button type="button" class="sg-item" style="--g1:rgba(40,200,170,.36);--g2:rgba(255,43,43,.32)" aria-label="Show website 6: Vehicle Sales">
+          <span class="sg-label"><strong>Vehicle Sales</strong><small>Cars & Dealership</small></span>
+          <span class="sg-thumb"><em>06</em><img src="img/sample_websites/6.png" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+        </button>
+      </div>
+
+      <div class="sg-dots"><button type="button" class="sg-dot" aria-label="Go to website 1"></button><button type="button" class="sg-dot" aria-label="Go to website 2"></button><button type="button" class="sg-dot" aria-label="Go to website 3"></button><button type="button" class="sg-dot" aria-label="Go to website 4"></button><button type="button" class="sg-dot" aria-label="Go to website 5"></button><button type="button" class="sg-dot" aria-label="Go to website 6"></button></div>
+    </div>
+        </div>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -604,7 +1187,7 @@
       <h2 class="promo-title">WE JUST <span class="accent">FIT!</span></h2>
       <p class="promo-sub"><strong>Message Us</strong> to Get Started</p>
       <div class="promo-graphic">
-        <img src="IMG/2.png" alt="Our marketing strategy fits your idea" loading="lazy">
+        <img src="img/2.png" alt="Our marketing strategy fits your idea" loading="lazy">
       </div>
     </div>
   </section>
@@ -666,7 +1249,7 @@
           <span class="contact-card-type">Phone</span>
           <span class="contact-card-val">+960 7862274</span>
         </a>
-        <a href="https://wa.me/9607862274" target="_blank" class="contact-card">
+        <a href="https://wa.me/9607862274" target="_blank" rel="noopener noreferrer" class="contact-card">
           <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
           <span class="contact-card-type">WhatsApp / Viber</span>
           <span class="contact-card-val">+960 7862274</span>
@@ -679,7 +1262,7 @@
       </div>
 
       <div class="contact-ctas reveal">
-        <a href="https://wa.me/9607862274" target="_blank" class="btn-primary">
+        <a href="https://wa.me/9607862274" target="_blank" rel="noopener noreferrer" class="btn-primary">
            Message Us on WhatsApp
         </a>
         <a href="mailto:adflare@gmail.com" class="btn-outline book-now-btn" id="bookCallBtn">
@@ -723,7 +1306,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
       <div class="wa-chat-avatar">
-        <img src="IMG/favicon.png" alt="AdFlare">
+        <img src="img/favicon.png" alt="AdFlare">
       </div>
       <div class="wa-chat-info">
         <div class="wa-chat-name">
@@ -794,6 +1377,23 @@
       navbar.classList.toggle('scrolled', window.scrollY > 50);
       document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
     });
+
+    // --- Navbar: highlight the link of the section you're on ---
+    const navSpyLinks = Array.from(document.querySelectorAll('.nav-links a'));
+    const navSpyTargets = navSpyLinks
+      .map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) }))
+      .filter(x => x.sec);
+    function updateNavActive() {
+      const line = window.innerHeight * 0.35;
+      let current = null;
+      navSpyTargets.forEach(x => {
+        if (x.sec.getBoundingClientRect().top <= line) current = x.a;
+      });
+      navSpyLinks.forEach(a => a.classList.toggle('active', a === current));
+    }
+    window.addEventListener('scroll', updateNavActive, { passive: true });
+    window.addEventListener('resize', updateNavActive);
+    updateNavActive();
 
     // --- Hamburger menu ---
     const hamburger = document.getElementById('hamburger');
@@ -1132,29 +1732,72 @@
       }, 16);
       chartTimers.set(el, timer);
     }
-    const barObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const card = entry.target;
-        const chartVal = card.querySelector('.chart-block-value');
-        if (entry.isIntersecting) {
-          card.querySelectorAll('.metric-bar-fill').forEach(bar => {
-            bar.style.width = bar.dataset.width + '%';
-          });
-          card.classList.add('chart-visible');
-          if (chartVal) setTimeout(() => animateChartValue(chartVal, 120, 3000), 200);
-        } else {
-          card.querySelectorAll('.metric-bar-fill').forEach(bar => {
-            bar.style.width = '0%';
-          });
-          card.classList.remove('chart-visible');
-          if (chartVal) {
-            if (chartTimers.has(chartVal)) clearInterval(chartTimers.get(chartVal));
-            chartVal.textContent = '+0%';
-          }
-        }
+    // --- Dashboard card: tabs auto-rotate (pause on hover / when off-screen) ---
+    const dash = document.getElementById('dash');
+    if (dash) {
+      const dashTabs = Array.from(dash.querySelectorAll('.dash-tab'));
+      const dashPanels = Array.from(dash.querySelectorAll('.dash-panel'));
+      const dashUrl = dash.querySelector('.dash-url-text');
+      const dashChartVal = document.getElementById('chartValue');
+      let dashCurrent = -1;
+      let dashHover = false;
+      let dashInView = false;
+
+      function dashSetPaused() {
+        dash.classList.toggle('is-paused', dashHover || !dashInView);
+      }
+
+      function dashShow(i) {
+        dashCurrent = i;
+        dashTabs.forEach((t, k) => {
+          t.classList.toggle('is-active', k === i);
+          t.setAttribute('aria-selected', k === i ? 'true' : 'false');
+        });
+        dashPanels.forEach((p, k) => {
+          p.classList.toggle('is-active', k === i);
+          if (k !== i) p.classList.remove('play');
+        });
+        dashUrl.textContent = dashTabs[i].dataset.url;
+
+        // restart the progress bar of the active tab
+        const bar = dashTabs[i].querySelector('.dash-tab-bar');
+        bar.style.animation = 'none';
+        void bar.offsetWidth;
+        bar.style.animation = '';
+
+        // reset / replay the counter
+        if (chartTimers.has(dashChartVal)) clearInterval(chartTimers.get(dashChartVal));
+        dashChartVal.textContent = '+0%';
+
+        const panel = dashPanels[i];
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          panel.classList.add('play');
+          if (i === 0) animateChartValue(dashChartVal, 120, 2000);
+        }));
+      }
+
+      dashTabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => dashShow(i));
+        tab.querySelector('.dash-tab-bar').addEventListener('animationend', () => {
+          dashShow((i + 1) % dashTabs.length);
+        });
       });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.metrics-card').forEach(card => barObserver.observe(card));
+
+      dash.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') { dashHover = true; dashSetPaused(); }
+      });
+      dash.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') { dashHover = false; dashSetPaused(); }
+      });
+
+      new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          dashInView = entry.isIntersecting;
+          if (dashInView && dashCurrent === -1) dashShow(0);
+          dashSetPaused();
+        });
+      }, { threshold: 0.35 }).observe(dash);
+    }
 
     // --- Counter animation (replays scrolling down and up) ---
     const counterTimers = new WeakMap();
@@ -1342,6 +1985,177 @@
         waChatInput.value = '';
       });
     }
+  </script>
+
+  <div class="sg-lightbox" id="sgLightbox" aria-hidden="true">
+    <button type="button" class="sg-lb-close" aria-label="Close">&times;</button>
+    <img src="" alt="">
+  </div>
+
+  <script>
+    // --- Sample Contents showcase (4 categories: Premium / Standard / Reels / Websites) ---
+    (function () {
+      const wrap = document.getElementById('sgShowcase');
+      if (!wrap) return;
+      const mq = window.matchMedia('(max-width: 900px)');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ---- one rotating-rail stage ----
+      function initStage(stage) {
+        const slides = Array.from(stage.querySelectorAll('.sg-slide'));
+        const items = Array.from(stage.querySelectorAll('.sg-item'));
+        const dots = Array.from(stage.querySelectorAll('.sg-dot'));
+        const rail = stage.querySelector('.sg-rail');
+        const videoMode = stage.dataset.media === 'video';
+        const n = slides.length;
+        const half = Math.floor(n / 2);
+        let cur = 0, timer = null, inView = false, hovering = false, active = false;
+
+        const vid = i => slides[i].querySelector('video');
+        const usable = i => { const v = vid(i); return v && !v.dataset.failed; };
+
+        function syncVideos() {
+          if (!videoMode) return;
+          slides.forEach((s, i) => {
+            const v = vid(i);
+            if (!v || v.dataset.failed) return;
+            if (active && inView && i === cur) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+            else { v.pause(); if (i !== cur) { try { v.currentTime = 0; } catch (e) {} } }
+          });
+        }
+
+        function layout() {
+          const horizontal = mq.matches;
+          const rect = rail.getBoundingClientRect();
+          const step = horizontal ? rect.width / 5.3 : rect.height / 5.4;
+          items.forEach((it, i) => {
+            const o = ((i - cur + n + half) % n) - half;
+            const a = Math.abs(o);
+            let x, y;
+            if (horizontal) { x = o * step; y = o * o * 5; }
+            else { y = o * step; x = a === 0 ? 0 : (a === 1 ? -14 : -44); }
+            it.style.setProperty('--x', x + 'px');
+            it.style.setProperty('--y', y + 'px');
+            it.style.opacity = a > 2 ? 0 : (a === 0 ? 1 : (a === 1 ? 0.95 : 0.7));
+            it.style.pointerEvents = a > 2 ? 'none' : 'auto';
+            it.style.zIndex = 10 - a;
+            it.tabIndex = a > 2 ? -1 : 0;
+            it.classList.toggle('is-active', o === 0);
+            it.setAttribute('aria-current', o === 0 ? 'true' : 'false');
+          });
+          slides.forEach((s, i) => s.classList.toggle('is-active', i === cur));
+          dots.forEach((d, i) => d.classList.toggle('is-active', i === cur));
+          syncVideos();
+        }
+        function go(i) { cur = (i + n) % n; layout(); }
+        function stop() { if (timer) { clearTimeout(timer); timer = null; } }
+        function start() {
+          stop();
+          if (reduce || !active || !inView || hovering || document.hidden) return;
+          // reels advance when the video ends; ads (or reels without a video file) advance on a timer
+          const tick = () => {
+            if (!(videoMode && usable(cur))) go(cur + 1);
+            timer = setTimeout(tick, 4500);
+          };
+          timer = setTimeout(tick, 4500);
+        }
+
+        items.forEach((it, i) => it.addEventListener('click', () => { go(i); start(); }));
+        dots.forEach((d, i) => d.addEventListener('click', () => { go(i); start(); }));
+        stage.addEventListener('mouseenter', () => { hovering = true; stop(); });
+        stage.addEventListener('mouseleave', () => { hovering = false; start(); });
+        document.addEventListener('visibilitychange', () => { start(); syncVideos(); });
+
+        let tx = null;
+        stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+        stage.addEventListener('touchend', e => {
+          if (tx === null) return;
+          const dx = e.changedTouches[0].clientX - tx;
+          tx = null;
+          if (Math.abs(dx) > 45) { go(cur + (dx < 0 ? 1 : -1)); start(); }
+        }, { passive: true });
+
+        new IntersectionObserver(entries => {
+          inView = entries[0].isIntersecting;
+          inView ? start() : stop();
+          syncVideos();
+        }, { threshold: 0.35 }).observe(stage);
+
+        // reels: next on end, progress bar, sound toggle
+        if (videoMode) {
+          slides.forEach((s, i) => {
+            const v = vid(i);
+            if (!v) return;
+            const bar = s.querySelector('.reel-prog i');
+            v.addEventListener('timeupdate', () => { if (bar && v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+            v.addEventListener('ended', () => { if (active && i === cur) { go(cur + 1); start(); } });
+          });
+          stage.querySelectorAll('.reel-sound').forEach(btn => btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const m = !(vid(0) ? vid(0).muted : true);
+            stage.querySelectorAll('video').forEach(v => { v.muted = m; });
+            stage.querySelectorAll('.reel-sound').forEach(b => b.classList.toggle('is-on', !m));
+          }));
+        }
+
+        window.addEventListener('resize', layout);
+        window.addEventListener('load', layout);
+        if (mq.addEventListener) mq.addEventListener('change', layout);
+        layout();
+
+        return { layout, setActive(a) { active = a; if (a) { layout(); start(); } else { stop(); syncVideos(); } } };
+      }
+
+      // ---- category slider ----
+      const viewport = wrap.querySelector('.sg-viewport');
+      const track = wrap.querySelector('.sg-track');
+      const panels = Array.from(wrap.querySelectorAll('.sg-panel'));
+      const tabs = Array.from(wrap.querySelectorAll('.sg-tab'));
+      const navs = Array.from(wrap.querySelectorAll('.sg-nav'));
+      const api = panels.map(p => { const st = p.querySelector('.sg-stage'); return st ? initStage(st) : { setActive() {} }; });
+      const total = panels.length;
+      let idx = 0;
+
+      function fitHeight() { viewport.style.height = panels[idx].offsetHeight + 'px'; }
+      function show(i) {
+        idx = (i + total) % total;
+        track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        panels.forEach((p, k) => {
+          p.classList.toggle('is-current', k === idx);
+          p.setAttribute('aria-hidden', k === idx ? 'false' : 'true');
+          if ('inert' in p) p.inert = k !== idx;
+          api[k].setActive(k === idx);
+        });
+        tabs.forEach((t, k) => { t.classList.toggle('is-active', k === idx); t.setAttribute('aria-selected', k === idx ? 'true' : 'false'); });
+        fitHeight();
+      }
+      tabs.forEach((t, k) => t.addEventListener('click', () => show(k)));
+      navs.forEach(b => b.addEventListener('click', () => show(idx + parseInt(b.dataset.dir, 10))));
+      wrap.querySelector('.sg-tablist').addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { show(idx + 1); tabs[idx].focus(); }
+        if (e.key === 'ArrowLeft') { show(idx - 1); tabs[idx].focus(); }
+      });
+      if (window.ResizeObserver) { const ro = new ResizeObserver(fitHeight); panels.forEach(p => ro.observe(p)); }
+      window.addEventListener('resize', fitHeight);
+      window.addEventListener('load', fitHeight);
+      show(0);
+
+      // ---- tap an ad image to view it full size ----
+      const lb = document.getElementById('sgLightbox');
+      if (lb) {
+        const lbImg = lb.querySelector('img');
+        const closeLb = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
+        wrap.querySelectorAll('.ad-art img').forEach(img => img.addEventListener('click', () => {
+          lbImg.src = img.currentSrc || img.src;
+          lbImg.alt = img.alt;
+          lb.classList.add('open');
+          lb.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }));
+        lb.addEventListener('click', closeLb);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+      }
+    })();
   </script>
 
 </body>
