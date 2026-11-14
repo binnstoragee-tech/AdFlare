@@ -1,0 +1,260 @@
+/* ============================================
+   Flare — AdFlare AI assistant, lives in the nav bar (red / black / white)
+   Loaded after portfolio-ui.css. Delete flare.css + flare.js to remove.
+   ============================================ */
+
+/* ---- her face: blink, idle sway, expressions, talking mouth (shared by every avatar) ---- */
+.flare-av svg { width: 100%; height: 100%; display: block; border-radius: 50%; pointer-events: none; }
+.flare-av .fl-idle { transform-box: view-box; transform-origin: 50px 85px; animation: fl-idle 5.5s ease-in-out infinite; }
+.flare-av .fl-head { transform-box: view-box; transform-origin: 50px 85px; transition: transform .38s cubic-bezier(.2, .9, .3, 1.3); }
+.flare-av .eyes { transform-box: fill-box; transform-origin: center; animation: fl-blink 4.6s infinite; }
+.flare-av .fx { transform-box: fill-box; transform-origin: center; transition: opacity .18s ease, transform .32s cubic-bezier(.2, .9, .3, 1.3); }
+.flare-av .blush { opacity: 0; transition: opacity .3s; }
+.flare-av .pose { opacity: 0; transition: opacity .22s ease; }
+.flare-av .pose-r { opacity: 1; }
+.flare-av[data-look="front"] .pose-r, .flare-av[data-look="left"] .pose-r { opacity: 0; }
+.flare-av[data-look="front"] .pose-f, .flare-av[data-look="left"] .pose-l { opacity: 1; }
+.flare-av .hL, .flare-av .hR, .flare-av .m-smile, .flare-av .m-big, .flare-av .m-o, .flare-av .m-flat, .flare-av .m-sad, .flare-av .m-talk { opacity: 0; }
+@keyframes fl-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
+@keyframes fl-idle { 0%, 100% { transform: rotate(-1.2deg) translateY(0); } 50% { transform: rotate(1.2deg) translateY(-.6px); } }
+@keyframes fl-bob { 50% { transform: translateY(-3px); } }
+
+/* expressions */
+.flare-av[data-ex="happy"] .eL, .flare-av[data-ex="happy"] .eR, .flare-av[data-ex="excited"] .eL, .flare-av[data-ex="excited"] .eR { opacity: 0; }
+.flare-av[data-ex="happy"] .hL, .flare-av[data-ex="happy"] .hR, .flare-av[data-ex="excited"] .hL, .flare-av[data-ex="excited"] .hR { opacity: 1; }
+.flare-av[data-ex="happy"] .m-n, .flare-av[data-ex="excited"] .m-n, .flare-av[data-ex="wink"] .m-n, .flare-av[data-ex="curious"] .m-n, .flare-av[data-ex="listen"] .m-n,
+.flare-av[data-ex="think"] .m-n, .flare-av[data-ex="sorry"] .m-n { opacity: 0; }
+.flare-av[data-ex="happy"] .m-smile, .flare-av[data-ex="wink"] .m-smile, .flare-av[data-ex="excited"] .m-big, .flare-av[data-ex="curious"] .m-o, .flare-av[data-ex="listen"] .m-o,
+.flare-av[data-ex="think"] .m-flat, .flare-av[data-ex="sorry"] .m-sad { opacity: 1; }
+.flare-av[data-ex="listen"] .m-o { transform: scale(.65); }
+.flare-av[data-ex="wink"] .eR { opacity: 0; }
+.flare-av[data-ex="wink"] .hR { opacity: 1; }
+.flare-av[data-ex="happy"] .blush, .flare-av[data-ex="excited"] .blush, .flare-av[data-ex="wink"] .blush { opacity: 1; }
+.flare-av[data-ex="curious"] .eL, .flare-av[data-ex="listen"] .eL { transform: translateY(-2px); }
+.flare-av[data-ex="curious"] .eR { transform: translateY(-3px) scaleY(1.25); }
+.flare-av[data-ex="listen"] .eR { transform: translateY(-2px); }
+.flare-av[data-ex="think"] .eL, .flare-av[data-ex="think"] .eR { transform: translate(3px, -3px); }
+.flare-av[data-ex="sorry"] .eR { transform: rotate(-18deg); }
+.flare-av[data-ex="happy"] .fl-head { transform: rotate(-3deg); }
+.flare-av[data-ex="excited"] .fl-head { transform: rotate(-2deg) scale(1.05); }
+.flare-av[data-ex="wink"] .fl-head { transform: rotate(-3deg); }
+.flare-av[data-ex="curious"] .fl-head, .flare-av[data-ex="listen"] .fl-head { transform: rotate(4deg); }
+.flare-av[data-ex="think"] .fl-head { transform: rotate(5deg); }
+.flare-av[data-ex="sorry"] .fl-head { transform: rotate(-5deg) translateY(1px); }
+
+/* talking: the mouth flaps with an uneven rhythm, like real speech (transform + opacity only) */
+:is(.is-talking.flare-av, .is-talking .flare-av) :is(.m-n, .m-smile, .m-big, .m-o, .m-flat, .m-sad) { opacity: 0; }
+:is(.is-talking.flare-av, .is-talking .flare-av) .m-talk { opacity: 1; }
+:is(.is-talking.flare-av, .is-talking .flare-av) .mt-in { transform-box: fill-box; transform-origin: 50% 0; animation: fl-talk .74s linear infinite; }
+:is(.is-talking.flare-av, .is-talking .flare-av)[data-ex="sorry"] .m-talk { transform: rotate(180deg); }
+:is(.is-talking.flare-av, .is-talking .flare-av)[data-ex="curious"] .m-talk, :is(.is-talking.flare-av, .is-talking .flare-av)[data-ex="listen"] .m-talk { transform: scaleX(.75); }
+:is(.is-talking.flare-av, .is-talking .flare-av)[data-ex="excited"] .m-talk { transform: scale(1.12); }
+@keyframes fl-talk {
+  0% { transform: scale(.9, .25); } 14% { transform: scale(1, .95); } 28% { transform: scale(.85, .4); } 42% { transform: scale(1.06, 1.05); }
+  57% { transform: scale(.9, .3); } 71% { transform: scale(1, .78); } 86% { transform: scale(.88, .5); } 100% { transform: scale(.9, .25); }
+}
+/* nothing keeps animating while it can't be seen */
+.fn-bar:not(.is-on) .flare-av *, #navbar.fl-on .fn-ask .flare-av * { animation-play-state: paused; }
+
+/* ---- "Ask Flare" button in the nav ---- */
+#navbar .fn-ask {
+  position: relative; flex: none; margin-left: auto; display: inline-flex; align-items: center; gap: 9px;
+  height: 46px; padding: 0 18px 0 5px; border: 0; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(120deg, #0b0b0f 40%, #5a0c10); color: #fff;
+  font: 600 14px/1 'Sora', 'Inter', sans-serif; letter-spacing: 0; white-space: nowrap;
+  box-shadow: none;
+  transition: transform .25s cubic-bezier(.2, .9, .3, 1.3), box-shadow .3s; will-change: transform;
+}
+#navbar .fn-ask:hover { transform: translateY(-1px) scale(1.04); }
+#navbar .fn-ask:active { transform: scale(.96); }
+#navbar .fn-ask:focus-visible { outline: 2px solid #ff2b2b; outline-offset: 3px; }
+.fn-ask-fx { display: none; }
+.fn-ask-t { position: relative; }
+.fn-ask-av { position: relative; width: 36px; height: 36px; flex: none; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px rgba(255, 255, 255, .22); }
+.fn-ask:hover .fn-ask-av { animation: fl-bob .8s ease-in-out infinite; }
+.fn-ask-dot { position: absolute; left: 31px; bottom: 6px; width: 11px; height: 11px; border-radius: 50%; background: #22c55e; border: 2px solid #0b0b0f; }
+#navbar #afSfx { margin-left: 0; }
+
+/* ---- first-visit hint under the button ---- */
+.fn-hint {
+  position: fixed; z-index: 9400; padding: 8px 14px; border-radius: 999px; background: #ff2b2b; color: #fff; cursor: pointer;
+  font: 600 13px/1 'Inter', sans-serif; white-space: nowrap; box-shadow: 0 8px 22px rgba(255, 43, 43, .4);
+  opacity: 0; transform: translate(-50%, -6px) scale(.9); pointer-events: none; transition: opacity .3s, transform .35s cubic-bezier(.2, .9, .3, 1.3);
+}
+.fn-hint::before { content: ""; position: absolute; top: -5px; left: var(--ax, 50%); width: 10px; height: 10px; background: inherit; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+.fn-hint.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; animation: fn-hint-bob 2s ease-in-out .4s infinite; }
+@keyframes fn-hint-bob { 50% { transform: translate(-50%, 3px); } }
+
+/* ---- nav switches to AI mode ---- */
+#navbar::before {          /* red halo: a static layer that only fades (opacity = GPU), instead of animating box-shadow */
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0;
+  box-shadow: 0 14px 54px rgba(255, 43, 43, .34), 0 0 0 1px rgba(255, 43, 43, .5); transition: opacity .5s ease;
+}
+#navbar.fl-on::before { opacity: 1; }
+#navbar::after {            /* glow that pulses while she talks or listens (opacity only) */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  box-shadow: 0 0 34px 6px rgba(255, 43, 43, .55); transition: opacity .3s;
+}
+#navbar.fl-speak::after, #navbar.fl-listen::after { animation: fn-glow 1.4s ease-in-out infinite; }
+#navbar.fl-think::after { animation: fn-glow 2.2s ease-in-out infinite; }
+@keyframes fn-glow { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+#navbar.fl-covered { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+
+.fn-bar {
+  position: absolute; inset: 0; z-index: 700; border-radius: inherit; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 7px;
+  color: #fff; font-family: 'Inter', system-ui, sans-serif;
+  visibility: hidden; opacity: 0; transition: opacity .12s .5s, visibility 0s .62s;
+}
+.fn-bar.is-on { visibility: visible; opacity: 1; transition: opacity .15s, visibility 0s; }
+.fn-sheen { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; isolation: isolate; }
+.fn-reveal {   /* circle centred on the button; scales uniformly (transform only, composited) */
+  position: absolute; left: calc(var(--ox, 85%) - var(--rad, 600px)); top: calc(var(--oy, 50%) - var(--rad, 600px));
+  width: calc(var(--rad, 600px) * 2); height: calc(var(--rad, 600px) * 2); border-radius: 50%;
+  background: radial-gradient(closest-side, #c4121e 0%, #6b0d14 45%, #1a0709 100%);
+  transform: scale(var(--s0, .1)); transition: transform .42s cubic-bezier(.6, 0, .25, 1);
+}
+.fn-plate { position: absolute; inset: 0; z-index: 1; opacity: 0; background: linear-gradient(100deg, #09090c 0%, #1c0709 42%, #a3101a 100%); transition: opacity .2s ease; }
+.fn-bar.is-on .fn-reveal { transform: none; transition: transform .52s cubic-bezier(.5, 0, .15, 1); }
+.fn-bar.is-on .fn-plate { opacity: 1; transition: opacity .4s ease .16s; }
+.fn-sheen::before {
+  z-index: 2; content: ""; position: absolute; top: -40%; bottom: -40%; left: 0; width: 50%; opacity: 0; transform: translateX(-60%); will-change: transform, opacity; transition: opacity .5s;
+  background: radial-gradient(closest-side, rgba(255, 70, 70, .38), transparent);
+}
+.fl-speak .fn-sheen::before, .fl-listen .fn-sheen::before, .fl-think .fn-sheen::before { opacity: 1; animation: fn-sweep 3.2s ease-in-out infinite alternate; }
+@keyframes fn-sweep { to { transform: translateX(170%); } }
+.fn-bar > *:not(.fn-sheen) { opacity: 0; transition: opacity .15s; }
+.fn-bar.is-on > *:not(.fn-sheen) { opacity: 1; transition: opacity .25s .4s; }
+
+
+/* staggered entrance */
+.fn-bar > *:not(.fn-sheen) { position: relative; }
+.fn-bar.is-on .fn-av { animation: fn-pop .6s .4s cubic-bezier(.2, .9, .3, 1.4) backwards; }
+.fn-bar.is-on .fn-in > *, .fn-bar.is-on .fn-tr > * { animation: fn-slide .5s calc(.42s + var(--i, 0) * .06s) cubic-bezier(.2, .9, .3, 1) backwards; }
+@keyframes fn-pop { from { opacity: 0; transform: scale(.4) rotate(-20deg); } }
+@keyframes fn-slide { from { opacity: 0; transform: translateX(18px); } }
+
+.fn-av { position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px rgba(255, 255, 255, .35), 0 0 22px rgba(255, 43, 43, .55); }
+.fn-av::before, .fn-av::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid #ff4b4b; opacity: 0; pointer-events: none; }
+.fl-speak .fn-av::before, .fl-speak .fn-av::after, .fl-listen .fn-av::before, .fl-listen .fn-av::after { animation: fn-ring 1.4s ease-out infinite; }
+.fl-speak .fn-av::after, .fl-listen .fn-av::after { animation-delay: .7s; }
+@keyframes fn-ring { from { opacity: .8; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+.fl-think .fn-av { animation: fl-bob 1s ease-in-out infinite; }
+
+.fn-in, .fn-tr { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.fn-tr { display: none; }
+.fn-bar[data-mode="tour"] .fn-in { display: none; }
+.fn-bar[data-mode="tour"] .fn-tr { display: flex; }
+
+.fn-wave { flex: 0 1 270px; width: 270px; height: 38px; min-width: 0; display: block; }
+.fn-form { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; height: 44px; padding: 0 6px 0 18px; border-radius: 999px; background: rgba(255, 255, 255, .09); border: 1px solid rgba(255, 255, 255, .18); transition: border-color .25s, background .25s, box-shadow .25s; }
+.fn-form:focus-within { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .5); box-shadow: 0 0 0 4px rgba(255, 255, 255, .08); }
+.fn-form input { flex: 1; min-width: 0; height: 100%; background: none; border: 0; outline: 0; color: #fff; font: 400 16px 'Inter', sans-serif; caret-color: #ff6b6b; text-overflow: ellipsis; }
+.fn-form input::placeholder { color: rgba(255, 255, 255, .55); }
+.fn-send { flex: none; display: inline-flex; align-items: center; gap: 5px; height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: rgba(255, 255, 255, .5); font: 400 12.5px 'Inter', sans-serif; cursor: pointer; transition: color .2s, background .2s, transform .2s; }
+.fn-form.has-text .fn-send { color: #fff; background: rgba(255, 255, 255, .16); }
+.fn-send:hover { color: #fff; transform: translateX(2px); }
+.fn-send svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fn-btn { position: relative; flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .13); color: #fff; cursor: pointer; transition: background .2s, transform .2s cubic-bezier(.2, .9, .3, 1.4); }
+.fn-btn:hover { background: rgba(255, 255, 255, .25); transform: scale(1.08); }
+.fn-btn:active { transform: scale(.94); }
+.fn-btn:focus-visible, .fn-send:focus-visible, .fn-skip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.fn-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fn-mic { background: #fff; color: #ff2b2b; }
+.fn-mic:hover { background: #fff; }
+.fn-mic::before, .fn-mic::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #fff; opacity: 0; pointer-events: none; }
+.fn-mic.is-live { background: #ff2b2b; color: #fff; box-shadow: 0 0 0 2px #fff; }
+.fn-mic.is-live::before, .fn-mic.is-live::after { animation: fn-ring 1.2s ease-out infinite; }
+.fn-mic.is-live::after { animation-delay: .6s; }
+
+/* ---- tour mode in the bar ---- */
+.fn-tt { flex: none; min-width: 0; line-height: 1.25; }
+.fn-tt strong { display: block; font: 700 15px/1.2 'Sora', sans-serif; }
+.fn-tt small { display: block; font-size: 12.5px; color: rgba(255, 255, 255, .72); white-space: nowrap; }
+.fn-tt small.swap { animation: fn-swap .4s ease both; }
+@keyframes fn-swap { from { opacity: 0; transform: translateY(5px); } }
+.fn-segs { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; padding: 0 8px; }
+.fn-seg { position: relative; flex: 1 1 0; max-width: 36px; min-width: 10px; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, .22); overflow: hidden; }
+.fn-seg::after { content: ""; position: absolute; inset: 0; border-radius: 4px; background: #fff; transform: scaleX(0); transform-origin: left; transition: transform .55s cubic-bezier(.2, .9, .3, 1); }
+.fn-seg.done::after, .fn-seg.cur::after { transform: none; }
+.fn-seg.cur { animation: fn-seg-glow 1.4s ease-in-out infinite; }
+@keyframes fn-seg-glow { 50% { opacity: .55; } }
+.fn-tr .fn-wave { flex: 0 0 150px; width: 150px; height: 32px; }
+.fn-skip { flex: none; height: 38px; padding: 0 16px; border: 1.5px solid rgba(255, 255, 255, .5); border-radius: 999px; background: transparent; color: #fff; font: 600 13px 'Inter', sans-serif; cursor: pointer; transition: background .2s, border-color .2s; }
+.fn-skip:hover { background: rgba(255, 255, 255, .16); border-color: #fff; }
+.fn-tr .fn-btn { width: 40px; height: 40px; }
+body.flare-nav .af-dock { display: none !important; }
+
+/* ---- answer card that drops out of the bar ---- */
+.fn-card {
+  position: fixed; left: 0; right: 0; margin: 0 auto; z-index: 9400; width: min(760px, calc(100vw - 24px)); overflow: auto;
+  padding: 16px 20px 18px; border-radius: 22px; background: var(--menu-bg, #fff); color: var(--text, #111);
+  border: 1px solid rgba(var(--fg), .1); box-shadow: 0 22px 60px rgba(0, 0, 0, .4), 0 0 0 1px rgba(255, 43, 43, .12);
+  font-family: 'Inter', system-ui, sans-serif; contain: layout style; will-change: transform, opacity; visibility: hidden; opacity: 0; transform: translateY(-14px) scale(.96); transform-origin: top center; pointer-events: none;
+  transition: opacity .25s, transform .35s cubic-bezier(.2, .9, .3, 1.2), visibility 0s .35s;
+}
+.fn-card.on { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity .3s, transform .45s cubic-bezier(.2, .9, .3, 1.25), visibility 0s; }
+.fn-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #ff2b2b; font: 700 15px/1 'Sora', 'Inter', sans-serif; letter-spacing: .02em; text-transform: uppercase; }
+.fn-eq { display: inline-flex; align-items: center; gap: 2px; height: 14px; }
+.fn-eq i { width: 3px; height: 100%; border-radius: 2px; background: currentColor; transform: scaleY(.3); transform-origin: center; }
+.fn-card.is-live .fn-eq i { animation: fn-eq .9s ease-in-out infinite; }
+.fn-eq i:nth-child(2) { animation-delay: .15s !important; } .fn-eq i:nth-child(3) { animation-delay: .3s !important; } .fn-eq i:nth-child(4) { animation-delay: .45s !important; }
+@keyframes fn-eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+.fn-card-head span:nth-child(2) { flex: 1; }
+.fn-card-head .fn-vbtn + .fn-vbtn { margin-left: -2px; }
+.fn-vbtn { width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(var(--fg), .07); color: var(--text); cursor: pointer; transition: background .2s; }
+.fn-vbtn:hover { background: rgba(var(--fg), .15); }
+.fn-vbtn:focus-visible { outline: 2px solid #ff2b2b; outline-offset: 2px; }
+.fn-vbtn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fn-text { position: relative; font-size: 16px; line-height: 1.55; white-space: pre-line; word-wrap: break-word; }
+.fn-ghost { opacity: 0; }
+.fn-live { position: absolute; left: 0; top: 0; right: 0; }
+.fn-caret { display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: #ff2b2b; animation: fn-blink 1s steps(2) infinite; }
+@keyframes fn-blink { 50% { opacity: 0; } }
+.fn-dots { display: inline-flex; gap: 5px; padding: 6px 0; }
+.fn-dots i { width: 8px; height: 8px; border-radius: 50%; background: #ff2b2b; animation: fn-dot 1s infinite; }
+.fn-dots i:nth-child(2) { animation-delay: .15s; } .fn-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes fn-dot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-5px); opacity: 1; } }
+.fn-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fn-acts:empty { display: none; }
+.fn-acts > * { opacity: 0; transform: translateY(8px) scale(.95); }
+.fn-acts.on > * { opacity: 1; transform: none; transition: opacity .3s calc(var(--i, 0) * .07s), transform .4s calc(var(--i, 0) * .07s) cubic-bezier(.2, .9, .3, 1.3), background .2s, border-color .2s, color .2s; }
+.fn-acts button, .fn-acts a { font: 600 13.5px/1 'Inter', sans-serif; padding: 11px 17px; border-radius: 999px; cursor: pointer; text-decoration: none; color: var(--text); background: transparent; border: 1.5px solid rgba(var(--fg), .2); }
+.fn-acts .go { background: #ff2b2b; border-color: #ff2b2b; color: #fff; }
+.fn-acts button:hover, .fn-acts a:hover { border-color: #ff2b2b; color: #ff2b2b; }
+.fn-acts .go:hover { background: #e01f1f; color: #fff; }
+.fn-acts button:focus-visible, .fn-acts a:focus-visible { outline: 2px solid #ff2b2b; outline-offset: 2px; }
+
+/* ---- Flare inside the tour bubble (cursor + chat bubble from tour.js) ---- */
+.af-bubble.has-flare { padding-left: 62px; min-height: 58px; max-width: min(320px, calc(100vw - 24px)); }
+.af-bubble .flare-mini { position: absolute; left: 10px; top: 10px; width: 40px; height: 40px; border-radius: 50%; background: #fff1f0; box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .1); }
+.af-bubble .flare-mini svg { width: 100%; height: 100%; display: block; border-radius: 50%; }
+.af-bubble.is-talking .flare-mini { animation: fl-bob 1.1s ease-in-out infinite; }
+
+/* ---- phones ---- */
+@media (max-width: 768px) {
+  #navbar .fn-ask { margin-right: 46px; height: 40px; padding: 0 14px 0 4px; font-size: 13px; }
+  .fn-ask-av { width: 32px; height: 32px; }
+  .fn-ask-dot { left: 26px; bottom: 5px; width: 10px; height: 10px; }
+  .fn-bar { gap: 7px; padding: 5px 6px; }
+  .fn-av { width: 40px; height: 40px; }
+  .fn-in > .fn-wave, .fn-in > .fn-spark, .fn-tr .fn-segs, .fn-tr .fn-wave, .fn-tr .fn-sfxb { display: none; }
+  .fn-btn { width: 40px; height: 40px; }
+  .fn-form { height: 40px; padding-left: 14px; }
+  .fn-send { padding: 0 8px; } .fn-send .t { display: none; }
+  .fn-tr { gap: 8px; }
+  .fn-tt { flex: 1; }
+  .fn-skip { height: 36px; padding: 0 12px; }
+  .fn-card { padding: 14px 16px 16px; border-radius: 18px; }
+  .fn-text { font-size: 15px; }
+}
+@media (max-width: 400px) {
+  #navbar .fn-ask { padding-right: 6px; }
+  .fn-ask-t { display: none; }
+  .fn-send { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fn-reveal, .fn-bar.is-on .fn-reveal { transform: none; transition: none; }
+  .fn-plate, #navbar::before { transition: none; }
+  #navbar::after, .fn-hint.on, #navbar::after, .fn-av::before, .fn-av::after, .fn-sheen::before { animation: none !important; }
+  .fn-bar.is-on .fn-av, .fn-bar.is-on .fn-in > *, .fn-bar.is-on .fn-tr > *, .flare-av .eyes, .flare-av .fl-idle, .flare-av .mt-in { animation: none !important; }
+}

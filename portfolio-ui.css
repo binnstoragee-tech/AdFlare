@@ -1,0 +1,164 @@
+/* ============================================
+   AdFlare × portfolio UI layer
+   Loaded AFTER style.css. Delete this file + tour.js to revert.
+   ============================================ */
+:root:not([data-theme="light"]) {
+  --black: #0a0a0a;
+  --black-alt: #0f0f10;
+  --card-bg: #121213;
+  --border: rgba(255,255,255,.09);
+}
+.sg-stage, .sg-lightbox, .dash-window, .glass-toast { --black:#0a0a0a; --card-bg:#121213; }
+
+/* ---------- floating pill nav ---------- */
+#navbar {
+  position: fixed !important;
+  top: 14px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(1040px, calc(100% - 24px)) !important;
+  padding: 8px 10px 8px 20px !important;
+  border-radius: 999px !important;
+  background: rgba(var(--bg-rgb), .72) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(var(--fg), .1) !important;
+  box-shadow: 0 6px 30px rgba(0,0,0,.25) !important;
+  gap: 10px;
+}
+#navbar .nav-links a { text-transform: none; letter-spacing: 0; font-size: 14px; }
+#afSfx {
+  margin-left: auto; width: 40px; height: 40px; flex: none; display: grid; place-items: center;
+  border: 0; border-radius: 50%; background: transparent; color: var(--text); cursor: pointer; transition: background .2s;
+}
+#afSfx:hover { background: var(--menu-hover); }
+#afSfx:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 2px; }
+#afSfx svg { width: 20px; height: 20px; }
+#navbar .theme-wrap { margin-left: 2px; }
+@media (max-width: 768px) { #navbar .theme-wrap { margin-left: 0; } }
+
+/* ---------- numbered section labels: "01 — about" ---------- */
+.section-label {
+  text-transform: lowercase !important;
+  letter-spacing: 0 !important;
+  font: 500 13px/1 'Inter', sans-serif !important;
+  color: var(--steel-gray) !important;
+  display: inline-flex; align-items: baseline; gap: 8px;
+}
+.section-label[data-num]::before { content: attr(data-num); font: inherit; color: var(--primary-red); }
+.section-label[data-num]::after { content: none; }
+
+/* ---------- menu: header font, highlight = clearer text only (no shape, no icon) ---------- */
+#navbar .nav-links { gap: 4px; }
+#navbar .nav-links a {
+  font-family: 'Sora', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0;
+  padding: 10px 14px; color: rgba(var(--fg), .55); background: none; box-shadow: none; border-radius: 0;
+  transition: color .2s;
+}
+#navbar .nav-links a:hover { color: var(--text); background: none; }
+#navbar .nav-links a.active { color: var(--text); background: none; box-shadow: none; }
+
+/* ---------- quieter surfaces, like the portfolio ---------- */
+.section-title { letter-spacing: -.02em; }
+.btn-outline, .btn-primary { border-radius: 999px; }
+
+/* ---------- tour chip ---------- */
+.af-chip {
+  position: fixed; left: 50%; bottom: 18px; z-index: 9990;
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 400 12px/1 'Inter', sans-serif; color: var(--text);
+  background: var(--menu-bg); border: 1px solid rgba(var(--fg), .14);
+  border-radius: 999px; padding: 6px 6px 6px 14px; box-shadow: var(--menu-shadow);
+  opacity: 0; transform: translate(-50%, 10px); pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+.af-chip.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.af-chip button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.af-chip .af-chip-go { padding: 6px 4px; }
+.af-chip .af-chip-x {
+  width: 26px; height: 26px; border-radius: 50%; color: var(--steel-gray);
+  background: rgba(var(--fg), .07); line-height: 1;
+}
+.af-chip button:hover { color: var(--primary-red); }
+.af-chip button:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 2px; }
+
+/* ---------- guided tour: moving cursor + chat bubble ---------- */
+.af-tour { position: fixed; inset: 0; z-index: 10000; display: none; pointer-events: none; }
+.af-tour.is-on { display: block; }
+.af-cursor {
+  position: fixed; left: 0; top: 0; width: 22px; height: 22px; opacity: 0;
+  transition: transform .9s cubic-bezier(.65, 0, .25, 1), opacity .25s;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); will-change: transform;
+}
+.af-cursor.on { opacity: 1; }
+.af-cursor.track { transition: opacity .25s; }
+.af-cursor svg { display: block; width: 100%; height: 100%; }
+.af-bubble {
+  position: fixed; left: 0; top: 0; max-width: min(270px, calc(100vw - 24px)); padding: 9px 13px 11px;
+  background: #fff; color: #111; border: 1px solid rgba(0,0,0,.08); border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.28); pointer-events: auto; cursor: pointer;
+  opacity: 0; transform: scale(.85); transform-origin: top left;
+  transition: opacity .2s ease, transform .25s cubic-bezier(.2, .9, .3, 1.3);
+}
+.af-bubble.on { opacity: 1; transform: none; }
+.af-bubble b { display: block; font: 400 11px/1.2 'Inter', sans-serif; color: #777; margin-bottom: 3px; }
+.af-bubble span { font: 400 13.5px/1.4 'Inter', sans-serif; }
+.af-dock { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; gap: 8px; pointer-events: auto; }
+.af-skip {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px;
+  font: 400 12px/1 'Inter', sans-serif; color: var(--text);
+  background: var(--menu-bg); border: 1px solid rgba(var(--fg), .16); border-radius: 999px; box-shadow: var(--menu-shadow);
+}
+.af-skip-sfx { padding: 8px 10px; }
+.af-skip kbd { font: inherit; font-size: 11px; color: var(--steel-gray); background: rgba(var(--fg), .08); border-radius: 6px; padding: 4px 6px; }
+.af-skip:hover { border-color: var(--primary-red); }
+.af-skip:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 2px; }
+
+/* ---------- theme switch: circle reveal from the toggle ---------- */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 9999; }
+
+/* ---------- command palette (Alt+K) ---------- */
+.af-pal { position: fixed; inset: 0; z-index: 10001; display: none; align-items: flex-start; justify-content: center; padding-top: 14vh; background: rgba(0,0,0,.55); }
+.af-pal.is-on { display: flex; }
+.af-pal-box { width: min(520px, calc(100% - 24px)); background: var(--menu-bg); color: var(--text); border: 1px solid rgba(var(--fg), .14); border-radius: 20px; box-shadow: var(--menu-shadow); overflow: hidden; }
+.af-pal input { width: 100%; padding: 18px 20px; background: none; border: 0; border-bottom: 1px solid rgba(var(--fg), .1); color: inherit; font: 400 16px 'Inter', sans-serif; outline: none; }
+.af-pal ul { list-style: none; max-height: 340px; overflow: auto; padding: 8px; }
+.af-pal li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: 400 14px 'Inter', sans-serif; }
+.af-pal li small { color: var(--steel-gray); }
+.af-pal li.on, .af-pal li:hover { background: var(--menu-hover); }
+.af-pal .af-empty { color: var(--steel-gray); cursor: default; }
+.af-pal-foot { padding: 10px 16px; border-top: 1px solid rgba(var(--fg), .1); font: 400 12px 'Inter', sans-serif; color: var(--steel-gray); }
+
+@media (prefers-reduced-motion: reduce) {
+  .af-chip { transition: none; }
+}
+
+
+/* ---------- mobile: hamburger makes the pill grow downward ---------- */
+@media (max-width: 768px) {
+  #navbar {
+    flex-wrap: wrap;
+    border-radius: 30px !important;
+    transition: background .3s ease, padding .3s ease, box-shadow .3s ease;
+  }
+  #navbar.menu-open { box-shadow: 0 14px 40px rgba(0,0,0,.3) !important; }
+}
+
+
+/* ---------- mobile menu: theme + sound inside the dropdown ---------- */
+.drop-controls { display: none; }
+@media (max-width: 768px) {
+  #navbar #afSfx, #navbar .theme-wrap { display: none !important; }
+  #navbar .hamburger { margin-left: auto; }
+  .drop-controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0 6px; opacity: 0; transform: translateY(-8px); transition: opacity .3s ease, transform .35s ease; }
+  #navbar.menu-open .drop-controls { opacity: 1; transform: none; transition-delay: .34s; }
+  .drop-seg { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; border: 1px solid rgba(var(--fg), .14); background: rgba(var(--fg), .04); }
+  .drop-seg button { width: 40px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 999px; background: transparent; color: var(--text); cursor: pointer; transition: background .2s ease, color .2s ease; }
+  .drop-seg button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .drop-seg button[aria-checked="true"] { background: rgba(var(--fg), .12); box-shadow: inset 0 0 0 1px rgba(var(--fg), .1); }
+  .drop-sfx { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(var(--fg), .14); background: rgba(var(--fg), .04); color: var(--text); cursor: pointer; }
+  .drop-sfx svg { width: 18px; height: 18px; }
+}

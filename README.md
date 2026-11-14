@@ -10,3 +10,8 @@ Notes
 - Folder must be named `img` (lowercase). GitHub is case-sensitive.
 - Run `sh check-assets.sh` before pushing.
 - Max 100 MB per file.
+
+## Flare (AI assistant)
+- Lives in the nav bar: "Ask Flare" opens the AI bar (waveform, type or mic). Files: `flare.js`, `flare.css`, `tour.js`, `portfolio-ui.css`.
+- Mic uses the browser's speech recognition (Chrome, Edge, Safari). Needs HTTPS, which GitHub Pages already has.
+- Delete `flare.js` + `flare.css` to remove her.
