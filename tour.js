@@ -144,19 +144,129 @@
     }).catch(function () {});
   };
 
-  /* ---------- 4. tour steps ---------- */
-  // fx / fy: where the cursor lands inside the target (0–1). fixed: no scrolling needed.
+  /* ---------- 4. tour steps ----------
+     Each step: n (label), t (cursor target: selector or function), text (string or function),
+       fx / fy  where the cursor lands inside the target (0-1)      fixed  no scrolling needed
+       align    (0-1) put the target at this height of the screen    s      scroll to this element instead
+       when     include the step only if this returns true           pre    runs before the cursor moves
+       act      runs once the cursor has arrived (a "click"); return false if nothing happened
+       then     where the cursor goes after act (e.g. the opened lightbox / plan window)
+       keep     re-applied every frame while on the step             pauseDash  hold the dashboard tabs still
+     Anything a step opens is closed again automatically (see later()). */
+  function pick(sel, i) { return $$(sel)[i] || null; }
+  function press(n) { if (n && n.click) n.click(); }
+  var cleanups = [];
+  function later(fn) { cleanups.push(fn); }
+  function runCleanups() { var had = cleanups.length > 0; while (cleanups.length) { try { cleanups.pop()(); } catch (e) {} } return had; }
+  function resolve(t) { return typeof t === 'function' ? t() : (t ? $(t) : null); }
+  function txt(s) { var v = typeof s.text === 'function' ? s.text() : s.text; return v || ''; }
+  function unpauseDash() {
+    var d = $('#dash'); if (!d) return;
+    var r = d.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) d.classList.remove('is-paused');   // off-screen, the page pauses it itself
+  }
+
+  var dashTab = function (i) { return function () { return pick('#dash .dash-tab', i); }; };
+  var sgTab = function (i) { return function () { return pick('#sgShowcase .sg-tab', i); }; };
+  var sgNow = function (panel, part) { return '#sgPanel' + panel + ' .sg-slide.is-active ' + part; };
+
+  function dashStep(i, n, text) {
+    return { n: n, t: dashTab(i), align: .66, fx: .5, fy: .5, pauseDash: 1, text: text,
+      act: function () { press(dashTab(i)()); return false; } };
+  }
+  function tabStep(i, n, text) {
+    return { n: n, t: sgTab(i), fx: .5, fy: .5, text: text, act: function () { press(sgTab(i)()); return false; } };
+  }
+  function adStep(panel, n, text) {           // taps the ad, the full-size viewer opens, cursor follows it
+    var sel = sgNow(panel, '.ad-art img');
+    return { n: n, t: sel, fx: .5, fy: .45, text: text, wait: 550, then: '#sgLightbox img', out: 1, fx2: .98, fy2: .1,
+      act: function () {
+        var im = $(sel); if (!im || !im.naturalWidth) return false;
+        press(im);
+        later(function () { var lb = $('#sgLightbox'); if (lb && lb.classList.contains('open')) lb.click(); });
+        return true;
+      } };
+  }
+  function planStep(i) {                      // taps the plan, its window opens with everything it includes
+    var card = function () { return pick('.pricing-grid .price-card', i); };
+    return { n: 'Plan', t: card, fx: .5, fy: .3, wait: 600, then: '.offer-modal-content', out: 1, fx2: .97, fy2: .08,
+      text: function () {
+        var c = card(); if (!c) return '';
+        var q = function (s) { var e = c.querySelector(s); return e ? e.textContent.trim() : ''; };
+        var li = c.querySelectorAll('.price-features li').length;
+        return q('h3') + ', ' + q('.price-amount') + q('.price-period') + '. ' + q('.price-desc') + ' It includes ' + li + ' things, listed here.';
+      },
+      act: function () {
+        var c = card(); if (!c) return false;
+        press(c);
+        later(function () { press($('#offerModalClose')); });
+        return true;
+      } };
+  }
+  function prKeep(i) {                        // makes sure the timeline step we are pointing at is already showing
+    return function () {
+      var st = $$('#prTrack .pr-step'), tr = $('#prTrack'); if (!st.length || !tr) return;
+      st.forEach(function (x, k) { x.classList.toggle('on', k <= i); x.classList.toggle('now', k === i && i < st.length - 1); });
+      tr.style.setProperty('--p', st.length > 1 ? i / (st.length - 1) : 0);
+    };
+  }
+  function prStep(i, text) {
+    var keep = prKeep(i);
+    return { n: 'Process', t: function () { return pick('#prTrack .pr-step', i); }, fx: .5, fy: .25, text: text, pre: keep, keep: keep };
+  }
+  function rsStep(i, text) {
+    return { n: 'Sample story', t: function () { return pick('#rsTabs button', i); }, fx: .5, fy: .5, text: text,
+      act: function () { press(pick('#rsTabs button', i)); return false; } };
+  }
+
   var steps = [
     { n: 'Welcome', t: '#hero .hero-title', fx: 1.04, fy: .3, text: 'Hi! Welcome to AdFlare. We run Meta ads that turn cold audiences into customers. 👋' },
     { n: 'Flare', t: '#navbar', fixed: 1, fx: .5, fy: .95, text: 'This bar is my home. Tap Ask Flare to type or talk to me anytime. The menu, theme and sound controls live here too.' },
-    { n: 'Results', t: '#hero .hero-stats', fx: .3, text: 'Our results at a glance: growth, campaigns launched and client satisfaction.' },
-    { n: 'About', t: '#about .section-title', fx: .7, text: 'We only do Meta advertising. The dashboard below shows the numbers we report on.' },
-    { n: 'Samples', t: '#samples .section-title', fx: .7, text: 'Sample ads, reels and websites. Switch tabs to browse, tap an image to enlarge it.' },
+    { n: 'Start', t: '#hero .hero-cta-group', fx: .5, fy: .5, text: 'Start here: book a free strategy call, or see what we do.' },
+    { n: 'Results', t: '#hero .hero-stats', fx: .3, text: 'Our results at a glance: average growth, campaigns launched and client satisfaction.' },
+
+    { n: 'About', t: '#about .section-title', fx: .7, text: 'We only do Meta advertising. The report window below shows the numbers we send our clients.' },
+    { n: 'Report', t: '#dash .dash-window', s: '#dash', fx: .5, fy: .2, pauseDash: 1, pre: function () { press(dashTab(0)()); },
+      text: 'This is a live report window. It has three tabs, so let me click through them.' },
+    dashStep(0, 'Growth', 'Growth tab: the trend line shows how a client’s numbers climb after launch.'),
+    dashStep(1, 'Results', 'Results tab: return on ad spend, click-through rate, cost per lead and conversion lift.'),
+    dashStep(2, 'Totals', 'Totals tab: campaigns run, ad spend managed and client satisfaction.'),
+    { n: 'Brand', t: '#presenceBanner .promo-title', fx: .6, text: 'We help your brand look strong online and perform strong too.' },
+
+    { n: 'Samples', t: '#samples .section-title', fx: .7, text: 'Sample work in four categories. I will open each one for you.' },
+    tabStep(0, 'Premium', 'Premium tab: our Premium ad designs.'),
+    { n: 'Premium', t: function () { return pick('#sgPanel0 .sg-item', 2); }, align: .6, fx: .5, fy: .5,
+      text: 'Tap any sample in this list to switch ads.', act: function () { press(pick('#sgPanel0 .sg-item', 2)); return false; } },
+    adStep(0, 'Premium ad', 'Tap any ad to see it full size. Tap again to close.'),
+    tabStep(1, 'Standard', 'Standard tab: clean, ready-to-run ads for tighter budgets.'),
+    adStep(1, 'Standard ad', 'Same here: tap an ad to enlarge it.'),
+    tabStep(2, 'Reels', 'Reels tab: short vertical videos made to stop the scroll.'),
+    { n: 'Reels', t: sgNow(2, '.sg-poster'), fx: .5, fy: .4, text: 'Reels play on their own and move to the next one when they finish.' },
+    tabStep(3, 'Websites', 'Websites tab: sites we have built for real clients.'),
+    { n: 'Websites', t: sgNow(3, '.web-shot'), fx: .5, fy: .4, text: 'Tap a screenshot, or Visit Website, to open the live site.' },
+
     { n: 'Industries', t: '#services .industries-title', fx: .7, text: 'These are the industries we have already run campaigns for.' },
-    { n: 'Process', t: '#process .section-title', fx: .7, text: 'From the first call to a campaign that keeps improving. This is the timeline.' },
-    { n: 'Pricing', t: '#pricing .section-title', fx: .7, text: 'Pick a package. Tap a plan to see everything it includes.' },
+
+    { n: 'Process', t: '#process .section-title', s: '#prStage', fx: .7, text: 'From first call to a campaign that keeps improving. Four steps.' },
+    prStep(0, 'Step 1, Onboarding: we learn your business, goals and who you want to reach.'),
+    prStep(1, 'Step 2, One day shoot: one day to capture the photos and videos your ads need.'),
+    prStep(2, 'Step 3, Deliverables: we edit the ads and captions, and you approve them before anything goes live.'),
+    prStep(3, 'Step 4, Run ads and feedback report: your ads go live, and you get a clear report.'),
+
+    { n: 'Sample story', t: '#results .section-title', fx: .7, text: 'A sample story: what $50 in ads can do. The tabs show where the results came from.' },
+    rsStep(1, 'Audience: who the ads reached.'),
+    rsStep(2, 'Age and gender: who responded.'),
+    rsStep(3, 'Top countries: where the people are.'),
+
+    { n: 'Pricing', t: '#pricing .section-title', fx: .7, text: 'Pick a package. I will open each plan to show what it includes.' },
+    planStep(0), planStep(1), planStep(2),
+    { n: 'Pricing', t: '#pricing .pricing-note', fx: .4, text: 'Ad budget is paid separately by the client.' },
+
     { n: 'Why us', t: '#why .section-title', fx: .7, text: 'One specialty, done well. Here is how we differ from a general agency.' },
-    { n: 'Contact', t: '#contact .section-title', fx: .7, text: 'Call, WhatsApp or email. You can also book a free strategy call.' },
+    { n: 'Why us', t: '#why .why-list', fx: .5, fy: .2, text: 'Pure Meta focus means deeper knowledge and better results.' },
+
+    { n: 'Contact', t: '#contact .section-title', fx: .7, text: 'Ready to start? Tell us about your business here.' },
+    { n: 'Contact', t: '#inqForm', fx: .5, fy: .2, text: 'Share your name, email, goal and budget. We reply with next steps.' },
     { n: 'WhatsApp', t: '#waFabToggle', fixed: 1, text: 'Want to talk now? Message us on WhatsApp from here.' }
   ];
 
@@ -171,7 +281,7 @@
   var dock = el('div', 'af-dock'); dock.appendChild(skip); dock.appendChild(sfxTour);
   root.appendChild(cur); root.appendChild(bub); root.appendChild(dock);
 
-  var live = [], idx = 0, running = false, raf = 0, timer = 0, arrived = false, token = 0, prevFocus = null;
+  var live = [], idx = 0, running = false, raf = 0, timer = 0, arrived = false, token = 0, prevFocus = null, dir = 1, focusFn = null;
 
   function visible(n) {
     if (!n) return false;
@@ -180,10 +290,15 @@
   }
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
   // cursor + bubble positions. On narrow screens the bubble sits below (or above) the target so it never covers it.
-  function layout(s) {
-    var n = $(s.t); if (!n) return null;
+  function layout(s, n) {
+    n = n || resolve(s.t); if (!n) return null;
     var r = n.getBoundingClientRect(), w = bub.offsetWidth, h = bub.offsetHeight, L = {};
-    if (innerWidth < 640) {
+    if (innerWidth < 640 && s.out && s.phase === 2) {          // an opened viewer: bubble goes above / below it, never over it
+      L.cx = clamp(r.left + r.width * .5, 20, innerWidth - 20);
+      if (innerHeight - r.bottom > h + 40) { L.cy = r.bottom - 16; L.by = r.bottom + 12; }
+      else { L.cy = r.top + 16; L.by = Math.max(80, r.top - h - 12); }
+      L.bx = clamp(L.cx - w / 2, 12, innerWidth - w - 12);
+    } else if (innerWidth < 640) {
       var tall = r.height > 260;
       L.cx = clamp(r.left + r.width * .5, 20, innerWidth - 20);
       var below = tall || r.bottom + 28 + h < innerHeight - 64;
@@ -192,8 +307,9 @@
       else { L.cy = Math.max(12, r.top + 4); L.by = Math.max(80, r.top - h - 14); }
       L.bx = clamp(L.cx - w / 2, 12, innerWidth - w - 12);
     } else {
-      L.cx = clamp(r.left + r.width * (s.fx == null ? .5 : s.fx), 12, innerWidth - 12);
-      L.cy = clamp(r.top + Math.min(r.height, 140) * (s.fy == null ? .6 : s.fy), 12, innerHeight - 70);
+      var fx = s.phase === 2 && s.fx2 != null ? s.fx2 : s.fx, fy = s.phase === 2 && s.fy2 != null ? s.fy2 : s.fy;
+      L.cx = clamp(r.left + r.width * (fx == null ? .5 : fx), 12, innerWidth - 12);
+      L.cy = clamp(r.top + Math.min(r.height, 140) * (fy == null ? .6 : fy), 12, innerHeight - 70);
       L.bx = L.cx + 18; L.by = L.cy + 16;
       if (L.bx + w > innerWidth - 12) L.bx = Math.max(12, L.cx - w - 6);
       if (L.by + h > innerHeight - 64) L.by = Math.max(12, L.cy - h - 14);
@@ -218,51 +334,102 @@
     try { window.dispatchEvent(new CustomEvent('af:tour', { detail: { state: state, idx: idx, total: live.length, label: (live[idx] && live[idx].n) || '' } })); } catch (e) {}
   }
 
+  function skipStep(my) {                // target missing right now: move on in the direction we were going
+    if (my !== token || !running) return;
+    if (dir < 0 && idx > 0) go(idx - 1);
+    else if (idx < live.length - 1) go(idx + 1);
+    else stop(true);
+  }
+
   function go(i) {
+    var before = live[idx];
     idx = i; var my = ++token, s = live[i];
     emit('step');
-    clearTimeout(timer); arrived = false;
-    bub.classList.remove('on'); cur.classList.remove('track');
-    var n = $(s.t);
-    if (!s.fixed && n) {
-      var r = n.getBoundingClientRect();
-      var top = window.scrollY + r.top - (r.height > innerHeight * .6 ? 110 : innerHeight * (innerWidth < 640 ? .25 : .32));
-      window.scrollTo({ top: Math.max(0, top), behavior: reduced() ? 'auto' : 'smooth' });
+    clearTimeout(timer); arrived = false; focusFn = null;
+    bub.classList.remove('on'); cur.classList.remove('track', 'press');
+    if (before && before.pauseDash && !s.pauseDash) unpauseDash();
+    var closed = runCleanups();            // close whatever the last step opened (viewer, plan window, menu)
+    setTimeout(function () {
+      if (my !== token || !running) return;
+      if (s.pre) { try { s.pre(); } catch (e) {} }
+      var n = resolve(s.t);
+      if (!n) { skipStep(my); return; }
+      var sn = resolve(s.s) || n;
+      if (!s.fixed) {
+        var r = sn.getBoundingClientRect();
+        var off = s.align != null ? innerHeight * s.align : (r.height > innerHeight * .6 ? 110 : innerHeight * (innerWidth < 640 ? .25 : .32));
+        window.scrollTo({ top: Math.max(0, window.scrollY + r.top - off), behavior: reduced() ? 'auto' : 'smooth' });
+      }
+      settle(function () { arrive(s, my); }, my);
+    }, closed ? 450 : 0);
+  }
+
+  function arrive(s, my) {
+    var alive = function () { return my === token && running; };
+    s.phase = 1;
+    var n = resolve(s.t);
+    if (!n) { skipStep(my); return; }
+    $('span', bub).textContent = txt(s);       // set while the bubble is hidden, so Flare only speaks once it appears
+    focusFn = function () { return resolve(s.t); };
+    var L = layout(s, n); if (!L) { skipStep(my); return; }
+    cur.classList.add('on');
+    sfx.move();
+    cur.style.transform = 'translate(' + L.cx + 'px,' + L.cy + 'px)';
+
+    function finish() {
+      if (!alive()) return;
+      $('span', bub).textContent = txt(s);
+      var Lf = layout(s, focusFn()) || L; apply(Lf);
+      bub.classList.add('on'); sfx.pop();
+      cur.classList.add('track'); arrived = true;
+      var hold = 2300 + txt(s).length * 30, t0 = performance.now();
+      (function wait() {                      // let Flare finish speaking before moving on
+        if (!alive()) return;
+        var talking = window.afFlare && window.afFlare.speaking && window.afFlare.speaking();
+        var el0 = performance.now() - t0;
+        if ((el0 < hold || talking) && el0 < 25000) timer = setTimeout(wait, 250); else timer = setTimeout(next, 0);
+      })();
     }
-    settle(function () {
-      $('span', bub).textContent = s.text;
-      var L = layout(s); if (!L) { next(); return; }
-      cur.classList.add('on');
-      sfx.move();
-      cur.style.transform = 'translate(' + L.cx + 'px,' + L.cy + 'px)';
+
+    setTimeout(function () {
+      if (!alive()) return;
+      var L2 = layout(s, resolve(s.t)) || L; apply(L2);        // cursor has landed: "click"
+      if (!s.act) { finish(); return; }
+      cur.classList.add('press'); sfx.tick();
+      setTimeout(function () { cur.classList.remove('press'); }, 200);
+      var did = false;
+      try { did = s.act(); } catch (e) {}
       setTimeout(function () {
-        if (my !== token || !running) return;
-        var L2 = layout(s) || L; apply(L2);
-        bub.classList.add('on'); sfx.pop();
-        cur.classList.add('track'); arrived = true;
-        var hold = 2300 + s.text.length * 30, t0 = performance.now();
-        (function wait() {            // let Flare finish speaking before moving on
-          if (my !== token || !running) return;
-          var talking = window.afFlare && window.afFlare.speaking && window.afFlare.speaking();
-          var el0 = performance.now() - t0;
-          if ((el0 < hold || talking) && el0 < 25000) timer = setTimeout(wait, 250); else timer = setTimeout(next, talking ? 0 : 0);
-        })();
-      }, reduced() ? 0 : 950);
-    }, my);
+        if (!alive()) return;
+        var n2 = did !== false && s.then ? resolve(s.then) : null;
+        if (!n2) { finish(); return; }
+        focusFn = function () { return resolve(s.then); };       // the cursor travels on to what just opened
+        s.phase = 2;
+        var L3 = layout(s, n2);
+        if (L3) { sfx.move(); cur.style.transform = 'translate(' + L3.cx + 'px,' + L3.cy + 'px)'; }
+        setTimeout(finish, reduced() ? 0 : 950);
+      }, reduced() ? 0 : (s.wait || 450));
+    }, reduced() ? 0 : 950);
   }
 
   function follow() {                    // keep cursor glued to its target after arriving
     if (!running) return;
-    if (arrived) { var L = layout(live[idx]); if (L) apply(L); }
+    var s = live[idx];
+    if (s && s.pauseDash) { var d = $('#dash'); if (d && !d.classList.contains('is-paused')) d.classList.add('is-paused'); }
+    if (s && s.keep) { try { s.keep(); } catch (e) {} }
+    if (arrived && focusFn && s) { var n = focusFn(), L = n && layout(s, n); if (L) apply(L); }
     raf = requestAnimationFrame(follow);
   }
 
   function start() {
     if (!IS_HOME) return;
     closePal(); release();
-    live = steps.filter(function (s) { return visible($(s.t)); });
+    $$('#sgShowcase img[loading="lazy"]').forEach(function (i) { i.loading = 'eager'; });   // so every sample can open full size
+    live = steps.filter(function (s) {
+      try { return s.when ? s.when() : visible(resolve(s.t)); } catch (e) { return false; }
+    });
     if (!live.length) return;
-    running = true; prevFocus = document.activeElement;
+    running = true; prevFocus = document.activeElement; dir = 1;
     chip.classList.remove('is-on');
     root.classList.add('is-on');
     cancelAnimationFrame(raf); raf = requestAnimationFrame(follow);
@@ -272,7 +439,8 @@
   function stop(finished) {
     if (!running) return;
     running = false; token++; clearTimeout(timer); cancelAnimationFrame(raf);
-    root.classList.remove('is-on'); cur.classList.remove('on', 'track'); bub.classList.remove('on');
+    runCleanups(); unpauseDash();
+    root.classList.remove('is-on'); cur.classList.remove('on', 'track', 'press'); bub.classList.remove('on');
     emit('stop');
     store.set(); if (finished) sfx.done(); else sfx.tick();
     $('.af-chip-go', chip).textContent = 'take the tour again';
@@ -281,8 +449,8 @@
     if (finished) window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
   }
   window.afStartTour = function () { start(); };
-  function next() { if (!running) return; if (idx < live.length - 1) go(idx + 1); else stop(true); }
-  function back() { if (running && idx > 0) go(idx - 1); }
+  function next() { if (!running) return; dir = 1; if (idx < live.length - 1) go(idx + 1); else stop(true); }
+  function back() { if (running && idx > 0) { dir = -1; go(idx - 1); } }
   window.afTour = { next: next, back: back, stop: function () { stop(false); } };
   window.afPaintSfx = paintSfxBtns;
 

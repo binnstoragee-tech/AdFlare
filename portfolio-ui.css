@@ -162,3 +162,15 @@
   .drop-sfx { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(var(--fg), .14); background: rgba(var(--fg), .04); color: var(--text); cursor: pointer; }
   .drop-sfx svg { width: 18px; height: 18px; }
 }
+
+
+/* ---------- tour: "click" press effect + ripple on the cursor ---------- */
+.af-cursor svg { transition: transform .12s ease; transform-origin: 20% 10%; }
+.af-cursor.press svg { transform: scale(.78); }
+.af-cursor::after {
+  content: ""; position: absolute; left: 2px; top: 1px; width: 22px; height: 22px; margin: -11px 0 0 -11px;
+  border-radius: 50%; border: 2px solid var(--primary-red, #ff2b2b); opacity: 0; transform: scale(.3); pointer-events: none;
+}
+.af-cursor.press::after { animation: af-ripple .45s ease-out; }
+@keyframes af-ripple { 0% { opacity: .85; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.8); } }
+@media (prefers-reduced-motion: reduce) { .af-cursor.press::after { animation: none; } }

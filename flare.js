@@ -325,10 +325,15 @@
   /* ---------- the answer card ---------- */
   function placeCard() {
     if (!nav) return;
-    var r = nav.getBoundingClientRect();
-    card.style.top = (r.bottom + 10) + 'px'; card.style.maxHeight = Math.max(160, innerHeight - r.bottom - 24) + 'px';
+    var r = nav.getBoundingClientRect(), vv = window.visualViewport, vh = vv ? vv.height : innerHeight;
+    card.style.bottom = 'auto';
+    card.style.top = (r.bottom + 10) + 'px'; card.style.maxHeight = Math.max(160, vh - r.bottom - 24) + 'px';
   }
-  function showCard() { placeCard(); card.classList.add('on'); }
+  function showCard() {
+    placeCard(); card.classList.add('on');
+    /* nav / keyboard can still be settling on phones: re-pin right under the nav */
+    requestAnimationFrame(placeCard); setTimeout(placeCard, 350); setTimeout(placeCard, 900);
+  }
   function hideCard() { card.classList.remove('on'); }
   function setCardText(t, dots) {
     cardGhost.textContent = t || '';
@@ -590,6 +595,7 @@
       if (e.key === 'Escape' && isOpen && !tourOn && !$('.af-pal.is-on')) { closeBar(); askBtn.focus({ preventScroll: true }); }
     });
     window.addEventListener('af:tour', onTour);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { if (card.classList.contains('on')) placeCard(); });
     window.addEventListener('resize', function () { if (card.classList.contains('on')) placeCard(); if (hint.classList.contains('on')) placeHint(); });
     window.addEventListener('scroll', function () { if (hint.classList.contains('on')) hideHint(); }, { passive: true });
 
