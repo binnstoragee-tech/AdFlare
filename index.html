@@ -24,9 +24,42 @@
       document.documentElement.setAttribute('data-theme-mode', m);
     })();
   </script>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="portfolio-ui.css" />
-  <link rel="stylesheet" href="flare.css" />
+  <link rel="stylesheet" href="style.css?v=20261115" />
+  <link rel="stylesheet" href="portfolio-ui.css?v=20261115" />
+  <link rel="stylesheet" href="flare.css?v=20261115" />
+  <style id="inqok-inline">/* success popup — duplicated here so it never shows unstyled if style.css is cached/old */
+.inqok-wrap{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s}
+.inqok-wrap.show{opacity:1;pointer-events:auto}
+.inqok-card{position:relative;width:min(440px,100%);padding:38px 30px 28px;text-align:center;border:1px solid rgba(var(--fg),.14);border-radius:22px;background:var(--black);color:var(--text);box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden;transform:translateY(24px) scale(.94);transition:transform .5s cubic-bezier(.2,.9,.25,1.15)}
+.inqok-wrap.show .inqok-card{transform:none}
+.inqok-card::before{content:"";position:absolute;left:50%;top:-90px;width:320px;height:200px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(52,211,153,.28),transparent);pointer-events:none}
+.inqok-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(var(--fg),.08);color:var(--steel-gray);font-size:20px;line-height:1;cursor:pointer;transition:.2s}
+.inqok-x:hover{color:var(--text);transform:rotate(90deg)}
+.inqok-badge{position:relative;width:86px;height:86px;margin:0 auto 22px}
+.inqok-badge svg{width:100%;height:100%;overflow:visible}
+.inqok-ring{fill:rgba(52,211,153,.1);stroke:#34d399;stroke-width:3;stroke-dasharray:252;stroke-dashoffset:252;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+.inqok-tick{fill:none;stroke:#34d399;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
+.inqok-wrap.show .inqok-ring{animation:inqok-draw .7s .15s cubic-bezier(.65,0,.35,1) forwards}
+.inqok-wrap.show .inqok-tick{animation:inqok-draw .45s .7s cubic-bezier(.65,0,.35,1) forwards}
+.inqok-wrap.show .inqok-badge::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #34d399;animation:inqok-pulse 1.2s .9s ease-out forwards;opacity:0}
+@keyframes inqok-draw{to{stroke-dashoffset:0}}
+@keyframes inqok-pulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+.inqok-eye{font:500 11px/1 'Inter',sans-serif;letter-spacing:.14em;color:#34d399;margin:0 0 10px}
+.inqok-card h3{font:600 25px/1.2 'Sora',sans-serif;margin:0 0 10px;letter-spacing:-.01em;color:var(--text)}
+.inqok-sub{margin:0 auto;max-width:350px;font:400 14px/1.55 'Inter',sans-serif;color:var(--steel-gray)}
+.inqok-sub b{color:var(--text);font-weight:600;word-break:break-word}
+.inqok-sum{margin:22px 0 0;padding:14px 16px;text-align:left;border:1px solid rgba(var(--fg),.1);border-radius:14px;background:rgba(var(--fg),.04);font:400 13px 'Inter',sans-serif;display:grid;gap:8px}
+.inqok-sum div{display:flex;justify-content:space-between;gap:16px}
+.inqok-sum dt{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel-gray);flex:none}
+.inqok-sum dd{margin:0;text-align:right;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.inqok-btn{margin-top:22px;width:100%;font:600 14px 'Inter',sans-serif;background:var(--primary-red);color:#fff;border:0;border-radius:999px;padding:13px 20px;cursor:pointer;transition:opacity .2s,transform .2s}
+.inqok-btn:hover{opacity:.9}.inqok-btn:active{transform:scale(.98)}
+.inqok-btn:focus-visible,.inqok-x:focus-visible{outline:2px solid var(--primary-red);outline-offset:2px}
+.inqok-bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:#34d399;transform-origin:left;transform:scaleX(0)}
+.inqok-wrap.show .inqok-bar{animation:inqok-bar 9s linear forwards}
+@keyframes inqok-bar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media(prefers-reduced-motion:reduce){.inqok-card,.inqok-wrap{transition:none}.inqok-ring,.inqok-tick{animation:none!important;stroke-dashoffset:0}.inqok-bar,.inqok-badge::after{display:none}}
+  </style>
 </head>
 <body>
 
@@ -2426,16 +2459,18 @@
       const f = document.getElementById('inqForm');
       if (!f) return;
       const err = document.getElementById('inqError');
-      const ok = document.getElementById('inqOk');
+      let ok = document.getElementById('inqOk');   // popup markup sits after this script, so it is re-looked-up on use
       let okT, okFocus;
+      const getOk = () => (ok = ok || document.getElementById('inqOk'));
       function closeOk() {
+        if (!getOk()) return;
         clearTimeout(okT); ok.classList.remove('show'); ok.setAttribute('aria-hidden', 'true');
         document.removeEventListener('keydown', okKey);
         if (okFocus && okFocus.focus) okFocus.focus();
       }
       function okKey(e) { if (e.key === 'Escape') closeOk(); }
       function showOk(d) {
-        if (!ok) return;
+        if (!getOk()) return;
         okFocus = document.activeElement;
         document.getElementById('inqOkName').textContent = d.name.trim().split(' ')[0] || d.name.trim();
         document.getElementById('inqOkMail').textContent = d.email.trim();
@@ -2447,11 +2482,13 @@
         setTimeout(() => document.getElementById('inqOkDone').focus(), 350);
         clearTimeout(okT); okT = setTimeout(closeOk, 9000);
       }
-      if (ok) {
+      function bindOk() {
+        if (!getOk()) return;
         document.getElementById('inqOkX').addEventListener('click', closeOk);
         document.getElementById('inqOkDone').addEventListener('click', closeOk);
         ok.addEventListener('click', (e) => { if (e.target === ok) closeOk(); });
       }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindOk); else bindOk();
       f.addEventListener('submit', (e) => {
         e.preventDefault();
         const d = Object.fromEntries(new FormData(f).entries());
