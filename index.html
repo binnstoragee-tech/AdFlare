@@ -2426,6 +2426,32 @@
       const f = document.getElementById('inqForm');
       if (!f) return;
       const err = document.getElementById('inqError');
+      const ok = document.getElementById('inqOk');
+      let okT, okFocus;
+      function closeOk() {
+        clearTimeout(okT); ok.classList.remove('show'); ok.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', okKey);
+        if (okFocus && okFocus.focus) okFocus.focus();
+      }
+      function okKey(e) { if (e.key === 'Escape') closeOk(); }
+      function showOk(d) {
+        if (!ok) return;
+        okFocus = document.activeElement;
+        document.getElementById('inqOkName').textContent = d.name.trim().split(' ')[0] || d.name.trim();
+        document.getElementById('inqOkMail').textContent = d.email.trim();
+        document.getElementById('inqOkGoal').textContent = d.goal.trim();
+        document.getElementById('inqOkTime').textContent = new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+        ok.setAttribute('aria-hidden', 'false');
+        ok.classList.remove('show'); void ok.offsetWidth; ok.classList.add('show');
+        document.addEventListener('keydown', okKey);
+        setTimeout(() => document.getElementById('inqOkDone').focus(), 350);
+        clearTimeout(okT); okT = setTimeout(closeOk, 9000);
+      }
+      if (ok) {
+        document.getElementById('inqOkX').addEventListener('click', closeOk);
+        document.getElementById('inqOkDone').addEventListener('click', closeOk);
+        ok.addEventListener('click', (e) => { if (e.target === ok) closeOk(); });
+      }
       f.addEventListener('submit', (e) => {
         e.preventDefault();
         const d = Object.fromEntries(new FormData(f).entries());
@@ -2440,6 +2466,7 @@
         if (d.timeline) lines.push('Ideal start: ' + d.timeline);
         lines.push('', d.details);
         window.open('https://wa.me/9607862274?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+        showOk(d);
         f.reset();
       });
       f.addEventListener('input', (e) => e.target.classList.remove('invalid'));
@@ -2672,5 +2699,22 @@
   <script src="inquiry-sync.js" defer></script>
   <script src="tour.js" defer></script>
   <script src="flare.js" defer></script>
+
+  <!-- ===== INQUIRY SUCCESS POPUP ===== -->
+  <div class="inqok-wrap" id="inqOk" role="dialog" aria-modal="true" aria-labelledby="inqOkTitle" aria-hidden="true">
+    <div class="inqok-card">
+      <button class="inqok-x" id="inqOkX" type="button" aria-label="Close">&times;</button>
+      <div class="inqok-badge"><svg viewBox="0 0 86 86" aria-hidden="true"><circle class="inqok-ring" cx="43" cy="43" r="40"/><path class="inqok-tick" d="M27 44l11 11 22-24"/></svg></div>
+      <p class="inqok-eye">INQUIRY SENT</p>
+      <h3 id="inqOkTitle">We got your message!</h3>
+      <p class="inqok-sub">Thanks, <b id="inqOkName"></b>. We&rsquo;ll reply to <b id="inqOkMail"></b> with next steps. If WhatsApp opened, tap send there to chat with us right away.</p>
+      <dl class="inqok-sum">
+        <div><dt>Goal</dt><dd id="inqOkGoal"></dd></div>
+        <div><dt>Sent</dt><dd id="inqOkTime"></dd></div>
+      </dl>
+      <button class="inqok-btn" id="inqOkDone" type="button">Done</button>
+      <span class="inqok-bar"></span>
+    </div>
+  </div>
 </body>
 </html>
