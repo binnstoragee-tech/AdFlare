@@ -477,7 +477,7 @@
     { n: 'Pricing', h: 'section', go: '#pricing' }, { n: 'Why AdFlare', h: 'section', go: '#why' },
     { n: 'Contact', h: 'section', go: '#contact' },
     { n: 'Ask Flare (AI chat)', h: 'chat', run: function () { if (window.flareOpen) window.flareOpen(); } },
-    { n: 'Give us Facebook Page access', h: 'how-to', page: 'access.html' },
+    { n: 'Give us Facebook Page access', h: 'how-to', page: 'access' },
     { n: 'Message us on WhatsApp', h: 'link', href: 'https://wa.me/9607862274' },
     { n: 'Switch theme', h: 'toggle', run: function () { var b = $('#themeBtn'); if (b) b.click(); } }
   ];
@@ -499,7 +499,7 @@
     if (!a) return;
     if (a.run) a.run();
     else if (a.page) window.location.href = a.page;
-    else if (a.go && !IS_HOME) window.location.href = 'index.html' + a.go;
+    else if (a.go && !IS_HOME) window.location.href = './' + a.go;
     else if (a.go) { release(); var t = $(a.go); if (t) t.scrollIntoView({ behavior: 'smooth' }); }
     else if (a.href) window.open(a.href, '_blank', 'noopener');
   }

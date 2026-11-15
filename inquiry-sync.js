@@ -1,5 +1,5 @@
 /* AdFlare: saves every contact-form inquiry to Supabase (table: adflare_inquiries).
-   It only listens; the form still opens WhatsApp exactly like before.
+   It only listens; the form just shows its success notification.
    Needs supabase-config.js loaded first. Delete this file + its <script> tag to turn it off. */
 (function () {
   'use strict';

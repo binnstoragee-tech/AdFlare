@@ -127,7 +127,7 @@ function err(t){mt.textContent=t;m.hidden=false;idle();f.classList.remove('shake
 /* curtain grows from the button, then we go to the inbox */
 function enter(fromBtn){
   if(fromBtn){var r=b.getBoundingClientRect();cur.style.setProperty('--cx',(r.left+r.width/2)+'px');cur.style.setProperty('--cy',(r.top+r.height/2)+'px')}
-  cur.classList.add('on');setTimeout(function(){location.href='admin.html'},2500);
+  cur.classList.add('on');setTimeout(function(){location.href='admin'},2500);
 }
 /* show / hide password */
 document.getElementById('eye').addEventListener('click',function(){var show=pw.type==='password';pw.type=show?'text':'password';this.setAttribute('aria-label',show?'Hide password':'Show password');this.style.color=show?'var(--or2)':''});

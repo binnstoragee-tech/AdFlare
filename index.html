@@ -57,7 +57,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#why">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="access.html">Give Access</a></li>
+      <li><a href="access">Give Access</a></li>
     </ul>
 
     <div class="theme-wrap" id="themeWrap">
@@ -93,7 +93,7 @@
         <a href="#pricing" class="mobile-link">Pricing</a>
         <a href="#why" class="mobile-link">Why Us</a>
         <a href="#contact" class="mobile-link">Contact</a>
-        <a href="access.html" class="mobile-link">Give Access</a>
+        <a href="access" class="mobile-link">Give Access</a>
         <div class="drop-controls">
           <div class="drop-seg" role="radiogroup" aria-label="Theme">
             <button type="button" data-mode="system" role="radio" aria-checked="false" aria-label="System theme"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button>
@@ -1567,7 +1567,7 @@
     <div class="footer-links">
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="access.html">Give Access</a>
+      <a href="access">Give Access</a>
       <a href="https://www.facebook.com/profile.php?id=61572123664215" target="_blank" rel="noopener">Facebook</a>
       <a href="https://www.instagram.com/ad_flaree/" target="_blank" rel="noopener">Instagram</a>
     </div>
@@ -2421,7 +2421,7 @@
     });
 
 
-    // --- Inquiry form: opens WhatsApp with the details filled in ---
+    // --- Inquiry form: validates, saves (via inquiry-sync.js) and shows the success notification ---
     (function () {
       const f = document.getElementById('inqForm');
       if (!f) return;
@@ -2459,13 +2459,6 @@
         f.querySelectorAll('[required]').forEach(el => el.classList.toggle('invalid', !el.value.trim()));
         err.hidden = ok;
         if (!ok) return;
-        const lines = ['Hi AdFlare! New inquiry:', 'Name: ' + d.name, 'Email: ' + d.email];
-        if (d.company) lines.push('Business: ' + d.company);
-        lines.push('Goal: ' + d.goal);
-        if (d.budget) lines.push('Monthly budget: ' + d.budget);
-        if (d.timeline) lines.push('Ideal start: ' + d.timeline);
-        lines.push('', d.details);
-        window.open('https://wa.me/9607862274?text=' + encodeURIComponent(lines.join('\n')), '_blank');
         showOk(d);
         f.reset();
       });
@@ -2707,7 +2700,7 @@
       <div class="inqok-badge"><svg viewBox="0 0 86 86" aria-hidden="true"><circle class="inqok-ring" cx="43" cy="43" r="40"/><path class="inqok-tick" d="M27 44l11 11 22-24"/></svg></div>
       <p class="inqok-eye">INQUIRY SENT</p>
       <h3 id="inqOkTitle">We got your message!</h3>
-      <p class="inqok-sub">Thanks, <b id="inqOkName"></b>. We&rsquo;ll reply to <b id="inqOkMail"></b> with next steps. If WhatsApp opened, tap send there to chat with us right away.</p>
+      <p class="inqok-sub">Thanks, <b id="inqOkName"></b>. We&rsquo;ll reply to <b id="inqOkMail"></b> with next steps.</p>
       <dl class="inqok-sum">
         <div><dt>Goal</dt><dd id="inqOkGoal"></dd></div>
         <div><dt>Sent</dt><dd id="inqOkTime"></dd></div>

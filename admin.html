@@ -356,7 +356,7 @@ var folder='adflare';try{var fk=localStorage.getItem('adm_folder');if(FOLDERS.so
 function curF(){return FOLDERS.filter(function(f){return f.k===folder})[0]}
 var T=curF().t,data=[],seen=null,openIds={},filter='all',query='',firstRender=true,polling=null,cleared=0,pendingDel={};
 var $=function(s){return document.querySelector(s)},ls=$('#ls');
-function toLogin(){location.replace('login.html')}
+function toLogin(){location.replace('login')}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function svg(d){var s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');var p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);s.appendChild(p);return s}
 var P={chev:'M6 9l6 6 6-6',mail:'M4 6h16v12H4zM4 7l8 6 8-6',copy:'M9 9h10v10H9zM5 15V5h10',check:'M5 12.5l4.5 4.5L19 7.5',undo:'M9 14L4 9l5-5M4 9h11a5 5 0 010 10h-3',trash:'M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3',bell:'M6 9a6 6 0 0112 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 004 0',inbox:'M3 13l3-8h12l3 8v6H3zM3 13h5l1 3h6l1-3h5'};

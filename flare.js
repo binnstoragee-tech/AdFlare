@@ -88,7 +88,7 @@
   var TIPS = { pricing: '#pricing', samples: '#samples', contact: '#contact', process: '#process', why: '#why', services: '#services', about: '#about' };
   var A = {
     price: { l: 'See pricing', go: '#pricing', main: 1 }, wa: { l: 'Message on WhatsApp', href: LINKS.wa, main: 1 },
-    contact: { l: 'Contact form', go: '#contact' }, access: { l: 'Open the guide', go: 'access.html', main: 1 },
+    contact: { l: 'Contact form', go: '#contact' }, access: { l: 'Open the guide', go: 'access', main: 1 },
     tour: { l: 'Take the tour', run: 'tour', main: 1 }, samples: { l: 'See samples', go: '#samples', main: 1 },
     process: { l: 'See the process', go: '#process' }, mail: { l: 'Email us', href: LINKS.mail },
     fb: { l: 'Facebook', href: LINKS.fb, main: 1 }, ig: { l: 'Instagram', href: LINKS.ig, main: 1 }
@@ -157,7 +157,7 @@
       acts: [A.samples, A.price] },
     { id: 'tour', w: 4, k: [/\btour\b/, /\bshow me around\b/, /\bguide me\b/, /\bwalk ?through\b/, /\bwalk me through\b/, /\bdemo\b/],
       a: IS_HOME ? "Sure! I'll walk you through the site. Sit back and watch." : "The tour is on the home page. Want me to take you there?",
-      acts: IS_HOME ? [A.tour] : [{ l: 'Go to home page', go: 'index.html', main: 1 }] },
+      acts: IS_HOME ? [A.tour] : [{ l: 'Go to home page', go: './', main: 1 }] },
     { id: 'social', w: 3, k: [/\binstagram\b/, /\binsta\b/, /\bfollow\b/, /\byour (facebook|fb) page\b/, /\bsocial (media )?(links?|accounts?)\b/],
       a: "You can find us on Facebook and Instagram:", acts: [A.fb, A.ig] },
     { id: 'results', w: 2, k: [/\bresults?\b/, /\bguarantee\b/, /\broi\b/, /\bproof\b/, /\btestimonials?\b/, /\breviews?\b/, /\beffective\b/, /\bdoes it work\b/],
@@ -386,13 +386,13 @@
   }
   function runAct(a) {
     if (a.ask) { submitQ(a.ask); return; }
-    if (a.run === 'tour') { if (window.afStartTour && IS_HOME) window.afStartTour(); else window.location.href = 'index.html'; return; }
+    if (a.run === 'tour') { if (window.afStartTour && IS_HOME) window.afStartTour(); else window.location.href = './'; return; }
     if (a.go) {
       var h = a.go;
       if (h.charAt(0) === '#') {
         var t = $(h);
         if (t) { if (window.afNavRelease) window.afNavRelease(); t.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' }); hideCard(); }
-        else window.location.href = 'index.html' + h;
+        else window.location.href = './' + h;
       } else window.location.href = h;
     }
   }
