@@ -1,0 +1,15 @@
+/* ============================================
+   Desktop / laptop scale: same look as browser zoom 75%.
+   Load LAST (after flare.css). Delete this file + its <link> tags to go back to 100%.
+   Change every .75 below to .8 (a bit bigger) or .7 (smaller). Phones / tablets are not touched.
+   ============================================ */
+@media (min-width: 1000px) {
+  html { zoom: .75; }
+
+  /* full-screen things must still fill the screen after zoom */
+  #hero { min-height: calc(100vh / .75); }
+  .sg-lightbox, .offer-modal, .af-pal, .rv { height: calc(100vh / .75); }
+  /* native fullscreen: cancel the .75 so the viewer is exactly screen size */
+  .rv:fullscreen { zoom: 1.3333333; height: 100vh; }
+  .offer-modal-content { max-height: calc(85vh / .75); }
+}

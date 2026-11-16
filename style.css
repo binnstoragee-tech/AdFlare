@@ -2755,7 +2755,7 @@ footer {
   top: 50%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 0;
   background: none;
   border: 0;
@@ -2771,18 +2771,19 @@ footer {
 .sg-label strong {
   display: block;
   font-family: 'Sora', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.86rem;
   font-weight: 700;
+  letter-spacing: -0.005em;
 }
-.sg-label small { display: block; font-size: 0.75rem; color: #d1d5db; }
+.sg-label small { display: block; margin-top: 1px; font-size: 0.7rem; color: #d1d5db; }
 .sg-thumb {
   position: relative;
   flex-shrink: 0;
-  width: 76px; height: 76px;
+  width: 54px; height: 54px;
   border-radius: 50%;
   overflow: hidden;
   display: block;
-  border: 2px solid rgba(var(--fg),0.55);
+  border: 1.5px solid rgba(var(--fg),0.5);
   background: linear-gradient(135deg, var(--g1), var(--g2)), var(--card-bg);
   transition: width 0.6s cubic-bezier(.5,0,.2,1), height 0.6s cubic-bezier(.5,0,.2,1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -2795,9 +2796,13 @@ footer {
   font-style: normal;
   font-family: 'Sora', sans-serif;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: .02em;
   color: rgba(var(--fg),0.85);
+  transition: font-size 0.6s cubic-bezier(.5,0,.2,1);
 }
+.sg-item.is-active .sg-thumb em { font-size: 1.05rem; }
+@media (max-width: 900px) { .sg-item.is-active .sg-thumb em { font-size: .9rem; } }
 .sg-thumb img {
   position: absolute;
   inset: 0;
@@ -2807,9 +2812,9 @@ footer {
   object-position: top;
 }
 .sg-item.is-active .sg-thumb {
-  width: 108px; height: 108px;
-  border: 4px solid rgba(var(--fg),0.65);
-  box-shadow: 0 0 0 7px rgba(var(--fg),0.16), 0 0 34px rgba(255,43,43,0.45);
+  width: 80px; height: 80px;
+  border: 3px solid rgba(var(--fg),0.65);
+  box-shadow: 0 0 0 5px rgba(var(--fg),0.16), 0 0 26px rgba(255,43,43,0.4);
 }
 .sg-item:hover .sg-thumb { border-color: var(--white); }
 .sg-item:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 6px; border-radius: 12px; }
@@ -2932,11 +2937,12 @@ footer {
     height: 104px;
   }
   .sg-item { right: auto; left: 50%; --ax: -50%; }
-  .sg-thumb { width: 52px; height: 52px; border-width: 2px; }
+  .sg-thumb { width: 42px; height: 42px; border-width: 1.5px; }
+  .sg-thumb em { font-size: 0.75rem; }
   .sg-item.is-active .sg-thumb {
-    width: 76px; height: 76px;
-    border-width: 3px;
-    box-shadow: 0 0 0 5px rgba(var(--fg),0.16), 0 0 26px rgba(255,43,43,0.45);
+    width: 62px; height: 62px;
+    border-width: 2.5px;
+    box-shadow: 0 0 0 4px rgba(var(--fg),0.16), 0 0 20px rgba(255,43,43,0.4);
   }
   .sg-dots {
     top: auto; bottom: 16px;
@@ -2987,8 +2993,11 @@ footer {
 .sg-panel .sg-stage { max-width: none; margin: 0; }
 
 /* ---- Reels mockup (9:16) ---- */
+/* Desktop: the phone fills the stage height (only ~22px gap top/bottom). Width follows 9:16. */
 .sg-poster.ad-reel {
-  width: clamp(200px, 17vw, 250px);
+  --reel-h: calc(clamp(520px, 44vw, 660px) - 44px);   /* stage height minus gap */
+  height: var(--reel-h);
+  width: calc(var(--reel-h) * 9 / 16);
   aspect-ratio: 9 / 16;
   border-radius: 22px;
   background: #000;
@@ -3099,7 +3108,7 @@ footer {
 
 @media (max-width: 900px) {
   .sg-viewport { border-radius: 18px; }
-  .sg-poster.ad-reel { width: min(58%, 230px); }
+  .sg-poster.ad-reel { height: auto; width: min(70%, 290px); }   /* stacked layout: bigger, height from 9:16 */
 }
 @media (max-width: 600px) {
   .sg-tabs { gap: 8px; }
@@ -3108,7 +3117,7 @@ footer {
   .sg-nav { width: 36px; height: 36px; }
 }
 @media (max-width: 380px) {
-  .sg-poster.ad-reel { width: 62%; }
+  .sg-poster.ad-reel { width: 72%; }
   .sg-tab { padding: 8px 11px; font-size: .78rem; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3483,7 +3492,7 @@ footer {
 .ad-web .web-url svg { width: 11px; height: 11px; flex: none; opacity: .7; }
 
 .web-shot {
-  position: relative; display: block; aspect-ratio: 1900 / 910;
+  position: relative; display: block; aspect-ratio: 1900 / 826;
   background: var(--card-bg); overflow: hidden; cursor: pointer;
 }
 .web-shot img {
@@ -4249,3 +4258,86 @@ html.theme-switching *, html.theme-switching *::before, html.theme-switching *::
 .inqok-wrap.show .inqok-bar{animation:inqok-bar 9s linear forwards}
 @keyframes inqok-bar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 @media(prefers-reduced-motion:reduce){.inqok-card,.inqok-wrap{transition:none}.inqok-ring,.inqok-tick{animation:none!important;stroke-dashoffset:0}.inqok-bar,.inqok-badge::after{display:none}}
+
+/* optional video on sample ads: drop img/sample_contents/N.mp4 beside N.png; the image stays as the poster/fallback */
+.ad-art .ad-vid {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; background: #000;
+  opacity: 0; transition: opacity .35s ease; pointer-events: none;
+}
+.ad-art .ad-vid.is-ready { opacity: 1; }
+.sg-lightbox .sg-lb-vid {
+  display: none; max-width: 100%; max-height: 100%;
+  border-radius: 10px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); background: #000;
+}
+.sg-lightbox .sg-lb-vid.on { display: block; }
+.sg-lightbox img.off { display: none; }
+
+/* ============================================================
+   Reels: tap to play fullscreen + GPU-friendly tweaks
+   ============================================================ */
+.sg-poster.ad-reel { cursor: pointer; }
+.ad-reel .reel-media { contain: paint; }
+.ad-reel video { transform: translateZ(0); }
+
+/* cheaper animations: no filter/box-shadow animation, transforms + opacity only */
+.ad-reel .rs-blob { filter: none; will-change: transform; }
+@keyframes reelIn  { 0% { opacity: 0; transform: translateY(26px) scale(.96); } 100% { opacity: 1; transform: none; } }
+@keyframes reelCta { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+/* real video is on top once it plays, so stop animating the fake scene behind it */
+.ad-reel.has-video .reel-scene { display: none; }
+/* nothing animates while the showcase is off-screen */
+.sg-stage.is-off *, .sg-stage.is-off *::before { animation-play-state: paused !important; }
+
+/* fullscreen reel viewer */
+.rv {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  box-sizing: border-box; padding: 16px;
+  background: rgba(0,0,0,.94);
+  opacity: 0; visibility: hidden;
+  transition: opacity .2s ease, visibility 0s linear .2s;
+}
+.rv.open { opacity: 1; visibility: visible; transition-delay: 0s; }
+.rv:fullscreen { padding: 0; background: #000; }
+.rv:-webkit-full-screen { padding: 0; background: #000; }
+.rv-frame {
+  position: relative; height: 100%; max-width: 100%; aspect-ratio: 9 / 16;
+  background: #000; border-radius: 18px; overflow: hidden;
+}
+.rv:fullscreen .rv-frame { border-radius: 0; }
+.rv-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer; }
+.rv-prog { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: rgba(255,255,255,.25); z-index: 2; pointer-events: none; }
+.rv-prog i { display: block; height: 100%; width: 0; background: #fff; }
+.rv-btn {
+  position: absolute; top: 14px; z-index: 3; width: 40px; height: 40px; border: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; color: #fff; background: rgba(0,0,0,.5);
+  font-size: 1.6rem; line-height: 1;
+}
+.rv-btn:hover { background: rgba(0,0,0,.75); }
+.rv-close { right: 14px; }
+.rv-snd { left: 14px; }
+.rv-snd svg { width: 18px; height: 18px; }
+.rv-snd .i-on { display: none; }
+.rv.is-on .rv-snd .i-on { display: block; }
+.rv.is-on .rv-snd .i-off { display: none; }
+.rv-play {
+  position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; z-index: 2;
+  display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(0,0,0,.5);
+  opacity: 0; transform: scale(.8); transition: opacity .18s ease, transform .18s ease; pointer-events: none;
+}
+.rv-play svg { width: 32px; height: 32px; margin-left: 4px; }
+.rv.is-paused .rv-play { opacity: 1; transform: none; }
+@media (max-width: 700px) {
+  .rv { padding: 0; }
+  .rv-frame { border-radius: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+}
+
+
+/* bigger reel player: slightly larger text inside it (desktop) */
+@media (min-width: 901px) {
+  .ad-reel .reel-who strong { font-size: .88rem; }
+  .ad-reel .reel-spons { font-size: .7rem; }
+  .ad-reel .reel-cap { font-size: .8rem; }
+  .ad-reel .reel-top { font-size: .95rem; }
+}

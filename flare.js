@@ -88,7 +88,7 @@
   var TIPS = { pricing: '#pricing', samples: '#samples', contact: '#contact', process: '#process', why: '#why', services: '#services', about: '#about' };
   var A = {
     price: { l: 'See pricing', go: '#pricing', main: 1 }, wa: { l: 'Message on WhatsApp', href: LINKS.wa, main: 1 },
-    contact: { l: 'Contact form', go: '#contact' }, access: { l: 'Open the guide', go: 'access', main: 1 },
+    contact: { l: 'Contact form', go: '#contact' }, access: { l: 'Open the guide', go: 'access.html', main: 1 },
     tour: { l: 'Take the tour', run: 'tour', main: 1 }, samples: { l: 'See samples', go: '#samples', main: 1 },
     process: { l: 'See the process', go: '#process' }, mail: { l: 'Email us', href: LINKS.mail },
     fb: { l: 'Facebook', href: LINKS.fb, main: 1 }, ig: { l: 'Instagram', href: LINKS.ig, main: 1 }
