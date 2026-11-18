@@ -157,7 +157,7 @@
       acts: [A.samples, A.price] },
     { id: 'tour', w: 4, k: [/\btour\b/, /\bshow me around\b/, /\bguide me\b/, /\bwalk ?through\b/, /\bwalk me through\b/, /\bdemo\b/],
       a: IS_HOME ? "Sure! I'll walk you through the site. Sit back and watch." : "The tour is on the home page. Want me to take you there?",
-      acts: IS_HOME ? [A.tour] : [{ l: 'Go to home page', go: './', main: 1 }] },
+      acts: IS_HOME ? [A.tour] : [{ l: 'Go to home page', go: 'index.html', main: 1 }] },
     { id: 'social', w: 3, k: [/\binstagram\b/, /\binsta\b/, /\bfollow\b/, /\byour (facebook|fb) page\b/, /\bsocial (media )?(links?|accounts?)\b/],
       a: "You can find us on Facebook and Instagram:", acts: [A.fb, A.ig] },
     { id: 'results', w: 2, k: [/\bresults?\b/, /\bguarantee\b/, /\broi\b/, /\bproof\b/, /\btestimonials?\b/, /\breviews?\b/, /\beffective\b/, /\bdoes it work\b/],
@@ -245,25 +245,35 @@
     sid++; clearTimeout(watchdog); speaking = false; setTalking(false);
     try { if (synth) synth.cancel(); } catch (e) {}
   }
-  function speak(text) {
+  function speak(text, hk) {
+    var busy = !!(synth && (synth.speaking || synth.pending));
     stopSpeech();
-    if (!synth || !voiceOn || !text) return;
+    if (!synth || !voiceOn || !text) return false;
     var my = sid, list = chunks(spoken(text)), i = 0, v = voice || pickVoice();
-    if (!list.length) return;
+    if (!list.length) return false;
+    hk = hk || {};
+    var tot = 0, cum = []; list.forEach(function (c) { cum.push(tot); tot += c.length; });
     speaking = true;
     watchdog = setTimeout(function () { if (my === sid && !synth.speaking) { speaking = false; } }, 3000);
-    function end() { if (my !== sid) return; speaking = false; setTalking(false); clearTimeout(watchdog); }
+    function end() { if (my !== sid) return; speaking = false; setTalking(false); clearTimeout(watchdog); if (hk.end) hk.end(); }
     function next() {
       if (my !== sid) return;
       if (i >= list.length) { end(); return; }
-      var cur = list[i++], u = new SpeechSynthesisUtterance(cur);
+      var k = i, cur = list[i++], u = new SpeechSynthesisUtterance(cur);
       if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-US';
-      u.pitch = 1.12; u.rate = 1.02; u.volume = 1;
-      u.onstart = function () { if (my !== sid) return; exNow = exprFromText(cur); setTalking(true); if (state === 'speak') setExpr(exNow); };
-      u.onend = next; u.onerror = end;
+      u.pitch = 1.12; u.rate = 1.05; u.volume = 1;
+      u.onstart = function () {
+        if (my !== sid) return;
+        exNow = exprFromText(cur); setTalking(true); if (state === 'speak') setExpr(exNow);
+        if (hk.chunk) hk.chunk(cum[k] / tot, (cum[k] + cur.length) / tot, cur.length);
+      };
+      u.onboundary = function (e) { if (my === sid && hk.bound && e && typeof e.charIndex === 'number') hk.bound((cum[k] + e.charIndex) / tot); };
+      u.onend = function () { if (my !== sid) return; if (hk.cend) hk.cend(); next(); };
+      u.onerror = end;
       try { synth.speak(u); } catch (e) { end(); }
     }
-    setTimeout(next, 60);      // Chrome drops a speak() fired right after cancel()
+    setTimeout(next, busy ? 60 : 0);      // Chrome drops a speak() fired right after cancel(), so only wait when something was playing
+    return true;
   }
 
 
@@ -323,11 +333,19 @@
   }
 
   /* ---------- the answer card ---------- */
+  /* scale.css zooms the page (html { zoom: .75 }): getBoundingClientRect() then returns on-screen pixels while
+     style values are in zoomed CSS pixels, so every position we set must be divided by this ratio (1 when there is no zoom). */
+  function zf() {
+    var w = nav && nav.offsetWidth; if (!w) return 1;
+    var z = nav.getBoundingClientRect().width / w;
+    return (z > .4 && z < 2.5) ? z : 1;
+  }
   function placeCard() {
     if (!nav) return;
     var r = nav.getBoundingClientRect(), vv = window.visualViewport, vh = vv ? vv.height : innerHeight;
     card.style.bottom = 'auto';
-    card.style.top = (r.bottom + 10) + 'px'; card.style.maxHeight = Math.max(160, vh - r.bottom - 24) + 'px';
+    var z = zf();
+    card.style.top = ((r.bottom + 10) / z) + 'px'; card.style.maxHeight = Math.max(160, (vh - r.bottom - 24) / z) + 'px';
   }
   function showCard() {
     placeCard(); card.classList.add('on');
@@ -350,29 +368,78 @@
     });
     requestAnimationFrame(function () { requestAnimationFrame(function () { cardActs.classList.add('on'); }); });
   }
+  var cpsEst = 15;      // characters per second she speaks (learns from her own voice)
   function respond(r, o) {
     o = o || {};
     clearTimeout(thinkTimer); clearInterval(typeTimer); typing = false; thinking = true;
     cardActs.classList.remove('on'); cardActs.innerHTML = '';
-    var shown = (o.speak !== false && voiceOn && synth && r.say) ? r.say : r.a;
+    var talk = o.speak !== false && voiceOn && !!synth;
+    var shown = (talk && r.say) ? r.say : r.a, text = shown;
     setCardText(shown, true); showCard(); refresh();
-    var d = o.delay != null ? o.delay : 550 + Math.min(r.a.length * 4, 450);
-    thinkTimer = setTimeout(function () {
-      thinking = false;
-      if (o.speak !== false) speak(r.say || r.a);
-      var text = shown;
+    var d = Math.min(o.delay != null ? o.delay : 120, 160);
+    var tn = null, cr = null, shownN = 0, started = false, done = false, ch = null;
+
+    function prep() {
       exSeq = exTrack(text); exNow = exAt(0);
-      if (reduced()) { setCardText(text); typing = false; refresh(); showActs(r.acts); return; }
-      typing = true; refresh();
-      var i = 0, per = Math.max(1, Math.ceil(text.length / 130));
       cardLive.textContent = '';
-      var tn = document.createTextNode(''); cardLive.appendChild(tn); var cr = el('i', 'fn-caret'); cardLive.appendChild(cr);
-      typeTimer = setInterval(function () {
-        i += per; tn.nodeValue = text.slice(0, i);
-        if (!ttsOn) { var e2 = exAt(i); if (e2 !== exNow) { exNow = e2; if (state === 'speak') setExpr(exNow); } }
-        if (i >= text.length) { clearInterval(typeTimer); typing = false; cr.remove(); refresh(); showActs(r.acts); }
-      }, 24);
-    }, d);
+      tn = document.createTextNode(''); cardLive.appendChild(tn); cr = el('i', 'fn-caret'); cardLive.appendChild(cr);
+    }
+    function paint(n) {                                   // show words, never half a word, never going backwards
+      n = Math.min(text.length, Math.round(n));
+      if (n > 0 && n < text.length && text.charAt(n - 1) !== ' ') { var sp = text.indexOf(' ', n); n = sp < 0 ? text.length : sp; }
+      if (n <= shownN) return;
+      shownN = n; tn.nodeValue = text.slice(0, n);
+      if (!ttsOn) { var e2 = exAt(n); if (e2 !== exNow) { exNow = e2; if (state === 'speak') setExpr(exNow); } }
+    }
+    function begin() { if (started) return; started = true; thinking = false; typing = true; prep(); refresh(); }
+    function finish() {
+      if (done) return; done = true;
+      clearInterval(typeTimer); begin(); paint(text.length);
+      if (cr) cr.remove(); typing = false; thinking = false; refresh(); showActs(r.acts);
+    }
+    function plain() {                                    // no voice: type quickly, right away
+      thinkTimer = setTimeout(function () {
+        if (reduced()) { done = true; thinking = false; setCardText(text); typing = false; refresh(); showActs(r.acts); return; }
+        begin();
+        var per = Math.max(1, Math.ceil(text.length / 110));
+        typeTimer = setInterval(function () { paint(shownN + per); if (shownN >= text.length) finish(); }, 20);
+      }, d);
+    }
+
+    if (!talk) { plain(); return; }
+
+    /* voice on: start talking immediately, and let the subtitle follow her voice chunk by chunk (and word by word where the browser reports it) */
+    var hooks = {
+      chunk: function (f0, f1, len) {
+        clearTimeout(thinkTimer); begin();
+        ch = { f0: f0, f1: f1, len: len, t0: Date.now(), bf: f0, hasB: false };
+        paint(f0 * text.length);
+        if (!typeTimer || !done) { clearInterval(typeTimer); typeTimer = setInterval(tick, 30); }
+      },
+      bound: function (f) { if (ch) { ch.hasB = true; ch.bf = Math.max(ch.bf, Math.min(f, ch.f1)); paint(ch.bf * text.length + 1); } },
+      cend: function () {
+        if (!ch) return;
+        var secs = (Date.now() - ch.t0) / 1000;
+        if (!ch.hasB && secs > .4 && ch.len > 12) cpsEst = Math.max(8, Math.min(26, cpsEst * .6 + (ch.len / secs) * .4));
+        paint(ch.f1 * text.length); ch = null;
+      },
+      end: function () { finish(); }
+    };
+    function tick() {
+      if (!ch || done) return;
+      var f;
+      if (ch.hasB) f = ch.bf;
+      else f = ch.f0 + (ch.f1 - ch.f0) * Math.min(.96, ((Date.now() - ch.t0) / 1000) / (ch.len / cpsEst));
+      paint(f * text.length);
+    }
+    var ok = speak(r.say || r.a, hooks);
+    if (!ok) { plain(); return; }
+    thinkTimer = setTimeout(function () {                 // safety: if the voice never starts, show the text anyway
+      if (started || done) return;
+      stopSpeech(); begin();
+      var per = Math.max(1, Math.ceil(text.length / 110));
+      typeTimer = setInterval(function () { paint(shownN + per); if (shownN >= text.length) finish(); }, 20);
+    }, 1500);
   }
   function submitQ(text) {
     text = (text || '').trim(); if (!text) return;
@@ -386,13 +453,13 @@
   }
   function runAct(a) {
     if (a.ask) { submitQ(a.ask); return; }
-    if (a.run === 'tour') { if (window.afStartTour && IS_HOME) window.afStartTour(); else window.location.href = './'; return; }
+    if (a.run === 'tour') { if (window.afStartTour && IS_HOME) window.afStartTour(); else window.location.href = 'index.html'; return; }
     if (a.go) {
       var h = a.go;
       if (h.charAt(0) === '#') {
         var t = $(h);
         if (t) { if (window.afNavRelease) window.afNavRelease(); t.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' }); hideCard(); }
-        else window.location.href = './' + h;
+        else window.location.href = 'index.html' + h;
       } else window.location.href = h;
     }
   }
@@ -405,6 +472,7 @@
   function say(msg) { respond({ a: msg, acts: [] }, { speak: false, delay: 150 }); }
   function startListen() {
     if (!SR || tourOn) return;
+    wakeStop();
     stopSpeech(); clearTimeout(thinkTimer); clearInterval(typeTimer); typing = false; thinking = false;
     var r; try { r = new SR(); } catch (e) { return; }
     recog = r; r.lang = 'en-US'; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
@@ -436,19 +504,107 @@
   }
   function syncText() { form.classList.toggle('has-text', !!input.value.trim()); }
 
+  /* ---------- "Hey Flare": say her name and she answers (opt-in, runs only while the toggle is on) ---------- */
+  var wakeOn = false, wake = null, wakeT = 0, wakeBlock = 0, wakeFromClick = false, wakeBtns = [], wakeTick_ = 0;
+  var WAKE_RE = /\b(flare|flair|flar|flere|fler|flaire)\b/i;
+  var ACKS = ["Yes? I'm listening.", "I'm here! What do you need?", "Hi! How can I help?", "Yes, go ahead. I'm listening."];
+  function wakeMatch(t) {
+    var m = WAKE_RE.exec(t || ''); if (!m) return null;
+    if (/\bad\s*$/i.test(t.slice(0, m.index))) return null;                 // "Ad Flare" (the brand) is not her name
+    return t.slice(m.index + m[0].length).replace(/^[\s,.:;!?-]+/, '').trim();
+  }
+  function wakeStop() {
+    if (wake) { var r = wake; wake = null; r.onend = r.onresult = r.onerror = r.onaudiostart = null; try { r.abort(); } catch (e) {} }
+  }
+  function paintWake() {
+    wakeBtns.forEach(function (b) {
+      b.classList.toggle('is-on', wakeOn); b.setAttribute('aria-pressed', wakeOn ? 'true' : 'false');
+      b.title = wakeOn ? 'Hey Flare is on. Tap to turn it off' : 'Turn on Hey Flare (hands-free)';
+      b.setAttribute('aria-label', b.title);
+    });
+  }
+  function wakeSet(on) { wakeOn = on; paintWake(); if (!on) { wakeStop(); clearTimeout(wakeT); } }
+  function wakeDenied() {
+    wakeSet(false); if (!isOpen) openBar(true);
+    say('The microphone is blocked. Allow mic access for this site in your browser to use Hey Flare, or just tap the mic when you want to talk.');
+  }
+  function whenQuiet(fn) {          // wait until she finishes talking, then run fn
+    var n = 0;
+    (function poll() {
+      if ((thinking || typing || speaking || ttsOn) && ++n < 120) { setTimeout(poll, 60); return; }
+      setTimeout(fn, 120);
+    })();
+  }
+  function onWake(rest) {
+    wakeStop(); clearTimeout(wakeT); wakeBlock = Date.now() + 1500; unlock();
+    if (tourOn) return;
+    if (!isOpen) { askBtn.setAttribute('aria-expanded', 'true'); openBar(true); }
+    var words = (rest || '').split(/\s+/).filter(Boolean);
+    if (words.length >= 2) { submitQ(rest); return; }                        // "hey flare, what are your packages?" -> answer right away
+    var a = ACKS[Math.floor(Math.random() * ACKS.length)];
+    respond({ a: a, say: a, acts: [] }, { speak: true, delay: 150 });
+    whenQuiet(function () { if (isOpen && !tourOn && !listening && wakeOn) startListen(); });   // then she listens for your question
+  }
+  function wakeStart() {
+    if (!SR || wake || !wakeOn) return;
+    var r; try { r = new SR(); } catch (e) { return; }
+    wake = r; r.lang = 'en-US'; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+    r.onaudiostart = function () { wakeFromClick = false; };
+    r.onresult = function (e) {
+      if (wake !== r) return;
+      var last = null, fin = false;
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        var rest = wakeMatch(e.results[i][0].transcript);
+        if (rest !== null) { last = rest; fin = e.results[i].isFinal; }
+      }
+      if (last === null) return;
+      clearTimeout(wakeT);
+      if (fin || last.split(/\s+/).filter(Boolean).length >= 2) { onWake(last); return; }
+      wakeT = setTimeout(function () { if (wake === r) onWake(last); }, 380);   // just her name: answer now, unless more words are still coming
+    };
+    r.onerror = function (e) {
+      if (wake !== r) return;
+      var er = e.error;
+      if (er === 'not-allowed' || er === 'service-not-allowed') { var ask = wakeFromClick; wakeSet(false); if (ask) wakeDenied(); }
+      else if (er === 'network') wakeBlock = Date.now() + 4000;
+    };
+    r.onend = function () { if (wake === r) wake = null; };                 // the tick below restarts it
+    try { r.start(); } catch (e) { wake = null; }
+  }
+  function wakeTick() {
+    if (!wakeOn || !SR) return;
+    var busy = listening || speaking || ttsOn || typing || thinking || tourOn || document.hidden;   // never listen to herself
+    if (busy) { wakeBlock = Date.now() + 900; wakeStop(); return; }
+    if (!wake && Date.now() > wakeBlock) wakeStart();
+  }
+  function wakeToggle() {
+    unlock();
+    if (wakeOn) { wakeSet(false); if (isOpen) say('Hey Flare is off. Tap the mic icon whenever you want it back.'); return; }
+    wakeSet(true); wakeBlock = 0; wakeFromClick = true; wakeStart();         // started inside the tap so the browser can ask for the mic
+    if (!isOpen) { askBtn.setAttribute('aria-expanded', 'true'); openBar(true); }
+    var m = "Hey Flare is on. Just say my name any time and I'll listen.";
+    respond({ a: m, say: m, acts: [] }, { speak: true, delay: 300 });
+  }
+
+  /* pressing Ask Flare (or her hint) is the "on" switch: from then on, just saying her name makes her answer */
+  function armWake() {
+    if (!SR || wakeOn) return;
+    wakeSet(true); wakeBlock = 0; wakeFromClick = true; wakeStart();   // inside the tap, so the browser can ask for the mic
+  }
+
   /* ---------- open / close the AI bar ---------- */
   function setOrigin() {
-    var r = askBtn.getBoundingClientRect(), b = nav.getBoundingClientRect(), ox, oy;
-    if (r.width) { ox = r.left + r.width / 2 - b.left; oy = r.top + r.height / 2 - b.top; } else { ox = b.width / 2; oy = b.height / 2; }
-    var rad = Math.hypot(Math.max(ox, b.width - ox), Math.max(oy, b.height - oy)) + 30;
-    var s0 = clamp(((r.width || b.height) / 2) / rad, .02, .6);   // starts exactly as big as the button
+    var z = zf(), r = askBtn.getBoundingClientRect(), b = nav.getBoundingClientRect(), bw = b.width / z, bh = b.height / z, rw = r.width / z, ox, oy;
+    if (r.width) { ox = (r.left + r.width / 2 - b.left) / z; oy = (r.top + r.height / 2 - b.top) / z; } else { ox = bw / 2; oy = bh / 2; }
+    var rad = Math.hypot(Math.max(ox, bw - ox), Math.max(oy, bh - oy)) + 30;
+    var s0 = clamp(((rw || bh) / 2) / rad, .02, .6);   // starts exactly as big as the button
     bar.style.setProperty('--ox', ox + 'px'); bar.style.setProperty('--oy', oy + 'px'); bar.style.setProperty('--rad', rad + 'px'); bar.style.setProperty('--s0', s0);
   }
   function setInert(on) {
     Array.prototype.forEach.call(nav.children, function (c) { if (c === bar) return; if (on) c.setAttribute('inert', ''); else c.removeAttribute('inert'); });
   }
-  function openBar() {
-    if (isOpen) { if (!tourOn) input.focus(); return; }
+  function openBar(quiet) {
+    if (isOpen) { if (!tourOn && quiet !== true) input.focus(); return; }
     isOpen = true; unlock(); hideHint();
     clearTimeout(lookT); setLook('front');
     nav.classList.remove('menu-open'); var hb = $('#hamburger'); if (hb) hb.classList.remove('active');
@@ -456,7 +612,7 @@
     nav.classList.add('fl-on'); bar.classList.add('is-on'); setInert(true);
     clearTimeout(coverT); coverT = setTimeout(function () { if (isOpen) nav.classList.add('fl-covered'); }, 540);   // drop the blur only once the bar fully covers it
     if (!tourOn) {
-      greet();
+      if (quiet !== true) greet();
       if (!window.matchMedia || matchMedia('(hover: hover)').matches) setTimeout(function () { if (isOpen && !tourOn) input.focus(); }, 560);   // no auto-keyboard on phones: it jolts the animation
     }
   }
@@ -495,8 +651,8 @@
   /* ---------- hint under the button (first visit) ---------- */
   function placeHint() {
     var r = askBtn.getBoundingClientRect(); if (!r.width) return false;
-    var cx = r.left + r.width / 2, left = clamp(cx, 80, innerWidth - 80);
-    hint.style.left = left + 'px'; hint.style.top = (r.bottom + 12) + 'px'; hint.style.setProperty('--ax', (cx - left + hint.offsetWidth / 2) + 'px');
+    var z = zf(), cx = (r.left + r.width / 2) / z, left = clamp(cx, 80, innerWidth / z - 80);
+    hint.style.left = left + 'px'; hint.style.top = ((r.bottom + 12) / z) + 'px'; hint.style.setProperty('--ax', (cx - left + hint.offsetWidth / 2) + 'px');
     return true;
   }
   function showHint() {
@@ -564,6 +720,10 @@
 
     hint = el('div', 'fn-hint', 'Tap to talk to Flare'); document.body.appendChild(hint);
 
+    /* "Hey Flare": no button. Pressing Ask Flare turns it on (see armWake). */
+    wakeBtns = [];
+    if (SR) wakeTick_ = setInterval(wakeTick, 400);
+
     if (!SR) micBtn.style.display = 'none';
     if (!synth) cardVoice.style.display = 'none';
     function paintVoice() {
@@ -577,8 +737,8 @@
     cardVoice.addEventListener('click', function () { var b = $('#afSfx'); if (b) b.click(); else setSound(!voiceOn); });
 
     $('[data-min]', card).addEventListener('click', hideCard);
-    askBtn.addEventListener('click', function () { askBtn.setAttribute('aria-expanded', 'true'); openBar(); });
-    hint.addEventListener('click', openBar);
+    askBtn.addEventListener('click', function () { armWake(); askBtn.setAttribute('aria-expanded', 'true'); openBar(); });
+    hint.addEventListener('click', function () { armWake(); openBar(); });
     $('.fn-x', bar).addEventListener('click', function () { askBtn.setAttribute('aria-expanded', 'false'); closeBar(); askBtn.focus({ preventScroll: true }); });
     $('.fn-spark', bar).addEventListener('click', function () { runAct({ run: 'tour' }); });
     micBtn.addEventListener('click', function () { unlock(); if (listening) { try { recog.stop(); } catch (e) {} } else startListen(); });
@@ -605,4 +765,81 @@
     window.afFlare = { speaking: function () { return speaking; }, open: openBar, close: closeBar, say: speak };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+})();
+
+
+/* ---------------------------------------------------------------------------
+   Dark theme only: the two artwork pictures (dino + "we just fit" puzzle) come with a white background.
+   This cuts that white out in the browser (only the white that touches the picture's edge, so white text /
+   details INSIDE the artwork stay) so just a white + red glow surrounds them, like the logo in About.
+   If the browser can't read the picture (opened as a plain file://), the white rounded plate stays as fallback.
+   Delete this block to turn it off.
+   --------------------------------------------------------------------------- */
+(function () {
+  'use strict';
+  var SEL = '.ab-dino img, .fit-banner .promo-graphic img';
+  var root = document.documentElement, cache = {};
+  function isDark() { return root.getAttribute('data-theme') !== 'light'; }
+
+  function cutPixels(p, w, h) {                       // p = RGBA bytes, edited in place
+    var n = w * h, bg = new Uint8Array(n), st = new Int32Array(n), sp = 0, x, y, i, o;
+    function white(k) { var q = k * 4; return p[q + 3] > 0 && p[q] >= 244 && p[q + 1] >= 244 && p[q + 2] >= 244; }
+    function push(k) { if (!bg[k] && white(k)) { bg[k] = 1; st[sp++] = k; } }
+    for (x = 0; x < w; x++) { push(x); push((h - 1) * w + x); }
+    for (y = 0; y < h; y++) { push(y * w); push(y * w + w - 1); }
+    while (sp) {
+      i = st[--sp]; x = i % w;
+      if (x > 0) push(i - 1); if (x < w - 1) push(i + 1); if (i >= w) push(i - w); if (i < n - w) push(i + w);
+    }
+    for (i = 0; i < n; i++) if (bg[i]) p[i * 4 + 3] = 0;
+    function ring(lowest) {                           // soften the 1px edge: light anti-aliased pixels fade out instead of leaving a white fringe
+      var list = [];
+      for (i = 0; i < n; i++) {
+        if (p[i * 4 + 3] === 0) continue;
+        x = i % w;
+        if ((x > 0 && p[(i - 1) * 4 + 3] === 0) || (x < w - 1 && p[(i + 1) * 4 + 3] === 0) || (i >= w && p[(i - w) * 4 + 3] === 0) || (i < n - w && p[(i + w) * 4 + 3] === 0)) list.push(i);
+      }
+      for (var j = 0; j < list.length; j++) {
+        o = list[j] * 4;
+        var m = Math.min(p[o], p[o + 1], p[o + 2]);
+        if (m > lowest) p[o + 3] = Math.round(Math.max(0, Math.min(1, (255 - m) / (255 - lowest))) * p[o + 3]);
+      }
+    }
+    ring(150); ring(215);
+  }
+
+  function cut(src, done) {
+    var im = new Image();
+    im.onload = function () {
+      try {
+        var s = Math.min(1, 1500 / Math.max(im.naturalWidth, im.naturalHeight)), w = Math.round(im.naturalWidth * s), h = Math.round(im.naturalHeight * s);
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        var g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0, w, h);
+        var d = g.getImageData(0, 0, w, h); cutPixels(d.data, w, h); g.putImageData(d, 0, 0);
+        c.toBlob(function (b) { done(b ? URL.createObjectURL(b) : null); }, 'image/png');
+      } catch (e) { done(null); }                     // tainted canvas (file://) or no canvas: keep the plate
+    };
+    im.onerror = function () { done(null); };
+    im.src = src;
+  }
+
+  function apply(img) {
+    var box = img.parentElement; if (!box) return;
+    if (!img.getAttribute('data-af-src')) img.setAttribute('data-af-src', img.getAttribute('src') || '');
+    var orig = img.getAttribute('data-af-src'); if (!orig) return;
+    if (!isDark()) {
+      if (img.getAttribute('data-af-cut') === '1') { img.src = orig; img.setAttribute('data-af-cut', ''); }
+      box.classList.remove('af-cut'); return;
+    }
+    function use(url) { if (!url || !isDark()) return; img.src = url; img.setAttribute('data-af-cut', '1'); box.classList.add('af-cut'); }
+    if (cache[orig]) { use(cache[orig]); return; }
+    if (cache[orig] === false) return;
+    cut(orig, function (url) { cache[orig] = url || false; use(url); });
+  }
+  function all() { Array.prototype.forEach.call(document.querySelectorAll(SEL), apply); }
+  function start() {
+    all();
+    if (window.MutationObserver) new MutationObserver(all).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

@@ -15,3 +15,4 @@ Notes
 - Lives in the nav bar: "Ask Flare" opens the AI bar (waveform, type or mic). Files: `flare.js`, `flare.css`, `tour.js`, `portfolio-ui.css`.
 - Mic uses the browser's speech recognition (Chrome, Edge, Safari). Needs HTTPS, which GitHub Pages already has.
 - Delete `flare.js` + `flare.css` to remove her.
+- "Hey Flare" (hands-free): tap the mic icon next to Ask Flare (or the mic icon inside her answer card on phones). While it is on, the browser listens for her name ("Hey Flare", "Flare") and she opens, answers out loud and listens for your question. It is OFF by default, the browser shows its own mic indicator, and nothing is recorded or sent by the site. The turn-off is the same icon. Needs HTTPS and the tab open.

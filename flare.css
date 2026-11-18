@@ -275,3 +275,21 @@ body.flare-nav .af-dock { display: none !important; }
   #navbar::after, .fn-hint.on, #navbar::after, .fn-av::before, .fn-av::after, .fn-sheen::before { animation: none !important; }
   .fn-bar.is-on .fn-av, .fn-bar.is-on .fn-in > *, .fn-bar.is-on .fn-tr > *, .flare-av .eyes, .flare-av .fl-idle, .flare-av .mt-in { animation: none !important; }
 }
+
+
+/* ---- "Hey Flare" hands-free toggle (nav button + button in her answer card) ---- */
+#navbar .fn-wake { position: relative; flex: none; margin-left: 2px; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--text); cursor: pointer; transition: background .2s, color .2s; }
+#navbar .fn-wake:hover { background: var(--menu-hover); }
+#navbar .fn-wake:focus-visible { outline: 2px solid #ff2b2b; outline-offset: 2px; }
+#navbar .fn-wake svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.fn-wake-ring { display: none; position: absolute; right: 7px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: #ff2b2b; animation: fn-wake-pulse 1.8s ease-out infinite; }
+#navbar .fn-wake.is-on { color: #ff2b2b; }
+#navbar .fn-wake.is-on .fn-wake-ring { display: block; }
+@keyframes fn-wake-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 43, 43, .55); } 100% { box-shadow: 0 0 0 9px rgba(255, 43, 43, 0); } }
+.fn-vbtn[data-wake].is-on { background: rgba(255, 43, 43, .16); color: #ff2b2b; }
+@media (max-width: 768px) { #navbar .fn-wake { display: none; } }
+@media (prefers-reduced-motion: reduce) { .fn-wake-ring { animation: none; } }
+
+
+/* no separate sound / mic icons in the nav: pressing "Ask Flare" turns on Hey Flare, her voice switch stays inside her answer card */
+#navbar #afSfx, #navbar #afWake, #navbar .drop-sfx { display: none !important; }

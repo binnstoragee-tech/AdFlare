@@ -92,7 +92,7 @@
   filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); will-change: transform;
 }
 .af-cursor.on { opacity: 1; }
-.af-cursor.track { transition: opacity .25s; }
+.af-cursor.track { transition: opacity .25s, transform .3s cubic-bezier(.4, 0, .2, 1); }
 .af-cursor svg { display: block; width: 100%; height: 100%; }
 .af-bubble {
   position: fixed; left: 0; top: 0; max-width: min(270px, calc(100vw - 24px)); padding: 9px 13px 11px;
@@ -174,3 +174,114 @@
 .af-cursor.press::after { animation: af-ripple .45s ease-out; }
 @keyframes af-ripple { 0% { opacity: .85; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.8); } }
 @media (prefers-reduced-motion: reduce) { .af-cursor.press::after { animation: none; } }
+
+
+/* ---------- tour: smoother bubble ---------- */
+.af-bubble.glide { transition: opacity .2s ease, transform .25s cubic-bezier(.2, .9, .3, 1.3), left .35s cubic-bezier(.4, 0, .2, 1), top .35s cubic-bezier(.4, 0, .2, 1); }
+.af-bubble { box-shadow: 0 10px 32px rgba(0, 0, 0, .22), 0 1px 0 rgba(0, 0, 0, .04); }
+.af-bubble span { display: block; text-wrap: pretty; }
+@media (prefers-reduced-motion: reduce) { .af-bubble.glide, .af-cursor.track { transition: opacity .2s; } }
+
+
+/* ============================================
+   DARK THEME: literal black page (#000)
+   Things that are dark themselves (cards, stages, dashboard...) get a thin white ring + a soft red glow so they stay visible.
+   Light theme is not touched. Delete this block to go back to the old dark grey.
+   ============================================ */
+:root:not([data-theme="light"]) {
+  --black: #000000;
+  --black-alt: #000000;
+  --card-bg: #0b0b0c;
+  --bg-rgb: 0,0,0;                       /* nav pill, hero fades, overlays */
+  --border: rgba(255,255,255,.16);       /* every card border becomes a clear white line */
+}
+
+/* soft ring + red glow for the dark cards (zero specificity: hover / featured / active styles still win) */
+:where(:root:not([data-theme="light"])) :is(.service-card, .addon-item, .contact-card, .price-card, .dash-stat, .dash-tab, .social-icon, .back-top, .web-shot, .web-bar) {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.07), 0 10px 32px rgba(255,43,43,.10);
+}
+
+/* big dark blocks that already had their own shadow: keep it, add the ring + glow */
+:root:not([data-theme="light"]) .sg-stage {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 0 70px rgba(255,43,43,.16), 0 30px 80px rgba(0,0,0,.5);
+}
+:root:not([data-theme="light"]) .dash-window {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 0 80px rgba(255,43,43,.14), 0 30px 70px rgba(0,0,0,.4);
+}
+:root:not([data-theme="light"]) .inqok-card,
+:root:not([data-theme="light"]) .offer-modal-content {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 0 60px rgba(255,43,43,.18), 0 30px 80px rgba(0,0,0,.55);
+}
+
+
+/* ============================================
+   DARK THEME, part 2: the sections that were hard-coded WHITE become black too
+   (About, "We just fit!", "Make your online presence strong").
+   Black things inside them get a white ring + red glow so they never disappear.
+   ============================================ */
+
+/* ---- About ---- */
+:root:not([data-theme="light"]) #about { background: #000; }
+:root:not([data-theme="light"]) #about .about-bg {
+  background-color: #000;
+  background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+:root:not([data-theme="light"]) #about .section-title { color: #fff; }
+:root:not([data-theme="light"]) .about-intro { color: #A1A1AA; }
+:root:not([data-theme="light"]) .feature-list li { color: #D4D4D8; }
+:root:not([data-theme="light"]) .ab-ring-1 { border-color: rgba(255,255,255,.18); }
+:root:not([data-theme="light"]) .ab-ring-2 { border-color: rgba(255,43,43,.4); }
+:root:not([data-theme="light"]) .ab-glow { background: radial-gradient(circle, rgba(255,43,43,.28) 0%, rgba(255,43,43,.09) 45%, transparent 70%); }
+:root:not([data-theme="light"]) .ab-chip { box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 0 22px rgba(255,43,43,.4); }
+
+/* the black "A" of the logo: white ring + red glow (same reveal animation, glow added to its last frame) */
+@keyframes logoCineDk {
+  0%   { opacity: 0; transform: scale(1.35) translateY(24px); filter: blur(22px) brightness(1.6) drop-shadow(0 0 0 rgba(255,255,255,0)) drop-shadow(0 0 0 rgba(255,43,43,0)); clip-path: inset(0 100% 0 0); }
+  45%  { opacity: 1; filter: blur(8px) brightness(1.25) drop-shadow(0 0 0 rgba(255,255,255,0)) drop-shadow(0 0 0 rgba(255,43,43,0)); clip-path: inset(-80px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) brightness(1) drop-shadow(0 0 10px rgba(255,255,255,.7)) drop-shadow(0 0 34px rgba(255,43,43,.6)); clip-path: inset(-80px); }
+}
+:root:not([data-theme="light"]) .reveal.visible .about-logo-wrap .about-logo,
+:root:not([data-theme="light"]) .about-logo-wrap.reveal.visible .about-logo {
+  animation: logoCineDk 1.9s cubic-bezier(.16, 1, .3, 1) both, logoDrift 9s ease-in-out 2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-theme="light"]) .reveal.visible .about-logo-wrap .about-logo,
+  :root:not([data-theme="light"]) .about-logo-wrap.reveal.visible .about-logo { animation: none; opacity: 1; filter: drop-shadow(0 0 10px rgba(255,255,255,.7)) drop-shadow(0 0 34px rgba(255,43,43,.6)); }
+}
+
+/* ---- "We just fit!" + "Make your online presence strong" ---- */
+:root:not([data-theme="light"]) .promo-banner,
+:root:not([data-theme="light"]) .ab-presence-sec { background: #000; }
+:root:not([data-theme="light"]) .promo-title,
+:root:not([data-theme="light"]) .ab-presence-sec .promo-title { color: #fff; }
+:root:not([data-theme="light"]) .promo-title .accent,
+:root:not([data-theme="light"]) .ab-presence-sec .promo-title .accent { color: var(--primary-red); }
+:root:not([data-theme="light"]) .promo-sub,
+:root:not([data-theme="light"]) .ab-presence-sec .promo-sub { color: #A1A1AA; }
+
+/* the two pictures are black + white artwork (black dino, black puzzle, black suit).
+   Fallback: if the white background can't be cut out (see the end of flare.js), each sits on a rounded white plate. */
+:root:not([data-theme="light"]) .ab-presence-sec { --ab-sec-bg: #fff; }
+:root:not([data-theme="light"]) .ab-dino:not(.af-cut),
+:root:not([data-theme="light"]) .fit-banner .promo-graphic:not(.af-cut) {
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.35), 0 0 60px rgba(255,43,43,.35), 0 24px 70px rgba(255,43,43,.18);
+}
+
+
+/* ---- background cut out (flare.js adds .af-cut): no plate, no box. Only a white + red glow hugging the artwork, like the logo in About ---- */
+:root:not([data-theme="light"]) .ab-dino.af-cut,
+:root:not([data-theme="light"]) .fit-banner .promo-graphic.af-cut {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+:root:not([data-theme="light"]) .ab-dino.af-cut img,
+:root:not([data-theme="light"]) .fit-banner .promo-graphic.af-cut img {
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,255,255,.4)) drop-shadow(0 0 38px rgba(255,43,43,.5));
+}

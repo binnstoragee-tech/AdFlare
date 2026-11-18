@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{sessionStorage.setItem('af-landed','1')}catch(e){}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AFPOS · Under maintenance</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --dot:#c9ccd1; --text:#111111; --muted:#5d6269; --red:#ff2d2d;
+    --line:#dfe2e6; --card:rgba(255,255,255,.62); --fg:17,17,17;
+    --shadow:0 18px 50px rgba(0,0,0,.08);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0a0a0b; --dot:#26282d; --text:#f4f4f5; --muted:#9a9da4;
+    --line:rgba(255,255,255,.09); --card:rgba(17,17,19,.55); --fg:244,244,245;
+    --shadow:0 18px 60px rgba(0,0,0,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--text);min-height:100vh;min-height:100svh;
+    background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:28px 28px;
+    overflow-x:hidden;opacity:0;animation:pageIn .6s ease forwards;
+    -webkit-font-smoothing:antialiased;
+  }
+  body.leaving{animation:pageOut .35s ease forwards}
+  html.paused *{animation-play-state:paused!important}
+  @keyframes pageIn{to{opacity:1}}
+  @keyframes pageOut{from{opacity:1}to{opacity:0;transform:scale(.99)}}
+
+  /* soft red glow */
+  .glow{position:fixed;left:50%;top:-20%;width:min(900px,120vw);aspect-ratio:1;margin-left:calc(min(900px,120vw) / -2);border-radius:50%;
+    background:radial-gradient(circle,rgba(255,45,45,.16) 0%,rgba(255,45,45,.05) 40%,transparent 68%);
+    z-index:0;pointer-events:none;animation:glowDrift 14s ease-in-out infinite;will-change:transform,opacity}
+  @keyframes glowDrift{0%,100%{transform:translate3d(-6%,0,0) scale(1);opacity:.8}50%{transform:translate3d(6%,6%,0) scale(1.08);opacity:1}}
+
+  .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;text-align:center;min-height:100vh;min-height:100svh;padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
+  .mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+
+
+  h1{margin-top:14px;font-family:'Sora','Inter',sans-serif;font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1;letter-spacing:-.045em}
+  h1 span{color:var(--red)}
+  .sub{margin-top:8px;font-size:clamp(13px,1.4vw,15px);color:var(--muted)}
+
+  .card{
+    position:relative;margin-top:18px;
+    display:grid;place-items:center;text-align:center;padding:26px 20px;overflow:hidden;
+    background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);contain:layout paint;
+  }
+  .card::before{content:"";position:absolute;left:50%;top:0;width:70%;height:1px;margin-left:-35%;
+    background:linear-gradient(90deg,transparent,rgba(255,45,45,.7),transparent)}
+  .card::after{content:"";position:absolute;left:50%;top:-60%;width:80%;aspect-ratio:1;margin-left:-40%;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,45,45,.10),transparent 62%);pointer-events:none}
+  .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+
+  .gears{position:relative;width:92px;height:78px;color:var(--text)}
+  .gear{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;will-change:transform;backface-visibility:hidden}
+  .g1{transform-origin:34.85% 44.64%;animation:spin 16s linear infinite}
+  .g2{transform-origin:74.24% 67.86%;stroke:var(--red);opacity:.9;animation:spin 10s linear infinite reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .label{margin-top:14px;font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
+  .msg{margin-top:8px;font-size:13.5px;color:var(--muted);max-width:420px;line-height:1.6}
+
+  .track{position:relative;margin-top:16px;width:min(220px,60vw);height:3px;border-radius:3px;background:rgba(var(--fg),.1);overflow:hidden}
+  .track i{position:absolute;left:0;top:0;height:100%;width:40%;border-radius:3px;background:var(--red);animation:slide 1.8s cubic-bezier(.65,0,.35,1) infinite;will-change:transform}
+  @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+
+  .btn{margin-top:20px;display:inline-flex;align-items:center;gap:10px;padding:11px 24px;border-radius:40px;background:var(--red);color:#fff;
+    font:700 14px 'Inter',sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(255,45,45,.35);position:relative;transition:transform .2s}
+  .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 12px 32px rgba(255,45,45,.5);opacity:0;transition:opacity .25s;pointer-events:none}
+  .btn:hover::after{opacity:1}
+  .btn svg{width:16px;height:16px;transition:transform .25s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:hover svg{transform:translateX(-4px)}
+  .btn:active{transform:scale(.97)}
+  .btn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+  .foot{margin-top:14px;text-align:center;font-size:11.5px;letter-spacing:.06em;color:var(--muted)}
+
+  @media (max-width:600px){
+    .wrap{padding:20px 16px}
+    h1{font-size:clamp(40px,13vw,54px);margin-top:0}
+    .sub{margin-top:8px;font-size:14px}
+    .card{margin-top:20px;padding:24px 16px;border-radius:20px}
+    .msg{max-width:none;font-size:14px}
+    .btn{width:100%;justify-content:center}
+    .glow{top:-10%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    body{opacity:1}
+  }
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+
+<main class="wrap">
+  <h1>AF<span>POS</span></h1>
+  <p class="sub">This page is currently under maintenance.</p>
+
+  <section class="card" aria-label="Under maintenance">
+    <div class="inner">
+      <div class="gears" aria-hidden="true">
+        <svg class="gear g1" viewBox="0 0 132 112"><path id="gBig"/><circle cx="46" cy="50" r="17"/><circle cx="46" cy="50" r="6"/></svg>
+        <svg class="gear g2" viewBox="0 0 132 112"><path id="gSmall"/><circle cx="98" cy="76" r="9"/><circle cx="98" cy="76" r="3.5"/></svg>
+      </div>
+      <div class="label mono">Under maintenance</div>
+      <p class="msg">AFPOS is coming soon. Please check back later.</p>
+      <div class="track" aria-hidden="true"><i></i></div>
+      <a href="landing.html" class="btn" data-go>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </section>
+
+  <div class="foot mono">&copy; AdFlare</div>
+</main>
+
+<script>
+// always light: ignores the shared 'adflare-theme' key (set by AdFlare) and never writes it, same as landing
+document.documentElement.setAttribute('data-theme','light');
+
+// pause every animation while the tab is hidden (saves GPU/battery)
+document.addEventListener('visibilitychange',function(){document.documentElement.classList.toggle('paused',document.hidden)});
+
+// gears
+(function(){
+  function gear(cx,cy,r1,r2,n){
+    var d='',step=Math.PI*2/n,i,a;
+    for(i=0;i<n;i++){
+      a=i*step;
+      var p=[[r1,a-step*.28],[r2,a-step*.16],[r2,a+step*.16],[r1,a+step*.28]];
+      p.forEach(function(q,k){d+=(i===0&&k===0?'M':'L')+(cx+q[0]*Math.cos(q[1])).toFixed(2)+' '+(cy+q[0]*Math.sin(q[1])).toFixed(2)+' '}); 
+    }
+    return d+'Z';
+  }
+  document.getElementById('gBig').setAttribute('d',gear(46,50,30,38,10));
+  document.getElementById('gSmall').setAttribute('d',gear(98,76,16,21,8));
+})();
+
+// smooth fade before leaving
+document.querySelectorAll('[data-go]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    if(e.metaKey||e.ctrlKey||e.shiftKey)return;
+    e.preventDefault();
+    var href=a.getAttribute('href');
+    document.body.classList.add('leaving');
+    setTimeout(function(){location.href=href},320);
+  });
+});
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@
   html { zoom: .75; }
 
   /* full-screen things must still fill the screen after zoom */
-  #hero { min-height: calc(100vh / .75); }
+  #hero, #about { min-height: calc(100vh / .75); }
   .sg-lightbox, .offer-modal, .af-pal, .rv { height: calc(100vh / .75); }
   /* native fullscreen: cancel the .75 so the viewer is exactly screen size */
   .rv:fullscreen { zoom: 1.3333333; height: 100vh; }

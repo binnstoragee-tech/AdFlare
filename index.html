@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Landing first: a new visit (new tab / ad-flare.org) goes to landing.html. Landing sets the flag. -->
+  <script>(function(){try{if(!sessionStorage.getItem('af-landed'))location.replace('landing.html')}catch(e){}})();</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -25,7 +28,7 @@
     })();
   </script>
   <script src="clean-url.js"></script>
-  <link rel="stylesheet" href="style.css?v=20261116" />
+  <link rel="stylesheet" href="style.css?v=20261121" />
   <link rel="stylesheet" href="portfolio-ui.css?v=20261115" />
   <link rel="stylesheet" href="flare.css?v=20261115" />
   <link rel="stylesheet" href="scale.css?v=20261116" />
@@ -171,46 +174,8 @@
       </div>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">3<span>×</span></span>
-        <span class="stat-label">Average Growth</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-num">50<span>+</span></span>
-        <span class="stat-label">Campaigns Launched</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-num">98<span>%</span></span>
-        <span class="stat-label">Client Satisfaction</span>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ===== ABOUT ===== -->
-  <section id="about">
-    <div class="about-bg" id="aboutBg"></div>
-    <div class="about-grid">
-
-      <div class="about-content reveal">
-        <img src="img/favicon.png" alt="AdFlare" class="about-logo">
-        <span class="section-label">About AdFlare</span>
-        <h2 class="section-title">We Live &amp; Breathe Meta Advertising</h2>
-        <p class="about-intro">
-          <strong>AdFlare</strong> is a dedicated Meta Ads agency focused exclusively on <strong>Facebook and Instagram advertising</strong>, built to get you <strong>maximum return on every spent</strong>.
-        </p>
-        <ul class="feature-list">
-          <li>100% focused on Meta Ads: Facebook &amp; Instagram</li>
-          <li>Full campaign management: setup, testing, scaling</li>
-          <li>Transparent reporting: you see exactly what's working</li>
-        </ul>
-      </div>
-
-      <div class="reveal reveal-delay-2 about-metrics-wrap">
-        <div class="dash is-paused" id="dash">
+    <div class="hero-dash">
+      <div class="dash is-paused" id="dash">
 
           <div class="dash-window">
             <div class="dash-bar">
@@ -317,21 +282,324 @@
           </div>
 
         </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">3<span>×</span></span>
+        <span class="stat-label">Average Growth</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">50<span>+</span></span>
+        <span class="stat-label">Campaigns Launched</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">98<span>%</span></span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="about-bg" id="aboutBg"></div>
+    <div class="ab-wrap">
+
+      <div class="about-content reveal">
+        <span class="section-label">About AdFlare</span>
+        <h2 class="section-title">We Live &amp; Breathe Meta Advertising</h2>
+        <p class="about-intro">
+          <strong>AdFlare</strong> is a dedicated Meta Ads agency focused exclusively on <strong>Facebook and Instagram advertising</strong>, built to get you <strong>maximum return on every spent</strong>.
+        </p>
+        <ul class="feature-list">
+          <li>100% focused on Meta Ads: Facebook &amp; Instagram</li>
+          <li>Full campaign management: setup, testing, scaling</li>
+          <li>Transparent reporting: you see exactly what's working</li>
+        </ul>
+      </div>
+
+      <div class="about-logo-wrap ab-stage reveal reveal-delay-2">
+        <span class="ab-ring ab-ring-1"></span>
+        <span class="ab-ring ab-ring-2"></span>
+        <span class="ab-glow"></span>
+        <img src="img/favicon.png" alt="AdFlare" class="about-logo">
+        <div class="ab-orbit" aria-hidden="true">
+          <span class="ab-sat" style="--a:0deg"><span class="ab-chip">Facebook</span></span>
+          <span class="ab-sat" style="--a:120deg"><span class="ab-chip">Instagram</span></span>
+          <span class="ab-sat" style="--a:240deg"><span class="ab-chip">Meta Ads</span></span>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ===== PROMO BANNER 1: MAKE YOUR ONLINE PRESENCE STRONG ===== -->
-  <section class="promo-banner presence-banner" id="presenceBanner">
-    <div class="promo-side">
-      <div class="promo-text reveal reveal-slide-left">
-        <h2 class="promo-title">Make Your<br><span class="accent">Online Presence Strong</span></h2>
-        <p class="promo-sub">With AdFlare</p>
-      </div>
-      <div class="promo-graphic reveal reveal-slide-right">
-        <img src="img/1.png" alt="Stay ahead with AdFlare" loading="lazy">
-      </div>
+  <!-- ===== INDUSTRIES (right after About) ===== -->
+  <section id="services">
+
+    <!-- ===== INDUSTRIES SLIDESHOW ===== -->
+    <div class="industries-wrap reveal">
+      <span class="section-label industries-label">Who We Work With</span>
+      <h3 class="section-title industries-title">Industries We've Served</h3>
+
+      <div class="industries-rows">
+              <div class="industries-marquee industries-row-left">
+                <div class="industries-track">
+                                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+                <!-- repeated sets so the row always fills wide screens and loops seamlessly -->
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <span>Distribution</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                  <span>Supply</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
+                  <span>Catering &amp; Restaurants</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <span>Franchising</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+                  <span>Travel &amp; Tour Agencies</span>
+                </div>
+
+                </div>
+              </div>
+              <div class="industries-marquee industries-row-right">
+                <div class="industries-track industries-track-reverse">
+                                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+                <!-- repeated sets so the row always fills wide screens and loops seamlessly -->
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
+                  <span>Real Estate</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
+                  <span>Dental Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+                  <span>Car &amp; Automotive</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
+                  <span>Aesthetic Clinics</span>
+                </div>
+                <div class="industry-item" aria-hidden="true">
+                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <span>Home &amp; Construction</span>
+                </div>
+
+      
+                <!-- duplicate set for seamless infinite loop -->
+                </div>
+              </div>
+            </div>
     </div>
   </section>
 
@@ -892,195 +1160,16 @@
     </div>
   </section>
 
-  <!-- ===== SERVICES ===== -->
-  <section id="services">
-
-    <!-- ===== INDUSTRIES SLIDESHOW ===== -->
-    <div class="industries-wrap reveal">
-      <span class="section-label industries-label">Who We Work With</span>
-      <h3 class="section-title industries-title">Industries We've Served</h3>
-
-      <div class="industries-marquee industries-marquee-desktop">
-        <div class="industries-track">
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-            <span>Distribution</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-            <span>Supply</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
-            <span>Catering &amp; Restaurants</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
-            <span>Franchising</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-            <span>Travel &amp; Tour Agencies</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
-            <span>Real Estate</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
-            <span>Dental Clinics</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
-            <span>Car &amp; Automotive</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
-            <span>Aesthetic Clinics</span>
-          </div>
-          <div class="industry-item">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <span>Home &amp; Construction</span>
-          </div>
-
-          <!-- duplicate set for seamless infinite loop -->
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-            <span>Distribution</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-            <span>Supply</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
-            <span>Catering &amp; Restaurants</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
-            <span>Franchising</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-            <span>Travel &amp; Tour Agencies</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
-            <span>Real Estate</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
-            <span>Dental Clinics</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
-            <span>Car &amp; Automotive</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
-            <span>Aesthetic Clinics</span>
-          </div>
-          <div class="industry-item" aria-hidden="true">
-            <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <span>Home &amp; Construction</span>
-          </div>
-        </div>
+  <!-- ===== ONLINE PRESENCE (dino page, between the samples and the process) ===== -->
+  <section id="presenceSec" class="ab-presence-sec">
+    <div class="ab-pres-wrap" id="presenceBanner">
+      <div class="ab-pres-text reveal">
+        <h2 class="promo-title">Make Your<br><span class="accent">Online Presence Strong</span></h2>
+        <p class="promo-sub">With AdFlare</p>
       </div>
-
-      <div class="industries-marquee-mobile">
-              <div class="industries-marquee industries-row-left">
-                <div class="industries-track">
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-                  <span>Distribution</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-                  <span>Supply</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
-                  <span>Catering &amp; Restaurants</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
-                  <span>Franchising</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-                  <span>Travel &amp; Tour Agencies</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-                  <span>Distribution</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-                  <span>Supply</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20"/><path d="M4 17a8 8 0 0 1 16 0"/><line x1="12" y1="6" x2="12" y2="3"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/></svg></div>
-                  <span>Catering &amp; Restaurants</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg></div>
-                  <span>Franchising</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2L11 13"/><path d="M21 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-                  <span>Travel &amp; Tour Agencies</span>
-                </div>
-                </div>
-              </div>
-              <div class="industries-marquee industries-row-right">
-                <div class="industries-track industries-track-reverse">
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
-                  <span>Real Estate</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
-                  <span>Dental Clinics</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
-                  <span>Car &amp; Automotive</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
-                  <span>Aesthetic Clinics</span>
-                </div>
-                <div class="industry-item">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-                  <span>Home &amp; Construction</span>
-                </div>
-      
-                <!-- duplicate set for seamless infinite loop -->
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1"/><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16"/></svg></div>
-                  <span>Real Estate</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 0 5 2 5 5 0 3-1 4-1 7 0 2-1 3-2 3s-1-2-2-3c-1 1-1 3-2 3s-2-1-2-3c0-3-1-4-1-7 0-3 2-5 5-5z"/></svg></div>
-                  <span>Dental Clinics</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="2" y="11" width="20" height="7" rx="2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
-                  <span>Car &amp; Automotive</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v9a3 3 0 0 0 3 3h1"/><path d="M6 9h5"/><path d="M10 15v6"/><path d="M6 21l1-3h6l3 3"/><circle cx="17" cy="6" r="2"/></svg></div>
-                  <span>Aesthetic Clinics</span>
-                </div>
-                <div class="industry-item" aria-hidden="true">
-                  <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-                  <span>Home &amp; Construction</span>
-                </div>
-      
-                <!-- duplicate set for seamless infinite loop -->
-                </div>
-              </div>
-            </div>
+      <div class="ab-dino reveal reveal-delay-2">
+        <img src="img/1.png" alt="Stay ahead with AdFlare" loading="lazy">
+      </div>
     </div>
   </section>
 
@@ -1153,6 +1242,7 @@
         steps.forEach(function (s) { Array.prototype.forEach.call(s.querySelectorAll('.pr-ic :is(path,line,rect,circle)'), function (n) { n.setAttribute('pathLength', '1'); }); });
         track.classList.add('pr-ready');
         function paint(n) {
+          if (window.__afHoldProcess) return;      // the guided tour is driving the timeline
           steps.forEach(function (s, i) { s.classList.toggle('on', i < n); s.classList.toggle('now', i === n - 1 && n < steps.length); });
           track.style.setProperty('--p', n <= 1 ? 0 : (n - 1) / (steps.length - 1));
         }
@@ -1162,10 +1252,12 @@
         async function play(my) {
           running = true;
           while (done < steps.length) {
+            if (window.__afHoldProcess) { running = false; return; }
             if (done > 0) {   // the line travels to the next step first, then the step appears
               track.style.setProperty('--p', done / (steps.length - 1));
               if (!await sl(850, my)) return;
             }
+            if (window.__afHoldProcess) { running = false; return; }
             done++; paint(done);
             if (!await sl(done === steps.length ? 600 : 1200, my)) return;
           }
@@ -1174,6 +1266,7 @@
         }
         /* start only when the whole block (or as much as fits on screen) is in view */
         new IntersectionObserver(function (e) {
+          if (window.__afHoldProcess) { tok++; running = false; if (!e[0].isIntersecting) done = 0; return; }
           var en = e[0], need = Math.min(en.boundingClientRect.height, innerHeight * .9) - 6;
           var focused = en.isIntersecting && en.intersectionRect.height >= need;
           if (focused && !running && done < steps.length) play(++tok);
