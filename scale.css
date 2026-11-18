@@ -6,8 +6,25 @@
 @media (min-width: 1000px) {
   html { zoom: .75; }
 
+  /* Index + Give Access: 110% of the shared AdFlare desktop scale. */
+  html:has(body.adflare-index-page),
+  html:has(body.give-access-page) { zoom: .825; }
+
+  /* POS login stays centered after the shared 75% desktop scale. */
+  body.afpos-login {
+    min-height: calc(100vh / .75);
+    height: calc(100vh / .75);
+  }
+  body.afpos-login .shell {
+    max-width: 1020px;
+    height: clamp(520px, calc(100dvh - 32px), 600px);
+    scale: 1.25;
+  }
+
   /* full-screen things must still fill the screen after zoom */
   #hero, #about { min-height: calc(100vh / .75); }
+  body.adflare-index-page #hero,
+  body.adflare-index-page #about { min-height: calc(100vh / .825); }
   .sg-lightbox, .offer-modal, .af-pal, .rv { height: calc(100vh / .75); }
   /* native fullscreen: cancel the .75 so the viewer is exactly screen size */
   .rv:fullscreen { zoom: 1.3333333; height: 100vh; }

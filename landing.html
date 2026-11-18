@@ -62,6 +62,14 @@
     animation:pageIn .6s ease forwards;
   }
   body.leaving{animation:pageOut .35s ease forwards}
+  /* loading screen when entering AdFlare (transform/opacity only, GPU friendly) */
+  .ld{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;background:#fff;background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:28px 28px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility 0s linear .3s}
+  .ld.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .3s ease}
+  .dots{display:grid;grid-template-columns:repeat(2,14px);grid-template-rows:repeat(2,14px);gap:10px;justify-content:center}
+  .dots i{border-radius:50%;background:var(--red);animation:dotrum 2.5s ease-in-out infinite;will-change:transform,opacity}
+  .dots i:nth-child(2){animation-delay:.5s}.dots i:nth-child(4){animation-delay:1s}.dots i:nth-child(3){animation-delay:1.5s}
+  .ld p{margin:0;font:500 13px 'Inter',sans-serif;color:var(--muted);letter-spacing:.01em}
+  @keyframes dotrum{0%,100%{transform:scale(.45);opacity:.3}12%{transform:scale(.45);opacity:.3}24%,34%{transform:scale(1.25);opacity:1}48%{transform:scale(.45);opacity:.3}}
   @keyframes pageIn{to{opacity:1}}
   @keyframes pageOut{from{opacity:1}to{opacity:0;transform:scale(.99)}}
 
@@ -110,6 +118,7 @@
   .sub{
     margin-top:22px;max-width:560px;
     color:var(--muted);font-size:14px;line-height:1.7;
+    text-wrap:balance;
   }
   .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
   .btn{
@@ -304,6 +313,8 @@
 </head>
 <body>
 
+<div class="ld" id="ld" role="status" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p id="ldT">Loading…</p></div>
+
 <nav id="navbar" aria-label="Main">
   <a href="landing.html" class="logo">Ad<span>Flare</span></a>
 </nav>
@@ -311,11 +322,11 @@
 <main class="hero">
   <section class="copy">
     <h1>Smarter Marketing.<br><em>Easier Business Management.</em></h1>
-    <p class="sub">Boost your sales with powerful Meta Ads and simplify your daily operations with our POS System. Reach more customers, manage sales, and take your business to the next level!</p>
+    <p class="sub">Boost your sales with powerful Meta Ads and simplify your daily operations with our POS System. Reach more customers, manage sales, keep track of your inventory, and take your business to the next level, all in one place!</p>
 
     <div class="cta">
       <a href="index.html" class="btn btn-primary" data-go>
-        AdFlare
+        AFMETA
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <a href="pos.html" class="btn btn-ghost" data-go>
@@ -394,12 +405,19 @@
   // landing is always light: it ignores the shared 'adflare-theme' key (set by AdFlare / AFPOS) and never writes it
   document.documentElement.setAttribute('data-theme','light');
 
+  // coming back (browser Back / bfcache) must not leave the page faded out
+  window.addEventListener('pageshow',function(){document.body.classList.remove('leaving');var l=document.getElementById('ld');l&&l.classList.remove('on')});
+
   // smooth fade-out before navigating
   document.querySelectorAll('[data-go]').forEach(function(a){
     a.addEventListener('click',function(e){
       if(e.metaKey||e.ctrlKey||e.shiftKey)return;
       e.preventDefault();
       var href=a.getAttribute('href');
+      if(href==='index.html'){                       // entering AdFlare: show the loading screen
+        var ld=document.getElementById('ld');
+        if(ld){ld.classList.add('on');setTimeout(function(){location.href=href},2500);return}
+      }
       document.body.classList.add('leaving');
       setTimeout(function(){location.href=href},320);
     });

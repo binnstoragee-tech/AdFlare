@@ -73,13 +73,12 @@
     /* loading: first check + success curtain */
     .boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;align-content:center;gap:18px;background:var(--bg);transition:opacity .5s var(--ease),visibility .5s}
     .boot.gone{opacity:0;visibility:hidden}
-    .orb{position:relative;display:grid;place-items:center;width:92px;height:92px}
-    .orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid var(--bd);border-top-color:var(--or);animation:spin .9s linear infinite}
-    .orb img{width:60px;height:60px;border-radius:20px;animation:breathe 1.6s ease-in-out infinite}
+    .dots{display:grid;grid-template-columns:repeat(2,14px);grid-template-rows:repeat(2,14px);gap:10px;justify-content:center}
+    .dots i{border-radius:50%;background:var(--or);animation:dotrum 2s ease-in-out infinite;will-change:transform,opacity}
+    .dots i:nth-child(2){animation-delay:.5s}.dots i:nth-child(4){animation-delay:1s}.dots i:nth-child(3){animation-delay:1.5s}
     .boot p{margin:0;font:400 12.5px 'Geist Mono',monospace;letter-spacing:.04em;color:var(--mu)}
     .curtain{position:fixed;inset:0;z-index:60;display:grid;place-items:center;align-content:center;gap:18px;background:#0b0b0c;color:#fff;clip-path:circle(0 at var(--cx,50%) var(--cy,70%));pointer-events:none;transition:clip-path .75s var(--ease)}
     .curtain.on{clip-path:circle(150% at var(--cx,50%) var(--cy,70%));pointer-events:auto}
-    .curtain .orb::before{border-color:rgba(255,255,255,.12);border-top-color:var(--or)}
 
     @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
     @keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
@@ -89,13 +88,13 @@
     @keyframes bar{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform:scaleX(1);transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
     @keyframes draw{to{stroke-dashoffset:0}}
     @keyframes fabp{0%{transform:scale(.9);opacity:.6}100%{transform:scale(1.35);opacity:0}}
-    @keyframes breathe{50%{transform:scale(1.07)}}
+    @keyframes dotrum{0%,100%{transform:scale(.7);opacity:.3}12%,32%{transform:scale(1.15);opacity:1}52%{transform:scale(.7);opacity:.3}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
-<div class="boot" id="boot" aria-live="polite"><div class="orb"><img src="img/favicon.png" alt="" width="60" height="60"></div><p id="boot-t">checking session…</p></div>
-<div class="curtain" id="cur" aria-live="polite"><div class="orb"><img src="img/favicon.png" alt="" width="60" height="60"></div></div>
+<div class="boot" id="boot" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p id="boot-t">Loading…</p></div>
+<div class="curtain" id="cur" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
 
 <main>
   <section class="hero">
