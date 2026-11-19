@@ -20,6 +20,7 @@
     height: clamp(520px, calc(100dvh - 32px), 600px);
     scale: 1.25;
   }
+  body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(520px, calc(100dvh - 32px), 668px); }
 
   /* full-screen things must still fill the screen after zoom */
   #hero, #about { min-height: calc(100vh / .75); }

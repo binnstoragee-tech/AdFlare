@@ -1969,16 +1969,15 @@ footer {
   z-index: 900;
   display: flex;
   align-items: center;
-  gap: 14px;
-  max-width: 560px;
+  gap: 10px;
+  max-width: 460px;
   width: calc(100% - 40px);
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(var(--fg),0.14), rgba(var(--fg),0.04));
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(var(--fg),0.22);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(var(--fg),0.25);
+  padding: 12px 16px;
+  border-radius: 14px;
+  /* same look as the AFPOS login notification: white card, red border + icon */
+  background: #ffffff;
+  border: 1px solid rgba(217,43,43,0.28);
+  box-shadow: 0 14px 40px rgba(17,17,17,0.16), 0 2px 6px rgba(17,17,17,0.06);
   --drag-x: 0px;
   transform: translate(-50%, -140%);
   opacity: 0;
@@ -2000,18 +1999,17 @@ footer {
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 .glass-toast-icon {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,43,43,0.18);
-  border: 1px solid rgba(255,43,43,0.35);
-  color: var(--primary-red);
+  background: none;
+  border: 0;
+  color: #d92b2b;
 }
-.glass-toast-icon svg { width: 19px; height: 19px; }
+.glass-toast-icon svg { width: 18px; height: 18px; }
 .glass-toast-text {
   display: flex;
   flex-direction: column;
@@ -2021,23 +2019,24 @@ footer {
 }
 .glass-toast-text strong {
   font-family: 'Sora', sans-serif;
-  font-size: 0.9rem;
-  color: var(--text);
-  letter-spacing: -0.2px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #d92b2b;
+  letter-spacing: -0.1px;
 }
 .glass-toast-text span {
   font-size: 0.76rem;
-  color: rgba(var(--fg),0.72);
+  color: #3f434a;
   line-height: 1.35;
-  white-space: nowrap;
+  white-space: normal;
 }
 .glass-toast-cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
   border-radius: 50%;
   background: #25D366;
   color: var(--white);
