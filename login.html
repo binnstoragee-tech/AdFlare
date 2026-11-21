@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#f1f2f4">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -11,64 +12,65 @@
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
   <link rel="apple-touch-icon" href="img/favicon.png">
-  <title>Sign in — AdFlare Admin</title>
+  <title>Sign in - AdFlare Admin</title>
   <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Sora:wght@800&display=swap">
+  <script>if(top!==self){try{top.location=self.location}catch(e){document.documentElement.style.display='none'}}</script>
   <script>try{if(localStorage.getItem('adm_theme')==='dark'){document.documentElement.dataset.theme='dark';document.querySelector('meta[name=theme-color]').content='#09090a'}}catch(e){}</script>
   <style>
-    :root{--bg:#f1f2f4;--card:#fff;--card2:#f6f6f8;--bd:#ececf0;--tx:#0b0b0c;--mu:#6b6e76;--mu2:#a6a9b1;--inv:#fff;--or:#ff8a3d;--or2:#ff6f1a;--dan:#e5484d;--sh:0 18px 50px rgba(12,12,16,.1);--ease:cubic-bezier(.2,.8,.2,1)}
+    :root{--bg:#f1f2f4;--card:#fff;--card2:#f6f6f8;--bd:#ececf0;--tx:#0b0b0c;--mu:#6b6e76;--mu2:#a6a9b1;--inv:#fff;--or:#ef293b;--or2:#c51d31;--dan:#e5484d;--sh:0 18px 50px rgba(12,12,16,.1);--ease:cubic-bezier(.2,.8,.2,1)}
     :root[data-theme=dark]{--bg:#09090a;--card:#141416;--card2:#1c1c1f;--bd:#26262a;--tx:#f5f5f6;--mu:#8d9099;--mu2:#5c5f67;--inv:#0b0b0c;--sh:0 18px 50px rgba(0,0,0,.55)}
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
-    body{margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom));background:var(--bg);color:var(--tx);font:400 15px/1.5 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body{margin:0;height:100vh;height:100dvh;display:grid;place-items:center;padding:calc(10px + env(safe-area-inset-top)) 18px calc(10px + env(safe-area-inset-bottom));background:var(--bg);color:var(--tx);font:400 15px/1.5 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
     svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
     [hidden]{display:none!important}
     main{width:100%;max-width:400px;animation:rise .8s var(--ease) both}
 
-    .hero{position:relative;overflow:hidden;border-radius:34px;padding:28px 24px 56px;background:#0b0b0c;color:#fff;border:1px solid #1d1d20}
+    .hero{position:relative;overflow:hidden;border-radius:34px;padding:clamp(16px,3.4vh,28px) 24px clamp(40px,6vh,56px);background:#0b0b0c;color:#fff;border:1px solid #1d1d20}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.07) 50%,transparent 65%);transform:translateX(-120%);animation:sweep 2.4s var(--ease) .7s 1 both;pointer-events:none}
     .rings{position:absolute;right:-80px;top:-70px;width:280px;height:280px;pointer-events:none;animation:slow 60s linear infinite}
     .rings circle{fill:none;stroke:#fff;stroke-opacity:.07;stroke-width:1.5}.rings .o{stroke:var(--or);stroke-opacity:.85;stroke-width:2;stroke-dasharray:70 500;stroke-linecap:round}
-    .logo{position:relative;display:block;width:60px;height:60px;border-radius:20px;overflow:hidden;margin-bottom:22px;box-shadow:0 0 0 1px rgba(255,255,255,.1);animation:pop .7s var(--ease) .2s both}
-    .logo img{width:100%;height:100%;display:block}
-    .hero h1{position:relative;margin:0 0 4px;font:600 28px/1.15 Geist,sans-serif;letter-spacing:-.02em}
+    .logo{position:relative;display:block;margin:2px 0 clamp(10px,3vh,26px);font:800 clamp(28px,4.4vh,34px)/1 Sora,Geist,sans-serif;letter-spacing:-.5px;color:#fff;animation:pop .7s var(--ease) .2s both}
+    .logo span{color:var(--or)}
+    .hero h1{position:relative;margin:0 0 4px;font:600 clamp(23px,3.8vh,28px)/1.15 Geist,sans-serif;letter-spacing:-.02em}
     .hero p{position:relative;margin:0;font-size:14px;color:rgba(255,255,255,.62)}
 
-    form{position:relative;margin:-30px 10px 0;padding:24px 20px 20px;background:var(--card);border:1px solid var(--bd);border-radius:30px;box-shadow:var(--sh);animation:rise .8s var(--ease) .15s both}
+    form{position:relative;margin:-30px 10px 0;padding:clamp(16px,2.8vh,24px) 20px clamp(14px,2.4vh,20px);background:var(--card);border:1px solid var(--bd);border-radius:30px;box-shadow:var(--sh);animation:rise .8s var(--ease) .15s both}
     form.shake{animation:shake .5s var(--ease)}
-    .fld{display:block;margin-bottom:14px}
+    .fld{display:block;margin-bottom:clamp(8px,1.7vh,14px)}
     .fld span{display:block;margin-bottom:7px;font:400 11px 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
     .in{position:relative;display:block}
     .in>svg{position:absolute;left:17px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--mu);pointer-events:none;transition:color .2s}
     .in:focus-within>svg{color:var(--or2)}
-    input[type=email],input[type=password],input#pw{display:block;width:100%;height:54px;padding:0 50px 0 46px;font:400 15px Geist,sans-serif;color:var(--tx);background:var(--card2);border:1px solid var(--bd);border-radius:99px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+    input[type=email],input[type=password],input#pw{display:block;width:100%;height:clamp(44px,6.2vh,54px);padding:0 50px 0 46px;font:400 15px Geist,sans-serif;color:var(--tx);background:var(--card2);border:1px solid var(--bd);border-radius:99px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
     input::placeholder{color:var(--mu2)}
-    input:focus{background:var(--card);border-color:var(--or);box-shadow:0 0 0 4px rgba(255,138,61,.18)}
+    input:focus{background:var(--card);border-color:var(--or);box-shadow:0 0 0 4px rgba(239,41,59,.18)}
     input#pw{-webkit-appearance:none;appearance:none;text-overflow:ellipsis}input#pw::-ms-reveal,input#pw::-ms-clear{display:none}
     .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:none;border:0;color:var(--mu);cursor:pointer;transition:background .2s,color .2s}
     .eye:hover{background:var(--bd);color:var(--tx)}.eye svg{width:18px;height:18px}
     .msg{display:flex;align-items:center;gap:8px;margin:2px 0 14px;padding:10px 14px;border-radius:16px;background:color-mix(in srgb,var(--dan) 10%,transparent);color:var(--dan);font-size:13.5px;animation:pop .35s var(--ease) both}
     .msg svg{flex:none;width:16px;height:16px}
-    .rm{display:flex;align-items:center;gap:10px;margin:2px 0 14px 4px;font-size:13.5px;color:var(--mu);cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+    .rm{display:flex;align-items:center;gap:10px;margin:2px 0 clamp(8px,1.7vh,14px) 4px;font-size:13.5px;color:var(--mu);cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
     .rm input{position:absolute;opacity:0;width:0;height:0}
     .rm .bx{display:grid;place-items:center;width:20px;height:20px;border-radius:7px;border:1.5px solid var(--border2,var(--bd));background:var(--card2);transition:background .2s,border-color .2s}
-    .rm .bx svg{width:13px;height:13px;fill:none;stroke:#0b0b0c;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s var(--ease)}
+    .rm .bx svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s var(--ease)}
     .rm input:checked+.bx{background:var(--or);border-color:var(--or)}.rm input:checked+.bx svg{stroke-dashoffset:0}
-    .rm input:focus-visible+.bx{box-shadow:0 0 0 4px rgba(255,138,61,.18)}
+    .rm input:focus-visible+.bx{box-shadow:0 0 0 4px rgba(239,41,59,.18)}
     .hp{position:absolute;left:-9999px;opacity:0}
 
-    #b{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;margin-top:6px;font:600 15.5px Geist,sans-serif;color:#fff;background:#0b0b0c;border:0;border-radius:99px;cursor:pointer;transition:transform .2s var(--ease),background .4s,color .4s,box-shadow .3s}
+    #b{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:clamp(46px,6.4vh,56px);margin-top:4px;font:600 15.5px Geist,sans-serif;color:#fff;background:#0b0b0c;border:0;border-radius:99px;cursor:pointer;transition:transform .2s var(--ease),background .4s,color .4s,box-shadow .3s}
     :root[data-theme=dark] #b{background:#f5f5f6;color:#0b0b0c}
     #b:hover{box-shadow:0 10px 26px rgba(0,0,0,.25)}#b:active{transform:scale(.97)}
     #b .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:left}
     #b.load{pointer-events:none}#b.load .bar{animation:bar 1.4s var(--ease) infinite}
-    #b.ok{background:var(--or);color:#0b0b0c;pointer-events:none}#b.ok .bar{display:none}
+    #b.ok{background:var(--or);color:#fff;pointer-events:none}#b.ok .bar{display:none}
     .sp{width:18px;height:18px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
     .ck{width:22px;height:22px}.ck path{stroke-dasharray:24;stroke-dashoffset:24;animation:draw .5s var(--ease) .05s forwards}
     .back,.copy{display:block;text-align:center;font:400 12px 'Geist Mono',monospace;color:var(--mu);text-decoration:none}
-    .back{margin-top:26px;transition:color .2s}.back:hover{color:var(--tx)}.copy{margin-top:12px;font-size:11.5px;color:var(--mu2)}
+    .back{margin-top:clamp(12px,2.8vh,26px);transition:color .2s}.back:hover{color:var(--tx)}.copy{margin-top:clamp(6px,1.3vh,12px);font-size:11.5px;color:var(--mu2)}
 
     /* loading: first check + success curtain */
     .boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;align-content:center;gap:18px;background:var(--bg);transition:opacity .5s var(--ease),visibility .5s}
@@ -99,7 +101,7 @@
 <main>
   <section class="hero">
     <svg class="rings" viewBox="0 0 280 280" aria-hidden="true"><circle cx="140" cy="140" r="44"/><circle cx="140" cy="140" r="78"/><circle cx="140" cy="140" r="110"/><circle class="o" cx="140" cy="140" r="110"/><circle class="o" cx="140" cy="140" r="78" style="stroke-dasharray:40 460"/></svg>
-    <span class="logo"><img src="img/favicon.png" alt="" width="60" height="60"></span>
+    <div class="logo" aria-label="AdFlare">Ad<span>Flare</span></div>
     <h1>Welcome back</h1>
     <p>Sign in to your inquiries inbox.</p>
   </section>
@@ -112,7 +114,7 @@
     <button id="b" type="submit"><span class="bar"></span><span class="t">Sign in</span></button>
   </form>
   <a class="back" href="/">← back to site</a>
-  <span class="copy">© <span id="y">2026</span> Robin Francisco</span>
+  <span class="copy">© <span id="y">2026</span> AdFlare</span>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="supabase-config.js"></script>
@@ -126,7 +128,7 @@ function err(t){mt.textContent=t;m.hidden=false;idle();f.classList.remove('shake
 /* curtain grows from the button, then we go to the inbox */
 function enter(fromBtn){
   if(fromBtn){var r=b.getBoundingClientRect();cur.style.setProperty('--cx',(r.left+r.width/2)+'px');cur.style.setProperty('--cy',(r.top+r.height/2)+'px')}
-  cur.classList.add('on');setTimeout(function(){location.href='admin'},2500);
+  cur.classList.add('on');setTimeout(function(){location.href='admin.html'},2500);
 }
 /* show / hide password */
 document.getElementById('eye').addEventListener('click',function(){var show=pw.type==='password';pw.type=show?'text':'password';this.setAttribute('aria-label',show?'Hide password':'Show password');this.style.color=show?'var(--or2)':''});
@@ -137,24 +139,44 @@ try{sessionStorage.removeItem('adm_greet')}catch(e){}
 /* every time the app is opened you must sign in again: drop any leftover session (old persistent one included) */
 try{Object.keys(localStorage).forEach(function(k){if(/^sb-.*-auth-token/.test(k))localStorage.removeItem(k)})}catch(e){}
 sb.auth.signOut({scope:'local'}).catch(function(){}).then(hideBoot);
-/* remember me: prefill email + password on this device (you still tap Sign in) */
+/* remember me: only the email is kept. The password is never stored by this page (the browser's password manager can fill it). */
 var rm=document.getElementById('rm');
 function enc(t){try{return btoa(unescape(encodeURIComponent(t)))}catch(e){return''}}
 function dec(t){try{return decodeURIComponent(escape(atob(t)))}catch(e){return''}}
-try{var sv=JSON.parse(localStorage.getItem('adm_rm')||'null');if(sv&&sv.e){f.email.value=dec(sv.e);pw.value=dec(sv.p||'');rm.checked=true}}catch(e){}
+try{var sv=JSON.parse(localStorage.getItem('adm_rm')||'null');if(sv&&sv.e){f.email.value=dec(sv.e);rm.checked=true;if('p' in sv)localStorage.setItem('adm_rm',JSON.stringify({e:sv.e}))}}catch(e){}
+/* ONLY this email may sign in. This is a first filter; the real lock is on the server (RLS + is_master) */
+var MASTER='binnfrancisco@gmail.com',LK='adm_lock';
+function lockLeft(){try{var o=JSON.parse(localStorage.getItem(LK)||'{}');return o.until&&o.until>Date.now()?o.until-Date.now():0}catch(e){return 0}}
+function fail(){try{var o=JSON.parse(localStorage.getItem(LK)||'{}');if(o.until&&o.until<=Date.now())o={};if(!o.t||Date.now()-o.t>15*60000){o={n:0,t:Date.now()}}o.n=(o.n||0)+1;if(o.n>=5){o.until=Date.now()+15*60*1000;o.n=0;o.t=0}localStorage.setItem(LK,JSON.stringify(o))}catch(e){}}
+function okReset(){try{localStorage.removeItem(LK)}catch(e){}}
+/* the database counts wrong passwords per device + account too (private/afpos-security.sql); without that SQL only the device lock applies */
+function gate(login){return sb.rpc('afpos_login_check',{p_login:login}).then(function(x){var d=x&&x.data;return(!x.error&&d&&d.locked)?Math.max(1,d.wait|0):0},function(){return 0})}
+function reportFail(login){try{sb.rpc('afpos_login_failed',{p_login:login}).then(function(){},function(){})}catch(e){}}
 f.addEventListener('submit',function(e){
   e.preventDefault();m.hidden=true;
   if(f.website.value)return; // bot
   if(!f.email.value.trim()||!f.password.value){err('Enter your email and password.');return}
+  var lk=lockLeft();if(lk){err('Too many attempts. Try again in '+Math.ceil(lk/60000)+' min.');return}
+  if(f.email.value.trim().toLowerCase()!==MASTER){b.disabled=true;b.className='load';bt.textContent='Signing in…';setTimeout(function(){fail();f.password.value='';err('Invalid email or password.')},900+Math.random()*600);return}
   if(!C.url||!C.anonKey||/YOUR-/.test(C.url+C.anonKey)){err('Supabase is not configured (supabase-config.js).');return}
   b.disabled=true;b.className='load';bt.insertAdjacentHTML('beforebegin','<span class="sp"></span>');bt.textContent='Signing in…';
   var s0=Date.now();
-  sb.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value}).then(function(r){
+  var em1=f.email.value.trim();
+  gate(em1).then(function(w){return w>0?{locked:w}:sb.auth.signInWithPassword({email:em1,password:f.password.value})}).then(function(r){
     var sp=b.querySelector('.sp');
-    if(r.error){sp&&sp.remove();f.password.value='';err(r.error.status===429?'Too many attempts. Try again later.':'Invalid email or password.');return}
-    try{if(rm.checked)localStorage.setItem('adm_rm',JSON.stringify({e:enc(f.email.value.trim()),p:enc(f.password.value)}));else localStorage.removeItem('adm_rm')}catch(e){}
-    /* success: keep the loading look for at least a beat, then check mark + curtain */
-    setTimeout(function(){sp&&sp.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},Math.max(0,700-(Date.now()-s0)));
+    if(r&&r.locked){sp&&sp.remove();f.password.value='';err('Too many attempts. Try again in '+Math.max(1,Math.ceil(r.locked/60))+' min.');return}
+    if(r.error){sp&&sp.remove();f.password.value='';fail();if(r.error.status<500&&r.error.status!==429)reportFail(em1);err(r.error.code==='email_not_confirmed'?'Verify your email first.':r.error.status===429?'Too many attempts. Try again later.':'Invalid email or password.');return}
+    /* only the master admin may open the inbox */
+    return sb.from('profiles').select('role,status').eq('id',r.data.user.id).maybeSingle().then(function(p){
+      var d=p.data;
+      if(p.error||!d||d.role!=='master_admin'||d.status!=='approved'||(r.data.user.email||'').toLowerCase()!==MASTER){sp&&sp.remove();f.password.value='';sb.auth.signOut({scope:'local'}).catch(function(){});err(p.error?('Database error: '+(p.error.message||p.error.code||'unknown')):!d?'No profile found for this account. Run supabase-setup.sql again.':('This account is "'+d.role+' / '+d.status+'", not master_admin / approved.'));return}
+      okReset();try{sb.rpc('afpos_login_ok').then(function(){},function(){})}catch(x){}
+      /* also ask the browser's own password manager (Chrome/Edge) to save it */
+      try{if(rm.checked&&window.PasswordCredential)navigator.credentials.store(new PasswordCredential({id:f.email.value.trim(),password:f.password.value,name:'AdFlare Admin'}))}catch(e){}
+      try{if(rm.checked)localStorage.setItem('adm_rm',JSON.stringify({e:enc(f.email.value.trim())}));else localStorage.removeItem('adm_rm')}catch(e){}
+      /* success: keep the loading look for at least a beat, then check mark + curtain */
+      setTimeout(function(){sp&&sp.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},Math.max(0,700-(Date.now()-s0)));
+    });
   }).catch(function(){var sp=b.querySelector('.sp');sp&&sp.remove();err('Could not reach the server.')});
 });
 </script>

@@ -44,7 +44,7 @@
 
     @media (min-width:881px){html,body{height:100vh;height:100dvh;overflow:hidden}}
     .shell{transition:height .5s var(--ease)}
-    @media (min-width:881px){.shell:has(.views[data-mode=up]){height:clamp(440px,calc(100dvh - 32px),578px)}}
+    @media (min-width:881px){.shell:has(.views[data-mode=up]){height:clamp(440px,calc(100dvh - 32px),540px)}}
     /* ---------- left: brand panel ---------- */
     .side{
       position:relative;overflow:hidden;isolation:isolate;border-radius:14px;
@@ -170,7 +170,7 @@
     .in>input{-webkit-appearance:none;appearance:none;text-overflow:ellipsis}.in>input::-ms-reveal,.in>input::-ms-clear{display:none}
     .eye{position:absolute;right:7px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:none;border:0;color:var(--mu);cursor:pointer;transition:background .2s,color .2s}
     .eye:hover{background:rgba(17,17,17,.06);color:var(--tx)}
-    .eye:focus-visible,.back:focus-visible,:is(#b,#b2):focus-visible{outline:2px solid var(--red);outline-offset:3px}
+    .eye:focus-visible,.back:focus-visible,:is(#b,#b2,#b3):focus-visible{outline:2px solid var(--red);outline-offset:3px}
     .eye svg{width:18px;height:18px}.eye .off{display:none}.eye.show .on{display:none}.eye.show .off{display:block}.eye.show{color:var(--red)}
 
     .rm{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;color:var(--mu);cursor:pointer;user-select:none}
@@ -186,16 +186,16 @@
     .msg.info{background:rgba(17,17,17,.04);border-color:var(--bd2);color:var(--tx2)}
     body.leaving{animation:out .35s ease forwards}@keyframes out{to{opacity:0;transform:scale(.99)}}
 
-    :is(#b,#b2){
+    :is(#b,#b2,#b3){
       position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:42px;
       font:600 14px Inter,sans-serif;color:#fff;background:var(--red);border:0;border-radius:12px;cursor:pointer;
       box-shadow:0 10px 30px rgba(255,43,43,.28);transition:transform .2s var(--ease),background .3s,box-shadow .3s;
     }
-    :is(#b,#b2):hover{background:#ff3d3d;box-shadow:0 14px 38px rgba(255,43,43,.4)}
-    :is(#b,#b2):active{transform:scale(.98)}
-    :is(#b,#b2) .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:#fff;opacity:.85;transform:scaleX(0);transform-origin:left}
-    :is(#b,#b2).load{pointer-events:none}:is(#b,#b2).load .bar{animation:bar 1.4s var(--ease) infinite}
-    :is(#b,#b2).ok{background:#111;color:#fff;pointer-events:none;box-shadow:none}:is(#b,#b2).ok .bar{display:none}
+    :is(#b,#b2,#b3):hover{background:#ff3d3d;box-shadow:0 14px 38px rgba(255,43,43,.4)}
+    :is(#b,#b2,#b3):active{transform:scale(.98)}
+    :is(#b,#b2,#b3) .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:#fff;opacity:.85;transform:scaleX(0);transform-origin:left}
+    :is(#b,#b2,#b3).load{pointer-events:none}:is(#b,#b2,#b3).load .bar{animation:bar 1.4s var(--ease) infinite}
+    :is(#b,#b2,#b3).ok{background:#111;color:#fff;pointer-events:none;box-shadow:none}:is(#b,#b2,#b3).ok .bar{display:none}
     .btn-dots{display:grid;grid-template-columns:repeat(2,5px);grid-template-rows:repeat(2,5px);gap:3px;justify-content:center;flex:none}
     .btn-dots i{width:5px;height:5px;border-radius:50%;background:currentColor;animation:dotrum 2.5s ease-in-out infinite;will-change:transform,opacity}
     .btn-dots i:nth-child(2){animation-delay:.5s}.btn-dots i:nth-child(4){animation-delay:1s}.btn-dots i:nth-child(3){animation-delay:1.5s}
@@ -276,7 +276,7 @@
       input[type=email],input[type=password],input#pw,.in>input{height:46px;font-size:16px;padding:0 46px 0 42px}
       .in>svg{left:14px}
       .rm{font-size:13.5px;margin-bottom:14px}
-      :is(#b,#b2){height:48px;font-size:15px}
+      :is(#b,#b2,#b3){height:48px;font-size:15px}
       .foot{margin-top:16px;font-size:12px}
     }
     /* ---------- mobile polish ---------- */
@@ -345,6 +345,111 @@
 </style>
   <!-- Match AdFlare index desktop sizing and loading scale. Mobile remains unchanged. -->
   <link rel="stylesheet" href="scale.css?v=20261118">
+<style>
+#rs[hidden]{display:none!important}
+
+/* ---------- sign up (3 steps, modeled on the Ewity flow) ---------- */
+@media (min-width:881px){.shell:has(.views[data-mode=up]){height:clamp(480px,calc(100dvh - 32px),640px)}}
+.views{transition:height .35s var(--ease)}
+.v-up .su-done{display:none}
+.v-up.done .su-main{display:none}.v-up.done .su-done{display:block}
+.v-up .stp{display:flex;align-items:center;gap:7px;margin:0 0 12px;padding:0;list-style:none}
+.v-up .stp li{display:flex;align-items:center;gap:6px;font:500 11.5px Inter,sans-serif;color:var(--mu2);white-space:nowrap}
+.v-up .stp li b{font-weight:500}
+.v-up .stp li i{position:relative;display:flex;align-items:center;justify-content:center;line-height:1;box-sizing:border-box;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--bd2);background:#fff;font:600 10.5px Inter,sans-serif;font-style:normal;transition:background .25s,border-color .25s,color .25s}
+.v-up .stp li.on{color:var(--tx)}.v-up .stp li.on i{background:var(--red);border-color:var(--red);color:#fff}
+.v-up .stp li.fin{color:var(--tx2)}.v-up .stp li.fin i{border-color:transparent;background:rgba(255,43,43,.12);color:var(--red)}
+.v-up .stp li.fin i::before{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff2b2b' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat}
+.v-up .stp li.fin i{font-size:0}
+.v-up .stp .sl{flex:1;min-width:10px;height:1.5px;background:var(--bd2);transition:background .3s}.v-up .stp .sl.fill{background:var(--red)}
+.v-up .vbody{overflow-x:hidden;overflow-y:auto;padding:3px 5px 3px 3px;margin:-3px -5px -3px -3px;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+.v-up .step{display:none}.v-up .step.on{display:block;animation:vrise .5s cubic-bezier(.22,1,.36,1) both}
+.v-up .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.v-up .row2 .fld{min-width:0}
+.v-up .in>input:not([type=password]){padding-right:10px!important}
+.v-up .in>input[type=password]{padding-right:40px!important}
+.v-up .eye{right:3px;width:34px;height:34px}
+.v-up .hint{margin:-4px 0 12px;font-size:11px;line-height:1.35;color:var(--mu2)}
+.v-up .sel{display:block;width:100%;height:38px;padding:0 28px 0 11px;font:400 13px Inter,sans-serif;color:var(--tx);background:var(--field) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666b73' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 9px center/14px;border:1px solid var(--bd);border-radius:11px;outline:none;-webkit-appearance:none;appearance:none;text-overflow:ellipsis;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.v-up .sel:hover{border-color:var(--bd2)}.v-up .sel:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(255,43,43,.16)}
+.v-up .ph{display:grid;grid-template-columns:104px minmax(0,1fr);gap:6px}
+.v-up .ph .sel{padding-right:22px;background-position:right 7px center;font-size:12.5px}
+.v-up .opts{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.v-up .opts .opt{grid-column:span 2}.v-up .opts .opt:nth-child(n+4){grid-column:span 3}
+.v-up .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.v-up .opt{position:relative;display:block;cursor:pointer}
+.v-up .opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.v-up .opt span{display:flex;align-items:center;justify-content:center;height:32px;padding:0 4px;border:1px solid var(--bd);border-radius:10px;background:var(--field);font:500 11.5px Inter,sans-serif;color:var(--tx2);text-align:center;white-space:nowrap;transition:border-color .2s,background .2s,box-shadow .2s,color .2s}
+.v-up .opt:hover span{border-color:var(--bd2)}
+.v-up .opt input:checked+span{border-color:var(--red);background:rgba(255,43,43,.06);color:var(--tx);box-shadow:0 0 0 3px rgba(255,43,43,.12)}
+.v-up .opt input:focus-visible+span{outline:2px solid var(--red);outline-offset:2px}
+.v-up .sum{margin:0 0 10px;border:1px solid var(--bd);border-radius:12px;background:var(--field);overflow:hidden}
+.v-up .sum>div{display:flex;justify-content:space-between;gap:12px;padding:7px 12px;font-size:12.5px}
+.v-up .sum>div+div{border-top:1px solid var(--bd)}
+.v-up .sum dt{flex:none;color:var(--mu)}.v-up .sum dd{margin:0;min-width:0;font-weight:600;color:var(--tx);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v-up .note{display:flex;gap:8px;align-items:flex-start;padding:9px 12px;border-radius:12px;background:rgba(17,17,17,.04);font-size:12px;line-height:1.4;color:var(--tx2)}
+.v-up .note svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--red)}
+.v-up .vact{display:flex;align-items:stretch;gap:10px;margin-top:10px}
+.views .v-up .vact #b2{flex:1;width:auto;margin-top:0;height:42px}
+.views .v-up .vact .ghost{height:42px;min-width:92px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center}
+.v-up .ghost{flex:none;height:40px;padding:0 18px;font:600 13.5px Inter,sans-serif;color:var(--tx2);background:#fff;border:1px solid var(--bd2);border-radius:12px;cursor:pointer;transition:background .2s,transform .2s var(--ease)}
+.v-up .ghost:hover{background:var(--field)}.v-up .ghost:active{transform:scale(.97)}
+.v-up .ghost:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.v-up .su-done{text-align:center}
+.v-up .okc{display:grid;place-items:center;width:46px;height:46px;margin:2px auto 12px;border-radius:50%;background:rgba(255,43,43,.09);color:var(--red)}
+.v-up .okc svg{width:24px;height:24px;stroke-width:2.4}
+.v-up .su-done .sub{white-space:normal!important;max-width:320px!important;margin:4px auto 14px!important;line-height:1.45}
+.v-up .su-done .sum{text-align:left}
+.v-up #b3{height:40px;font-size:13.5px}
+@media (max-width:880px){.v-up .sel{height:42px;font-size:16px}.v-up .ghost{height:44px}.v-up #b3{height:44px}.v-up .opt span{height:38px}.v-up .eye{width:38px;height:38px}}
+@media (max-width:440px){.v-up .stp li:not(.on) b{display:none}.v-up .row2{gap:6px}}
+@media (min-width:881px){
+  .shell{transition:height .35s var(--ease),scale .35s var(--ease)}
+  .pane:has(.views[data-mode=up]){padding-top:clamp(22px,4dvh,38px)}
+  .views[data-mode=up] .v-up>.foot{display:none}
+}
+.v-up .vbody.more{-webkit-mask-image:linear-gradient(#000 calc(100% - 26px),transparent);mask-image:linear-gradient(#000 calc(100% - 26px),transparent)}
+/* create account: one-line description, tighter rhythm so everything fits inside the card */
+.views .v-up h1{font-size:19px}
+.views .v-up .sub{white-space:nowrap;max-width:none!important;margin:3px 0 12px!important;font-size:12px}
+.views .v-up .fld{margin-bottom:7px}
+.views .v-up .fld>span:first-child{font-size:11.5px;margin-bottom:4px}
+.views .v-up .in>input{height:38px!important;font-size:13px!important;border-radius:11px}
+.views .v-up .in>svg{width:16px;height:16px;left:13px}
+.views .v-up .in>input{padding-left:38px!important}
+.views .v-up #b2{height:40px;font-size:13.5px;margin-top:4px}
+.views .v-up .alt{margin-top:10px}
+.views .v-up .foot{margin-top:8px}
+.box:has(.views[data-mode=up]) .wordmark{margin:0 0 24px!important;font-size:1.5rem!important}
+@media (max-width:880px){.views .v-up .in>input{height:42px!important;font-size:16px!important}.views .v-up #b2{height:44px}}
+/* country pickers (flag + search). Flag glyphs use a small flag font because Windows has no flag emoji */
+@font-face{font-family:"Twemoji Country Flags";unicode-range:U+1F1E6-1F1FF,U+1F3F4,U+E0062-E007F;src:url("TwemojiCountryFlags.woff2") format("woff2");font-display:swap}
+.fl{flex:none;font:15px/1 "Twemoji Country Flags","Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif}
+.v-up .pk{position:relative;display:flex;align-items:center;gap:7px;width:100%;height:38px;padding:0 26px 0 11px;font:400 13px Inter,sans-serif;color:var(--tx);text-align:left;background:var(--field);border:1px solid var(--bd);border-radius:11px;outline:none;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.v-up .pk:hover{border-color:var(--bd2)}
+.v-up .pk:focus-visible,.v-up .pk[aria-expanded=true]{border-color:var(--red);box-shadow:0 0 0 4px rgba(255,43,43,.16)}
+.v-up .pk .tx{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v-up .pk svg{position:absolute;right:8px;top:50%;width:14px;height:14px;margin-top:-7px;fill:none;stroke:#666b73;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.v-up .pk[aria-expanded=true] svg{transform:rotate(180deg)}
+.v-up .ph .pk{padding-right:22px;gap:6px;font-size:12.5px}
+.v-up .ph .pk svg{right:6px}
+.pkp{position:absolute;z-index:40;display:none;flex-direction:column;background:#fff;border:1px solid var(--bd2);border-radius:13px;box-shadow:0 18px 44px rgba(17,17,17,.16),0 2px 6px rgba(17,17,17,.06);overflow:hidden}
+.pkp.open{display:flex;animation:vrise .18s cubic-bezier(.22,1,.36,1) both}
+.pkp .sr{position:relative;flex:none;padding:7px;border-bottom:1px solid var(--bd)}
+.pkp .sr svg{position:absolute;left:17px;top:50%;width:14px;height:14px;margin-top:-7px;fill:none;stroke:#8b9098;stroke-width:2.2;stroke-linecap:round;pointer-events:none}
+.pkp .sr input{display:block;width:100%;height:30px;padding:0 10px 0 30px;font:400 12.5px Inter,sans-serif;color:var(--tx);background:var(--field);border:1px solid var(--bd);border-radius:9px;outline:none}
+.pkp .sr input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,43,43,.14)}
+.pkp ul{flex:1;min-height:0;margin:0;padding:4px;list-style:none;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+.pkp li{display:flex;align-items:center;gap:9px;height:32px;padding:0 9px;border-radius:8px;font:400 12.5px Inter,sans-serif;color:var(--tx2);cursor:pointer}
+.pkp li .n{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkp li .d{flex:none;color:var(--mu);font-variant-numeric:tabular-nums}
+.pkp li.act{background:rgba(17,17,17,.05)}
+.pkp li[aria-selected=true]{color:var(--tx);font-weight:600}
+.pkp li[aria-selected=true] .d{color:var(--red)}
+.pkp .none{padding:14px 10px;text-align:center;font-size:12.5px;color:var(--mu)}
+@media (max-width:880px){.v-up .pk{height:42px;font-size:16px}.v-up .ph .pk{font-size:15px}.pkp .sr input{height:36px;font-size:16px}.pkp li{height:38px;font-size:14px}}
+@media (max-width:880px){.views .v-up .stp{margin-bottom:20px}.views .v-up h1{margin-bottom:6px}.views .v-up .sub{margin-bottom:16px!important}.views .v-up .fld{margin-bottom:12px}.views .v-up .vact{margin-top:18px}.views .v-up .vact #b2,.views .v-up .vact .ghost{height:46px}.views .v-up .alt{margin-top:14px}}
+</style>
 </head>
 <body class="afpos-login">
 <div class="boot" id="boot" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p id="boot-t">Loading…</p></div>
@@ -403,32 +508,74 @@
       <div class="wordmark" aria-label="AFPOS">AF<i>POS</i></div>
       <div class="views" id="views" data-mode="in">
         <div class="view v-in">
-  <h1>Sign in</h1>
-          <p class="sub">Sign in to your Adflare account.</p>
-        <form id="f" novalidate>
-          <label class="fld"><span>Email</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg><input name="email" type="email" placeholder="you@example.com" autocomplete="username" required></span></label>
-          <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="pw" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="eye" id="eye" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
-          <label class="rm"><input type="checkbox" id="rm"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Remember email</span></label>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="msg" id="m" hidden><span id="mt"></span></p>
-          <button id="b" type="submit"><span class="bar"></span><span class="t">Sign in</span></button>
-        </form>
-          <p class="alt">Don't have an account?<button type="button" class="lnk" id="signup">Create account</button></p>
+          <h1>Sign in</h1>
+          <p class="sub">Sign in to your AFPOS account.</p>
+          <form id="f" novalidate>
+            <label class="fld"><span>Company</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5M9 9.5h.01M12 9.5h.01M15 9.5h.01"/></svg><input name="company" type="text" placeholder="Your company name" autocomplete="organization" autocapitalize="none" spellcheck="false" required></span></label>
+            <label class="fld"><span>Username</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="username" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none" spellcheck="false" required></span></label>
+            <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="pw" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="eye" id="eye" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
+            <label class="rm"><input type="checkbox" id="rm"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Remember me</span></label>
+            <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="msg" id="m" hidden><span id="mt"></span></p>
+            <button id="b" type="submit"><span class="bar"></span><span class="t">Sign in</span></button>
+          </form>
+          <p class="alt">New to AdFlare?<button type="button" class="lnk" id="go-up">Sign up</button></p>
           <div class="foot"><span class="copy">© <span class="yr">2026</span> AdFlare</span></div>
         </div>
-        <div class="view v-up" aria-live="polite">
-          <h1>Create account</h1>
-          <p class="sub">Set up your POS account with your name, email and password.</p>
-          <form id="fs" novalidate>
-            <label class="fld"><span>Full name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="fullname" type="text" placeholder="Robin Francisco" autocomplete="name" required></span></label>
-            <label class="fld"><span>Email</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg><input name="email" type="email" placeholder="you@example.com" autocomplete="email" required></span></label>
-            <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="pw2" type="password" placeholder="At least 8 characters" autocomplete="new-password" required><button class="eye" id="eye2" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
-            <label class="fld"><span>Confirm password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="confirm" id="pw3" type="password" placeholder="Re-enter your password" autocomplete="new-password" required><button class="eye" id="eye3" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
-            <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <p class="msg" id="m2" hidden><span id="mt2"></span></p>
-            <button id="b2" type="submit"><span class="bar"></span><span class="t">Create account</span></button>
-          </form>
-          <p class="alt">Already have an account?<button type="button" class="lnk" id="signin">Sign in</button></p>
+
+        <div class="view v-up" id="v-up">
+          <div class="su-main" style="position:relative">
+            <ol class="stp" id="stp" aria-label="Sign-up progress">
+              <li class="on" data-n="1"><i>1</i><b>Your business</b></li><span class="sl"></span>
+              <li data-n="2"><i>2</i><b>Your account</b></li><span class="sl"></span>
+              <li data-n="3"><i>3</i><b>Review</b></li>
+            </ol>
+            <h1 id="su-h">Tell us about your business</h1>
+            <p class="sub" id="su-s">Free to start, no credit card needed.</p>
+            <form id="f2" novalidate autocomplete="on">
+              <div class="vbody" id="vbody">
+                <section class="step on" data-step="1">
+                  <div class="row2">
+                    <label class="fld"><span>Company name</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5M9 9.5h.01M12 9.5h.01M15 9.5h.01"/></svg><input name="company" type="text" placeholder="AdFlare" autocomplete="organization" maxlength="60" required></span></label>
+                    <label class="fld"><span>Company login name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg><input name="login" type="text" placeholder="adflare" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required></span></label>
+                  </div>
+                  <p class="hint">What your team types in the Company box when they sign in.</p>
+                  <div class="fld" role="radiogroup" aria-labelledby="l-bt"><span id="l-bt">What kind of business is it?</span><div class="opts"><label class="opt"><input type="radio" name="btype" value="Fashion & Apparel"><span>Fashion &amp; Apparel</span></label><label class="opt"><input type="radio" name="btype" value="Groceries"><span>Groceries</span></label><label class="opt"><input type="radio" name="btype" value="Electronics"><span>Electronics</span></label><label class="opt"><input type="radio" name="btype" value="Restaurant & Cafe"><span>Restaurant &amp; Cafe</span></label><label class="opt"><input type="radio" name="btype" value="Something else"><span>Something else</span></label></div></div>
+                  <div class="row2">
+                    <div class="fld"><span id="l-country">Country</span><select name="country" id="su-country" aria-labelledby="l-country" hidden></select></div>
+                    <label class="fld"><span>How many outlets?</span><select class="sel" name="outlets"><option value="1" selected>1 outlet</option><option value="2–5">2–5 outlets</option><option value="6–14">6–14 outlets</option><option value="15+">15+ outlets</option></select></label>
+                  </div>
+                </section>
+                <section class="step" data-step="2">
+                  <div class="row2">
+                    <label class="fld"><span>Your name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="fullname" type="text" placeholder="Monir Ahmed" autocomplete="name" maxlength="80" required></span></label>
+                    <label class="fld"><span>Username</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="username" type="text" placeholder="monir.ahmed" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="30" required></span></label>
+                  </div>
+                  <label class="fld"><span>Business email</span><span class="in"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><input name="email" type="email" placeholder="monir.ahmed@islandmart.mv" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="120" required></span></label>
+                  <div class="fld"><span>Mobile number</span><div class="ph"><select name="cc" id="su-cc" aria-label="Country code" hidden></select><span class="in"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg><input name="phone" type="tel" inputmode="tel" placeholder="Mobile number" autocomplete="tel-national" maxlength="20" required></span></div></div>
+                  <div class="row2">
+                    <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="su-pw" type="password" placeholder="Password" autocomplete="new-password" maxlength="72" required><button class="eye" type="button" data-eye="su-pw" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
+                    <label class="fld"><span>Confirm password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password2" id="su-pw2" type="password" placeholder="Confirm" autocomplete="new-password" maxlength="72" required><button class="eye" type="button" data-eye="su-pw2" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
+                  </div>
+                  <p class="hint">At least 8 characters.</p>
+                </section>
+                <section class="step" data-step="3">
+                  <dl class="sum" id="su-sum"></dl>
+                  <p class="note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Your sign-up goes to the AdFlare admin for approval. You can sign in to AFPOS once it is approved.</span></p>
+                </section>
+              </div>
+              <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="vact"><button type="button" class="ghost" id="su-back" hidden>Back</button><button id="b2" type="submit"><span class="bar"></span><span class="t">Continue</span></button></div>
+            </form>
+            <p class="alt">Already have an account?<button type="button" class="lnk" id="go-in">Log in</button></p>
+          </div>
+          <div class="su-done">
+            <div class="okc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+            <h1>Request sent</h1>
+            <p class="sub" id="done-s">We will review your account and let you know.</p>
+            <dl class="sum" id="done-sum"></dl>
+            <button id="b3" type="button"><span class="bar"></span><span class="t">Back to sign in</span></button>
+          </div>
           <div class="foot"><span class="copy">© <span class="yr">2026</span> AdFlare</span></div>
         </div>
       </div>
@@ -436,25 +583,16 @@
   </section>
 </main>
 
-<!-- DATABASE OFF (static mode): accounts are saved in this browser only. To turn Supabase back on, set USE_DB=true below and restore these two script tags:
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
-<script src="/supabase-config.js"></script>
--->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
 <script>
 [].forEach.call(document.querySelectorAll('.yr'),function(e){e.textContent=new Date().getFullYear()});
-/* Accounts live in this browser until Supabase is connected. */
 var POS_HOME='pos-app.html';
-function accts(){try{return JSON.parse(localStorage.getItem('afpos_accounts')||'{}')}catch(e){return{}}}
-function saveAccts(a){try{localStorage.setItem('afpos_accounts',JSON.stringify(a));return true}catch(e){return false}}
-function hashPw(email,pwd){
-  var txt='afpos|'+email.toLowerCase()+'|'+pwd;
-  if(window.crypto&&crypto.subtle&&window.TextEncoder){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt)).then(function(b){return [].map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2)}).join('')})}
-  var h=5381;for(var i=0;i<txt.length;i++)h=((h<<5)+h+txt.charCodeAt(i))|0;return Promise.resolve('x'+h);
-}
-function supabaseReady(){return !!(C.url&&C.anonKey&&!/YOUR-/.test(C.url+C.anonKey)&&sb)}
-var USE_DB=false; /* static mode: no database yet */
 var C=window.SUPABASE_CONFIG||{},sb=null;
-if(USE_DB&&C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true}})}catch(e){}}
+if(C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true}})}catch(e){}}
+function supabaseReady(){return !!(C.url&&C.anonKey&&!/YOUR-/.test(C.url+C.anonKey)&&sb)}
+/* did the person just come back from the email link? (Supabase puts the result in the address) */
+var LANDED=(function(){var h=location.hash||'';if(!h)return'';if(/error_code=|[#&]error=/.test(h))return'bad';if(/access_token=|type=(signup|email|email_change|magiclink)/.test(h))return'ok';return''})();
 var f=document.getElementById('f'),m=document.getElementById('m'),mt=document.getElementById('mt'),b=document.getElementById('b'),bt=b.querySelector('.t'),boot=document.getElementById('boot'),cur=document.getElementById('cur'),pw=document.getElementById('pw');
 var CK='<svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 function dotsMarkup(){return '<span class="btn-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>'}
@@ -483,111 +621,281 @@ var t0=Date.now();
 try{void 0}catch(e){}
 /* every time the app is opened you must sign in again: drop any leftover session (old persistent one included) */
 try{Object.keys(localStorage).forEach(function(k){if(/^sb-.*-auth-token/.test(k))localStorage.removeItem(k)})}catch(e){}
-try{sessionStorage.removeItem('afpos-session');sessionStorage.removeItem('afpos-name')}catch(e){}
-if(sb)sb.auth.signOut({scope:'local'}).catch(function(){}).then(hideBoot);else hideBoot();
-/* Remember email only. Migrate and discard any password saved by the older demo. */
+try{sessionStorage.removeItem('afpos-session');sessionStorage.removeItem('afpos-name');sessionStorage.removeItem('afpos-role')}catch(e){}
+function afterBoot(){hideBoot()}
+if(sb)sb.auth.signOut({scope:'local'}).catch(function(){}).then(afterBoot);else afterBoot();
+/* Remember me: only company + username are kept (saved after a successful sign-in, removed when unchecked).
+   The password is NEVER stored by this page; the browser's own password manager can fill it. */
 var rm=document.getElementById('rm');
-function dec(t){try{return decodeURIComponent(escape(atob(t)))}catch(e){return''}}
-function saveRememberedEmail(email){try{if(rm.checked)localStorage.setItem('afpos_rm',email.trim());else localStorage.removeItem('afpos_rm')}catch(e){}}
-try{var saved=localStorage.getItem('afpos_rm');if(saved){try{var old=JSON.parse(saved);if(old&&old.e){f.email.value=dec(old.e);localStorage.setItem('afpos_rm',f.email.value)}}catch(e){f.email.value=saved}rm.checked=!!f.email.value}}catch(e){}
+function saveRemembered(c,u){try{if(rm.checked)localStorage.setItem('afpos_rm2',JSON.stringify({c:c,u:u}));else localStorage.removeItem('afpos_rm2')}catch(e){}}
+try{localStorage.removeItem('afpos_rm');var sv=JSON.parse(localStorage.getItem('afpos_rm2')||'null');if(sv&&sv.c){f.company.value=sv.c;f.username.value=sv.u||'';rm.checked=true;if('p' in sv)localStorage.setItem('afpos_rm2',JSON.stringify({c:sv.c,u:sv.u||''}))}}catch(e){}
+/* Login limit: 5 wrong passwords on this device -> locked 15 minutes. The database keeps the same count per device + account
+   (private/afpos-security.sql); if that SQL has not been run yet the page still works and only the device lock applies. */
+var LK='afpos_lock';
+function lockLeft(){try{var o=JSON.parse(localStorage.getItem(LK)||'{}');return o.until&&o.until>Date.now()?o.until-Date.now():0}catch(e){return 0}}
+function noteFail(){try{var o=JSON.parse(localStorage.getItem(LK)||'{}');if(o.until&&o.until<=Date.now())o={};if(!o.t||Date.now()-o.t>15*60000){o={n:0,t:Date.now()}}o.n=(o.n||0)+1;if(o.n>=5){o.until=Date.now()+15*60000;o.n=0;o.t=0}localStorage.setItem(LK,JSON.stringify(o))}catch(e){}}
+function noteOk(){try{localStorage.removeItem(LK)}catch(e){}}
+function waitTxt(ms){return'Too many attempts. Try again in '+Math.max(1,Math.ceil(ms/60000))+' min.'}
+function gate(login){return sb.rpc('afpos_login_check',{p_login:login}).then(function(x){var d=x&&x.data;return(!x.error&&d&&d.locked)?Math.max(1,d.wait|0):0},function(){return 0})}
+function reportFail(login){try{sb.rpc('afpos_login_failed',{p_login:login}).then(function(){},function(){})}catch(e){}}
 function nameFromEmail(e){var w=String(e||'').split('@')[0].replace(/[0-9]+/g,' ').split(/[._\-\s]+/).filter(Boolean);return w.length?w.map(function(x){return x.charAt(0).toUpperCase()+x.slice(1)}).join(' '):'Admin'}
-function startSession(email){try{var k=email.trim().toLowerCase(),a=accts()[k];sessionStorage.setItem('afpos-name',(a&&a.name)||nameFromEmail(k));sessionStorage.setItem('afpos-session',k);return sessionStorage.getItem('afpos-session')===k}catch(e){return false}}
-function localSignIn(){
-  var email=f.email.value.trim().toLowerCase(),list=accts();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err('Enter a valid email address.');return}
-  b.disabled=true;b.className='load';bt.insertAdjacentHTML('beforebegin',dotsMarkup());bt.textContent='Signing in…';
-  hashPw(email,f.password.value).then(function(h){
-    var loader=b.querySelector('.btn-dots');
-    /* STATIC TEST MODE: an email with no account yet is created on the spot, so you can always get in. A known email still needs its password. Remove this line when the database is connected. */
-    if(!list[email]){list[email]={h:h,created:Date.now(),name:nameFromEmail(email)};saveAccts(list)}
-    if(list[email].h!==h){loader&&loader.remove();f.password.value='';err('Invalid email or password.');return}
-    if(!startSession(email)){loader&&loader.remove();err('The session could not start. Enable browser storage and try again.');return}
-    saveRememberedEmail(f.email.value.trim());
-    setTimeout(function(){loader&&loader.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},500);
-  });
-}
+function startSession(email,name,role){try{var k=email.trim().toLowerCase();sessionStorage.setItem('afpos-name',name||nameFromEmail(k));sessionStorage.setItem('afpos-role',(role==='super_admin'||role==='master_admin')?'superadmin':'admin');sessionStorage.setItem('afpos-session',k);return sessionStorage.getItem('afpos-session')===k}catch(e){return false}}
+function leave(){var l=b.querySelector('.btn-dots');l&&l.remove();try{sb.auth.signOut({scope:'local'}).catch(function(){})}catch(e){}}
+/* the login email is built from company + username (same rule as the admin page that creates the account) */
+function slug(x){return String(x||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function loginEmail(c,u){var l=String(u||'').trim().toLowerCase().replace(/\s+/g,'.').replace(/[^a-z0-9._-]/g,''),d=slug(c);return l&&d?l+'@'+d+'.afpos.users':''}
 f.addEventListener('submit',function(e){
   e.preventDefault();hideToast();m.hidden=true;
   if(document.activeElement&&f.contains(document.activeElement))document.activeElement.blur();
   if(f.website.value)return; // bot
-  if(!f.email.value.trim()||!f.password.value){err('Enter your email and password.');return}
-  if(!supabaseReady()){localSignIn();return}
+  var co=f.company.value.trim().replace(/\s+/g,' '),us=f.username.value.trim().toLowerCase(),pw0=f.password.value,em0=loginEmail(co,us);
+  if(!co||!us||!pw0){err('Enter your company, username and password.');return}
+  if(!em0){err('Check your company and username.');return}
+  if(!supabaseReady()){err('The database is not connected. Check supabase-config.js.');return}
+  var lk0=lockLeft();if(lk0){f.password.value='';err(waitTxt(lk0));return}
   b.disabled=true;b.className='load';bt.insertAdjacentHTML('beforebegin',dotsMarkup());bt.textContent='Signing in…';
   var s0=Date.now();
-  sb.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value}).then(function(r){
+  gate(em0).then(function(w){return w>0?{locked:w}:sb.auth.signInWithPassword({email:em0,password:pw0})}).then(function(r){
     var loader=b.querySelector('.btn-dots');
-    if(r.error){loader&&loader.remove();f.password.value='';err(r.error.status===429?'Too many attempts. Try again later.':'Invalid email or password.');return}
-    saveRememberedEmail(f.email.value.trim());
-    if(!startSession(f.email.value)){sb.auth.signOut({scope:'local'}).catch(function(){});err('The dashboard session could not start. Enable browser session storage and try again.');return}
-    /* success */
-    setTimeout(function(){loader&&loader.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';
-      if(POS_HOME){setTimeout(function(){enter(true)},450)}
-      else{setTimeout(function(){sb.auth.signOut({scope:'local'}).catch(function(){});toast('Signed in. The AFPOS dashboard is not available yet.','info');idle()},900)}
-    },Math.max(0,700-(Date.now()-s0)));
+    if(r&&r.locked){loader&&loader.remove();f.password.value='';err(waitTxt(r.locked*1000));return}
+    if(r.error){
+      loader&&loader.remove();f.password.value='';
+      if(r.error.status<500&&r.error.status!==429){noteFail();reportFail(em0)}
+      try{console.error('AFPOS sign-in error:',r.error.status,r.error.code,r.error.message)}catch(x){}
+      if(r.error.status===429){err('Too many attempts. Try again later.');return}
+      if(r.error.status>=500||/fetch|network/i.test(r.error.message||'')){err('Could not reach the server. Try again.');return}
+      err('Wrong company, username or password.');return;
+    }
+    /* signed in: the account must be active */
+    return sb.from('profiles').select('full_name,role,status').eq('id',r.data.user.id).maybeSingle().then(function(p){
+      var d=p.data;
+      if(p.error||!d){leave();err('Could not check your access. Try again.');return}
+      if(d.status==='pending'){leave();err('Your account is waiting for approval. We will let you know once it is approved.');return}
+      if(d.status!=='approved'||!(d.role==='super_admin'||d.role==='master_admin'||d.role==='admin')){leave();err('This account has no access. Ask your administrator.');return}
+      var cont=function(outlet,outlets,cname){
+      saveRemembered(co,us);noteOk();try{sb.rpc('afpos_login_ok').then(function(){},function(){})}catch(x){}
+      if(!startSession(em0,d.full_name||us,d.role)){leave();err('The dashboard session could not start. Enable browser session storage and try again.');return}
+      try{sessionStorage.setItem('afpos-company',co);sessionStorage.setItem('afpos-rk',d.role);sessionStorage.setItem('afpos-outlet',outlet||'');sessionStorage.setItem('afpos-outlets',outlets||'');sessionStorage.setItem('afpos-cname',cname||'')}catch(x){}
+      setTimeout(function(){loader&&loader.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},Math.max(0,700-(Date.now()-s0)));
+      };
+      return sb.rpc('afpos_me').then(function(m){var x=m.data;if(d.role==='admin'&&(m.error||!x||!x.active)){leave();err('This account has no access. Ask your administrator.');return}cont(d.role==='admin'&&x?(x.outlet||''):'',x&&Array.isArray(x.outlets)?JSON.stringify(x.outlets):'',x&&x.name?x.name:'')});
+    });
   }).catch(function(){var loader=b.querySelector('.btn-dots');loader&&loader.remove();err('Could not reach the server.')});
 });
 
-/* ---------- switch: sign in <-> create account ---------- */
-var views=document.getElementById('views'),fs=document.getElementById('fs'),m2=document.getElementById('m2'),mt2=document.getElementById('mt2'),b2=document.getElementById('b2'),bt2=b2.querySelector('.t'),pw2=document.getElementById('pw2'),pw3=document.getElementById('pw3');
-function fit(){var a=views.querySelector(views.dataset.mode==='up'?'.v-up':'.v-in');views.style.height=a.offsetHeight+'px'}
-fit();window.addEventListener('resize',fit);window.addEventListener('load',fit);
-if(window.ResizeObserver){var ro=new ResizeObserver(fit);[].forEach.call(views.children,function(v){ro.observe(v)})}
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-function swap(mode,keepMsg){
-  views.classList.add('go');views.dataset.mode=mode;fit();
-  if(!keepMsg){m.hidden=true;m2.hidden=true}
-  setTimeout(function(){var el=mode==='up'?fs.elements.fullname:f.elements.email;el&&el.focus&&el.focus({preventScroll:true})},380);
+/* keep the card height in step with its content */
+var views=document.getElementById('views'),vUp=document.getElementById('v-up'),vbody=document.getElementById('vbody'),mode='in';
+var wide=window.matchMedia('(min-width:881px)');
+function fit(){
+  var a=views.querySelector(mode==='up'?'.v-up':'.v-in');
+  /* desktop: the card has a fixed height, so a tall sign-up step scrolls inside itself */
+  if(mode==='up'&&wide.matches&&!vUp.classList.contains('done')){
+    var pane=views.closest('.pane'),box=views.parentNode,cs=getComputedStyle(pane),fixed=(box.offsetHeight-views.offsetHeight)+(vUp.offsetHeight-vbody.offsetHeight);
+    var mh=Math.max(150,Math.floor(pane.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-fixed));
+    if(vbody.style.maxHeight!==mh+'px')vbody.style.maxHeight=mh+'px';
+  }else if(vbody.style.maxHeight)vbody.style.maxHeight='';
+  views.style.height=a.offsetHeight+'px';
+  more();
 }
-document.getElementById('signup').addEventListener('click',function(){swap('up')});
-document.getElementById('signin').addEventListener('click',function(){swap('in')});
-[['eye2',pw2],['eye3',pw3]].forEach(function(x){document.getElementById(x[0]).addEventListener('click',function(){var show=x[1].type==='password';x[1].type=show?'text':'password';this.classList.toggle('show',show);this.setAttribute('aria-label',show?'Hide password':'Show password')})});
-function idle2(){b2.className='';b2.disabled=false;bt2.textContent='Create account';var loader=b2.querySelector('.btn-dots');loader&&loader.remove()}
-function err2(t){toast(t,'err');idle2();fs.classList.remove('shake');void fs.offsetWidth;fs.classList.add('shake')}
-fs.addEventListener('submit',function(e){
-  e.preventDefault();hideToast();m2.hidden=true;
-  if(fs.website.value)return; // bot
-  var em=fs.email.value.trim(),nm=fs.fullname.value.trim().replace(/\s+/g,' ');
-  if(nm.length<2){err2('Enter your full name.');fs.fullname.focus({preventScroll:true});return}
-  if(!em||!fs.password.value||!fs.confirm.value){err2('Fill in all the fields.');return}
-  if(fs.password.value.length<8){err2('Password must be at least 8 characters.');return}
-  if(fs.password.value!==fs.confirm.value){err2('Passwords do not match.');return}
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err2('Enter a valid email address.');fs.email.focus({preventScroll:true});return}
-  if(!supabaseReady()){
-    var key=em.toLowerCase(),list=accts();
-    if(list[key]){err2('This email already has an account. Try signing in.');return}
-    b2.disabled=true;b2.className='load';bt2.insertAdjacentHTML('beforebegin',dotsMarkup());bt2.textContent='Creating account…';
-    hashPw(key,fs.password.value).then(function(h){
-      list[key]={h:h,created:Date.now(),name:nm};
-      if(!saveAccts(list)){err2('Could not save the account. Enable browser storage.');return}
-      setTimeout(function(){
-        var loader=b2.querySelector('.btn-dots');loader&&loader.remove();b2.className='ok';b2.innerHTML=CK+'<span>Account created!</span>';
-        setTimeout(function(){f.email.value=em;pw.value='';fs.reset();idle2();toast('Account created. You can sign in now.','ok');swap('in',true)},900);
-      },500);
-    });
-    return;
+function more(){var m=vbody.scrollHeight-vbody.scrollTop-vbody.clientHeight>6;vbody.classList.toggle('more',m)}
+vbody.addEventListener('scroll',more,{passive:true});
+fit();window.addEventListener('resize',fit);window.addEventListener('load',fit);
+if(window.ResizeObserver){var ro=new ResizeObserver(fit);[].forEach.call(views.children,function(v){ro.observe(v)});var pn=views.closest('.pane');if(pn)ro.observe(pn)}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+
+
+/* ---------- sign up: 3 steps -> request goes to the admin for approval ---------- */
+var f2=document.getElementById('f2'),b2=document.getElementById('b2'),b2t=b2.querySelector('.t'),suBack=document.getElementById('su-back'),
+    stpLi=[].slice.call(document.querySelectorAll('#stp li')),stpSl=[].slice.call(document.querySelectorAll('#stp .sl')),
+    steps=[].slice.call(f2.querySelectorAll('.step')),step=1,sending=false,
+    HEAD=[['Tell us about your business','Free to start, no credit card needed.'],['Create your account',"You'll be the owner. You can invite your team afterwards."],['Review and send','Check your details, then send your request.']];
+var PKS=[];function closePk(except){PKS.forEach(function(k){if(k!==except)k.close()})}
+function suErr(t){toast(t,'err');f2.classList.remove('shake');void f2.offsetWidth;f2.classList.add('shake')}
+function setMode(m,instant){
+  mode=m;views.dataset.mode=m;
+  document.title=m==='up'?'AFPOS - Sign up':'AFPOS - Log in';
+  try{history.replaceState(null,'',m==='up'?'#signup':location.pathname+location.search)}catch(e){}
+  hideToast();
+  if(!instant){views.classList.remove('go');void views.offsetWidth;views.classList.add('go')}
+  fit();
+  if(!instant)setTimeout(function(){var t=m==='up'?(vUp.classList.contains('done')?document.getElementById('b3'):f2.querySelector('.step.on input:not([type=radio]),.step.on select')):f.company;try{t&&t.focus({preventScroll:true})}catch(e){}},420);
+}
+function showStep(n){
+  step=n;
+  steps.forEach(function(el,i){el.classList.toggle('on',i===n-1)});
+  stpLi.forEach(function(li,i){li.classList.toggle('on',i===n-1);li.classList.toggle('fin',i<n-1)});
+  stpSl.forEach(function(sl,i){sl.classList.toggle('fill',i<n-1)});
+  document.getElementById('su-h').textContent=HEAD[n-1][0];document.getElementById('su-s').textContent=HEAD[n-1][1];
+  suBack.hidden=n===1;b2t.textContent=n===3?'Create account':'Continue';
+  closePk();vbody.scrollTop=0;fit();
+  if(n===3)buildReview();
+}
+function val(name){var e=f2.elements[name];return e?String(e.value).trim():''}
+function checked(name){var e=f2.querySelector('input[name='+name+']:checked');return e?e.value:''}
+function phoneFull(){return (val('cc')==='+'?'+':val('cc')+' ')+val('phone').replace(/[^0-9]/g,'')}
+function validate(n){
+  if(n===1){
+    if(!checked('btype'))return'Choose what kind of business it is.';
+    if(val('company').length<2)return'Enter your company name.';
+    var ln=slug(val('login'));
+    if(ln.length<2)return'Enter a company login name (lowercase letters and numbers, like adflare).';
   }
-  b2.disabled=true;b2.className='load';bt2.insertAdjacentHTML('beforebegin',dotsMarkup());bt2.textContent='Creating account…';
-  var s0=Date.now();
-  sb.auth.signUp({email:em,password:fs.password.value,options:{data:{full_name:nm}}}).then(function(r){
-    setTimeout(function(){
-      if(r.error){
-        var t=r.error.status===429?'Too many attempts. Try again later.':/registered|exists/i.test(r.error.message||'')?'This email already has an account. Try signing in.':/invalid format|validate email|invalid email/i.test(r.error.message||'')?'Enter a valid email address.':(r.error.message||'Could not create the account.');
-        err2(t);return;
-      }
-      var u=r.data&&r.data.user;
-      if(u&&u.identities&&u.identities.length===0){err2('This email already has an account. Try signing in.');return}
-      var needsConfirm=!(r.data&&r.data.session);
-      if(!needsConfirm)sb.auth.signOut({scope:'local'}).catch(function(){}); // sign in again on purpose, same as the rest of the app
-      /* success: check mark, then slide back to Sign in with the email filled in */
-      var loader=b2.querySelector('.btn-dots');loader&&loader.remove();b2.className='ok';b2.innerHTML=CK+'<span>Account created!</span>';
-      setTimeout(function(){
-        f.email.value=em;pw.value='';fs.reset();idle2();
-        toast(needsConfirm?'Account created. Check your email to confirm it, then sign in.':'Account created. You can sign in now.','ok');
-        swap('in',true);
-      },1100);
-    },Math.max(0,700-(Date.now()-s0)));
-  }).catch(function(){err2('Could not reach the server.')});
+  if(n===2){
+    if(val('fullname').length<2)return'Enter your name.';
+    if(!/^[A-Za-z0-9._-]{3,30}$/.test(val('username')))return'Username: 3-30 letters, numbers, dot, dash or underscore.';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email')))return'Enter a valid business email.';
+    var d=val('phone').replace(/[^0-9]/g,'');if(d.length<5||d.length>15)return'Enter a valid mobile number.';
+    var pw1=f2.elements.password.value;
+    if(pw1.length<8)return'Password must be at least 8 characters.';
+    if(pw1!==f2.elements.password2.value)return'The two passwords do not match.';
+  }
+  return'';
+}
+function row(dt,dd){var d=document.createElement('div'),a=document.createElement('dt'),b=document.createElement('dd');a.textContent=dt;b.textContent=dd;b.title=dd;d.append(a,b);return d}
+function fill(dl,rows){dl.textContent='';rows.forEach(function(r){dl.appendChild(row(r[0],r[1]))})}
+function buildReview(){
+  var loc=[checked('btype'),val('outlets')+(val('outlets')==='1'?' outlet':' outlets'),val('country')].join(' · ');
+  fill(document.getElementById('su-sum'),[['Company',val('company')],['Business',loc],['Login','Company: @'+slug(val('login'))+' · '+val('username').toLowerCase()],['Name',val('fullname')],['Email',val('email')],['Mobile',phoneFull()]]);
+}
+/* the company login name is typed by the person (NOT linked to the company name) and is always lowercase */
+var suLogin=f2.elements.login;
+suLogin.addEventListener('input',function(){var v=this.value.toLowerCase().replace(/[^a-z0-9]+/g,'');if(v!==this.value)this.value=v});
+suLogin.addEventListener('blur',function(){this.value=this.value.toLowerCase().replace(/[^a-z0-9]+/g,'').slice(0,40)});
+/* usernames are always lowercase (sign-up and sign-in) */
+function lowerInput(el){if(!el)return;el.addEventListener('input',function(){var a=this.selectionStart,v=this.value.toLowerCase().replace(/\s+/g,'');if(v!==this.value){this.value=v;try{this.setSelectionRange(a,a)}catch(x){}}})}
+lowerInput(f2.elements.username);lowerInput(f.username);
+/* countries: [iso, name, dial code]. Maldives first, then the nearby ones, then A-Z */
+var COUNTRIES=[["MV","Maldives","960"],["PH","Philippines","63"],["IN","India","91"],["LK","Sri Lanka","94"],["MY","Malaysia","60"],["BD","Bangladesh","880"],["AF","Afghanistan","93"],["AX","Åland Islands","358"],["AL","Albania","355"],["DZ","Algeria","213"],["AS","American Samoa","1684"],["AD","Andorra","376"],["AO","Angola","244"],["AI","Anguilla","1264"],["AQ","Antarctica","672"],["AG","Antigua and Barbuda","1268"],["AR","Argentina","54"],["AM","Armenia","374"],["AW","Aruba","297"],["AC","Ascension Island","247"],["AU","Australia","61"],["AT","Austria","43"],["AZ","Azerbaijan","994"],["BS","Bahamas","1242"],["BH","Bahrain","973"],["BB","Barbados","1246"],["BY","Belarus","375"],["BE","Belgium","32"],["BZ","Belize","501"],["BJ","Benin","229"],["BM","Bermuda","1441"],["BT","Bhutan","975"],["BO","Bolivia","591"],["BQ","Bonaire","5997"],["BA","Bosnia and Herzegovina","387"],["BW","Botswana","267"],["BV","Bouvet Island","47"],["BR","Brazil","55"],["IO","British Indian Ocean Territory","246"],["VG","British Virgin Islands","1284"],["BN","Brunei","673"],["BG","Bulgaria","359"],["BF","Burkina Faso","226"],["BI","Burundi","257"],["CV","Cabo Verde","238"],["KH","Cambodia","855"],["CM","Cameroon","237"],["CA","Canada","1"],["KY","Cayman Islands","1345"],["CF","Central African Republic","236"],["TD","Chad","235"],["CL","Chile","56"],["CN","China","86"],["CX","Christmas Island","61"],["CC","Cocos (Keeling) Islands","61"],["CO","Colombia","57"],["KM","Comoros","269"],["CK","Cook Islands","682"],["CR","Costa Rica","506"],["HR","Croatia","385"],["CU","Cuba","53"],["CW","Curacao","5999"],["CY","Cyprus","357"],["CZ","Czechia","420"],["CD","Democratic Republic of the Congo","243"],["DK","Denmark","45"],["DJ","Djibouti","253"],["DM","Dominica","1767"],["DO","Dominican Republic","1809"],["TL","East Timor","670"],["EC","Ecuador","593"],["EG","Egypt","20"],["SV","El Salvador","503"],["GQ","Equatorial Guinea","240"],["ER","Eritrea","291"],["EE","Estonia","372"],["SZ","Eswatini","268"],["ET","Ethiopia","251"],["FK","Falkland Islands","500"],["FO","Faroe Islands","298"],["FJ","Fiji","679"],["FI","Finland","358"],["FR","France","33"],["GF","French Guiana","594"],["PF","French Polynesia","689"],["TF","French Southern Territories","262"],["GA","Gabon","241"],["GM","Gambia","220"],["GE","Georgia","995"],["DE","Germany","49"],["GH","Ghana","233"],["GI","Gibraltar","350"],["GR","Greece","30"],["GL","Greenland","299"],["GD","Grenada","1473"],["GP","Guadeloupe","590"],["GU","Guam","1671"],["GT","Guatemala","502"],["GG","Guernsey","44"],["GN","Guinea","224"],["GW","Guinea-Bissau","245"],["GY","Guyana","592"],["HT","Haiti","509"],["HM","Heard Island and McDonald Islands","61"],["HN","Honduras","504"],["HK","Hong Kong","852"],["HU","Hungary","36"],["IS","Iceland","354"],["ID","Indonesia","62"],["IR","Iran","98"],["IQ","Iraq","964"],["IE","Ireland","353"],["IM","Isle of Man","44"],["IL","Israel","972"],["IT","Italy","39"],["CI","Ivory Coast","225"],["JM","Jamaica","1876"],["JP","Japan","81"],["JE","Jersey","44"],["JO","Jordan","962"],["KZ","Kazakhstan","7"],["KE","Kenya","254"],["KI","Kiribati","686"],["XK","Kosovo","377"],["KW","Kuwait","965"],["KG","Kyrgyzstan","996"],["LA","Laos","856"],["LV","Latvia","371"],["LB","Lebanon","961"],["LS","Lesotho","266"],["LR","Liberia","231"],["LY","Libya","218"],["LI","Liechtenstein","423"],["LT","Lithuania","370"],["LU","Luxembourg","352"],["MO","Macao","853"],["MG","Madagascar","261"],["MW","Malawi","265"],["ML","Mali","223"],["MT","Malta","356"],["MH","Marshall Islands","692"],["MQ","Martinique","596"],["MR","Mauritania","222"],["MU","Mauritius","230"],["YT","Mayotte","262"],["MX","Mexico","52"],["FM","Micronesia","691"],["MD","Moldova","373"],["MC","Monaco","377"],["MN","Mongolia","976"],["ME","Montenegro","382"],["MS","Montserrat","1664"],["MA","Morocco","212"],["MZ","Mozambique","258"],["MM","Myanmar","95"],["NA","Namibia","264"],["NR","Nauru","674"],["NP","Nepal","977"],["NL","Netherlands","31"],["NC","New Caledonia","687"],["NZ","New Zealand","64"],["NI","Nicaragua","505"],["NE","Niger","227"],["NG","Nigeria","234"],["NU","Niue","683"],["NF","Norfolk Island","672"],["KP","North Korea","850"],["MK","North Macedonia","389"],["MP","Northern Mariana Islands","1670"],["NO","Norway","47"],["OM","Oman","968"],["PK","Pakistan","92"],["PW","Palau","680"],["PS","Palestine","970"],["PA","Panama","507"],["PG","Papua New Guinea","675"],["PY","Paraguay","595"],["PE","Peru","51"],["PN","Pitcairn Islands","64"],["PL","Poland","48"],["PT","Portugal","351"],["PR","Puerto Rico","1787"],["QA","Qatar","974"],["CG","Republic of the Congo","242"],["RE","Reunion","262"],["RO","Romania","40"],["RU","Russia","7"],["RW","Rwanda","250"],["BL","Saint Barthelemy","590"],["SH","Saint Helena","290"],["KN","Saint Kitts and Nevis","1869"],["LC","Saint Lucia","1758"],["MF","Saint Martin","590"],["PM","Saint Pierre and Miquelon","508"],["VC","Saint Vincent and the Grenadines","1784"],["WS","Samoa","685"],["SM","San Marino","378"],["ST","Sao Tome and Principe","239"],["SA","Saudi Arabia","966"],["SN","Senegal","221"],["RS","Serbia","381"],["SC","Seychelles","248"],["SL","Sierra Leone","232"],["SG","Singapore","65"],["SX","Sint Maarten","1721"],["SK","Slovakia","421"],["SI","Slovenia","386"],["SB","Solomon Islands","677"],["SO","Somalia","252"],["ZA","South Africa","27"],["GS","South Georgia and the South Sandwich Islands","500"],["KR","South Korea","82"],["SS","South Sudan","211"],["ES","Spain","34"],["SD","Sudan","249"],["SR","Suriname","597"],["SJ","Svalbard and Jan Mayen","4779"],["SE","Sweden","46"],["CH","Switzerland","41"],["SY","Syria","963"],["TW","Taiwan","886"],["TJ","Tajikistan","992"],["TZ","Tanzania","255"],["TH","Thailand","66"],["TG","Togo","228"],["TK","Tokelau","690"],["TO","Tonga","676"],["TT","Trinidad and Tobago","1868"],["TA","Tristan da Cunha","290"],["TN","Tunisia","216"],["TR","Türkiye","90"],["TM","Turkmenistan","993"],["TC","Turks and Caicos Islands","1649"],["TV","Tuvalu","688"],["UM","U.S. Minor Outlying Islands","1"],["VI","U.S. Virgin Islands","1340"],["UG","Uganda","256"],["UA","Ukraine","380"],["AE","United Arab Emirates","971"],["GB","United Kingdom","44"],["US","United States","1"],["UY","Uruguay","598"],["UZ","Uzbekistan","998"],["VU","Vanuatu","678"],["VA","Vatican City","379"],["VE","Venezuela","58"],["VN","Vietnam","84"],["WF","Wallis and Futuna","681"],["EH","Western Sahara","212"],["YE","Yemen","967"],["ZM","Zambia","260"],["ZW","Zimbabwe","263"]];
+function flagOf(iso){return String.fromCodePoint(127397+iso.charCodeAt(0),127397+iso.charCodeAt(1))}
+var cc=document.getElementById('su-cc'),ctry=document.getElementById('su-country');
+COUNTRIES.forEach(function(c,i){
+  var a=document.createElement('option');a.value=c[1];a.textContent=c[1];if(!i)a.selected=true;ctry.appendChild(a);
+  var b=document.createElement('option');b.value='+'+c[2];b.textContent=c[1]+' +'+c[2];b.dataset.iso=c[0];if(!i)b.selected=true;cc.appendChild(b);
 });
+function mkPicker(sel,kind,onUser){
+  var btn=document.createElement('button'),fl=document.createElement('span'),tx=document.createElement('span'),pop=document.createElement('div'),
+      sr=document.createElement('div'),inp=document.createElement('input'),ul=document.createElement('ul'),none=document.createElement('div'),
+      main=sel.closest('.su-main'),items=[],act=-1,self={};
+  btn.type='button';btn.className='pk';btn.setAttribute('aria-haspopup','listbox');btn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-label',kind==='cc'?'Country code':'Country');
+  fl.className='fl';fl.setAttribute('aria-hidden','true');tx.className='tx';
+  btn.append(fl,tx);btn.insertAdjacentHTML('beforeend','<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>');
+  sel.insertAdjacentElement('afterend',btn);
+  pop.className='pkp';sr.className='sr';
+  sr.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>';
+  inp.type='text';inp.placeholder='Search country';inp.setAttribute('aria-label','Search country');inp.autocomplete='off';inp.spellcheck=false;
+  sr.appendChild(inp);ul.setAttribute('role','listbox');none.className='none';none.textContent='No country found';none.hidden=true;
+  pop.append(sr,ul,none);main.appendChild(pop);
+  COUNTRIES.forEach(function(c,i){
+    var li=document.createElement('li');li.setAttribute('role','option');li.dataset.i=i;
+    li.innerHTML='<span class="fl">'+flagOf(c[0])+'</span><span class="n"></span>'+(kind==='cc'?'<span class="d">+'+c[2]+'</span>':'');
+    li.querySelector('.n').textContent=c[1];ul.appendChild(li);items.push(li);
+  });
+  function sync(){
+    var i=sel.selectedIndex<0?0:sel.selectedIndex,c=COUNTRIES[i];
+    fl.textContent=flagOf(c[0]);tx.textContent=kind==='cc'?'+'+c[2]:c[1];
+    items.forEach(function(li,k){li.setAttribute('aria-selected',k===i?'true':'false')});
+  }
+  function vis(){return items.filter(function(li){return !li.hidden})}
+  function setAct(li,scroll){
+    items.forEach(function(x){x.classList.remove('act')});
+    if(li){li.classList.add('act');act=+li.dataset.i;if(scroll)li.scrollIntoView({block:'nearest'})}else act=-1;
+  }
+  function filter(){
+    var q=inp.value.trim().toLowerCase(),d=q.replace(/^\+/,'');
+    items.forEach(function(li,i){
+      var c=COUNTRIES[i];li.hidden=!!q&&!(c[1].toLowerCase().indexOf(q)>-1||c[0].toLowerCase()===q||(d&&/^[0-9]+$/.test(d)&&c[2].indexOf(d)===0));
+    });
+    var v=vis();none.hidden=v.length>0;setAct(v[0]||null,false);ul.scrollTop=0;
+  }
+  function place(){
+    var mr=main.getBoundingClientRect(),br=btn.getBoundingClientRect(),sh=btn.closest('.shell')||main,sr_=sh.getBoundingClientRect(),
+        k=(mr.width/main.offsetWidth)||1,bw=br.width/k,w=Math.min(Math.max(bw,kind==='cc'?260:bw),main.offsetWidth),
+        left=Math.max(0,Math.min((br.left-mr.left)/k,main.offsetWidth-w)),
+        below=(sr_.bottom-br.bottom)/k-14,above=(br.top-sr_.top)/k-14,want=262;
+    var up=below<190&&above>below,room=Math.max(150,Math.min(want,up?above:below));
+    ul.style.maxHeight=(room-46)+'px';pop.style.width=w+'px';pop.style.left=left+'px';
+    if(up){pop.style.top='';pop.style.bottom=((mr.bottom-br.top)/k+6)+'px'}else{pop.style.bottom='';pop.style.top=((br.bottom-mr.top)/k+6)+'px'}
+  }
+  function open(){
+    closePk(self);inp.value='';filter();place();pop.classList.add('open');btn.setAttribute('aria-expanded','true');
+    var s=items[sel.selectedIndex];if(s){setAct(s,false);ul.scrollTop=Math.max(0,s.offsetTop-ul.offsetTop-70)}
+    try{inp.focus({preventScroll:true})}catch(e){inp.focus()}
+  }
+  function close(back){
+    if(!pop.classList.contains('open'))return;
+    pop.classList.remove('open');btn.setAttribute('aria-expanded','false');if(back)btn.focus({preventScroll:true});
+  }
+  function pick(i,user){sel.selectedIndex=i;sync();close(true);if(user&&onUser)onUser(i)}
+  btn.addEventListener('click',function(){pop.classList.contains('open')?close(true):open()});
+  btn.addEventListener('keydown',function(e){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();open()}});
+  inp.addEventListener('input',filter);
+  inp.addEventListener('keydown',function(e){
+    var v=vis(),at=v.indexOf(items[act]);
+    if(e.key==='ArrowDown'){e.preventDefault();setAct(v[Math.min(v.length-1,at+1)],true)}
+    else if(e.key==='ArrowUp'){e.preventDefault();setAct(v[Math.max(0,at-1)],true)}
+    else if(e.key==='Enter'){e.preventDefault();e.stopPropagation();if(v[at]||v[0])pick(+(v[at]||v[0]).dataset.i,true)}
+    else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close(true)}
+    else if(e.key==='Tab')close(false);
+  });
+  ul.addEventListener('mousemove',function(e){var li=e.target.closest('li');if(li&&+li.dataset.i!==act)setAct(li,false)});
+  ul.addEventListener('click',function(e){var li=e.target.closest('li');if(li)pick(+li.dataset.i,true)});
+  document.addEventListener('pointerdown',function(e){if(pop.classList.contains('open')&&!pop.contains(e.target)&&!btn.contains(e.target))close(false)});
+  self.sync=sync;self.close=close;self.set=function(i){sel.selectedIndex=i;sync()};
+  sync();PKS.push(self);return self;
+}
+/* mobile code follows the country until the person picks a code themselves */
+var pkCc=mkPicker(cc,'cc',function(){cc.dataset.t='1'});
+var pkCountry=mkPicker(ctry,'country',function(i){if(!cc.dataset.t)pkCc.set(i)});
+f2.addEventListener('reset',function(){setTimeout(function(){pkCc.sync();pkCountry.sync()},0)});
+vbody.addEventListener('scroll',function(){closePk()});window.addEventListener('resize',function(){closePk()});
+/* each password has its own eye */
+[].forEach.call(f2.querySelectorAll('[data-eye]'),function(btn){btn.addEventListener('click',function(){
+  var i=document.getElementById(btn.dataset.eye),show=i.type==='password';i.type=show?'text':'password';btn.classList.toggle('show',show);btn.setAttribute('aria-label',show?'Hide password':'Show password');
+})});
+suBack.addEventListener('click',function(){if(!sending)showStep(step-1)});
+/* Enter inside a field moves on, it never sends a half-filled form */
+f2.addEventListener('submit',function(e){
+  e.preventDefault();if(sending)return;hideToast();
+  if(f2.website.value)return; // bot
+  var v=validate(step);if(v){suErr(v);return}
+  if(step<3){showStep(step+1);return}
+  if(!supabaseReady()){suErr('The database is not connected. Check supabase-config.js.');return}
+  sending=true;b2.disabled=true;b2.className='load';b2t.insertAdjacentHTML('beforebegin',dotsMarkup());b2t.textContent='Sending…';suBack.disabled=true;
+  var s0=Date.now(),ln=slug(val('login')),us=val('username').toLowerCase(),nm=val('fullname');
+  function reset(){var l=b2.querySelector('.btn-dots');l&&l.remove();b2.className='';b2.disabled=false;b2t.textContent='Create account';suBack.disabled=false;sending=false}
+  sb.rpc('request_afpos_account',{
+    p_business_name:val('company').replace(/\s+/g,' '),p_login_name:ln,p_username:us,p_name:nm,p_contact_email:val('email').toLowerCase(),p_phone:phoneFull(),
+    p_password:f2.elements.password.value,p_business_type:checked('btype'),p_outlets:val('outlets'),p_country:val('country'),p_heard_from:val('heard')
+  }).then(function(r){
+    if(r.error){
+      reset();try{console.error('AFPOS sign-up error:',r.error.status,r.error.code,r.error.message)}catch(x){}
+      var msg=String(r.error.message||'');
+      if(r.error.status===429)suErr('Too many attempts. Try again later.');
+      else if(/could not find the function|schema cache|does not exist/i.test(msg))suErr('Sign-up is not available yet. Please try again later.');
+      else if(r.error.status>=500&&!/exception|taken|valid|Enter|must|Too many/i.test(msg))suErr('Could not reach the server. Try again.');
+      else suErr(msg||'Could not send your request. Try again.');
+      return;
+    }
+    setTimeout(function(){
+      f2.elements.password.value='';f2.elements.password2.value='';
+      fill(document.getElementById('done-sum'),[['Company login name',ln],['Username',us],['Status','Waiting for approval']]);
+      document.getElementById('done-s').textContent='Thanks, '+nm.split(' ')[0]+'. We will review your account. You can sign in once it is approved.';
+      vUp.classList.add('done');fit();toast('Request sent. Waiting for approval.','ok');
+      var b3=document.getElementById('b3');vUp.dataset.ln=ln;vUp.dataset.us=us;
+      reset();
+    },Math.max(0,700-(Date.now()-s0)));
+  }).catch(function(){reset();suErr('Could not reach the server.')});
+});
+document.getElementById('go-up').addEventListener('click',function(){setMode('up')});
+document.getElementById('go-in').addEventListener('click',function(){setMode('in')});
+document.getElementById('b3').addEventListener('click',function(){
+  f.company.value=vUp.dataset.ln||'';f.username.value=vUp.dataset.us||'';f.password.value='';
+  setMode('in');setTimeout(function(){try{f.password.focus({preventScroll:true})}catch(e){}},460);
+  /* fresh form for the next sign-up */
+  setTimeout(function(){f2.reset();suLogin.dataset.t='';cc.dataset.t='';vUp.classList.remove('done');showStep(1)},700);
+});
+if(location.hash==='#signup')setMode('up',true);
 
 /* looping product showcase: sales -> inventory -> reports */
 (function(){

@@ -17,10 +17,48 @@
   }
   body.afpos-login .shell {
     max-width: 1020px;
-    height: clamp(520px, calc(100dvh - 32px), 600px);
-    scale: 1.25;
+    scale: 1.1;
+    /* snug height (no dead space) that still always fits the window: visual = height x .75 x scale <= window - 40px */
+    height: clamp(480px, calc((100vh - 40px) / .825), 540px);
   }
-  body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(520px, calc(100dvh - 32px), 668px); }
+  body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100vh - 40px) / .825), 780px); }
+  /* bigger windows: scale the card up so it fills the screen */
+  @media (min-height: 760px) {
+    body.afpos-login .shell { scale: 1.3; height: clamp(480px, calc((100vh - 56px) / .975), 560px); }
+    body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100vh - 56px) / .975), 780px); }
+  }
+  @media (min-height: 900px) {
+    body.afpos-login .shell { scale: 1.5; height: clamp(480px, calc((100vh - 64px) / 1.125), 560px); }
+    body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100vh - 64px) / 1.125), 780px); }
+  }
+  /* form column: centered in the card instead of stuck to the top */
+  body.afpos-login .pane { justify-content: center; padding-top: 18px; padding-bottom: 14px; }
+  /* short windows (laptops): tighter spacing inside the form */
+  @media (max-height: 700px) {
+    body.afpos-login .wordmark { margin-bottom: 16px; }
+    body.afpos-login .box .sub { margin-bottom: 12px; }
+    body.afpos-login .fld { margin-bottom: 8px; }
+    body.afpos-login .rm { margin-bottom: 9px; }
+    body.afpos-login .alt { margin-top: 12px; }
+    body.afpos-login .foot { margin-top: 8px; }
+  }
+  @media (max-height: 820px) {
+    /* sign-up on short windows: hide the subtitle only, keep the spacing comfortable */
+    body.afpos-login .views .v-up .sub { display: none !important; }
+  }
+  /* sign-up: breathing room between logo, steps, title, fields and buttons (all 3 steps) */
+  body.afpos-login .views .v-up .stp { margin-bottom: 20px; }
+  body.afpos-login .views .v-up h1 { margin-bottom: 16px; }
+  body.afpos-login .views .v-up .fld { margin-bottom: 12px; }
+  body.afpos-login .views .v-up .hint { margin: -4px 0 12px; }
+  body.afpos-login .views .v-up .vact { margin-top: 18px; }
+  body.afpos-login .views .v-up .alt { margin-top: 14px; }
+  /* short windows (laptops): a bit tighter so step 1 never needs to scroll */
+  @media (max-height: 700px) {
+    body.afpos-login .views .v-up .stp { margin-bottom: 16px; }
+    body.afpos-login .views .v-up h1 { margin-bottom: 14px; }
+    body.afpos-login .views .v-up .vact { margin-top: 14px; }
+  }
 
   /* full-screen things must still fill the screen after zoom */
   #hero, #about { min-height: calc(100vh / .75); }
