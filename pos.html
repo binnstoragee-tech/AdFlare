@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<script>try{sessionStorage.setItem('af-landed','1')}catch(e){}</script>
+<script>try{sessionStorage.setItem('af-landed','1')}catch(e){}window.AFS=(function(){var P="afpos.s:",ls=null,mem={};try{ls=window.localStorage;ls.getItem("x")}catch(e){ls=null}return{getItem:function(k){try{if(ls){var v=ls.getItem(P+k);return v===undefined?null:v}}catch(e){}return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null},setItem:function(k,v){v=String(v);try{if(ls){ls.setItem(P+k,v);return}}catch(e){}mem[k]=v},removeItem:function(k){try{ls&&ls.removeItem(P+k)}catch(e){}delete mem[k]}}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
@@ -589,7 +589,7 @@
 [].forEach.call(document.querySelectorAll('.yr'),function(e){e.textContent=new Date().getFullYear()});
 var POS_HOME='pos-app.html';
 var C=window.SUPABASE_CONFIG||{},sb=null;
-if(C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true}})}catch(e){}}
+if(C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.AFS,persistSession:true,autoRefreshToken:true}})}catch(e){}}
 function supabaseReady(){return !!(C.url&&C.anonKey&&!/YOUR-/.test(C.url+C.anonKey)&&sb)}
 /* did the person just come back from the email link? (Supabase puts the result in the address) */
 var LANDED=(function(){var h=location.hash||'';if(!h)return'';if(/error_code=|[#&]error=/.test(h))return'bad';if(/access_token=|type=(signup|email|email_change|magiclink)/.test(h))return'ok';return''})();
@@ -619,11 +619,19 @@ document.getElementById('eye').addEventListener('click',function(){var show=pw.t
 var t0=Date.now();
   function hideBoot(){setTimeout(function(){boot.classList.add('gone')},Math.max(0,2500-(Date.now()-t0)))}
 try{void 0}catch(e){}
-/* every time the app is opened you must sign in again: drop any leftover session (old persistent one included) */
+/* AFPOS stays signed in on this device: if a valid session is still here, go straight into the app.
+   "Sign out" inside the app is the only way out (a disabled / deleted account is still signed out by the app itself). */
 try{Object.keys(localStorage).forEach(function(k){if(/^sb-.*-auth-token/.test(k))localStorage.removeItem(k)})}catch(e){}
-try{sessionStorage.removeItem('afpos-session');sessionStorage.removeItem('afpos-name');sessionStorage.removeItem('afpos-role')}catch(e){}
 function afterBoot(){hideBoot()}
-if(sb)sb.auth.signOut({scope:'local'}).catch(function(){}).then(afterBoot);else afterBoot();
+(function(){
+  var has=false;try{has=!!AFS.getItem('afpos-session')}catch(e){}
+  function fresh(){
+    try{AFS.removeItem('afpos-session');AFS.removeItem('afpos-name');AFS.removeItem('afpos-role')}catch(e){}
+    if(sb)sb.auth.signOut({scope:'local'}).catch(function(){}).then(afterBoot);else afterBoot();
+  }
+  if(!sb||!has||location.hash)return fresh();
+  sb.auth.getSession().then(function(r){if(r&&r.data&&r.data.session)location.replace(POS_HOME);else fresh()}).catch(fresh);
+})();
 /* Remember me: only company + username are kept (saved after a successful sign-in, removed when unchecked).
    The password is NEVER stored by this page; the browser's own password manager can fill it. */
 var rm=document.getElementById('rm');
@@ -639,7 +647,7 @@ function waitTxt(ms){return'Too many attempts. Try again in '+Math.max(1,Math.ce
 function gate(login){return sb.rpc('afpos_login_check',{p_login:login}).then(function(x){var d=x&&x.data;return(!x.error&&d&&d.locked)?Math.max(1,d.wait|0):0},function(){return 0})}
 function reportFail(login){try{sb.rpc('afpos_login_failed',{p_login:login}).then(function(){},function(){})}catch(e){}}
 function nameFromEmail(e){var w=String(e||'').split('@')[0].replace(/[0-9]+/g,' ').split(/[._\-\s]+/).filter(Boolean);return w.length?w.map(function(x){return x.charAt(0).toUpperCase()+x.slice(1)}).join(' '):'Admin'}
-function startSession(email,name,role){try{var k=email.trim().toLowerCase();sessionStorage.setItem('afpos-name',name||nameFromEmail(k));sessionStorage.setItem('afpos-role',(role==='super_admin'||role==='master_admin')?'superadmin':'admin');sessionStorage.setItem('afpos-session',k);return sessionStorage.getItem('afpos-session')===k}catch(e){return false}}
+function startSession(email,name,role){try{var k=email.trim().toLowerCase();AFS.setItem('afpos-name',name||nameFromEmail(k));AFS.setItem('afpos-role',(role==='super_admin'||role==='master_admin')?'superadmin':'admin');AFS.setItem('afpos-session',k);return AFS.getItem('afpos-session')===k}catch(e){return false}}
 function leave(){var l=b.querySelector('.btn-dots');l&&l.remove();try{sb.auth.signOut({scope:'local'}).catch(function(){})}catch(e){}}
 /* the login email is built from company + username (same rule as the admin page that creates the account) */
 function slug(x){return String(x||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
@@ -675,7 +683,7 @@ f.addEventListener('submit',function(e){
       var cont=function(outlet,outlets,cname){
       saveRemembered(co,us);noteOk();try{sb.rpc('afpos_login_ok').then(function(){},function(){})}catch(x){}
       if(!startSession(em0,d.full_name||us,d.role)){leave();err('The dashboard session could not start. Enable browser session storage and try again.');return}
-      try{sessionStorage.setItem('afpos-company',co);sessionStorage.setItem('afpos-rk',d.role);sessionStorage.setItem('afpos-outlet',outlet||'');sessionStorage.setItem('afpos-outlets',outlets||'');sessionStorage.setItem('afpos-cname',cname||'')}catch(x){}
+      try{AFS.setItem('afpos-company',co);AFS.setItem('afpos-rk',d.role);AFS.setItem('afpos-outlet',outlet||'');AFS.setItem('afpos-outlets',outlets||'');AFS.setItem('afpos-cname',cname||'')}catch(x){}
       setTimeout(function(){loader&&loader.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},Math.max(0,700-(Date.now()-s0)));
       };
       return sb.rpc('afpos_me').then(function(m){var x=m.data;if(d.role==='admin'&&(m.error||!x||!x.active)){leave();err('This account has no access. Ask your administrator.');return}cont(d.role==='admin'&&x?(x.outlet||''):'',x&&Array.isArray(x.outlets)?JSON.stringify(x.outlets):'',x&&x.name?x.name:'')});

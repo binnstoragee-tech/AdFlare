@@ -691,7 +691,7 @@ document.addEventListener('click',function(e){if(!$('#np').hidden&&!$('#np').con
 addEventListener('keydown',function(e){if(e.key==='Escape'){bell(false);mdClose()}});
 
 /* ---------- log out + auto logout after 10 min idle ---------- */
-function logout(){if(leaving)return;leaving=true;sb.auth.signOut().catch(function(){}).then(toLogin)}
+function logout(){if(leaving)return;leaving=true;sb.auth.signOut({scope:'local'}).catch(function(){}).then(toLogin)}
 $('#out').onclick=logout;
 var IDLE=10*60*1000,WARN=30*1000,lastAct=Date.now(),warned=false;
 ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(ev){addEventListener(ev,function(){lastAct=Date.now();warned=false},{passive:true,capture:true})});
