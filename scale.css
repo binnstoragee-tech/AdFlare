@@ -69,3 +69,30 @@
   .rv:fullscreen { zoom: 1.3333333; height: 100vh; }
   .offer-modal-content { max-height: calc(85vh / .75); }
 }
+
+/* ============================================
+   iPad / tablet landscape: center the AFPOS login.
+   On touch tablets 100vh is taller than the visible area (browser bars),
+   so the card sat too low. Use dvh (the real visible height) instead.
+   ============================================ */
+@media (min-width: 1000px) and (hover: none) and (pointer: coarse) {
+  html:has(body.afpos-login) { height: 100dvh; }
+  body.afpos-login {
+    min-height: calc(100dvh / .75);
+    height: calc(100dvh / .75);
+    display: grid;
+    place-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  body.afpos-login .shell { height: clamp(480px, calc((100dvh - 40px) / .825), 540px); }
+  body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100dvh - 40px) / .825), 780px); }
+  @media (min-height: 760px) {
+    body.afpos-login .shell { height: clamp(480px, calc((100dvh - 56px) / .975), 560px); }
+    body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100dvh - 56px) / .975), 780px); }
+  }
+  @media (min-height: 900px) {
+    body.afpos-login .shell { height: clamp(480px, calc((100dvh - 64px) / 1.125), 560px); }
+    body.afpos-login .shell:has(.views[data-mode=up]) { height: clamp(500px, calc((100dvh - 64px) / 1.125), 780px); }
+  }
+}

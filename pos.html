@@ -10,8 +10,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="AFPOS">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
-  <link rel="apple-touch-icon" href="img/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/af-icon-32.png?v=2">
+  <link rel="apple-touch-icon" href="img/af-icon-180.png?v=2">
   <title>AFPOS - Log in</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,12 +173,6 @@
     .eye:focus-visible,.back:focus-visible,:is(#b,#b2,#b3):focus-visible{outline:2px solid var(--red);outline-offset:3px}
     .eye svg{width:18px;height:18px}.eye .off{display:none}.eye.show .on{display:none}.eye.show .off{display:block}.eye.show{color:var(--red)}
 
-    .rm{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;color:var(--mu);cursor:pointer;user-select:none}
-    .rm input{position:absolute;opacity:0;width:0;height:0}
-    .rm .bx{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--bd2);background:var(--field);transition:background .2s,border-color .2s,box-shadow .2s}
-    .rm .bx svg{width:13px;height:13px;stroke:#fff;stroke-width:3;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s var(--ease)}
-    .rm input:checked+.bx{background:var(--red);border-color:var(--red)}.rm input:checked+.bx svg{stroke-dashoffset:0}
-    .rm input:focus-visible+.bx{box-shadow:0 0 0 4px rgba(255,43,43,.2)}
     .hp{position:absolute;left:-9999px;opacity:0}
 
     .msg{display:flex;align-items:center;gap:8px;margin:0 0 16px;padding:11px 14px;border-radius:12px;background:rgba(217,43,43,.07);border:1px solid rgba(217,43,43,.25);color:var(--dan);font-size:13.5px;animation:pop .35s var(--ease) both}
@@ -191,6 +185,7 @@
       font:600 14px Inter,sans-serif;color:#fff;background:var(--red);border:0;border-radius:12px;cursor:pointer;
       box-shadow:0 10px 30px rgba(255,43,43,.28);transition:transform .2s var(--ease),background .3s,box-shadow .3s;
     }
+    #f #b{margin-top:28px}
     :is(#b,#b2,#b3):hover{background:#ff3d3d;box-shadow:0 14px 38px rgba(255,43,43,.4)}
     :is(#b,#b2,#b3):active{transform:scale(.98)}
     :is(#b,#b2,#b3) .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:#fff;opacity:.85;transform:scaleX(0);transform-origin:left}
@@ -275,7 +270,6 @@
       .fld>span:first-child{font-size:13px;margin-bottom:6px}
       input[type=email],input[type=password],input#pw,.in>input{height:46px;font-size:16px;padding:0 46px 0 42px}
       .in>svg{left:14px}
-      .rm{font-size:13.5px;margin-bottom:14px}
       :is(#b,#b2,#b3){height:48px;font-size:15px}
       .foot{margin-top:16px;font-size:12px}
     }
@@ -514,7 +508,6 @@
             <label class="fld"><span>Company</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5M9 9.5h.01M12 9.5h.01M15 9.5h.01"/></svg><input name="company" type="text" placeholder="Your company name" autocomplete="organization" autocapitalize="none" spellcheck="false" required></span></label>
             <label class="fld"><span>Username</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="username" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none" spellcheck="false" required></span></label>
             <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="pw" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="eye" id="eye" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
-            <label class="rm"><input type="checkbox" id="rm"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Remember me</span></label>
             <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <p class="msg" id="m" hidden><span id="mt"></span></p>
             <button id="b" type="submit"><span class="bar"></span><span class="t">Sign in</span></button>
@@ -632,11 +625,8 @@ function afterBoot(){hideBoot()}
   if(!sb||!has||location.hash)return fresh();
   sb.auth.getSession().then(function(r){if(r&&r.data&&r.data.session)location.replace(POS_HOME);else fresh()}).catch(fresh);
 })();
-/* Remember me: only company + username are kept (saved after a successful sign-in, removed when unchecked).
-   The password is NEVER stored by this page; the browser's own password manager can fill it. */
-var rm=document.getElementById('rm');
-function saveRemembered(c,u){try{if(rm.checked)localStorage.setItem('afpos_rm2',JSON.stringify({c:c,u:u}));else localStorage.removeItem('afpos_rm2')}catch(e){}}
-try{localStorage.removeItem('afpos_rm');var sv=JSON.parse(localStorage.getItem('afpos_rm2')||'null');if(sv&&sv.c){f.company.value=sv.c;f.username.value=sv.u||'';rm.checked=true;if('p' in sv)localStorage.setItem('afpos_rm2',JSON.stringify({c:sv.c,u:sv.u||''}))}}catch(e){}
+/* no 'Remember me' on the AFPOS login: wipe anything an older version saved */
+try{localStorage.removeItem('afpos_rm');localStorage.removeItem('afpos_rm2')}catch(e){}
 /* Login limit: 5 wrong passwords on this device -> locked 15 minutes. The database keeps the same count per device + account
    (private/afpos-security.sql); if that SQL has not been run yet the page still works and only the device lock applies. */
 var LK='afpos_lock';
@@ -681,7 +671,7 @@ f.addEventListener('submit',function(e){
       if(d.status==='pending'){leave();err('Your account is waiting for approval. We will let you know once it is approved.');return}
       if(d.status!=='approved'||!(d.role==='super_admin'||d.role==='master_admin'||d.role==='admin')){leave();err('This account has no access. Ask your administrator.');return}
       var cont=function(outlet,outlets,cname){
-      saveRemembered(co,us);noteOk();try{sb.rpc('afpos_login_ok').then(function(){},function(){})}catch(x){}
+      noteOk();try{sb.rpc('afpos_login_ok').then(function(){},function(){})}catch(x){}
       if(!startSession(em0,d.full_name||us,d.role)){leave();err('The dashboard session could not start. Enable browser session storage and try again.');return}
       try{AFS.setItem('afpos-company',co);AFS.setItem('afpos-rk',d.role);AFS.setItem('afpos-outlet',outlet||'');AFS.setItem('afpos-outlets',outlets||'');AFS.setItem('afpos-cname',cname||'')}catch(x){}
       setTimeout(function(){loader&&loader.remove();b.className='ok';b.innerHTML=CK+'<span>Welcome!</span>';setTimeout(function(){enter(true)},450)},Math.max(0,700-(Date.now()-s0)));

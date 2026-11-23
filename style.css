@@ -2816,6 +2816,7 @@ footer {
   border: 3px solid rgba(var(--fg),0.65);
   box-shadow: 0 0 0 5px rgba(var(--fg),0.16), 0 0 26px rgba(255,43,43,0.4);
 }
+.sg-thumb img.sg-fav { object-fit: cover; object-position: center; }
 .sg-item:hover .sg-thumb { border-color: var(--white); }
 .sg-item:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 6px; border-radius: 12px; }
 
@@ -4512,7 +4513,6 @@ html #process .process-header { margin-bottom: clamp(80px, 8vw, 120px); }
   from { transform: translate(-50%, -50%) rotate(calc(var(--a) * -1)); }
   to   { transform: translate(-50%, -50%) rotate(calc(var(--a) * -1 - 360deg)); }
 }
-#about .ab-stage:hover .ab-orbit, #about .ab-stage:hover .ab-chip { animation-play-state: paused; }
 
 /* ---- ONLINE PRESENCE page (between the samples and "Who We Work With") ---- */
 .ab-presence-sec {
@@ -4630,3 +4630,28 @@ html #process .process-header { margin-bottom: clamp(80px, 8vw, 120px); }
   }
   #hero .hero-dash { justify-self: stretch; max-width: 720px; margin-left: auto; }
 }
+
+/* samples without content yet: nothing visible, just a spinning loading gear */
+.sg-item.is-empty .sg-thumb { background: rgba(var(--fg),0.06); }
+.sg-item.is-empty .sg-thumb em { font-size: 0; color: rgba(var(--fg),0.55); }
+.sg-gear { width: 44%; height: 44%; display: block; animation: sgGearSpin 2.4s linear infinite; }
+@keyframes sgGearSpin { to { transform: rotate(360deg); } }
+.sg-slide.is-empty .ad-art-ph b, .sg-slide.is-empty .ad-art-ph small,
+.sg-slide.is-empty .web-ph b, .sg-slide.is-empty .web-ph small { display: none; }
+.sg-slide.is-empty .ad-art-ph .sg-gear, .sg-slide.is-empty .web-ph .sg-gear { width: 56px; height: 56px; color: rgba(var(--fg),0.6); }
+@media (prefers-reduced-motion: reduce) { .sg-gear { animation: none; } }
+
+.sg-slide.is-empty .web-ph { justify-items: center; }
+.sg-slide.is-empty .sg-mt { display: block; margin-top: 6px; font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: .02em; color: #fbbf24; }
+.sg-slide.is-empty .sg-mt-d { display: block; font-size: 0.78rem; line-height: 1.4; color: #fff; }
+
+/* reels without content yet: keep the reel UI, replace only the video area with gear + label */
+.sg-slide.is-empty .ad-reel { pointer-events: none; }
+.sg-slide.is-empty .ad-reel .reel-scene, .sg-slide.is-empty .ad-reel video { display: none; }
+.reel-mt-box { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 18px; text-align: center; }
+.sg-slide.is-empty .reel-mt-box .sg-gear { width: 56px; height: 56px; color: rgba(var(--fg),0.6); }
+
+/* under-maintenance: white gear, red label, white description, bigger */
+.sg-slide.is-empty .ad-art-ph .sg-gear, .sg-slide.is-empty .web-ph .sg-gear, .sg-slide.is-empty .reel-mt-box .sg-gear { width: 72px; height: 72px; color: #fff; }
+.sg-slide.is-empty .sg-mt { margin-top: 10px; font-size: 1.3rem; color: #ff3b3b; }
+.sg-slide.is-empty .sg-mt-d { font-size: 1.02rem; font-weight: 500; color: #fff; white-space: nowrap; }

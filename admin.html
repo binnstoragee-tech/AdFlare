@@ -7,8 +7,8 @@
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#ffffff">
   <title>Accounts - AdFlare</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
-  <link rel="apple-touch-icon" href="img/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/af-icon-32.png?v=2">
+  <link rel="apple-touch-icon" href="img/af-icon-180.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
@@ -289,7 +289,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="supabase-config.js"></script>
 <script>
-var C=window.SUPABASE_CONFIG||{},sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true}});
+/* same storage rule as login.html: a session saved with "Remember me" stays in localStorage, otherwise sessionStorage */
+var store={
+  getItem:function(k){try{var v=sessionStorage.getItem(k);return v!==null?v:localStorage.getItem(k)}catch(e){return null}},
+  setItem:function(k,v){try{if(localStorage.getItem(k)!==null)localStorage.setItem(k,v);else sessionStorage.setItem(k,v)}catch(e){}},
+  removeItem:function(k){try{sessionStorage.removeItem(k);localStorage.removeItem(k)}catch(e){}}
+};
+var C=window.SUPABASE_CONFIG||{},sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:store,persistSession:true,autoRefreshToken:true}});
 var $=function(s){return document.querySelector(s)};
 var MASTER='binnfrancisco@gmail.com',SQLHINT='Run private/admin-accounts.sql, private/outlet-admins.sql and private/master-company-users.sql in the Supabase SQL Editor once.';
 var MAXU=3;
