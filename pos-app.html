@@ -1074,6 +1074,62 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
 .pf-foot{display:flex;justify-content:flex-end;gap:var(--sp-2,8px)}
 .pf-foot .btn{height:32px;padding:0 var(--sp-3,12px);font-size:var(--fs-body,11px)}
 </style>
+<style>
+/* ---- Customers page: filters, list, row menu ---- */
+.cx-card.cx-menu-open,.cx-card.cx-menu-open .table-scroll{overflow:visible}
+.cx-filters{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:14px 18px;padding:16px 18px 4px}
+.cx-f{display:grid;gap:6px;min-width:0;color:var(--muted);font-size:var(--fs-body,11px);font-weight:550}
+.cx-f input{width:100%;height:34px;min-width:0;padding:0 10px;border:1px solid var(--line);border-radius:8px;outline:none;background:var(--paper,#fff);color:var(--ink);font:inherit;font-size:var(--fs-body,11px);font-weight:450}
+.cx-f input:focus{border-color:var(--t-f39da5,#f39da5);box-shadow:0 0 0 3px rgba(var(--rgb-b,239,41,59),.08)}
+.cx-range{display:flex;align-items:center;gap:6px;min-width:0}
+.cx-range i{flex:none;color:var(--quiet);font-style:normal}
+.cx-btns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding:2px 0 14px}
+.cx-btns .btn{height:34px;padding:0 var(--sp-4,16px);font-size:var(--fs-body,11px)}
+.cx-table{width:100%;border-collapse:collapse;table-layout:fixed;white-space:nowrap}
+.cx-table td{overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+.cx-table th.cx-num,.cx-table td.cx-num{text-align:right}
+.cx-table td.cx-actions{overflow:visible}
+.cx-av{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:50%;color:#fff;font-size:13px;font-weight:650;line-height:1}
+.cx-av-in{display:none}
+.cx-name{display:flex;align-items:center;gap:10px;min-width:0}
+.cx-name-t{display:grid;gap:2px;min-width:0;justify-items:start}
+.cx-name-t b,.cx-name-t small{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.cx-name-t small{color:var(--quiet);font-size:.92em;letter-spacing:.02em}
+.cx-flag{margin-top:2px}
+.cx-stack{display:grid;gap:3px;justify-items:end}
+.cx-stack b{font-weight:600;color:var(--ink-2)}
+.cx-stack b.cx-owes{color:var(--brand-dark,#c51d31)}
+.cx-stack small{color:var(--quiet)}
+.cx-act{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.cx-act .btn{height:30px;padding:0 12px;font-size:var(--fs-body,11px)}
+.cx-menu .row-menu{width:30px;height:30px;border:1px solid var(--line);border-radius:8px}
+.cx-rowpop{top:calc(100% + 6px);right:0;width:190px}
+.pop-more button.is-danger{color:var(--brand-dark,#c51d31)}
+.cx-more-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff)}
+@media(max-width:900px){.cx-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cx-f:first-child{grid-column:1/-1}}
+@media(max-width:640px){
+  .cx-filters{grid-template-columns:minmax(0,1fr);padding:14px 14px 2px}
+  .cx-table{display:block;table-layout:auto;white-space:normal;min-width:0!important}
+  .cx-table colgroup,.cx-table thead{display:none}
+  .cx-table tbody{display:block}
+  .cx-table tbody tr{display:block;position:relative;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .cx-table tbody tr:last-child{border-bottom:0}
+  .cx-table td{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0!important;border:0!important;text-align:right;overflow:visible;white-space:normal;font-size:11px}
+  .cx-table td::before{content:attr(data-label);flex:none;max-width:42%;text-align:left;color:#9296a0;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .cx-table td:not([data-label])::before{display:none}
+  .cx-table td.cx-avc{display:none}
+  .cx-table td.cx-namec{justify-content:flex-start;text-align:left;padding-right:0!important;font-weight:650}
+  .cx-table td.cx-namec::before{display:none}
+  .cx-av-in{display:grid}
+  .cx-table td.cx-actions{justify-content:flex-end;padding-top:8px!important}
+  .cx-card.cx-menu-open .table-scroll{overflow:visible}
+}
+/* ---- drawer form: text areas, helper text, locked fields ---- */
+.form-field textarea{width:100%;min-height:68px;padding:8px 9px;border:1px solid var(--line);border-radius:7px;outline:none;background:var(--paper,#fff);color:var(--dm-fg-343842,#343842);font:inherit;font-size:var(--fs-body,11px);font-weight:450;line-height:1.45;resize:vertical}
+.form-field textarea:focus,.form-field input:focus{border-color:var(--t-f39da5,#f39da5);box-shadow:0 0 0 3px rgba(var(--rgb-b,239,41,59),.06)}
+.form-field input:disabled,.form-field select:disabled,.form-field textarea:disabled{background:var(--wash);color:var(--muted);cursor:not-allowed;opacity:.85}
+.field-hint{display:block;color:var(--quiet);font-size:var(--fs-micro,9px);font-weight:450;line-height:1.4}
+</style>
 </head>
   <body>
     <div id="app"></div>
@@ -2148,7 +2204,7 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
   }
   /* a search box does not hold changes back (its text lives in state and is put back after the redraw);
      every other field / window still does, so nothing being typed is ever lost */
-  var C_SEARCH = ["[data-page-search]", "[data-inv-search]", "[data-product-search]", '[data-home-filter="period"]', '[data-home-filter="outlet"]', "[data-chart-metric]", "[data-table-period]"];   /* report period / outlet filters hold no typing, so they must not hold back live updates */
+  var C_SEARCH = ["[data-page-search]", "[data-cx=\"q\"]", "[data-inv-search]", "[data-product-search]", '[data-home-filter="period"]', '[data-home-filter="outlet"]', "[data-chart-metric]", "[data-table-period]"];   /* report period / outlet filters hold no typing, so they must not hold back live updates */
   function cSearchSel(ae) { return ae && ae.matches ? C_SEARCH.find((q) => ae.matches(q)) || null : null; }
   /* true when someone has typed in the Settings form and not saved yet: only then do remote changes wait */
   function settingsFormDirty() {
@@ -2400,6 +2456,7 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
     state.page = 0;
     state.sort = { key: null, dir: 1 };
     state.tablePeriod = "All time";
+    state.cx = null;
     state.mobileNav = false;
     state.popover = null;
     state.gq = "";
@@ -2460,7 +2517,21 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
     const customers = ["Walk-in customer", ...names(d2.customers)];
     switch (key) {
       case "customers":
-        return [f("name", "Customer name", "text", true, { value: val("name") }), f("mobile", "Phone", "tel", false, { value: val("mobile") }), f("email", "Email", "email", false, { value: val("email") }), f("address", "Address", "text", false, { value: val("address") }), f("tin", "Customer GST TIN (optional)", "text", false, { value: val("tin") }), f("loyalty", "Loyalty points", "number", false, { value: val("loyalty", 0), min: 0 }), f("creditLimit", "Credit limit (MVR)", "number", false, { value: val("creditLimit", 3e3), min: 0 }), ...status()];
+        {
+          const canCredit = canEditCatalog();
+          return [
+            f("name", "Name", "text", true, { value: val("name"), placeholder: "Name" }),
+            f("mobile", "Mobile", "tel", true, { value: val("mobile"), placeholder: "Mobile" }),
+            f("email", "Email", "email", false, { value: val("email"), placeholder: "Email" }),
+            f("birthday", "Date of Birth", "date", false, { value: date("birthday") }),
+            f("address", "Address", "textarea", false, { value: val("address"), placeholder: "Address", span: true }),
+            f("tin", "Tax Number", "text", false, { value: val("tin"), placeholder: "Customer Tax Number" }),
+            ...(edit || canCredit ? [f("creditLimit", "Credit Limit (MVR)", "number", canCredit, { value: val("creditLimit", 3e3), min: 0, step: "any", disabled: !canCredit, hint: canCredit ? "" : "You do not have permission to update this" })] : []),
+            f("priceLevel", "Default Price Level", "select", false, { options: CX_PRICE_LEVELS, value: val("priceLevel", ""), hint: "Bills created for customer will have this price level by default" }),
+            f("note", "Note", "textarea", false, { value: val("note"), span: true }),
+            ...status()
+          ];
+        }
       case "products":
         return [f("sku", "SKU", "text", true, { value: val("sku", `${s.skuPrefix || "AF"}-${1001 + d2.products.length}`) }), f("name", "Product name", "text", true, { value: val("name") }), f("category", "Category", "select", true, { options: names(d2.categories), value: val("category", d2.categories[0]?.name) }), f("brand", "Brand (optional)", "text", false, { value: val("brand"), placeholder: "e.g. Daiwa" }), f("serial", "Serial number (optional)", "text", false, { value: val("serial") }), f("stockQty", edit ? "On hand" : "Opening stock", "number", true, { value: val("stockQty", 0), min: 0, step: 1 }), f("price", "Price (MVR)", "number", true, { value: val("price"), min: 0, step: "any" }), f("packing", "Packing / size (optional)", "text", false, { value: val("packing"), placeholder: "e.g. 12 x 450ml" }), f("image", "Photo (optional)", "photo", false, { value: val("image"), hd: val("imageHd"), span: true })];
       case "categories":
@@ -2955,6 +3026,7 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
       if (field.required && (v[field.name] === "" || v[field.name] == null || field.type === "date" && !v[field.name])) return `${field.label.replace(/ \(.*\)/, "")} is required.`;
       if (field.type === "number" && v[field.name] != null && v[field.name] < 0) return `${field.label.replace(/ \(.*\)/, "")} cannot be negative.`;
     }
+    if (key === "customers" && v.birthday && v.birthday > Date.now()) return "Date of Birth cannot be in the future.";
     const nk = NAME_KEY[key];
     if (nk && v[nk]) {
       const clash = d()[key].some((r) => r !== row && String(r[nk]).toLowerCase() === String(v[nk]).toLowerCase());
@@ -2975,7 +3047,10 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
     let label = "Record";
     switch (key) {
       case "customers":
-        row = { ...v, visits: 0, outstanding: 0, creditLimit: v.creditLimit || 3e3, status: "Active", joinedAt: now };
+        row = { ...v, loyalty: 0, visits: 0, outstanding: 0, creditLimit: v.creditLimit == null ? 3e3 : v.creditLimit, status: "Active", joinedAt: now, createdBy: userName() };
+        if (!row.birthday) delete row.birthday;
+        if (!row.priceLevel) delete row.priceLevel;
+        if (!row.note) delete row.note;
         label = v.name;
         break;
       case "products": {
@@ -3081,6 +3156,13 @@ html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .in
         if (x.customer === old.name) x.customer = row.name;
       }));
       if (state.cartCustomer === old.name) state.cartCustomer = row.name;
+    }
+    if (key === "customers") {
+      if (!row.birthday) delete row.birthday;
+      if (!row.priceLevel) delete row.priceLevel;
+      if (!row.note) delete row.note;
+      row.updatedAt = Date.now();
+      row.updatedBy = userName();
     }
     if (key === "products") {
       syncProductStatus(row);
@@ -6774,12 +6856,146 @@ ${body}`);
   }
   function renderTablePage(meta) {
     const key = meta.dataKey;
+    if (key === "customers") return `${pageHeading(meta, cxHeadButtons())}${renderCustomersCard()}`;
     const create = catalogBlocked(key) ? "" : key === "sessions" ? "New session" : CREATE_LABEL[key];
     const extra = (key === "products" || key === "customers") && isSuperUser() ? `<button class="btn btn-secondary" type="button" data-action="import-data" data-key="${key}">${svgIcon("upload", 16)} Import</button>` : "";
     const manage = key === "products" ? `<button class="btn btn-secondary" type="button" data-view="categories">${svgIcon("layers", 16)} Manage categories</button>` : key === "expenses" ? `<button class="btn btn-secondary" type="button" data-view="expense-categories">${svgIcon("layers", 16)} Manage categories</button>` : "";
     const back = key === "categories" ? `<button class="btn btn-secondary" type="button" data-view="products">${svgIcon("arrow", 16)} Back to products</button>` : key === "expenseCategories" ? `<button class="btn btn-secondary" type="button" data-view="expenses">${svgIcon("arrow", 16)} Back to expenses</button>` : "";
     const buttons = `${back}${manage}<button class="btn btn-secondary" type="button" data-action="export">${svgIcon("download", 16)} Export</button>${extra}${create ? `<button class="btn btn-primary" type="button" data-action="create">${svgIcon("plus", 16)} ${esc(create)}</button>` : ""}`;
     return `${pageHeading(meta, buttons)}${key === "products" ? bulkBarHtml() : ""}${renderTableCard(meta, { dataKey: key })}`;
+  }
+  /* ================= Customers: list page, filters, export, row menu =================
+     Everything here is drawn from state.data.customers + state.data.bills on every render, so a change made on another
+     device (a new customer, an edit, a sale, a payment) shows up in this list by itself through the live data sync. */
+  var CX_PRICE_LEVELS = ["", "Retail", "Wholesale"];
+  var CX_COLORS = ["#243044", "#2a93b0", "#e5484d", "#3a4a6b", "#0f5a8f", "#175e63", "#1e97c8", "#0e4f86", "#6b4fb3", "#b8566b", "#2f7a4f", "#8a5a2b"];
+  function cxS() {
+    if (!state.cx) state.cx = { d: { q: "", bf: "", bt: "", cf: "", ct: "" }, a: { q: "", bf: "", bt: "", cf: "", ct: "" }, menu: null };
+    return state.cx;
+  }
+  function cxColor(name) { let h = 0; const s2 = String(name || ""); for (let i = 0; i < s2.length; i++) h = (h * 31 + s2.charCodeAt(i)) >>> 0; return CX_COLORS[h % CX_COLORS.length]; }
+  function cxInitial(name) { const m = String(name || "").trim().match(/[A-Za-z0-9\u00C0-\uFFFF]/); return m ? m[0].toUpperCase() : "?"; }
+  function cxLimit(row) { return row.creditLimit == null || row.creditLimit === "" ? 3e3 : num(row.creditLimit); }
+  /* total spent = completed + pending bills of that customer (voided and refunded bills do not count) */
+  function cxSpend() {
+    const m = new Map();
+    (d().bills || []).forEach((b) => { if (b && isSale(b)) m.set(b.customer, round2((m.get(b.customer) || 0) + num(b.total))); });
+    return m;
+  }
+  function cxRows() {
+    const a = cxS().a, spend = cxSpend(), q = String(a.q || "").trim().toLowerCase(), qd = q.replace(/\D/g, "");
+    let rows = [];
+    (d().customers || []).forEach((row, index) => { if (row && typeof row === "object") rows.push({ row, index, spent: spend.get(row.name) || 0 }); });
+    if (q) rows = rows.filter(({ row }) => String(row.name || "").toLowerCase().includes(q) || String(row.email || "").toLowerCase().includes(q) || String(row.mobile || "").toLowerCase().includes(q) || (qd.length >= 3 && String(row.mobile || "").replace(/\D/g, "").includes(qd)));
+    const inRange = (ts, from, to) => { if (!from && !to) return true; if (!ts) return false; const s2 = toInputDate(ts); return (!from || s2 >= from) && (!to || s2 <= to); };
+    rows = rows.filter(({ row }) => inRange(row.birthday, a.bf, a.bt) && inRange(row.joinedAt, a.cf, a.ct));
+    const { key, dir } = state.sort;
+    if (key === "name" || key === "outstanding" || key === "spent" || key === "loyalty") {
+      const val = (x) => key === "name" ? String(x.row.name || "") : key === "spent" ? x.spent : num(x.row[key]);
+      rows = [...rows].sort((x, y) => { const p = val(x), r = val(y); return (typeof p === "number" ? p - r : p.localeCompare(r, void 0, { numeric: true, sensitivity: "base" })) * dir; });
+    }
+    return rows;
+  }
+  function cxHeadButtons() {
+    const open = state.popover === "cxmore", su = isSuperUser();
+    return `<button class="btn btn-primary" type="button" data-action="create">${svgIcon("plus", 16)} New</button><div class="pop-anchor table-more"><button class="icon-btn cx-more-btn" type="button" data-action="cx-more" aria-haspopup="menu" aria-expanded="${open}" aria-label="More customer actions">${svgIcon("dots", 18)}</button>${open ? `<div class="pop pop-more" role="menu"><span class="pop-label">Customers</span><button type="button" role="menuitem" data-action="cx-export">${svgIcon("download", 16)} Export to Excel</button><button type="button" role="menuitem" data-action="cx-csv">${svgIcon("download", 16)} Download CSV</button>${su ? `<button type="button" role="menuitem" data-action="import-data" data-key="customers">${svgIcon("upload", 16)} Import</button>` : ""}</div>` : ""}</div>`;
+  }
+  function renderCustomersCard() {
+    const S = cxS(), all = cxRows(), total = (d().customers || []).length;
+    const pages = Math.max(1, Math.ceil(all.length / state.pageSize));
+    state.page = Math.max(0, Math.min(state.page, pages - 1));
+    const start = state.page * state.pageSize, vis = all.slice(start, start + state.pageSize);
+    const th = (k, label, cls) => `<th class="${cls || ""}" aria-sort="${state.sort.key === k ? state.sort.dir > 0 ? "ascending" : "descending" : "none"}"><button type="button" class="th-sort" data-sort="${k}">${label}<i>${state.sort.key === k ? state.sort.dir > 0 ? "\u2191" : "\u2193" : ""}</i></button></th>`;
+    const menuOn = state.popover === "cxrow";
+    const body = vis.map(({ row, index, spent }) => {
+      const nm = esc(row.name || "\u2014"), col = cxColor(row.name), ini = esc(cxInitial(row.name));
+      const flag = row.status && row.status !== "Active" ? `<span class="status-pill ${statusClass(row.status)} cx-flag">${esc(row.status)}</span>` : "";
+      const open = menuOn && S.menu === row.name;
+      const owes = num(row.outstanding) > 0;
+      const menu = open ? `<div class="pop pop-more cx-rowpop" role="menu"><button type="button" role="menuitem" data-action="edit-record" data-key="customers" data-index="${index}">${svgIcon("edit", 16)} Edit</button>${owes ? `<button type="button" role="menuitem" data-action="row-action" data-act="collect" data-key="customers" data-index="${index}">${svgIcon("cash", 16)} Receive payment</button>` : ""}<button type="button" role="menuitem" data-action="row-action" data-act="adjust-points" data-key="customers" data-index="${index}">${svgIcon("star", 16)} Adjust points</button><button type="button" role="menuitem" class="is-danger" data-action="delete-record" data-key="customers" data-index="${index}">${svgIcon("trash", 16)} Delete</button></div>` : "";
+      return `<tr class="row-click" data-action="detail" data-key="customers" data-index="${index}">
+        <td class="cx-avc"><span class="cx-av" style="background:${col}">${ini}</span></td>
+        <td class="cx-namec" data-label="Name"><div class="cx-name"><span class="cx-av cx-av-in" style="background:${col}">${ini}</span><span class="cx-name-t"><b class="primary-cell">${nm}</b>${row.tin ? `<small>${esc(row.tin)}</small>` : ""}${flag}</span></div></td>
+        <td data-label="Mobile">${row.mobile ? esc(row.mobile) : '<span class="muted-cell">\u2014</span>'}</td>
+        <td class="cx-num" data-label="Outstanding"><span class="cx-stack"><b class="${owes ? "cx-owes" : ""}">${money(row.outstanding)}</b><small>Limit ${money(cxLimit(row))}</small></span></td>
+        <td class="cx-num" data-label="Total Spent">${money(spent)}</td>
+        <td class="cx-num" data-label="Loyalty">${num(row.loyalty)}</td>
+        <td class="row-actions cx-actions"><div class="cx-act"><button class="btn btn-secondary cx-detail" type="button" data-action="detail" data-key="customers" data-index="${index}">Details</button><div class="pop-anchor cx-menu"><button class="icon-btn row-menu" type="button" data-action="cx-row-menu" data-name="${esc(row.name)}" aria-haspopup="menu" aria-expanded="${open}" aria-label="More actions for ${esc(row.name)}">${svgIcon("dots", 18)}</button>${menu}</div></div></td></tr>`;
+    }).join("");
+    const empty = total ? "No customers match these filters." : "No customers yet. Tap New to add your first customer.";
+    return `<section class="card table-card cx-card${menuOn ? " cx-menu-open" : ""}" id="table-card">
+    <div class="cx-filters">
+      <label class="cx-f"><span>Name, Mobile or Email</span><input type="search" data-cx="q" placeholder="Enter Name, Mobile number or Email" value="${esc(S.d.q)}" autocomplete="off" /></label>
+      <div class="cx-f"><span>Birthday</span><div class="cx-range"><input type="date" data-cx="bf" value="${esc(S.d.bf)}" aria-label="Birthday from" /><i>~</i><input type="date" data-cx="bt" value="${esc(S.d.bt)}" aria-label="Birthday to" /></div></div>
+      <div class="cx-f"><span>Created at</span><div class="cx-range"><input type="date" data-cx="cf" value="${esc(S.d.cf)}" aria-label="Created from" /><i>~</i><input type="date" data-cx="ct" value="${esc(S.d.ct)}" aria-label="Created to" /></div></div>
+      <div class="cx-btns"><button type="button" class="btn btn-primary" data-action="cx-search">Search</button><button type="button" class="btn btn-secondary" data-action="cx-clear">Clear Filters</button><button type="button" class="btn btn-secondary" data-action="cx-export">Export Results</button></div>
+    </div>
+    <div class="table-scroll"><table class="cx-table" style="min-width:820px"><colgroup><col style="width:6%"><col style="width:25%"><col style="width:13%"><col style="width:17%"><col style="width:13%"><col style="width:9%"><col style="width:17%"></colgroup>
+      <thead><tr><th aria-label="Avatar">#</th>${th("name", "Name")}<th>Mobile</th>${th("outstanding", "Outstanding", "cx-num")}${th("spent", "Total Spent", "cx-num")}${th("loyalty", "Loyalty", "cx-num")}<th aria-label="Actions" class="cx-num">Action</th></tr></thead>
+      <tbody>${body || `<tr><td colspan="7"><div class="empty-state">${empty}</div></td></tr>`}</tbody></table></div>
+    <div class="table-footer"><span>${all.length ? `Showing ${start + 1}\u2013${Math.min(start + state.pageSize, all.length)} of ${all.length}` : "Showing 0 results"}</span><div class="pagination"><button type="button" class="icon-btn" data-action="page-prev" aria-label="Previous page" ${state.page === 0 ? "disabled" : ""}>${svgIcon("chevron", 15).replace("<svg ", '<svg class="flip-x" ')}</button><span>${state.page + 1} / ${pages}</span><button type="button" class="icon-btn" data-action="page-next" aria-label="Next page" ${state.page >= pages - 1 ? "disabled" : ""}>${svgIcon("chevron", 15)}</button></div></div></section>`;
+  }
+  /* the filter boxes keep what was typed in state, so a live update from another device never wipes them */
+  function cxRead() {
+    const S = cxS();
+    app.querySelectorAll("[data-cx]").forEach((el) => { S.d[el.dataset.cx] = el.value; });
+  }
+  function cxApply() {
+    const S = cxS(), a = { ...S.d };
+    if (a.bf && a.bt && a.bf > a.bt) { const t = a.bf; a.bf = a.bt; a.bt = t; }
+    if (a.cf && a.ct && a.cf > a.ct) { const t = a.cf; a.cf = a.ct; a.ct = t; }
+    S.d = { ...a }; S.a = a;
+    state.page = 0; state.popover = null;
+    refreshTable();
+  }
+  function cxTable() {
+    const cols = [["Name", "text"], ["Tax number", "text"], ["Mobile", "text"], ["Email", "text"], ["Address", "text"], ["Birthday", "date"], ["Default price level", "text"], ["Credit limit", "money"], ["Outstanding", "money"], ["Total spent", "money"], ["Loyalty points", "number"], ["Visits", "number"], ["Status", "text"], ["Created", "date"], ["Note", "text"]];
+    const rows = cxRows().map(({ row, spent }) => [row.name || "", row.tin || "", row.mobile || "", row.email || "", row.address || "", row.birthday || null, row.priceLevel || "", cxLimit(row), num(row.outstanding), spent, num(row.loyalty), num(row.visits), row.status || "Active", row.joinedAt || null, row.note || ""]);
+    return { cols, rows };
+  }
+  function cxExport(csv) {
+    const { cols, rows } = cxTable();
+    if (!rows.length) return toast("No customers to export.", "warn");
+    const asCsv = () => {
+      const fmt = (v, t) => t === "date" ? (v ? toInputDate(v) : "") : v == null ? "" : v;
+      const text = [cols.map(([l]) => csvEscape(l)).join(","), ...rows.map((r) => r.map((v, i) => csvEscape(fmt(v, cols[i][1]))).join(","))].join("\n");
+      download(`adflare-customers-${todayStamp()}.csv`, "text/csv;charset=utf-8", "\ufeff" + text);
+      return "CSV";
+    };
+    let kind;
+    if (csv) kind = asCsv();
+    else {
+      try { exportXlsx("adflare-customers", [{ name: "Customers", columns: cols.map(([label, type]) => ({ label, type })), rows }]); kind = "Excel"; } catch (e) { kind = asCsv(); }
+    }
+    toast(`Exported ${rows.length} customer${rows.length === 1 ? "" : "s"} to ${kind}.`);
+  }
+  function cxAction(a, btn) {
+    const S = cxS();
+    switch (a) {
+      case "cx-search":
+        cxRead();
+        return cxApply();
+      case "cx-clear":
+        S.d = { q: "", bf: "", bt: "", cf: "", ct: "" }; S.a = { q: "", bf: "", bt: "", cf: "", ct: "" };
+        state.page = 0; state.popover = null;
+        return refreshTable();
+      case "cx-export":
+      case "cx-csv": {
+        const was = state.popover;
+        state.popover = null;
+        if (was) rootRender();
+        return cxExport(a === "cx-csv");
+      }
+      case "cx-more":
+        state.popover = state.popover === "cxmore" ? null : "cxmore";
+        return rootRender();
+      case "cx-row-menu": {
+        const name = btn.dataset.name;
+        state.popover = state.popover === "cxrow" && S.menu === name ? null : "cxrow";
+        S.menu = name;
+        return refreshTable();
+      }
+    }
   }
   function queryRows(dataKey, columns, { report = false } = {}) {
     let rows = getRows(dataKey);
@@ -6911,6 +7127,7 @@ ${body}`);
     return "<colgroup>" + w.map((x) => `<col style="width:${(x / sum * 93).toFixed(3)}%">`).join("") + '<col style="width:56px"></colgroup>';
   }
   function renderTableCard(meta, { dataKey, report = false }) {
+    if (dataKey === "customers" && !report) return renderCustomersCard();
     const columns = report ? meta.columns || [] : colsFor(dataKey, meta.columns || []);
     const all = queryRows(dataKey, columns, { report });
     const pages = Math.max(1, Math.ceil(all.length / state.pageSize));
@@ -7026,12 +7243,13 @@ ${body}`);
   function fieldHtml(f2, values = {}) {
     const v = values[f2.name] ?? f2.value ?? "";
     const req = f2.required ? " <i>*</i>" : "";
-    const attrs = `name="${esc(f2.name)}" ${f2.required ? "required" : ""} ${f2.min != null ? `min="${f2.min}"` : ""} ${f2.step ? `step="${f2.step}"` : ""}`;
+    const attrs = `name="${esc(f2.name)}" ${f2.required ? "required" : ""} ${f2.disabled ? "disabled" : ""} ${f2.min != null ? `min="${f2.min}"` : ""} ${f2.step ? `step="${f2.step}"` : ""}`;
     let control;
     if (f2.type === "photo") return photoFieldHtml(f2.name, f2.label, v, values[f2.name + "Hd"] ?? f2.hd ?? "", f2.proof);
-    if (f2.type === "select") control = `<select ${attrs}>${(f2.options || []).map((o) => `<option ${String(v) === String(o) ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
+    if (f2.type === "select") control = `<select ${attrs}>${(f2.options || []).map((o) => o === "" ? `<option value="" ${String(v) === "" ? "selected" : ""}>------</option>` : `<option ${String(v) === String(o) ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
+    else if (f2.type === "textarea") control = `<textarea ${attrs} rows="${f2.rows || 3}" ${f2.placeholder ? `placeholder="${esc(f2.placeholder)}"` : ""}>${esc(v)}</textarea>`;
     else control = `<input ${attrs} type="${esc(f2.type)}" value="${esc(v)}" ${f2.placeholder ? `placeholder="${esc(f2.placeholder)}"` : ""} />`;
-    return `<label class="form-field ${f2.span ? "span-two" : ""}"><span>${esc(f2.label)}${req}</span>${control}</label>`;
+    return `<label class="form-field ${f2.span ? "span-two" : ""}"><span>${esc(f2.label)}${req}</span>${control}${f2.hint ? `<small class="field-hint">${esc(f2.hint)}</small>` : ""}</label>`;
   }
   function plain(key, value, dataKey) {
     return formatCell(key, value, dataKey);
@@ -7076,7 +7294,7 @@ ${body}`);
       panel = `<div class="detail-orders">${bills.map((b) => `<article><span><b>${esc(b.id)}</b><small>${esc(fmtDate(b.date))} \xB7 ${esc(b.method)}</small></span><strong>${money(b.total)}</strong><i class="status-pill ${statusClass(b.status)}">${esc(b.status)}</i></article>`).join("") || '<div class="empty-state">No bills for this customer yet.</div>'}</div>`;
     } else {
       const ini = (row.name || "C").split(" ").map((p) => p[0]).slice(0, 2).join("");
-      panel = `<div class="detail-profile"><span class="detail-avatar">${esc(ini)}</span><div><h3>${esc(row.name)}</h3><p>${esc(row.email || "No email")} \xB7 ${esc(row.mobile || "No phone")}</p><span class="status-pill ${statusClass(row.status)}">${esc(row.status || "Active")}</span></div></div><div class="detail-list"><div><span>Phone</span><b>${esc(row.mobile || "\u2014")}</b></div><div><span>Email</span><b>${esc(row.email || "\u2014")}</b></div><div><span>Address</span><b>${esc(row.address || "\u2014")}</b></div><div><span>Visits</span><b>${esc(row.visits || 0)}</b></div><div><span>Outstanding</span><b>${money(row.outstanding || 0)}</b></div><div><span>Customer since</span><b>${esc(fmtDate(row.joinedAt, false))}</b></div></div>`;
+      panel = `<div class="detail-profile"><span class="detail-avatar">${esc(ini)}</span><div><h3>${esc(row.name)}</h3><p>${esc(row.email || "No email")} \xB7 ${esc(row.mobile || "No phone")}</p><span class="status-pill ${statusClass(row.status)}">${esc(row.status || "Active")}</span></div></div><div class="detail-list"><div><span>Phone</span><b>${esc(row.mobile || "\u2014")}</b></div><div><span>Email</span><b>${esc(row.email || "\u2014")}</b></div><div><span>Address</span><b>${esc(row.address || "\u2014")}</b></div><div><span>Visits</span><b>${esc(row.visits || 0)}</b></div><div><span>Outstanding</span><b>${money(row.outstanding || 0)}</b></div><div><span>Tax number</span><b>${esc(row.tin || "\u2014")}</b></div><div><span>Birthday</span><b>${row.birthday ? esc(fmtDate(row.birthday, false)) : "\u2014"}</b></div><div><span>Credit limit</span><b>${money(row.creditLimit == null ? 3e3 : row.creditLimit)}</b></div><div><span>Price level</span><b>${esc(row.priceLevel || "\u2014")}</b></div><div><span>Note</span><b>${esc(row.note || "\u2014")}</b></div><div><span>Customer since</span><b>${esc(fmtDate(row.joinedAt, false))}</b></div></div>`;
     }
     return tabbed(tabs, active, panel);
   }
@@ -7103,8 +7321,11 @@ ${body}`);
   function renderForm(m, mode) {
     const row = mode === "edit" ? state.data[m.key][m.index] : null;
     const fields = getFields(m.key, row || void 0).map((f2) => m.values && m.values[f2.name] !== void 0 && !m.error ? { ...f2, value: m.values[f2.name] } : f2);
-    const title = mode === "edit" ? `Edit ${row?.name || row?.id || row?.code || row?.sku || "record"}` : m.key === "sessions" ? "New session" : CREATE_LABEL[m.key] || "New item";
-    return shell(title, mode === "edit" ? "EDIT" : "NEW", `<form data-form="${mode}">${m.restored ? `<div class="draft-note"><span>Draft restored \xB7 your unsaved details were kept.</span><button type="button" class="text-action" data-action="clear-draft">Clear</button></div>` : ""}<div class="form-grid">${fields.map((f2) => fieldHtml(f2, m.error ? m.values : {})).join("")}</div>${errorBox(m)}<div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">${mode === "edit" ? "Save changes" : "Add"}</button></div></form>`);
+    const cust = m.key === "customers";
+    const title = cust ? (mode === "edit" ? "Update Customer" : "Create Customer") : mode === "edit" ? `Edit ${row?.name || row?.id || row?.code || row?.sku || "record"}` : m.key === "sessions" ? "New session" : CREATE_LABEL[m.key] || "New item";
+    const eyebrow = cust ? (mode === "edit" ? String(row?.name || "CUSTOMER") : "CUSTOMER") : mode === "edit" ? "EDIT" : "NEW";
+    const submit = cust ? (mode === "edit" ? "Update" : "Create") : mode === "edit" ? "Save changes" : "Add";
+    return shell(title, eyebrow, `<form data-form="${mode}">${m.restored ? `<div class="draft-note"><span>Draft restored \xB7 your unsaved details were kept.</span><button type="button" class="text-action" data-action="clear-draft">Clear</button></div>` : ""}<div class="form-grid">${fields.map((f2) => fieldHtml(f2, m.error ? m.values : {})).join("")}</div>${errorBox(m)}<div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">${submit}</button></div></form>`);
   }
   function renderAdjustStock(m) {
     const p = d().products[m.index];
@@ -7597,6 +7818,9 @@ ${body}`);
     window.addEventListener("pagehide", () => { const f = app.querySelector('form[data-form="create"],form[data-form="edit"]'); if (f) draftSave(f); });
     app.addEventListener("change", onChange);
     app.addEventListener("submit", onSubmit);
+    app.addEventListener("input", (e) => { const t = e.target; if (t && t.matches && t.matches("[data-cx]")) cxS().d[t.dataset.cx] = t.value; });
+    app.addEventListener("change", (e) => { const t = e.target; if (t && t.matches && t.matches("[data-cx]")) cxS().d[t.dataset.cx] = t.value; });
+    app.addEventListener("keydown", (e) => { const t = e.target; if (e.key === "Enter" && t && t.matches && t.matches("[data-cx]")) { e.preventDefault(); cxRead(); cxApply(); } });
     document.addEventListener("keydown", onKeydown);
     window.addEventListener("hashchange", () => {
       const v = decodeURIComponent(location.hash.slice(1));
@@ -7817,7 +8041,7 @@ ${body}`);
   function draftKey(m) {
     if (!m || (m.type !== "create" && m.type !== "edit") || !m.key) return null;
     let id = "";
-    if (m.type === "edit") { const r = state.data && state.data[m.key] && state.data[m.key][m.index]; id = ":" + String((r && (r.id ?? r.sku ?? r.code)) ?? m.index); }
+    if (m.type === "edit") { const r = state.data && state.data[m.key] && state.data[m.key][m.index]; id = ":" + String(m.key === "customers" && r ? r.name : (r && (r.id ?? r.sku ?? r.code)) ?? m.index); }
     return "afpos-draft:" + String(state.user || "").toLowerCase() + ":" + m.type + ":" + m.key + id;
   }
   function draftSave(form) {
@@ -7992,6 +8216,8 @@ ${body}`);
     if (!btn) return;
     const a = btn.dataset.action;
     const ds = btn.dataset;
+    if (a.indexOf("cx-") === 0) return cxAction(a, btn);
+    if (state.popover === "cxrow" || state.popover === "cxmore") state.popover = null;
     switch (a) {
       case "close-nav":
         return setSidebar(false);
@@ -8430,14 +8656,14 @@ ${body}`);
         draftClear(m);
         closeModal();
         rootRender();
-        return toast(`Added to ${label.replace(/([A-Z])/g, " $1").toLowerCase()}.`);
+        return toast(label === "customers" ? "Customer created." : `Added to ${label.replace(/([A-Z])/g, " $1").toLowerCase()}.`);
       }
       case "edit": {
         if (withErr(updateRecord(m.key, m.index, values))) return;
         draftClear(m);
         closeModal();
         rootRender();
-        return toast("Changes saved.");
+        return toast(m.key === "customers" ? "Customer updated." : "Changes saved.");
       }
       case "prompt": {
         const res = runRowAction(m.key, m.index, m.act, values);
