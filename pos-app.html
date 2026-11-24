@@ -130,7 +130,15 @@
 .qe-del{align-self:end;height:38px;width:34px}.qe-hint{grid-column:1 / -1;display:none;font-size:11.5px;color:var(--muted,#6b7280)}.qe-hint.on{display:block}.qe-hint.off{color:#16794a;font-weight:600}
 .qe-add{margin-top:10px}.qe-disc{margin-top:16px}.qe-disc-in{display:flex;gap:8px}.qe-disc-in input{flex:1}.qe-disc-in select{width:84px}
 .qe-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.qe-sum>div{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper,#fff)}.qe-sum span{display:block;font-size:11px;color:var(--muted,#6b7280);margin-bottom:3px}.qe-sum b{font-size:14px}.qe-sum .qe-total{border-color:var(--red,#ff2b2b)}
-@media(max-width:760px){.qe-row{grid-template-columns:1fr 1fr}.qe-name{grid-column:1 / -1}.qe-line{grid-column:1 / 2}.qe-del{grid-column:2 / 3;justify-self:end}.qe-sum{grid-template-columns:1fr 1fr}}
+.qe-row select{width:100%;height:38px;padding:0 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff);font:inherit;font-size:13px;color:inherit;min-width:0}
+.qe-sub{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding-top:2px}
+.qe-sug[data-qe-csug]{padding:2px;border-radius:6px;max-height:240px;box-shadow:0 8px 24px rgba(20,24,35,.22)}
+.qe-sug[data-qe-csug] .qe-opt{padding:6px 10px;border-radius:3px;font-size:13px;gap:16px}
+.qe-sug[data-qe-csug] .qe-opt-main b{font-size:13px;font-weight:400;-webkit-line-clamp:1;white-space:nowrap;text-overflow:ellipsis}
+.qe-sug[data-qe-csug] .qe-opt.on,.qe-sug[data-qe-csug] .qe-opt:hover{background:#0b66d8;color:#fff}
+.qe-sug[data-qe-csug] .qe-opt.on .qe-opt-sub,.qe-sug[data-qe-csug] .qe-opt:hover .qe-opt-sub{color:rgba(255,255,255,.85)}
+.qe-sug[data-qe-csug] .qe-opt-note{font-size:12px;line-height:1.5}.qe-cust-wrap{position:relative;display:block}.qe-cust-wrap input{padding-right:36px!important}.qe-cust-wrap input[readonly]{cursor:pointer;caret-color:transparent}.qe-cust-arrow{position:absolute;right:1px;top:1px;bottom:1px;width:34px;display:grid;place-items:center;border:0;border-radius:0 7px 7px 0;background:transparent;color:var(--muted,#6b7280);cursor:pointer}.qe-cust-arrow:hover{color:inherit}.qe-sug .qe-opt-sep{margin:3px 8px;border-top:1px solid var(--line)}.qe-cust{display:block}.qe-cust input{width:100%}.qe-opt-sub{flex:none;font-size:11.5px;color:var(--muted,#6b7280);white-space:nowrap}
+@media(max-width:760px){.qe-sub{grid-template-columns:1fr 1fr}.qe-row{grid-template-columns:1fr 1fr}.qe-name{grid-column:1 / -1}.qe-line{grid-column:1 / 2}.qe-del{grid-column:2 / 3;justify-self:end}.qe-sum{grid-template-columns:1fr 1fr}}
 .modal-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:auto;padding:20px;background:rgba(22,25,33,.42)}.modal-card{width:min(510px,100%);max-height:min(calc(90vh / var(--uz,1)),760px);overflow:auto;padding:17px;border:1px solid rgba(255,255,255,.6);border-radius:15px;background:var(--paper,#fff);box-shadow:0 22px 65px rgba(12,15,23,.22);animation:modal-in .18s var(--ease) both}.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:13px;border-bottom:1px solid var(--line-2)}.modal-head h2{margin:3px 0 0;font-size:16px;letter-spacing:-.3px}.modal-head .eyebrow{font-size:7px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px 0}.form-grid .span-two{grid-column:1/-1}.modal-card form>.form-field{margin:13px 0}.modal-card .preview-callout{margin:11px 0}.modal-foot{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line-2)}.modal-hint{margin-right:auto;color:#9a9ea7;font-size:8px}.detail-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;padding:8px 0}.detail-list>div{display:grid;gap:3px;padding:9px 0;border-bottom:1px solid var(--dm-bd-f0f1f3,#f0f1f3)}.detail-list span{color:#9397a1;font-size:8px}.detail-list b{overflow-wrap:anywhere;color:var(--dm-fg-393d46,#393d46);font-size:9px;font-weight:630}.checkout-total{display:flex;align-items:center;justify-content:space-between;margin:14px 0;padding:12px;border-radius:9px;background:var(--dm-bg-f8f9fb,#f8f9fb);color:var(--dm-fg-727681,#727681);font-size:9px}.checkout-total b{color:var(--dm-fg-30343d,#30343d);font-size:16px}.preview-callout{line-height:1.5}.toast{position:fixed;right:20px;bottom:18px;z-index:150;display:flex;align-items:center;gap:8px;max-width:min(390px,calc(100vw / var(--uz,1) - 32px));padding:10px 13px;border:1px solid var(--dm-bd-e8ecea,#e8ecea);border-radius:10px;background:var(--paper,#fff);color:var(--dm-fg-393e46,#393e46);box-shadow:0 12px 30px rgba(21,25,34,.12);font-size:9px;opacity:0;transform:translateY(7px);pointer-events:none;transition:opacity .18s,transform .18s}.toast.show{opacity:1;transform:translateY(0)}.toast .icon{color:var(--dm-fg-13875e,#13875e)}.mobile-scrim{display:none}.activity-list,.side-nav{overscroll-behavior:contain}
 .table-scroll{overscroll-behavior-x:contain;overscroll-behavior-y:auto}   /* tables must never trap the mouse wheel: vertical scroll always goes to the page */
 @keyframes modal-in{from{opacity:0;transform:translateY(5px) scale(.99)}to{opacity:1;transform:none}}
@@ -178,8 +186,8 @@ tr.row-click{cursor:pointer}tr.row-click:hover td{background:var(--dm-bg-fafbfc,
 .qty-stepper button:before,.qty-stepper button[data-action="qty-up"]:after{content:"";position:absolute;left:50%;top:50%;background:currentColor;border-radius:2px;transform:translate(-50%,-50%)}
 .qty-stepper button:before{width:9px;height:1.6px}.qty-stepper button[data-action="qty-up"]:after{width:1.6px;height:9px}
 .add-product{width:22px;height:22px;border-radius:7px;box-shadow:0 2px 6px rgba(var(--rgb-b,239,41,59),.2)}.add-product svg{width:12px;height:12px}
-/* UI size: everything 10% bigger on desktop (change --uz and zoom together); phones keep their normal size */
-:root{--uz:1}@media(min-width:701px){html{zoom:1;--uz:1}}@media print{html{zoom:1;--uz:1}}
+/* UI size: everything 25% bigger on desktop (change --uz and zoom together); phones keep their normal size */
+:root{--uz:1}@media(min-width:701px){html{zoom:1.25;--uz:1.25}}@media print{html{zoom:1;--uz:1}}
 /* normal arrow cursor over product pictures (clicking still opens the photo pop-up) */
 .product-tile-art.has-img,.product-tile-art.has-img *,[data-photo-view],[data-photo-view] *{cursor:default!important}
 /* categories menu opened by the filter button */
@@ -704,6 +712,15 @@ html[data-theme="graphite"]{--t-4a2029:#202122;--t-4b2831:#232425;--t-b42030:#3d
 .side-hidden .sidebar:not(:hover) .side-nav{position:relative;z-index:1;flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .side-hidden .sidebar:not(:hover) .sidebar-footer{position:relative;z-index:2;background:inherit}
 }
+/* ===== sidebar: always exactly the window height. Menu scrolls inside it; "Register open" stays pinned at the bottom =====
+   (pinned with top/bottom:0 instead of 100vh, so the 1.25 UI zoom can no longer make it taller than the screen) */
+@media(min-width:761px){
+  .sidebar{position:fixed;top:0;bottom:0;left:0;height:auto;max-height:none;overflow:hidden}
+  .workspace{grid-column:2;grid-row:1;min-width:0}
+}
+.sidebar-head,.outlet-switch-wrap,.sidebar-footer{flex:none}
+.sidebar .side-nav{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.sidebar .sidebar-footer{margin-top:0;background:var(--paper,#fff)}
 .u-br{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}.u-bri{display:flex;gap:4px}.u-bri input{flex:1;min-width:0;height:38px;border:1px solid var(--line);border-radius:9px;padding:0 10px;background:var(--paper,#fff);color:var(--ink)}
 .u-x{width:38px;border:1px solid var(--line);border-radius:9px;background:var(--paper,#fff);color:var(--dm-fg-c51d31,#c51d31);font-size:18px;cursor:pointer}.u-x:disabled{opacity:.4;cursor:default}
 .u-ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}.u-oi{position:relative;display:flex;align-items:center;gap:10px;min-height:58px;padding:9px 8px 9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper,#fff)}.u-oi.open{border-color:var(--dm-bd-d9dce2,#d9dce2);box-shadow:0 6px 18px rgba(24,29,42,.08);z-index:6}
@@ -2294,7 +2311,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     const customers = ["Walk-in customer", ...names(d2.customers)];
     switch (key) {
       case "customers":
-        return [f("name", "Customer name", "text", true, { value: val("name") }), f("mobile", "Phone", "tel", false, { value: val("mobile") }), f("email", "Email", "email", false, { value: val("email") }), f("address", "Address", "text", false, { value: val("address") }), f("loyalty", "Loyalty points", "number", false, { value: val("loyalty", 0), min: 0 }), f("creditLimit", "Credit limit (MVR)", "number", false, { value: val("creditLimit", 3e3), min: 0 }), ...status()];
+        return [f("name", "Customer name", "text", true, { value: val("name") }), f("mobile", "Phone", "tel", false, { value: val("mobile") }), f("email", "Email", "email", false, { value: val("email") }), f("address", "Address", "text", false, { value: val("address") }), f("tin", "Customer GST TIN (optional)", "text", false, { value: val("tin") }), f("loyalty", "Loyalty points", "number", false, { value: val("loyalty", 0), min: 0 }), f("creditLimit", "Credit limit (MVR)", "number", false, { value: val("creditLimit", 3e3), min: 0 }), ...status()];
       case "products":
         return [f("sku", "SKU", "text", true, { value: val("sku", `${s.skuPrefix || "AF"}-${1001 + d2.products.length}`) }), f("name", "Product name", "text", true, { value: val("name") }), f("category", "Category", "select", true, { options: names(d2.categories), value: val("category", d2.categories[0]?.name) }), f("stockQty", edit ? "On hand" : "Opening stock", "number", true, { value: val("stockQty", 0), min: 0, step: 1 }), f("price", "Price (MVR)", "number", true, { value: val("price"), min: 0, step: "any" }), f("packing", "Packing / size (optional)", "text", false, { value: val("packing"), placeholder: "e.g. 12 x 450ml" }), f("image", "Photo (optional)", "photo", false, { value: val("image"), hd: val("imageHd"), span: true })];
       case "categories":
@@ -3448,7 +3465,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
   function saveCartAsQuote() {
     if (!state.cart.length) return "The cart is empty.";
     const t = cartTotals();
-    const q = { id: makeId("QT-", d().quotations), customer: state.cartCustomer, createdAt: Date.now(), items: t.units, total: t.total, expires: Date.now() + 7 * DAY, status: "Open", note: "", lines: state.cart.map((l) => ({ sku: l.sku, name: l.name, price: l.price, qty: l.quantity })) };
+    const q = { id: makeId("QT-", d().quotations), customer: state.cartCustomer, createdAt: Date.now(), items: t.units, total: t.total, expires: Date.now() + 7 * DAY, status: "Open", note: "", issuedBy: userName(), lines: state.cart.map((l) => { const pi = qePackInfo(productBySku(l.sku)); return { sku: l.sku, code: l.sku, name: l.name, unit: pi.unit, unitQty: num(pi.per) || 0, price: l.price, qty: l.quantity }; }) };
     if (t.discount > 0) { q.subtotal = t.subtotal; q.discountValue = num(state.cartDiscount); q.discountType = state.cartDiscountType === "percent" ? "percent" : "amount"; q.discountAmount = t.discount; }
     d().quotations.unshift(q);
     logActivity(`Quotation ${q.id} saved`, "blue", "quotations");
@@ -6093,6 +6110,10 @@ ${body}`);
     const logo = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="width:${DT_LOGO}px;height:${DT_LOGO}px;border-radius:${num(t.logoR)}%;left:${num(t.logoX)}px;top:${num(t.logoY)}px">` : "";
     const cName = t.coName || displayName(), cAddr = t.coAddress || st.address, cPhone = t.coPhone || st.phone, cMail = t.coEmail || st.email;
     const info = `<div><h3>${esc(cName)}</h3>${cAddr ? `<p>${esc(cAddr)}</p>` : ""}${cPhone ? `<p>Tel: ${esc(cPhone)}</p>` : ""}${cMail ? `<p>Email: ${esc(cMail)}</p>` : ""}${t.showTin && t.tin ? `<p><b>GST TIN: ${esc(t.tin)}</b></p>` : ""}</div>`;
+    const isQ = kind === "quotation";
+    const unitCell = (l) => l.unit ? `${esc(l.unit)}${num(l.unitQty) > 0 && l.unit !== "Pcs" ? `<small>1 ${esc(l.unit)} = ${num(l.unitQty)} pcs</small>` : ""}` : "\u2014";
+    const rowsQ = (doc.lines || []).map((l, i) => `<tr><td class="c">${i + 1}</td><td>${esc(l.name)}</td><td>${esc(l.code || l.sku || "")}</td><td class="c">${esc(l.qty)}</td><td class="r">${unitCell(l)}</td><td class="r">${dtMoney(l.price)}</td><td class="r">${dtMoney(num(l.price) * num(l.qty))}</td></tr>`).join("");
+    const cwq = sm ? [22, 54, 34, 66, 62, 74] : [28, 84, 56, 100, 100, 110];
     const rows = (doc.lines || []).map((l, i) => `<tr><td class="c">${i + 1}</td><td>${esc(l.name)}${l.sku ? `<small>SKU: ${esc(l.sku)}</small>` : ""}</td><td class="c">${esc(l.qty)}</td><td class="r">${dtMoney(l.price)}</td><td class="r">${dtMoney(num(l.price) * num(l.qty))}</td></tr>`).join("");
     const sz = `width:${pp.w}px;min-height:${pp.h}px;`;
     const bgs = own ? ` style="${sz}background:#fff url('${esc(t.bgImage)}') 0 0/${pp.w}px ${Math.round(pp.w * 1.4142)}px repeat-y;padding:${Math.round(num(t.bgTop) * k)}px ${Math.round(num(t.bgSide) * k)}px ${sm ? 28 : 44}px"` : ` style="${sz.slice(0, -1)}"`;
@@ -6102,12 +6123,12 @@ ${body}`);
     const stat = exs.find((e) => e[0] === "Status");
     const det = [["Number", doc.no], ["Date", doc.date], ...exs.filter((e) => e[0] !== "Status")];
     const logoNew = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="height:${DT_LOGO}px;width:auto;max-width:100%;border-radius:${num(t.logoR)}%;left:${num(t.logoX)}px;margin-top:${num(t.logoY)}px">` : "";
-    const topNew = `<div class="dtq" style="grid-template-columns:${side === "left" ? "1fr 1.25fr" : "1.25fr 1fr"}"><div class="dtq-title" style="grid-column:${cA};grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:1;align-self:center">${logoNew || (t.showCoText !== false ? `<div class="dtq-nm">${esc(cName)}</div>` : "")}</div><div class="dtq-meta" style="grid-column:${cA};grid-row:2"><div><small>DETAILS</small>${det.map((e) => `<div class="dtq-r"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div><div><small>${esc(String(doc.partyLabel || "").toUpperCase())}</small><b>${esc(doc.party)}</b>${doc.phone ? `<p>${esc(doc.phone)}</p>` : ""}</div></div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:2">${t.showCoText !== false ? `<div class="dtq-co">${info.replace(/<h3>[\s\S]*?<\/h3>/, "")}</div>` : ""}</div></div>`;
+    const topNew = `<div class="dtq" style="grid-template-columns:${side === "left" ? "1fr 1.25fr" : "1.25fr 1fr"}"><div class="dtq-title" style="grid-column:${cA};grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:1;align-self:center">${logoNew || (t.showCoText !== false ? `<div class="dtq-nm">${esc(cName)}</div>` : "")}</div><div class="dtq-meta" style="grid-column:${cA};grid-row:2"><div><small>DETAILS</small>${det.map((e) => `<div class="dtq-r"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div><div><small>${esc(String(doc.partyLabel || "").toUpperCase())}</small><b>${esc(doc.party)}</b>${doc.address ? `<p>${esc(doc.address)}</p>` : ""}${doc.phone ? `<p>${esc(doc.phone)}</p>` : ""}${doc.tin ? `<p>TIN: ${esc(doc.tin)}</p>` : ""}</div></div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:2">${t.showCoText !== false ? `<div class="dtq-co">${info.replace(/<h3>[\s\S]*?<\/h3>/, "")}</div>` : ""}</div></div>`;
     const clr = own && t.bgClear !== false ? `<i class="dtp-clr" style="top:${Math.round(num(t.bgTop) * k)}px;bottom:${Math.round(num(t.bgBottom) * k)}px"></i>` : "";
     return `<div class="dtp${sm ? " sm" : ""}"${bgs}>${clr}${useNew ? topNew : `<div class="dtp-hd ${pos === "top" && head ? "top" : ""}" style="border-color:${esc(a)}${head ? "" : ";justify-content:flex-end"}">${head}
     <div class="dtp-ttl ${pos === "top" ? "top" : ""}"><h2 style="color:${esc(a)}">${esc(title)}</h2><p>${kind === "quotation" ? "Quote" : "Invoice"} #: ${esc(doc.no)}</p><p>Date: ${esc(doc.date)}</p>${(doc.extra || []).map((x) => `<p>${esc(x)}</p>`).join("")}</div></div>
-    <div class="dtp-bill"><small>${esc(doc.partyLabel)}</small><b>${esc(doc.party)}</b>${doc.phone ? `<small>${esc(doc.phone)}</small>` : ""}</div>`}
-    <table style="border-color:${esc(a)}"><thead><tr><th class="c" style="width:${cw[0]}px">#</th><th>Item description</th><th class="c" style="width:${cw[1]}px">Qty</th><th class="r" style="width:${cw[2]}px">Unit price</th><th class="r" style="width:${cw[3]}px">Total</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="dtp-bill"><small>${esc(doc.partyLabel)}</small><b>${esc(doc.party)}</b>${doc.address ? `<small>${esc(doc.address)}</small>` : ""}${doc.phone ? `<small>${esc(doc.phone)}</small>` : ""}${doc.tin ? `<small>TIN: ${esc(doc.tin)}</small>` : ""}</div>`}
+    <table style="border-color:${esc(a)}"><thead>${isQ ? `<tr><th class="c" style="width:${cwq[0]}px">#</th><th>Description</th><th style="width:${cwq[1]}px">Code</th><th class="c" style="width:${cwq[2]}px">Qty</th><th class="r" style="width:${cwq[3]}px">Unit</th><th class="r" style="width:${cwq[4]}px">Unit price</th><th class="r" style="width:${cwq[5]}px">Total</th></tr>` : `<tr><th class="c" style="width:${cw[0]}px">#</th><th>Item description</th><th class="c" style="width:${cw[1]}px">Qty</th><th class="r" style="width:${cw[2]}px">Unit price</th><th class="r" style="width:${cw[3]}px">Total</th></tr>`}</thead><tbody>${isQ ? rowsQ : rows}</tbody></table>
     <div class="dtp-tot"><div><span>Subtotal</span><span>${dtMoney(doc.subtotal)}</span></div>${num(doc.discount) ? `<div><span>Discount</span><span>\u2212${dtMoney(doc.discount)}</span></div>` : ""}${num(doc.serviceFee) ? `<div><span>Service fee</span><span>${dtMoney(doc.serviceFee)}</span></div>` : ""}<div><span>Tax (GST ${rate}%)</span><span>${dtMoney(doc.tax)}</span></div><div class="g" style="border-color:${esc(a)}"><span>Total</span><span>${dtMoney(doc.total)}</span></div></div>
     ${t.terms ? `<div class="dtp-terms" style="border-color:${esc(a)}"><b>TERMS &amp; CONDITIONS</b>\n${esc(t.terms)}</div>` : ""}${t.showSig ? '<div class="dtp-sig"><div>Authorized Signature</div><div>Received By</div></div>' : ""}</div>`;
   }
@@ -6119,13 +6140,13 @@ ${body}`);
     const rate = num(state.settings.taxRate), incl = state.settings.pricesIncludeTax !== false, base = num(q.total);
     const tax = incl ? base * rate / (100 + rate) : base * rate / 100;
     const c = customerByName(q.customer);
-    return { no: q.id, date: typeof q.createdAt === "number" ? fmtDate(q.createdAt) : String(q.createdAt), extra: [`Valid until: ${typeof q.expires === "number" ? fmtDate(q.expires, false) : q.expires}`, `Status: ${q.status}`], partyLabel: "Prepared For", party: q.customer, phone: (c && c.phone) || "", lines: (q.lines || [{ name: `Quoted items (${q.items || 0})`, qty: 1, price: base }]).map((l) => ({ name: l.name, sku: l.sku, qty: l.qty, price: l.price })), subtotal: num(q.discountAmount) > 0 ? num(q.subtotal) || base + num(q.discountAmount) : incl ? base - tax : base, discount: num(q.discountAmount), tax, total: incl ? base : base + tax };
+    return { no: q.id, date: typeof q.createdAt === "number" ? fmtDate(q.createdAt) : String(q.createdAt), extra: [`Valid until: ${typeof q.expires === "number" ? fmtDate(q.expires, false) : q.expires}`, ...(q.issuedBy ? [`Issued by: ${q.issuedBy}`] : []), `Status: ${q.status}`], partyLabel: "Prepared For", party: q.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (q.lines || [{ name: `Quoted items (${q.items || 0})`, qty: 1, price: base }]).map((l) => ({ name: l.name, sku: l.sku, code: l.code, unit: l.unit, unitQty: l.unitQty, qty: l.qty, price: l.price })), subtotal: num(q.discountAmount) > 0 ? num(q.subtotal) || base + num(q.discountAmount) : incl ? base - tax : base, discount: num(q.discountAmount), tax, total: incl ? base : base + tax };
   }
   function dtSample(kind) {
-    const lines = [{ name: "Sample product A (1 x 4) Ctn", sku: "SKU-0001", qty: 1, price: 351.85 }, { name: "Sample product B (1 x 12) Ctn", sku: "SKU-0002", qty: 2, price: 462.96 }];
+    const lines = [{ name: "Sample product A", sku: "SKU-0001", code: "01061", unit: "Ctn", unitQty: 4, qty: 1, price: 351.85 }, { name: "Sample product B", sku: "SKU-0002", code: "01038", unit: "Ctn", unitQty: 12, qty: 2, price: 462.96 }];
     const sub = lines.reduce((n, l) => n + l.price * l.qty, 0), rate = num(state.settings.taxRate), tax = sub * rate / 100;
     const o = { lines, subtotal: sub, discount: 0, tax, total: sub + tax, party: "Customer name", phone: "+960 000 0000", date: "11/7/2026" };
-    if (kind === "quotation") return { ...o, no: "QT-00001", partyLabel: "Prepared For", extra: ["Valid until: 14/7/2026", "Status: Open"] };
+    if (kind === "quotation") return { ...o, no: "QT-00001", partyLabel: "Prepared For", extra: ["Valid until: 14/7/2026", "Issued by: Your name", "Status: Open"], address: "Customer address", tin: "0000000GST000" };
     return { ...o, no: "INV-00001", partyLabel: "Bill To", extra: ["Payment: Bank transfer", "Status: Completed"] };
   }
   function dtFit() {
@@ -6799,14 +6820,28 @@ ${body}`);
     return shell(`Count sheet \xB7 ${sc?.id || ""}`, "STOCK COUNT", `<form data-form="count"><p class="modal-lead">Enter what you actually counted. Differences are applied to stock when you finish.</p><div class="count-table"><div class="count-head"><span>Product</span><span>System</span><span>Counted</span></div>${state.data.products.map((p) => `<div><span><b>${esc(p.name)}</b><small>${esc(p.sku)}</small></span><span>${qtyIn(p, sc?.outlet || OUTLETS[0] || "")}</span><input type="number" min="0" step="1" name="${esc(p.sku)}" value="${esc(m.values?.[p.sku] ?? p.stockQty)}" aria-label="Counted ${esc(p.name)}" /></div>`).join("")}</div>${errorBox(m)}<div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">Finish count</button></div></form>`, { wide: true });
   }
   /* ===== Quotation editor: item list with adjustable prices (bulk orders), quote discount, notes ===== */
+  var QE_UNITS = ["Pcs", "Ctn", "Bundle", "Box", "Pack", "Dozen", "Set", "Kg"];
+  /* guess unit + pieces per unit from the product ("(1 x 12) Ctn" in the name, or its Packing field like "12 x 450ml") */
+  function qePackInfo(p) {
+    if (!p) return { unit: "Pcs", per: "" };
+    const nm = String(p.name || ""), pk = String(p.packing || "");
+    let m = nm.match(/\(\s*(\d+)\s*[x\u00d7]\s*(\d+)\s*\)\s*(Ctn|Bundle|Box|Pack|Pcs|Dozen|Set)?/i);
+    if (m) return { unit: m[3] ? m[3].charAt(0).toUpperCase() + m[3].slice(1).toLowerCase() : "Ctn", per: String(Number(m[1]) * Number(m[2])) };
+    m = pk.match(/(\d+)\s*[x\u00d7]\s*(\d+(?:\.\d+)?)\s*([a-z]*)/i);
+    if (m) return { unit: "Ctn", per: String(m[3] ? Number(m[1]) : Number(m[1]) * Number(m[2])) };
+    return { unit: "Pcs", per: "" };
+  }
   function qeRowHtml(l) {
     const p = l.sku ? productBySku(l.sku) : null;
+    const uopts = QE_UNITS.slice(); if (l.unit && uopts.indexOf(l.unit) < 0) uopts.push(l.unit);
+    const subHtml = `<div class="qe-sub"><label class="qe-num"><span class="qe-lab">Code</span><input name="qc" value="${esc(l.code || l.sku || "")}" placeholder="Product code" autocomplete="off" data-qe-code /></label><label class="qe-num"><span class="qe-lab">Unit</span><select name="qu" data-qe-unit>${uopts.map((u) => `<option ${u === (l.unit || "Pcs") ? "selected" : ""}>${esc(u)}</option>`).join("")}</select></label><label class="qe-num"><span class="qe-lab">Pcs in 1 unit</span><input name="qk" type="number" min="0" step="any" value="${esc(l.unitQty ?? "")}" placeholder="e.g. 12" data-qe-per /></label></div>`;
     return `<div class="qe-row" data-qe-row>
       <div class="qe-name"><span class="qe-lab">Item</span><input name="qn" placeholder="Search a product or type any item" value="${esc(l.name || "")}" autocomplete="off" role="combobox" aria-expanded="false" data-qe-name /><div class="qe-sug" data-qe-sug hidden></div><input type="hidden" name="qs" value="${esc(l.sku || "")}" data-qe-sku /></div>
       <label class="qe-num"><span class="qe-lab">Qty</span><input name="qq" type="number" min="0" step="any" value="${esc(l.qty ?? 1)}" data-qe-qty /></label>
       <label class="qe-num"><span class="qe-lab">Unit price</span><input name="qp" type="number" min="0" step="any" value="${esc(l.price ?? "")}" data-qe-price data-list="${p ? esc(p.price) : ""}" /></label>
       <div class="qe-line"><span class="qe-lab">Amount</span><b data-qe-line>${money(0)}</b></div>
       <button type="button" class="icon-btn qe-del" data-action="qe-del" aria-label="Remove item">${svgIcon("close", 16)}</button>
+      ${subHtml}
       <div class="qe-hint" data-qe-hint></div>
     </div>`;
   }
@@ -6816,13 +6851,11 @@ ${body}`);
     const v = m.qdraft || (q ? {
       customer: q.customer, expiresStr: toInputDate(q.expires), status: q.status, note: q.note || "",
       discount: q.discountValue ?? "", discountType: q.discountType || "amount",
-      lines: q.lines && q.lines.length ? q.lines.map((l) => ({ sku: l.sku, name: l.name, qty: l.qty, price: l.price })) : [{ sku: null, name: `Quoted items (${q.items || 1})`, qty: 1, price: num(q.total) }]
+      lines: q.lines && q.lines.length ? q.lines.map((l) => ({ sku: l.sku, code: l.code, unit: l.unit, unitQty: l.unitQty, name: l.name, qty: l.qty, price: l.price })) : [{ sku: null, name: `Quoted items (${q.items || 1})`, qty: 1, price: num(q.total) }]
     } : { customer: "Walk-in customer", expiresStr: toInputDate(Date.now() + 7 * DAY), status: "Open", note: "", discount: "", discountType: "amount", lines: [{ sku: null, name: "", qty: 1, price: "" }] });
-    const custs = ["Walk-in customer", ...(d().customers || []).map((c) => c.name)].filter((n, i, a) => n && a.indexOf(n) === i);
-    if (v.customer && !custs.includes(v.customer)) custs.push(v.customer);
     return shell(edit ? `Edit ${q.id}` : "New quotation", edit ? "EDIT" : "NEW", `<form data-form="quote-edit" data-quote-edit>
       <div class="form-grid">
-        <label class="form-field"><span>Customer <i>*</i></span><select name="customer">${custs.map((c) => `<option ${c === v.customer ? "selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
+        <label class="form-field qe-name qe-cust"><span>Customer <i>*</i></span><div class="qe-cust-wrap"><input name="customer" value="${esc(v.customer || "")}" ${/^(walk-in customer|online order)$/i.test(String(v.customer || "").trim()) ? "readonly" : ""} placeholder="${/^(walk-in customer|online order)$/i.test(String(v.customer || "").trim()) ? "Choose customer" : "Search customer by name or phone"}" autocomplete="off" role="combobox" aria-expanded="false" data-qe-cust /><button type="button" class="qe-cust-arrow" data-qe-carrow tabindex="-1" aria-label="Show options"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="qe-sug" data-qe-csug hidden></div></div></label>
         <label class="form-field"><span>Valid until</span><input name="expires" type="date" value="${esc(v.expiresStr)}" /></label>
         ${edit ? `<label class="form-field"><span>Status <i>*</i></span><select name="status">${["Open", "Converted", "Expired", "Cancelled"].map((s) => `<option ${s === v.status ? "selected" : ""}>${s}</option>`).join("")}</select></label>` : ""}
       </div>
@@ -6840,13 +6873,13 @@ ${body}`);
   function qeCollect(form) {
     const rows = [...form.querySelectorAll("[data-qe-row]")];
     return {
-      customer: form.elements.customer ? form.elements.customer.value : "Walk-in customer",
+      customer: form.elements.customer ? String(form.elements.customer.value).trim() : "",
       expiresStr: form.elements.expires ? form.elements.expires.value : "",
       status: form.elements.status ? form.elements.status.value : "Open",
       note: String(form.elements.note ? form.elements.note.value : "").trim(),
       discount: form.elements.discount ? form.elements.discount.value : "",
       discountType: form.elements.discountType ? form.elements.discountType.value : "amount",
-      lines: rows.map((r) => ({ name: r.querySelector("[data-qe-name]").value.trim(), sku: r.querySelector("[data-qe-sku]").value || null, qty: r.querySelector("[data-qe-qty]").value, price: r.querySelector("[data-qe-price]").value }))
+      lines: rows.map((r) => ({ code: r.querySelector("[data-qe-code]").value.trim(), unit: r.querySelector("[data-qe-unit]").value, unitQty: r.querySelector("[data-qe-per]").value, name: r.querySelector("[data-qe-name]").value.trim(), sku: r.querySelector("[data-qe-sku]").value || null, qty: r.querySelector("[data-qe-qty]").value, price: r.querySelector("[data-qe-price]").value }))
     };
   }
   function qeTotals(lines, discount, discountType) {
@@ -6894,10 +6927,67 @@ ${body}`);
     box.innerHTML = opts + custom; box.hidden = !(opts || custom);
     input.setAttribute("aria-expanded", box.hidden ? "false" : "true");
   }
+  function qeFillPack(row, p) {
+    const c = row.querySelector("[data-qe-code]"), u = row.querySelector("[data-qe-unit]"), k = row.querySelector("[data-qe-per]"), pi = qePackInfo(p);
+    if (c) c.value = p.sku || "";
+    if (u) { if (![...u.options].some((o) => o.value === pi.unit)) u.add(new Option(pi.unit, pi.unit)); u.value = pi.unit; }
+    if (k) k.value = pi.per;
+  }
+  /* ---- customer search (replaces the old drop-down; no walk-in here) ---- */
+  var QE_SPECIAL = [["Walk-in customer", ""], ["Online order", ""]];
+  function custMatches(text) {
+    const toks = String(text || "").toLowerCase().split(/\s+/).filter(Boolean);
+    const all = (d().customers || []).filter((c) => c && c.name && c.status !== "Blocked" && !c.deleted);
+    const hit = toks.length ? all.filter((c) => { const hay = [c.name, c.mobile, c.email, c.address, c.tin].join(" ").toLowerCase(); return toks.every((t) => hay.indexOf(t) >= 0); }) : all;
+    return hit.slice(0, 8);
+  }
+  function custSugHide() { app.querySelectorAll("[data-qe-csug]").forEach((b) => { b.hidden = true; b.innerHTML = ""; }); const i = app.querySelector("[data-qe-cust]"); if (i) i.setAttribute("aria-expanded", "false"); }
+  function custSugShow(input, menu) {
+    const box = input.parentElement.querySelector("[data-qe-csug]"); if (!box) return;
+    const opt = (val, label, sub, i) => `<button type="button" class="qe-opt${i === 0 ? " on" : ""}" data-qe-copt="${esc(val)}" role="option"><span class="qe-opt-main"><b>${esc(label)}</b></span>${sub ? `<span class="qe-opt-sub">${esc(sub)}</span>` : ""}</button>`;
+    let html = "", i = 0;
+    if (menu) {
+      const cur = input.value.trim().toLowerCase(), items = [];
+      QE_SPECIAL.forEach((x) => { if (!(input.readOnly && x[0].toLowerCase() === cur)) items.push([x[0], x[0]]); });
+      if (input.readOnly) items.push(["__search__", "Search customer"]);
+      html = items.map((x) => opt(x[0], x[1], "", i++)).join("");
+    } else {
+      const q = input.value.trim();
+      if (!q) { box.hidden = true; box.innerHTML = ""; input.setAttribute("aria-expanded", "false"); return; }
+      const list = custMatches(q), none = !(d().customers || []).length;
+      html = list.map((c) => opt(c.name, c.name, c.mobile, i++)).join("");
+      if (!list.length) html = `<div class="qe-opt-note"><b>No customer found for \u201C${esc(q)}\u201D.</b><br>${none ? "Go to <b>Customers</b> \u2192 <b>Add customer</b> first." : "Check the spelling, or add them first under <b>Customers</b> \u2192 <b>Add customer</b>."}</div>`;
+    }
+    box.innerHTML = html; box.hidden = !html;
+    input.setAttribute("aria-expanded", box.hidden ? "false" : "true");
+  }
+  function custToggle(wrap) { const inp = wrap.querySelector("[data-qe-cust]"), bx = wrap.querySelector("[data-qe-csug]"); if (bx.hidden) custSugShow(inp, true); else custSugHide(); }
+  function custSugChoose(btn) {
+    const box = btn.closest("[data-qe-csug]"), inp = box && box.parentElement.querySelector("[data-qe-cust]"); if (!inp) return;
+    const v = btn.dataset.qeCopt;
+    if (v === "__search__") { inp.readOnly = false; inp.value = ""; inp.placeholder = "Search customer by name or phone"; custSugHide(); inp.focus(); return; }
+    if (QE_SPECIAL.some((x) => x[0] === v)) { inp.readOnly = true; inp.value = v; inp.placeholder = "Choose customer"; custSugHide(); return; }
+    inp.value = v; custSugHide();
+    const nx = app.querySelector("[name=expires]"); if (nx) nx.focus();
+  }
+  function custSugKey(e) {
+    const inp = e.target; if (!inp.matches || !inp.matches("[data-qe-cust]")) return;
+    const box = inp.parentElement.querySelector("[data-qe-csug]"), opts = [...box.querySelectorAll(".qe-opt")];
+    if (e.key === "Escape") { if (!box.hidden) { e.stopPropagation(); custSugHide(); } return; }
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault(); if (box.hidden) custSugShow(inp, inp.readOnly || !inp.value.trim());
+      const all = [...box.querySelectorAll(".qe-opt")]; if (!all.length) return;
+      let i = all.findIndex((o) => o.classList.contains("on")); all.forEach((o) => o.classList.remove("on"));
+      i = e.key === "ArrowDown" ? (i + 1) % all.length : (i - 1 + all.length) % all.length;
+      all[i].classList.add("on"); all[i].scrollIntoView({ block: "nearest" }); return;
+    }
+    if (e.key === "Enter") { e.preventDefault(); if (box.hidden && inp.readOnly) { custSugShow(inp, true); return; } const on = box.hidden ? null : opts.find((o) => o.classList.contains("on")); if (on) custSugChoose(on); }
+  }
   function qeSugChoose(btn) {
     const row = btn.closest("[data-qe-row]"), p = (d().products || []).find((x) => x.sku === btn.dataset.qeOpt); if (!row || !p) return;
     const inp = row.querySelector("[data-qe-name]"), pr = row.querySelector("[data-qe-price]");
     inp.value = p.name; row.querySelector("[data-qe-sku]").value = p.sku; pr.dataset.list = String(p.price); pr.value = p.price;
+    qeFillPack(row, p);
     qeSugHide(row); qeRecalc();
     const q = row.querySelector("[data-qe-qty]"); if (q) { q.focus(); q.select(); }
   }
@@ -6928,21 +7018,26 @@ ${body}`);
     if (kept && kept.name === raw) return qeRecalc();   /* already chosen from the list: keep that exact product */
     if (p) {
       input.value = p.name; skuEl.value = p.sku; pr.dataset.list = String(p.price);
-      pr.value = p.price;
+      pr.value = p.price; qeFillPack(row, p);
     } else { skuEl.value = ""; pr.dataset.list = ""; }
     qeRecalc();
   }
   function saveQuote(index, form) {
     const c = qeCollect(form), edit = index >= 0, row = edit ? state.data.quotations[index] : null;
     if (edit && !row) return "Quotation not found.";
-    if (!c.customer) return "Customer is required.";
+    if (!c.customer) return "Choose Walk-in customer, Online order, or search a customer.";
+    const cust = (d().customers || []).find((x) => x && String(x.name).toLowerCase() === c.customer.toLowerCase());
+    const spc = QE_SPECIAL.find((x) => x[0].toLowerCase() === c.customer.toLowerCase());
+    if (spc) c.customer = spc[0];
+    else if (cust) c.customer = cust.name;
+    else if (!(edit && row && row.customer === c.customer)) return "Customer not found. Pick Walk-in customer / Online order, choose a customer from the search list, or add them under Customers first.";
     const lines = [];
     for (const l of c.lines) {
       if (!l.name && l.qty === "" && l.price === "") continue;
       if (!l.name) return "Every item needs a name. Remove the empty row or type the item.";
       if (!(num(l.qty) > 0)) return `Quantity for "${l.name}" must be more than 0.`;
       if (l.price === "" || num(l.price) < 0) return `Enter a unit price for "${l.name}".`;
-      lines.push({ sku: l.sku || null, name: l.name, price: round2(num(l.price)), qty: num(l.qty) });
+      lines.push({ sku: l.sku || null, code: l.code || l.sku || "", name: l.name, unit: l.unit || "Pcs", unitQty: num(l.unitQty) > 0 ? num(l.unitQty) : 0, price: round2(num(l.price)), qty: num(l.qty) });
     }
     if (!lines.length) return "Add at least one item.";
     const t = qeTotals(lines, c.discount, c.discountType);
@@ -6950,7 +7045,7 @@ ${body}`);
     const disc = { discountValue: num(c.discount) > 0 ? num(c.discount) : 0, discountType: c.discountType === "percent" ? "percent" : "amount", discountAmount: t.discountAmount };
     const data = { customer: c.customer, items: t.units, total: t.total, subtotal: t.subtotal, ...disc, expires, note: c.note, lines };
     if (edit) { Object.assign(row, data, { status: c.status || row.status }); logActivity(`Updated ${row.id}`, "blue", "quotations"); }
-    else { const q = { id: makeId("QT-", d().quotations), createdAt: now, status: "Open", ...data }; d().quotations.unshift(q); logActivity(`Quotation ${q.id} saved`, "blue", "quotations"); }
+    else { const q = { id: makeId("QT-", d().quotations), createdAt: now, status: "Open", issuedBy: userName(), ...data }; d().quotations.unshift(q); logActivity(`Quotation ${q.id} saved`, "blue", "quotations"); }
     save();
     return null;
   }
@@ -7084,6 +7179,8 @@ ${body}`);
     app.addEventListener("input", onInput);
     app.addEventListener("focusin", (e) => { if (e.target && e.target.matches && e.target.matches("[data-qe-name]")) qeSugShow(e.target); });
     app.addEventListener("keydown", qeSugKey, true);
+    app.addEventListener("keydown", custSugKey, true);
+    app.addEventListener("mousedown", (e) => { const t = e.target, o = t.closest && t.closest("[data-qe-copt]"); if (o) { e.preventDefault(); custSugChoose(o); } else if (t.closest && t.closest("[data-qe-carrow]")) { e.preventDefault(); custToggle(t.closest(".qe-cust-wrap")); } else if (t.matches && t.matches("[data-qe-cust][readonly]")) { e.preventDefault(); custToggle(t.closest(".qe-cust-wrap")); } else if (!(t.closest && t.closest("[data-qe-cust]"))) custSugHide(); });
     app.addEventListener("mousedown", (e) => { const o = e.target.closest && e.target.closest("[data-qe-opt]"); if (o) { e.preventDefault(); qeSugChoose(o); } else if (!(e.target.closest && e.target.closest("[data-qe-name]"))) qeSugHideAll(); });
     app.addEventListener("input", (e) => { if (e.target && e.target.matches && e.target.matches("[data-bulk-stock]")) bulkVal = e.target.value; });
     app.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target && e.target.matches && e.target.matches("[data-bulk-stock]")) { e.preventDefault(); bulkStockAsk(); } });
@@ -7511,7 +7608,7 @@ ${body}`);
       }
       case "qe-del": {
         const row = btn.closest("[data-qe-row]"), list = app.querySelector("[data-qe-list]"); if (!row || !list) return;
-        if (list.querySelectorAll("[data-qe-row]").length <= 1) { const n = row.querySelector("[data-qe-name]"), pr = row.querySelector("[data-qe-price]"); n.value = ""; row.querySelector("[data-qe-sku]").value = ""; pr.value = ""; pr.dataset.list = ""; row.querySelector("[data-qe-qty]").value = 1; }
+        if (list.querySelectorAll("[data-qe-row]").length <= 1) { const n = row.querySelector("[data-qe-name]"), pr = row.querySelector("[data-qe-price]"); n.value = ""; row.querySelector("[data-qe-sku]").value = ""; pr.value = ""; pr.dataset.list = ""; row.querySelector("[data-qe-qty]").value = 1; row.querySelector("[data-qe-code]").value = ""; row.querySelector("[data-qe-unit]").value = "Pcs"; row.querySelector("[data-qe-per]").value = ""; }
         else row.remove();
         return qeRecalc();
       }
@@ -7750,11 +7847,13 @@ ${body}`);
     } else if (t.matches("[data-tendered]")) updateChange(t);
     else if (t.matches("[data-counted]")) updateVariance(t);
     else if (t.matches("[data-qe-qty],[data-qe-price],[data-qe-disc]")) qeRecalc();
+    else if (t.matches("[data-qe-cust]")) { if (!t.readOnly) custSugShow(t); }
     else if (t.matches("[data-qe-name]")) { const row = t.closest("[data-qe-row]"); if (row) { const sk = row.querySelector("[data-qe-sku]"); if (sk.value) { sk.value = ""; row.querySelector("[data-qe-price]").dataset.list = ""; qeRecalc(); } } qeSugShow(t); }
   }
   function onChange(event) {
     const t = event.target;
-    if (t.matches("[data-qe-name]")) qePick(t);
+    if (t.matches("[data-qe-cust]")) { const c = (d().customers || []).find((x) => x && String(x.name).toLowerCase() === t.value.trim().toLowerCase()); if (c) t.value = c.name; else { const sp = QE_SPECIAL.find((x) => x[0].toLowerCase() === t.value.trim().toLowerCase()); if (sp) t.value = sp[0]; } }
+    else if (t.matches("[data-qe-name]")) qePick(t);
     else if (t.matches("[data-qe-disctype]")) qeRecalc();
     else if (t.matches("[data-category-filter]")) {
       state.categoryFilter = t.value;
