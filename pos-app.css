@@ -269,3 +269,134 @@ tr.row-click{cursor:pointer}tr.row-click:hover td{background:#fafbfc}
 @media(prefers-reduced-motion:reduce){.detail-tab-panel.slide-next>*,.detail-tab-panel.slide-prev>*{animation:none}}
 
 .outlet-menu .outlet-opt{display:grid;gap:1px;text-align:left}.outlet-menu .outlet-opt b{font-weight:700}.outlet-menu .outlet-opt small{color:#9a9ea7;font-size:.82em;font-weight:500}
+.customer-filter-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 14px 12px}.customer-filter-row label{display:flex;align-items:center;gap:6px;color:#737783;font-size:9px}.customer-filter-row input{height:32px;min-width:125px;padding:0 7px;border:1px solid var(--line);border-radius:7px;background:#fff;color:#454954;font-size:9px}.customer-filter-row input:focus{outline:none;border-color:#f6a3ac;box-shadow:0 0 0 3px rgba(239,41,59,.06)}@media(max-width:760px){.customer-filter-row{align-items:stretch}.customer-filter-row label{flex:1 1 42%}.customer-filter-row input{min-width:0;width:100%}}
+/* Laptop-height overflow fixes: keep POS checkout and modal actions reachable without hiding them below the viewport. */
+.cart-panel{max-height:calc(100vh - 96px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.modal-card>.modal-foot{position:sticky;bottom:-17px;z-index:5;flex-wrap:wrap;margin-left:-17px;margin-right:-17px;margin-bottom:-17px;padding:12px 17px;border-top:1px solid var(--line-2);background:rgba(255,255,255,.98);box-shadow:0 -5px 12px rgba(20,24,33,.05)}
+@media(max-height:780px){.cart-panel{top:74px;max-height:calc(100vh - 82px)}.cart-lines{max-height:190px;min-height:100px}.page-content{padding-top:16px;padding-bottom:24px}.modal-backdrop{align-items:start;padding-top:8px;padding-bottom:8px}.modal-card{max-height:calc(100vh - 16px)}}
+@media(max-width:760px){.cart-panel{max-height:none;overflow:visible;scrollbar-gutter:auto}.modal-card>.modal-foot{bottom:-14px;margin-left:-14px;margin-right:-14px;margin-bottom:-14px;padding:11px 14px}}
+
+/* Compact detail drawers on short laptop viewports: keep quotation actions visible and make overflow explicitly scrollable. */
+.modal-card{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#aeb3bd transparent;scroll-padding-block:12px}
+.modal-card::-webkit-scrollbar{width:8px}.modal-card::-webkit-scrollbar-track{background:transparent}.modal-card::-webkit-scrollbar-thumb{border:2px solid transparent;border-radius:8px;background:#b8bdc6;background-clip:padding-box}
+.modal-card .modal-actions{position:sticky;bottom:58px;z-index:4;margin-top:7px;padding:8px 0;background:rgba(255,255,255,.98)}
+@media(max-height:780px){.modal-backdrop{place-items:start center;overflow-y:auto;padding:6px}.modal-card{max-height:calc(100vh - 12px);max-height:calc(100dvh - 12px);padding:10px}.modal-head{padding-bottom:7px}.detail-profile{gap:8px;padding:2px 0 7px}.detail-tabs{padding-top:6px}.detail-list{padding:4px 0;gap:0 9px}.detail-list>div{gap:1px;padding:5px 0}.detail-list span{font-size:7px}.detail-list b{font-size:8px}.modal-actions{gap:4px;margin-top:5px;padding:6px 0}.modal-card .modal-actions .btn,.modal-card .modal-foot .btn{min-height:27px;padding:0 8px;font-size:8px}.modal-card>.modal-actions{bottom:48px}.modal-card>.modal-foot{bottom:-10px;margin-top:5px;margin-left:-10px;margin-right:-10px;margin-bottom:-10px;padding:8px 10px}.modal-card>.modal-foot .modal-hint{font-size:7px}}
+@media(max-height:520px){.modal-card{max-height:calc(100vh - 8px);max-height:calc(100dvh - 8px);padding:8px}.detail-list>div{padding:3px 0}.modal-card>.modal-actions{bottom:44px}.modal-card>.modal-foot{bottom:-8px;margin-left:-8px;margin-right:-8px;margin-bottom:-8px;padding:6px 8px}}
+
+/* =====================================================================
+   PROFESSIONAL POLISH - one size + spacing scale for the whole POS.
+   Kept LAST on purpose so it wins over the older one-off rules above.
+   Scale (before the 1.25 UI zoom): text 9 / 10 / 11 / 13 / 21,  spacing 4 / 8 / 12 / 16 / 20 / 24.
+   Delete this block to go back to the old look.
+   ===================================================================== */
+:root{--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--fs-micro:9px;--fs-cap:10px;--fs-body:11px;--fs-title:13px;--fs-h1:21px}
+
+/* page frame + heading */
+.page-content{padding:var(--sp-6) 32px 40px}
+.page-heading{align-items:flex-end;margin-bottom:var(--sp-5)}
+.page-heading .eyebrow{font-size:var(--fs-micro);letter-spacing:.14em;line-height:1.2}
+.page-heading h1{margin:var(--sp-1) 0 0;font-size:var(--fs-h1);line-height:1.2;letter-spacing:-.4px}
+.page-heading p{margin:var(--sp-1) 0 0;font-size:var(--fs-body);line-height:1.4;color:var(--muted)}
+.heading-actions{gap:var(--sp-2)}
+.select-wrap{height:34px;padding:0 var(--sp-3);font-size:var(--fs-body)}
+
+/* hero banner: compact, one calm row */
+.brand-banner{min-height:0;margin:0 0 var(--sp-5);padding:var(--sp-5) 28px;gap:var(--sp-6);align-items:center;border-radius:var(--radius)}
+.brand-banner .banner-content{flex:1 1 0;min-width:0}
+.brand-banner .banner-tag{font-size:var(--fs-micro);letter-spacing:.14em}
+.brand-banner .banner-content h2{margin:var(--sp-2) 0 var(--sp-1);font-size:var(--fs-h1);line-height:1.2;letter-spacing:-.4px}
+.brand-banner .banner-content p{font-size:var(--fs-body);line-height:1.45}
+.brand-banner .banner-button{margin-top:var(--sp-4);padding:0 var(--sp-4);height:32px;font-size:var(--fs-body);font-weight:700}
+.brand-banner .flare-box{flex:1.7 1 0;grid-template-columns:76px minmax(0,1fr);gap:var(--sp-4);align-items:center}
+.brand-banner .flare-av,.brand-banner .flare-av.is-talking{width:76px;height:76px;filter:drop-shadow(0 4px 8px rgba(var(--rgb-b,239,41,59),.2))}
+.flare-who{gap:var(--sp-1)}
+.flare-name{font-size:var(--fs-micro);gap:var(--sp-1)}
+.brand-banner .flare-main{gap:var(--sp-2)}
+.brand-banner .flare-bubble{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-body);line-height:1.5;border-radius:12px 12px 12px 4px}
+.brand-banner .flare-tag{font-size:var(--fs-micro);letter-spacing:.1em;line-height:1.3}
+.brand-banner .flare-head{margin-bottom:var(--sp-1)}
+.brand-banner .flare-log{max-height:70px;min-height:0}
+.brand-banner .flare-msg{font-size:var(--fs-body);line-height:1.5;padding:var(--sp-1) 10px}
+.brand-banner .flare-chips{gap:var(--sp-1) 6px}
+.brand-banner .flare-chip{padding:0 10px;height:22px;display:inline-flex;align-items:center;font-size:var(--fs-micro)}
+.brand-banner .flare-input{height:30px;padding:0 var(--sp-3);font-size:var(--fs-cap)}
+.brand-banner .flare-send{width:30px;height:30px}
+
+/* KPI cards */
+.metric-grid{gap:var(--sp-3);margin:0 0 var(--sp-5)}
+.metric-card{padding:var(--sp-4);min-height:0}
+.metric-icon{width:30px;height:30px;border-radius:9px}
+.metric-label{margin-top:var(--sp-3);font-size:var(--fs-cap);line-height:1.3;letter-spacing:.01em}
+.metric-card>strong{margin-top:var(--sp-1);font-size:18px;line-height:1.25;letter-spacing:-.3px}
+.metric-foot{margin-top:var(--sp-2);font-size:var(--fs-micro);line-height:1.3}
+
+/* content cards + charts */
+.content-grid,.home-grid{gap:var(--sp-3)}
+.home-grid{margin-bottom:var(--sp-3)}
+.card-head{padding:var(--sp-4) var(--sp-4) 0;gap:var(--sp-3);align-items:flex-start}
+.card-head h2{font-size:var(--fs-title);line-height:1.3;letter-spacing:-.1px}
+.card-head p{margin:2px 0 0;font-size:var(--fs-cap);line-height:1.35}
+.count-total{font-size:18px;line-height:1.2}
+.count-total small{font-size:var(--fs-cap)}
+.chart-legend{padding:var(--sp-3) var(--sp-4) 0;font-size:var(--fs-cap)}
+.chart-x span,.chart-y span,.bar-label{font-size:var(--fs-cap);line-height:1.3;color:var(--muted)}
+.bar-label{font-weight:500}
+.home-grid>.card{min-height:0}
+.bar-chart{padding:var(--sp-4) var(--sp-4) 0}
+.empty,.empty-state{padding:var(--sp-5);font-size:var(--fs-cap)}
+
+/* sidebar rhythm */
+.nav-item,.nav-link{min-height:34px;padding:var(--sp-2) 10px;font-size:var(--fs-body);gap:var(--sp-3)}
+.nav-label,.nav-section{padding:var(--sp-2) 10px;font-size:var(--fs-micro);letter-spacing:.12em}
+.topbar{height:60px}
+.breadcrumbs{font-size:var(--fs-cap)}
+
+/* tablets / phones: keep the same scale but stack */
+@media(max-width:900px){
+  .page-content{padding:var(--sp-4) var(--sp-4) 28px}
+  .brand-banner{flex-wrap:wrap;padding:var(--sp-4);gap:var(--sp-4)}
+  .brand-banner .banner-content,.brand-banner .flare-box{flex:1 1 100%}
+  .brand-banner .flare-box{grid-template-columns:60px minmax(0,1fr);gap:var(--sp-3)}
+  .brand-banner .flare-av,.brand-banner .flare-av.is-talking{width:60px;height:60px}
+}
+@media(max-width:520px){.brand-banner .flare-box{grid-template-columns:1fr}}
+@media(max-width:760px){.page-heading{align-items:flex-start}}
+
+/* ---- Table "More" menu + Columns dialog ---- */
+.table-toolbar .table-more .btn{height:34px;padding:0 var(--sp-3,12px);font-size:var(--fs-body,11px);gap:6px}
+.pop-more{top:calc(100% + 6px);width:190px;padding:6px;display:grid;gap:2px;overflow:visible}
+.pop-more .pop-label{padding:6px 10px 4px;color:var(--muted);font-size:var(--fs-micro,9px);font-weight:650;letter-spacing:.06em;text-transform:uppercase}
+.pop-more button{display:flex;align-items:center;gap:var(--sp-2,8px);width:100%;padding:8px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink);font-size:var(--fs-body,11px);font-weight:550;text-align:left;cursor:pointer}
+.pop-more button:hover{background:var(--wash)}
+.cols-card{width:min(420px,calc(100vw / var(--uz,1) - 24px))}
+.cols-card .modal-lead{margin:0 0 var(--sp-3,12px);color:var(--muted);font-size:var(--fs-body,11px)}
+.cols-list{list-style:none;margin:0 0 var(--sp-4,16px);padding:0;display:grid;gap:2px;max-height:min(420px,60vh / var(--uz,1));overflow:auto}
+.cols-row{display:flex;align-items:center;gap:var(--sp-2,8px);padding:6px 8px;border-radius:8px;background:var(--paper,#fff);user-select:none}
+.cols-row:hover{background:var(--wash)}
+.cols-row.is-drag{background:var(--brand-soft);box-shadow:0 4px 14px rgba(24,29,42,.12);position:relative;z-index:2}
+.cols-row.is-locked{color:var(--quiet)}
+.cols-grip{width:18px;flex:none;display:grid;place-items:center;color:var(--quiet);cursor:grab;touch-action:none}
+.cols-row label{flex:1;display:flex;align-items:center;gap:var(--sp-2,8px);font-size:var(--fs-title,13px);cursor:pointer}
+.cols-row.is-locked label{cursor:default}
+.cols-row input{width:15px;height:15px;accent-color:var(--brand)}
+.cols-lock{display:grid;place-items:center;color:var(--quiet)}
+.cols-card .modal-foot{display:flex;align-items:center;gap:var(--sp-2,8px)}
+.cols-card .modal-foot .spacer{flex:1}
+.cols-card .cols-reset{border-color:transparent;background:transparent;color:var(--muted)}
+/* Product / name column: more width, wraps to 2 lines instead of cutting the name */
+.table-scroll table.fixed-cols td:has(>.p-cell){white-space:normal;text-overflow:clip}
+.p-cell .primary-cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;white-space:normal;overflow:hidden;text-overflow:ellipsis;line-height:1.3;word-break:break-word}
+/* ---- Products filter popover ---- */
+.pf-wrap .btn{position:relative}
+.pf-wrap .btn.is-active{border-color:var(--brand);color:var(--brand)}
+.pf-badge{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;margin-left:2px;border-radius:99px;background:var(--brand);color:#fff;font-style:normal;font-size:var(--fs-micro,9px);font-weight:700;line-height:1}
+.pop-filter{top:calc(100% + 6px);width:min(300px,calc(100vw / var(--uz,1) - 24px));padding:var(--sp-3,12px);display:grid;gap:var(--sp-3,12px);overflow:visible}
+.pf-field{display:grid;gap:4px;min-width:0}
+.pf-field>span{color:var(--muted);font-size:var(--fs-cap,10px);font-weight:650}
+.pf-field select,.pf-field input{width:100%;height:33px;min-width:0;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff);color:var(--ink);font-size:var(--fs-body,11px)}
+.pop-filter .pf-field select,.pop-filter .pf-field input{box-sizing:border-box;width:100%;max-width:none;height:34px}
+.pop-filter .pf-field select{padding-right:26px}
+@media(max-width:760px){.table-toolbar .table-filters{flex-wrap:wrap}.pop-filter{right:auto;left:0}}
+.pf-range{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2,8px)}
+.pf-foot{display:flex;justify-content:flex-end;gap:var(--sp-2,8px)}
+.pf-foot .btn{height:32px;padding:0 var(--sp-3,12px);font-size:var(--fs-body,11px)}

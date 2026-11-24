@@ -187,7 +187,7 @@ tr.row-click{cursor:pointer}tr.row-click:hover td{background:var(--dm-bg-fafbfc,
 .qty-stepper button:before{width:9px;height:1.6px}.qty-stepper button[data-action="qty-up"]:after{width:1.6px;height:9px}
 .add-product{width:22px;height:22px;border-radius:7px;box-shadow:0 2px 6px rgba(var(--rgb-b,239,41,59),.2)}.add-product svg{width:12px;height:12px}
 /* UI size: everything 25% bigger on desktop (change --uz and zoom together); phones keep their normal size */
-:root{--uz:1}@media(min-width:701px){html{zoom:1.25;--uz:1.25}}@media print{html{zoom:1;--uz:1}}
+:root{--uz:1}@media(min-width:701px){:root{zoom:1.25;--uz:1.25}}@media print{:root{zoom:1;--uz:1}}
 /* normal arrow cursor over product pictures (clicking still opens the photo pop-up) */
 .product-tile-art.has-img,.product-tile-art.has-img *,[data-photo-view],[data-photo-view] *{cursor:default!important}
 /* categories menu opened by the filter button */
@@ -718,6 +718,8 @@ html[data-theme="graphite"]{--t-4a2029:#202122;--t-4b2831:#232425;--t-b42030:#3d
   .sidebar{position:fixed;top:0;bottom:0;left:0;height:auto;max-height:none;overflow:hidden}
   .workspace{grid-column:2;grid-row:1;min-width:0}
 }
+@media(max-width:760px){.sidebar{top:0;bottom:0;height:auto;overflow:hidden}}   /* phone / narrow tablet drawer: same pin, so the 701-760px zoom can't push the footer off-screen */
+.outlet-menu{max-height:calc(100vh / var(--uz,1) - 190px);max-height:calc(100dvh / var(--uz,1) - 190px);min-height:120px;overflow-y:auto;overscroll-behavior:contain}   /* many outlets: the list scrolls instead of running off the screen */
 .sidebar-head,.outlet-switch-wrap,.sidebar-footer{flex:none}
 .sidebar .side-nav{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .sidebar .sidebar-footer{margin-top:0;background:var(--paper,#fff)}
@@ -932,6 +934,145 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
 /* photo viewer: square corners, picture only */
 .pv-card,.pv-img,.pv-img img{border-radius:0!important}
 .pv-x{border-radius:0}
+/* =====================================================================
+   PROFESSIONAL POLISH - one size + spacing scale for the whole POS.
+   Kept LAST on purpose so it wins over the older one-off rules above.
+   Scale (before the 1.25 UI zoom): text 9 / 10 / 11 / 13 / 21,  spacing 4 / 8 / 12 / 16 / 20 / 24.
+   Delete this block to go back to the old look.
+   ===================================================================== */
+:root{--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--fs-micro:9px;--fs-cap:10px;--fs-body:11px;--fs-title:13px;--fs-h1:21px}
+
+/* page frame + heading */
+.page-content{padding:var(--sp-6) 32px 40px}
+.page-heading{align-items:flex-end;margin-bottom:var(--sp-5)}
+.page-heading .eyebrow{font-size:var(--fs-micro);letter-spacing:.14em;line-height:1.2}
+.page-heading h1{margin:var(--sp-1) 0 0;font-size:var(--fs-h1);line-height:1.2;letter-spacing:-.4px}
+.page-heading p{margin:var(--sp-1) 0 0;font-size:var(--fs-body);line-height:1.4;color:var(--muted)}
+.heading-actions{gap:var(--sp-2)}
+.select-wrap{height:34px;padding:0 var(--sp-3);font-size:var(--fs-body)}
+
+/* hero banner: compact, one calm row */
+.brand-banner{min-height:0;margin:0 0 var(--sp-5);padding:var(--sp-5) 28px;gap:var(--sp-6);align-items:center;border-radius:var(--radius)}
+.brand-banner .banner-content{flex:1 1 0;min-width:0}
+.brand-banner .banner-tag{font-size:var(--fs-micro);letter-spacing:.14em}
+.brand-banner .banner-content h2{margin:var(--sp-2) 0 var(--sp-1);font-size:var(--fs-h1);line-height:1.2;letter-spacing:-.4px}
+.brand-banner .banner-content p{font-size:var(--fs-body);line-height:1.45}
+.brand-banner .banner-button{margin-top:var(--sp-4);padding:0 var(--sp-4);height:32px;font-size:var(--fs-body);font-weight:700}
+.brand-banner .flare-box{flex:1.7 1 0;grid-template-columns:76px minmax(0,1fr);gap:var(--sp-4);align-items:center}
+.brand-banner .flare-av,.brand-banner .flare-av.is-talking{width:76px;height:76px;filter:drop-shadow(0 4px 8px rgba(var(--rgb-b,239,41,59),.2))}
+.flare-who{gap:var(--sp-1)}
+.flare-name{font-size:var(--fs-micro);gap:var(--sp-1)}
+.brand-banner .flare-main{gap:var(--sp-2)}
+.brand-banner .flare-bubble{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-body);line-height:1.5;border-radius:12px 12px 12px 4px}
+.brand-banner .flare-tag{font-size:var(--fs-micro);letter-spacing:.1em;line-height:1.3}
+.brand-banner .flare-head{margin-bottom:var(--sp-1)}
+.brand-banner .flare-log{max-height:70px;min-height:0}
+.brand-banner .flare-msg{font-size:var(--fs-body);line-height:1.5;padding:var(--sp-1) 10px}
+.brand-banner .flare-chips{gap:var(--sp-1) 6px}
+.brand-banner .flare-chip{padding:0 10px;height:22px;display:inline-flex;align-items:center;font-size:var(--fs-micro)}
+.brand-banner .flare-input{height:30px;padding:0 var(--sp-3);font-size:var(--fs-cap)}
+.brand-banner .flare-send{width:30px;height:30px}
+
+/* KPI cards */
+.metric-grid{gap:var(--sp-3);margin:0 0 var(--sp-5)}
+.metric-card{padding:var(--sp-4);min-height:0}
+.metric-icon{width:30px;height:30px;border-radius:9px}
+.metric-label{margin-top:var(--sp-3);font-size:var(--fs-cap);line-height:1.3;letter-spacing:.01em}
+.metric-card>strong{margin-top:var(--sp-1);font-size:18px;line-height:1.25;letter-spacing:-.3px}
+.metric-foot{margin-top:var(--sp-2);font-size:var(--fs-micro);line-height:1.3}
+
+/* content cards + charts */
+.content-grid,.home-grid{gap:var(--sp-3)}
+.home-grid{margin-bottom:var(--sp-3)}
+.card-head{padding:var(--sp-4) var(--sp-4) 0;gap:var(--sp-3);align-items:flex-start}
+.card-head h2{font-size:var(--fs-title);line-height:1.3;letter-spacing:-.1px}
+.card-head p{margin:2px 0 0;font-size:var(--fs-cap);line-height:1.35}
+.count-total{font-size:18px;line-height:1.2}
+.count-total small{font-size:var(--fs-cap)}
+.chart-legend{padding:var(--sp-3) var(--sp-4) 0;font-size:var(--fs-cap)}
+.chart-x span,.chart-y span,.bar-label{font-size:var(--fs-cap);line-height:1.3;color:var(--muted)}
+.bar-label{font-weight:500}
+.home-grid>.card{min-height:0}
+.bar-chart{padding:var(--sp-4) var(--sp-4) 0}
+.empty,.empty-state{padding:var(--sp-5);font-size:var(--fs-cap)}
+
+/* sidebar rhythm */
+.nav-item,.nav-link{min-height:34px;padding:var(--sp-2) 10px;font-size:var(--fs-body);gap:var(--sp-3)}
+.nav-label,.nav-section{padding:var(--sp-2) 10px;font-size:var(--fs-micro);letter-spacing:.12em}
+.topbar{height:60px}
+.breadcrumbs{font-size:var(--fs-cap)}
+
+/* tablets / phones: keep the same scale but stack */
+@media(max-width:900px){
+  .page-content{padding:var(--sp-4) var(--sp-4) 28px}
+  .brand-banner{flex-wrap:wrap;padding:var(--sp-4);gap:var(--sp-4)}
+  .brand-banner .banner-content,.brand-banner .flare-box{flex:1 1 100%}
+  .brand-banner .flare-box{grid-template-columns:60px minmax(0,1fr);gap:var(--sp-3)}
+  .brand-banner .flare-av,.brand-banner .flare-av.is-talking{width:60px;height:60px}
+}
+@media(max-width:520px){.brand-banner .flare-box{grid-template-columns:1fr}}
+@media(max-width:760px){.page-heading{align-items:flex-start}}
+/* ---- Table "More" menu + Columns dialog ---- */
+.table-toolbar .table-more .btn{height:34px;padding:0 var(--sp-3,12px);font-size:var(--fs-body,11px);gap:6px}
+.pop-more{top:calc(100% + 6px);width:190px;padding:6px;display:grid;gap:2px;overflow:visible}
+.pop-more .pop-label{padding:6px 10px 4px;color:var(--muted);font-size:var(--fs-micro,9px);font-weight:650;letter-spacing:.06em;text-transform:uppercase}
+.pop-more button{display:flex;align-items:center;gap:var(--sp-2,8px);width:100%;padding:8px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink);font-size:var(--fs-body,11px);font-weight:550;text-align:left;cursor:pointer}
+.pop-more button:hover{background:var(--wash)}
+.cols-card{width:min(420px,calc(100vw / var(--uz,1) - 24px))}
+.cols-card .modal-lead{margin:0 0 var(--sp-3,12px);color:var(--muted);font-size:var(--fs-body,11px)}
+.cols-list{list-style:none;margin:0 0 var(--sp-4,16px);padding:0;display:grid;gap:2px;max-height:min(420px,60vh / var(--uz,1));overflow:auto}
+.cols-row{display:flex;align-items:center;gap:var(--sp-2,8px);padding:6px 8px;border-radius:8px;background:var(--paper,#fff);user-select:none}
+.cols-row:hover{background:var(--wash)}
+.cols-row.is-drag{background:var(--brand-soft);box-shadow:0 4px 14px rgba(24,29,42,.12);position:relative;z-index:2}
+.cols-row.is-locked{color:var(--quiet)}
+.cols-grip{width:18px;flex:none;display:grid;place-items:center;color:var(--quiet);cursor:grab;touch-action:none}
+.cols-row label{flex:1;display:flex;align-items:center;gap:var(--sp-2,8px);font-size:var(--fs-title,13px);cursor:pointer}
+.cols-row.is-locked label{cursor:default}
+.cols-row input{width:15px;height:15px;accent-color:var(--brand)}
+.cols-lock{display:grid;place-items:center;color:var(--quiet)}
+.cols-card .modal-foot{display:flex;align-items:center;gap:var(--sp-2,8px)}
+.cols-card .modal-foot .spacer{flex:1}
+.cols-card .cols-reset{border-color:transparent;background:transparent;color:var(--muted)}
+/* Product / name column: more width, wraps to 2 lines instead of cutting the name */
+.table-scroll table.fixed-cols td:has(>.p-cell){white-space:normal;text-overflow:clip}
+.p-cell .primary-cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;white-space:normal;overflow:hidden;text-overflow:ellipsis;line-height:1.3;word-break:break-word}
+/* ---- Products filter popover ---- */
+.pf-wrap .btn{position:relative}
+.pf-wrap .btn.is-active{border-color:var(--brand);color:var(--brand)}
+.pf-badge{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;margin-left:2px;border-radius:99px;background:var(--brand);color:#fff;font-style:normal;font-size:var(--fs-micro,9px);font-weight:700;line-height:1}
+.pop-filter{top:calc(100% + 6px);width:min(300px,calc(100vw / var(--uz,1) - 24px));padding:var(--sp-3,12px);display:grid;gap:var(--sp-3,12px);overflow:visible}
+.pf-field{display:grid;gap:4px;min-width:0}
+.pf-field>span{color:var(--muted);font-size:var(--fs-cap,10px);font-weight:650}
+.pf-field select,.pf-field input{width:100%;height:33px;min-width:0;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff);color:var(--ink);font-size:var(--fs-body,11px)}
+.pop-filter .pf-field select,.pop-filter .pf-field input{box-sizing:border-box;width:100%;max-width:none;height:34px}
+.pop-filter .pf-field select{padding-right:26px}
+@media(max-width:760px){.table-toolbar .table-filters{flex-wrap:wrap}.pop-filter{right:auto;left:0}}
+.inv-tabs{display:flex;gap:4px;padding:10px 14px 0;border-bottom:1px solid var(--line)}
+.inv-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;margin-bottom:-1px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font:inherit;font-size:var(--fs-body,11px);font-weight:650;cursor:pointer}
+.inv-tab:hover{color:var(--ink)}
+.inv-tab.is-active{color:var(--ink);border-bottom-color:var(--brand)}
+.inv-tab .inv-count{min-width:18px;padding:1px 6px;border-radius:99px;background:var(--wash);color:var(--muted);font-size:var(--fs-cap,10px);font-weight:700;text-align:center}
+.inv-tab.is-active .inv-count{background:var(--brand-soft,#fff0f1);color:var(--brand)}
+.inv-tab.is-low .inv-count{background:#fff1f1;color:#c52234}
+.inv-days{font-weight:700;white-space:nowrap}
+.inv-days.d-bad{color:#c52234}.inv-days.d-warn{color:#a66a11}.inv-days.d-ok{color:#147c57}
+.inv-sub{color:var(--muted);font-size:var(--fs-cap,10px);font-weight:400}
+.inv-note{padding:10px 14px 12px;color:var(--muted);font-size:var(--fs-cap,10px);border-top:1px solid var(--line-2)}
+.inv-more{display:flex;justify-content:center;padding:10px;border-top:1px solid var(--line-2)}
+.adj-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.adj-head>span{display:grid;gap:2px}.adj-head b{font-size:13px}.adj-head small{color:var(--muted);font-size:var(--fs-cap,10px)}
+.adj-preview{margin:12px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--wash);font-size:var(--fs-body,11px);color:var(--ink-2)}.adj-preview b{font-size:13px;color:var(--ink)}.adj-preview em{margin-left:6px;font-style:normal;font-weight:700;color:var(--muted)}.adj-preview .adj-neg{color:#c52234}
+.adj-log{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.adj-log h3{margin:0 0 8px;font-size:12px}.adj-log ul{list-style:none;margin:0;padding:0;max-height:240px;overflow:auto}
+.adj-log-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line-2)}.adj-log-row:last-child{border-bottom:0}
+.adj-delta{min-width:44px;padding:3px 7px;border-radius:7px;text-align:center;font-size:11px;font-weight:750}.adj-delta.up{background:#e9f7f0;color:#147c57}.adj-delta.down{background:#fff1f1;color:#c52234}
+.adj-log-copy{min-width:0;flex:1;display:grid;gap:2px}.adj-log-copy b{font-size:11px}.adj-log-copy small{color:var(--muted);font-size:var(--fs-cap,10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adj-log-after{color:var(--muted);font-size:11px;white-space:nowrap}.adj-log-after b{color:var(--ink)}.adj-empty{margin:0;color:var(--muted);font-size:var(--fs-cap,10px)}
+html[data-mode="dark"] .adj-delta.up{background:#14392c;color:#4cc59a}html[data-mode="dark"] .adj-delta.down{background:#3a1a1f;color:#ff8a94}
+.inv-actions{display:flex;gap:2px;justify-content:flex-end}
+html[data-mode="dark"] .inv-days.d-bad,html[data-mode="dark"] .inv-tab.is-low .inv-count{color:#ff8a94;background:transparent}
+html[data-mode="dark"] .inv-days.d-warn{color:#e8b25a}html[data-mode="dark"] .inv-days.d-ok{color:#4cc59a}
+.pf-range{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2,8px)}
+.pf-foot{display:flex;justify-content:flex-end;gap:var(--sp-2,8px)}
+.pf-foot .btn{height:32px;padding:0 var(--sp-3,12px);font-size:var(--fs-body,11px)}
 </style>
 </head>
   <body>
@@ -1081,6 +1222,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
   };
   var initialDemoData = {
     stockLevels: [],
+    stockLog: [],
     products: [
       { sku: "AF-1001", name: "House Blend Coffee", category: "Beverages", stockQty: 42, price: 85, status: "In stock" },
       { sku: "AF-1002", name: "Mineral Water 500ml", category: "Beverages", stockQty: 8, price: 25, status: "Low stock" },
@@ -1736,6 +1878,9 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/>',
     logout: '<path d="M10 17l5-5-5-5m5 5H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/>'
   };
+  iconPaths.columns = '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/>';
+  iconPaths.grip = '<circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/>';
+  iconPaths.lock = '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>';
   var svgIcon = (name, size = 18) => `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || iconPaths.box}</svg>`;
 
   // ../pos/src/lib/core.js
@@ -1789,6 +1934,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     query: "",
     statusFilter: "all",
     categoryFilter: "all",
+    pf: { brand: "all", serial: "", from: "", to: "" },
     tablePeriod: "All time",
     sort: { key: null, dir: 1 },
     page: 0,
@@ -1845,7 +1991,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     state.notifSeen = saved.notifSeen || "";
   }
   // ---- Cloud data: every record lives in Supabase (table pos_rows), private to the company ----
-  var CLOUD_COLLS = ["products", "categories", "customers", "bills", "sessions", "cashMoves", "giftCards", "quotations", "onlinePayments", "stockCounts", "stockLevels", "transfers", "suppliers", "purchaseOrders", "receipts", "landedCosts", "onlineOrders", "orderProducts", "expenses", "expenseCategories", "activity"];
+  var CLOUD_COLLS = ["products", "categories", "customers", "bills", "sessions", "cashMoves", "giftCards", "quotations", "onlinePayments", "stockCounts", "stockLevels", "stockLog", "transfers", "suppliers", "purchaseOrders", "receipts", "landedCosts", "onlineOrders", "orderProducts", "expenses", "expenseCategories", "activity"];
   var cloud = { ctx: null, uid: null, synced: new Map(), pushing: false, again: false, retry: 0, lastPull: 0, queue: [], kv: {}, started: false };
   var cSb = () => window.__afSb;
   var cKey = (coll, rid) => coll + "\u0001" + rid;
@@ -2002,7 +2148,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
   }
   /* a search box does not hold changes back (its text lives in state and is put back after the redraw);
      every other field / window still does, so nothing being typed is ever lost */
-  var C_SEARCH = ["[data-page-search]", "[data-product-search]", '[data-home-filter="period"]', '[data-home-filter="outlet"]', "[data-chart-metric]", "[data-table-period]"];   /* report period / outlet filters hold no typing, so they must not hold back live updates */
+  var C_SEARCH = ["[data-page-search]", "[data-inv-search]", "[data-product-search]", '[data-home-filter="period"]', '[data-home-filter="outlet"]', "[data-chart-metric]", "[data-table-period]"];   /* report period / outlet filters hold no typing, so they must not hold back live updates */
   function cSearchSel(ae) { return ae && ae.matches ? C_SEARCH.find((q) => ae.matches(q)) || null : null; }
   /* true when someone has typed in the Settings form and not saved yet: only then do remote changes wait */
   function settingsFormDirty() {
@@ -2016,7 +2162,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     });
   }
   function cBusy() {
-    if (state.modal) return true;
+    if (state.modal || state.popover === "pfilter") return true;
     const ae = document.activeElement;
     if (ae && ae.closest && ae.closest('form[data-form="settings"]')) return settingsFormDirty();
     if (!(ae && /^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName) && app.contains(ae))) return false;
@@ -2044,6 +2190,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     cloud.started = true;
     const cid = cloud.ctx.company_id;
     try { cSb().channel("afpos-data-" + cid).on("postgres_changes", { event: "*", schema: "public", table: "pos_rows", filter: "company_id=eq." + cid }, (p) => { if (p.new && p.new.coll) { cloud.queue.push(p.new); cDrain(); } }).subscribe(); } catch (e) {}
+    if (cloud.uid) try { cSb().channel("afpos-kv-" + cloud.uid).on("postgres_changes", { event: "*", schema: "public", table: "pos_user_kv", filter: "user_id=eq." + cloud.uid }, (p) => { const r = p.new; if (!r || r.key !== COLS_KEY) return; if (JSON.stringify(cloud.kv[COLS_KEY]) === JSON.stringify(r.data)) return; cloud.kv[COLS_KEY] = r.data; if (!state.modal) rootRender(); }).subscribe(); } catch (e) {}
     setInterval(cPoll, 20000);
     setInterval(cDrain, 1000);
     document.addEventListener("visibilitychange", () => { if (!document.hidden) cPoll(); });
@@ -2248,6 +2395,8 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     state.query = "";
     state.statusFilter = "all";
     state.categoryFilter = "all";
+    state.pf = { brand: "all", serial: "", from: "", to: "" };
+    state.inv = null;
     state.page = 0;
     state.sort = { key: null, dir: 1 };
     state.tablePeriod = "All time";
@@ -2313,7 +2462,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
       case "customers":
         return [f("name", "Customer name", "text", true, { value: val("name") }), f("mobile", "Phone", "tel", false, { value: val("mobile") }), f("email", "Email", "email", false, { value: val("email") }), f("address", "Address", "text", false, { value: val("address") }), f("tin", "Customer GST TIN (optional)", "text", false, { value: val("tin") }), f("loyalty", "Loyalty points", "number", false, { value: val("loyalty", 0), min: 0 }), f("creditLimit", "Credit limit (MVR)", "number", false, { value: val("creditLimit", 3e3), min: 0 }), ...status()];
       case "products":
-        return [f("sku", "SKU", "text", true, { value: val("sku", `${s.skuPrefix || "AF"}-${1001 + d2.products.length}`) }), f("name", "Product name", "text", true, { value: val("name") }), f("category", "Category", "select", true, { options: names(d2.categories), value: val("category", d2.categories[0]?.name) }), f("stockQty", edit ? "On hand" : "Opening stock", "number", true, { value: val("stockQty", 0), min: 0, step: 1 }), f("price", "Price (MVR)", "number", true, { value: val("price"), min: 0, step: "any" }), f("packing", "Packing / size (optional)", "text", false, { value: val("packing"), placeholder: "e.g. 12 x 450ml" }), f("image", "Photo (optional)", "photo", false, { value: val("image"), hd: val("imageHd"), span: true })];
+        return [f("sku", "SKU", "text", true, { value: val("sku", `${s.skuPrefix || "AF"}-${1001 + d2.products.length}`) }), f("name", "Product name", "text", true, { value: val("name") }), f("category", "Category", "select", true, { options: names(d2.categories), value: val("category", d2.categories[0]?.name) }), f("brand", "Brand (optional)", "text", false, { value: val("brand"), placeholder: "e.g. Daiwa" }), f("serial", "Serial number (optional)", "text", false, { value: val("serial") }), f("stockQty", edit ? "On hand" : "Opening stock", "number", true, { value: val("stockQty", 0), min: 0, step: 1 }), f("price", "Price (MVR)", "number", true, { value: val("price"), min: 0, step: "any" }), f("packing", "Packing / size (optional)", "text", false, { value: val("packing"), placeholder: "e.g. 12 x 450ml" }), f("image", "Photo (optional)", "photo", false, { value: val("image"), hd: val("imageHd"), span: true })];
       case "categories":
         return [f("name", "Category name", "text", true, { value: val("name") }), f("description", "Description", "text", false, { value: val("description") }), ...status()];
       case "giftCards":
@@ -2761,6 +2910,32 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     state.data.products.forEach((p) => { if (p.__lg !== undefined && !m.has(slKey(p.sku, first))) { arr.push({ _rid: "SL~" + p.sku + "~" + first, sku: p.sku, outlet: first, qty: num(p.__lg) }); n++; } });
     if (n) cPush();
   }
+  /* ---- stock audit log: every manual adjustment, delivery, transfer and count is written down (who, when, before -> after, why). One row per movement, private to its outlet like the stock itself ---- */
+  function logStock(p, outlet, before, after, type, reason, note) {
+    if (!p || before === after) return;
+    const arr = state.data.stockLog || (state.data.stockLog = []), ts = Date.now();
+    arr.unshift({ _rid: "SLG~" + ts.toString(36) + "~" + Math.random().toString(36).slice(2, 7), sku: p.sku, name: p.name, outlet: outlet || OUTLETS[0] || "", type, delta: after - before, before, after, reason: reason || "", note: String(note || "").trim(), by: userName(), ts });
+  }
+  var ADJ_REASONS = ["Recount", "Damaged", "Expired", "Lost or stolen", "Found stock", "Customer return", "Returned to supplier", "Opening stock", "Other"];
+  function adjustOutlets() { const l = outletLock(); return l ? [l] : OUTLETS.length ? OUTLETS : [""]; }
+  function applyStockAdjust(index, v) {
+    if (!canEditCatalog()) return CATALOG_MSG;
+    const p = d().products[index];
+    if (!p) return "Product not found.";
+    const outlet = adjustOutlets().includes(v.outlet) ? v.outlet : adjustOutlets()[0];
+    const qty = Math.floor(num(v.qty));
+    if (v.qty === "" || v.qty == null || !(qty >= 0) || (v.mode !== "set" && qty < 1)) return v.mode === "set" ? "Enter the counted quantity (0 or more)." : "Enter a quantity of 1 or more.";
+    const have = qtyIn(p, outlet);
+    const next = v.mode === "set" ? qty : v.mode === "remove" ? have - qty : have + qty;
+    if (next === have) return "That does not change the stock.";
+    if (next < 0 && !state.settings.allowNegativeStock) return `Only ${have} on hand at ${outlet || "this outlet"}; stock can't go below zero.`;
+    setQtyIn(p, outlet, next);
+    const reason = ADJ_REASONS.includes(v.reason) ? v.reason : "Other";
+    logStock(p, outlet, have, next, "Adjustment", reason, v.note);
+    logActivity(`${p.name} stock ${next > have ? "+" : ""}${next - have} (${reason})`, "blue", "inventory");
+    save();
+    return null;
+  }
   function trUnits(row) { return Math.max(0, Math.floor(num(row.items))); }
   function parseValues(key, raw, row) {
     const out = {};
@@ -2804,8 +2979,10 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
         label = v.name;
         break;
       case "products": {
-        row = { ...v };
+        row = { ...v, createdAt: now };
         if (!row.packing) delete row.packing;
+        if (!String(row.brand || "").trim()) delete row.brand; else row.brand = String(row.brand).trim();
+        if (!String(row.serial || "").trim()) delete row.serial; else row.serial = String(row.serial).trim();
         if (!row.image) { delete row.image; delete row.imageHd; } else if (!row.imageHd) delete row.imageHd;
         const q0 = Math.max(0, num(row.stockQty));
         delete row.stockQty;
@@ -2895,7 +3072,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     Object.assign(row, v);
     if (key === "products") { if (!row.image) { delete row.image; delete row.imageHd; } else if (!row.imageHd) delete row.imageHd; }
     if (key === "products") {
-      if (old.sku !== row.sku) (state.data.stockLevels || []).forEach((l) => { if (l.sku === old.sku) { l.sku = row.sku; l._rid = "SL~" + row.sku + "~" + l.outlet; } });
+      if (old.sku !== row.sku) { (state.data.stockLevels || []).forEach((l) => { if (l.sku === old.sku) { l.sku = row.sku; l._rid = "SL~" + row.sku + "~" + l.outlet; } }); (state.data.stockLog || []).forEach((l) => { if (l.sku === old.sku) l.sku = row.sku; }); }
       if (stockWant !== null) setQtyIn(row, viewOutlets()[0], stockWant); else deriveStock(row);
     }
     if (key === "transfers") row.sku = String(row.product || "").split(" \u00B7 ")[0] || row.sku;
@@ -2955,7 +3132,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     if (key === "suppliers" && d().purchaseOrders.some((p) => p.supplier === row.name && !["Received", "Cancelled"].includes(p.status))) return "This supplier still has open purchase orders.";
     if (key === "expenseCategories" && d().expenses.some((e) => e.category === row.name)) return "This category still has expenses recorded against it.";
     if (key === "expenses" && row.status === "Approved") applyExpense(row, -1);
-    if (key === "products") state.data.stockLevels = (state.data.stockLevels || []).filter((l) => l.sku !== row.sku);
+    if (key === "products") { state.data.stockLevels = (state.data.stockLevels || []).filter((l) => l.sku !== row.sku); state.data.stockLog = (state.data.stockLog || []).filter((l) => l.sku !== row.sku); }
     d()[key].splice(index, 1);
     logActivity(`Deleted ${row.name || row.id || row.code || row.sku || "record"}`, "red");
     save();
@@ -3012,7 +3189,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
         list.push(A("adjust-points", "Adjust points", "star", { prompt: [{ name: "delta", label: "Points to add (use a minus to remove)", type: "number", value: "", step: 1, required: true }], hint: `Current balance ${row.loyalty || 0} points` }));
         break;
       case "products":
-        list.push(A("adjust-stock", "Adjust stock", "inventory", { prompt: [{ name: "delta", label: "Quantity change (use a minus to remove)", type: "number", value: "", step: 1, required: true }, { name: "reason", label: "Reason", type: "select", options: ["Recount", "Damaged", "Returned to supplier", "Found stock", "Other"], value: "Recount" }], hint: `On hand ${row.stockQty}` }));
+        list.push(A("adjust-stock", "Adjust stock", "inventory"));
         if (num(row.stockQty) > 0) list.push(A("sell-product", "Add to sale", "cart"));
         break;
       case "categories":
@@ -3167,17 +3344,8 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
         row.loyalty = Math.max(0, num(row.loyalty) + delta);
         return ok(`${row.name} now has ${row.loyalty} points.`);
       }
-      case "adjust-stock": {
-        const delta = Math.trunc(num(values.delta));
-        if (!delta) return { error: "Enter a quantity above or below zero." };
-        const vo = viewOutlets();
-        if (vo.length !== 1) return { error: "Choose an outlet (top-left) to adjust its stock." };
-        const have = qtyIn(row, vo[0]), next = have + delta;
-        if (next < 0 && !state.settings.allowNegativeStock) return { error: `Only ${have} on hand; stock can't go below zero.` };
-        setQtyIn(row, vo[0], next);
-        logActivity(`${row.name} stock ${delta > 0 ? "+" : ""}${delta} (${values.reason || "Adjustment"})`, "blue", "inventory");
-        return ok(`${row.name}: ${row.stockQty} on hand.`);
-      }
+      case "adjust-stock":
+        return { next: { modal: { type: "adjust-stock", index } } };
       case "sell-product":
         addToCart(row.sku);
         return { next: { view: "sell" }, message: null };
@@ -3198,11 +3366,12 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
         if (p) {
           const have = qtyIn(p, row.from);
           if (!state.settings.allowNegativeStock && have < q) return { error: `Only ${have} ${p.name} at ${row.from}.` };
+          logStock(p, row.from, have, have - q, "Transfer out", row.id + " to " + row.to, "");
           addQtyIn(p, row.from, -q);
         }
         row.sentAt = Date.now();
         if (state.settings.autoReceive && !outletLock()) {
-          if (p) addQtyIn(p, row.to, q);
+          if (p) { const b1 = qtyIn(p, row.to); addQtyIn(p, row.to, q); logStock(p, row.to, b1, b1 + q, "Transfer in", row.id + " from " + row.from, ""); }
           row.status = "Received"; row.receivedAt = row.sentAt;
           logActivity(`${row.id} received at ${row.to}`, "green", "stock-transfers");
           return ok(`${row.id} received at ${row.to}.`);
@@ -3214,14 +3383,14 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
       case "receive-transfer": {
         if (outletLock() && outletLock() !== row.to) return { error: `Only ${row.to} can receive this stock.` };
         const p = row.sku ? productBySku(row.sku) : null;
-        if (p) addQtyIn(p, row.to, trUnits(row));
+        if (p) { const b2 = qtyIn(p, row.to); addQtyIn(p, row.to, trUnits(row)); logStock(p, row.to, b2, b2 + trUnits(row), "Transfer in", row.id + " from " + row.from, ""); }
         row.status = "Received"; row.receivedAt = Date.now();
         logActivity(`${row.id} received at ${row.to}`, "green", "stock-transfers");
         return ok(`${row.id} received at ${row.to}.`);
       }
       case "cancel-transfer": {
         if (outletLock() && outletLock() !== row.from) return { error: `Only ${row.from} can cancel this transfer.` };
-        if (row.status === "In transit" && row.sku) { const p = productBySku(row.sku); if (p) addQtyIn(p, row.from, trUnits(row)); }
+        if (row.status === "In transit" && row.sku) { const p = productBySku(row.sku); if (p) { const b3 = qtyIn(p, row.from); addQtyIn(p, row.from, trUnits(row)); logStock(p, row.from, b3, b3 + trUnits(row), "Transfer cancelled", row.id, ""); } }
         row.status = "Cancelled";
         return ok(`${row.id} cancelled.`);
       }
@@ -3542,7 +3711,7 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
     const remaining = num(po.items) - num(po.receivedUnits);
     if (qty > remaining) return `Only ${remaining} unit${remaining === 1 ? "" : "s"} still expected on ${po.id}.`;
     const rcvOutlet = outletLock() || values.outlet || OUTLETS[0] || "";
-    addQtyIn(product, rcvOutlet, qty);
+    { const b0 = qtyIn(product, rcvOutlet); addQtyIn(product, rcvOutlet, qty); logStock(product, rcvOutlet, b0, b0 + qty, "Received", po.id, values.note); }
     po.receivedUnits = num(po.receivedUnits) + qty;
     po.status = po.receivedUnits >= po.items ? "Received" : "Part received";
     d().receipts.unshift({ id: makeId("RCV-", d().receipts), purchaseOrder: po.id, outlet: rcvOutlet, product: product.name, quantity: qty, receivedAt: fromInputDate(values.receivedAt) || Date.now(), note: String(values.note || "").trim(), status: "Received" });
@@ -3563,7 +3732,9 @@ body.pt-away .brand-banner .flare-av{opacity:0!important}
       const counted = Math.max(0, Math.floor(num(raw)));
       if (counted !== qtyIn(p, so)) {
         diffs++;
+        const b4 = qtyIn(p, so);
         setQtyIn(p, so, counted);
+        logStock(p, so, b4, counted, "Stock count", sc.id, "");
       }
     });
     sc.items = d().products.length;
@@ -5631,16 +5802,115 @@ ${body}`);
       <article class="card register-stats"><h3>${open ? "Shift snapshot" : "Last shift"}</h3>${st ? `<div class="shift-stat"><span>Sales this shift (${st.count})</span><b>${money(st.sales)}</b></div><div class="shift-stat"><span>Cash payments</span><b>${money(st.cash)}</b></div><div class="shift-stat"><span>Card payments</span><b>${money(st.card)}</b></div><div class="shift-stat"><span>Other payments</span><b>${money(st.other)}</b></div>${num(s.cashIn) || num(s.cashOut) ? `<div class="shift-stat"><span>Cash in / out</span><b>${money(s.cashIn)} / ${money(s.cashOut)}</b></div>` : ""}<div class="shift-stat total"><span>${open ? "Expected in drawer" : "Counted in drawer"}</span><b>${money(open ? st.expected : s.counted)}</b></div>${!open && s.variance != null ? `<div class="shift-stat"><span>Variance</span><b>${signed(s.variance)}</b></div>` : ""}` : '<div class="empty-state">No sessions yet.</div>'}<button type="button" class="text-action" data-view="sessions">View session history ${svgIcon("arrow", 15)}</button></article></section>
     <section class="card register-lower"><div class="card-head"><div><h2>Register activity</h2><p>Recent actions in ${open ? "the open" : "the last"} session</p></div><button class="text-action" type="button" data-view="sessions">All sessions ${svgIcon("arrow", 15)}</button></div><div class="activity-list">${acts.slice(0, 6).map((a) => `<div><i class="activity-dot ${esc(a.tone)}"></i><span><b>${esc(a.title)}</b><small>${esc(a.sub)}</small></span><strong>${esc(a.amount)}</strong></div>`).join("") || '<div class="empty-state">No activity yet.</div>'}</div></section>`;
   }
+  /* ---- Inventory: Stocks and Low stocks tabs (real table, filters, Days left) ---- */
+  var INV_WINDOW = 30;
+  var invS = () => state.inv || (state.inv = { tab: "stocks", q: "", cat: "all", brand: "all", status: "all", sort: { key: null, dir: 1 }, limit: 50 });
+  function invRate() {
+    /* units sold per day, from completed bills of the last 30 days (a young shop is averaged over the days it has actually been selling, at least 7) */
+    const now = Date.now(), since = now - INV_WINDOW * DAY, sold = new Map();
+    let first = now;
+    (state.data.bills || []).forEach((b) => {
+      if (!b || b.status !== "Completed" || typeof b.date !== "number" || !outletMatches(b)) return;
+      if (b.date < first) first = b.date;
+      if (b.date < since) return;
+      (b.lines || []).forEach((l) => { if (l && l.sku) sold.set(l.sku, (sold.get(l.sku) || 0) + num(l.qty)); });
+    });
+    const span = Math.min(INV_WINDOW, Math.max(7, Math.ceil((now - first) / DAY)));
+    return { sold, span };
+  }
+  function invRows() {
+    const th = num(state.settings.lowStockThreshold ?? 10), { sold, span } = invRate();
+    return (state.data.products || []).filter((p) => p && p.status !== "Archived").map((p) => {
+      const qty = num(p.stockQty), limit = num(p.reorderLevel) > 0 ? num(p.reorderLevel) : th;
+      const rate = (sold.get(p.sku) || 0) / span;
+      const days = qty <= 0 ? 0 : rate > 0 ? Math.floor(qty / rate) : null;
+      const status = qty <= 0 ? "Out of stock" : qty <= limit ? "Low stock" : "In stock";
+      const suggest = status === "In stock" ? 0 : Math.max(0, Math.max(Math.ceil(rate * INV_WINDOW), limit * 2) - qty);
+      return { p, index: state.data.products.indexOf(p), name: p.name || "", sku: p.sku || "", category: p.category || "", brand: p.brand || "", qty, limit, rate, days, status, suggest };
+    });
+  }
+  function invView() {
+    const f = invS(), all = invRows(), low = all.filter((r) => r.status !== "In stock");
+    let rows = f.tab === "low" ? low : all;
+    if (f.cat !== "all") rows = rows.filter((r) => r.category === f.cat);
+    if (f.brand !== "all") rows = rows.filter((r) => r.brand.toLowerCase() === f.brand.toLowerCase());
+    if (f.tab === "stocks" && f.status !== "all") rows = rows.filter((r) => r.status === f.status);
+    const q = f.q.trim().toLowerCase();
+    if (q) rows = rows.filter((r) => [r.name, r.sku, r.category, r.brand].some((v) => String(v).toLowerCase().includes(q)));
+    const key = f.sort.key || (f.tab === "low" ? "days" : "name"), dir = f.sort.key ? f.sort.dir : 1;
+    const val = (r) => key === "days" ? (r.days == null ? Infinity : r.days) : r[key];
+    rows = [...rows].sort((a, b) => {
+      const x = val(a), y = val(b);
+      const c = typeof x === "number" && typeof y === "number" ? (x === y ? 0 : x < y ? -1 : 1) : String(x ?? "").localeCompare(String(y ?? ""), void 0, { numeric: true, sensitivity: "base" });
+      return (c || a.name.localeCompare(b.name)) * dir;
+    });
+    return { f, all, low, rows, key, dir };
+  }
+  function invCols(tab) {
+    const c = [["name", "Product"], ["category", "Category"], ["qty", "On hand"], ["limit", "Reorder"], ["rate", "Avg / day"], ["days", "Days left"], ["status", "Status"]];
+    if (tab === "low") c.push(["suggest", "Order qty"]);
+    return c;
+  }
+  function invDaysHtml(r) {
+    if (r.qty <= 0) return '<span class="inv-days d-bad">Out</span>';
+    if (r.days == null) return '<span class="muted-cell" title="No sales in the last 30 days">No sales</span>';
+    return `<span class="inv-days ${r.days <= 7 ? "d-bad" : r.days <= 14 ? "d-warn" : "d-ok"}">${r.days} day${r.days === 1 ? "" : "s"}</span>`;
+  }
+  function invCardHtml() {
+    const { f, all, low, rows, key, dir } = invView();
+    const cols = invCols(f.tab), shown = rows.slice(0, f.limit);
+    const cats = [...new Set(all.map((r) => r.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, void 0, { numeric: true, sensitivity: "base" }));
+    const brands = [...new Map(all.filter((r) => r.brand.trim()).map((r) => [r.brand.trim().toLowerCase(), r.brand.trim()])).values()].sort((a, b) => a.localeCompare(b, void 0, { numeric: true, sensitivity: "base" }));
+    const sel = (attr, label, allLabel, opts, cur) => `<select ${attr} aria-label="${label}"><option value="all">${allLabel}</option>${opts.map((o) => `<option value="${esc(o)}" ${String(cur).toLowerCase() === String(o).toLowerCase() ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
+    const filtered = f.q.trim() || f.cat !== "all" || f.brand !== "all" || (f.tab === "stocks" && f.status !== "all");
+    const th = (k, label) => `<th aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button type="button" class="th-sort" data-inv-sort="${k}">${esc(label)}<i>${key === k ? (dir > 0 ? "↑" : "↓") : ""}</i></button></th>`;
+    const w = { name: 2.1, category: 1.1, qty: 1.1, limit: 1.1, rate: 1.1, days: 1.2, status: 1.5, suggest: 1.1 }, sum = cols.reduce((t, [k]) => t + w[k], 0);
+    const body = shown.map((r) => `<tr class="row-click" data-action="detail" data-key="products" data-index="${r.index}">
+      <td data-label="Product"><div class="p-cell">${prodThumb(r.p)}<span class="primary-cell">${esc(r.name)}<span class="inv-sub" style="display:block">${esc(r.sku)}${r.brand ? " · " + esc(r.brand) : ""}</span></span></div></td>
+      <td data-label="Category">${r.category ? esc(r.category) : '<span class="muted-cell">—</span>'}</td>
+      <td data-label="On hand"><b>${r.qty.toLocaleString()}</b></td>
+      <td data-label="Reorder">${r.limit.toLocaleString()}</td>
+      <td data-label="Avg / day">${r.rate > 0 ? (r.rate >= 10 ? Math.round(r.rate) : round2(r.rate)) : '<span class="muted-cell">—</span>'}</td>
+      <td data-label="Days left">${invDaysHtml(r)}</td>
+      <td data-label="Status"><span class="status-pill ${statusClass(r.status)}">${esc(r.status)}</span></td>
+      ${f.tab === "low" ? `<td data-label="Order qty">${r.suggest > 0 ? `<b>${r.suggest.toLocaleString()}</b>` : '<span class="muted-cell">—</span>'}</td>` : ""}
+      <td class="row-actions"><span class="inv-actions">${canEditCatalog() ? `<button class="icon-btn" type="button" data-action="inv-adjust" data-index="${r.index}" title="Adjust stock" aria-label="Adjust stock for ${esc(r.name)}">${svgIcon("inventory", 17)}</button>` : ""}<button class="icon-btn row-menu" type="button" data-action="detail" data-key="products" data-index="${r.index}" aria-label="Open ${esc(r.name)}">${svgIcon("dots", 18)}</button></span></td></tr>`).join("");
+    const empty = f.tab === "low" && !filtered ? "No low-stock items. Everything is above its reorder level." : filtered ? "No products match these filters." : "No products yet.";
+    return `<section class="card table-card" id="inv-card">
+    <div class="inv-tabs" role="tablist"><button type="button" role="tab" class="inv-tab${f.tab === "stocks" ? " is-active" : ""}" aria-selected="${f.tab === "stocks"}" data-action="inv-tab" data-tab="stocks">Stocks <span class="inv-count">${all.length}</span></button><button type="button" role="tab" class="inv-tab is-low${f.tab === "low" ? " is-active" : ""}" aria-selected="${f.tab === "low"}" data-action="inv-tab" data-tab="low">Low stocks <span class="inv-count">${low.length}</span></button></div>
+    <div class="table-toolbar"><label class="table-search">${svgIcon("search", 16)}<input type="search" data-inv-search placeholder="Search name, SKU, brand" value="${esc(f.q)}" /></label>
+      <div class="table-filters">${sel('data-inv-f="cat"', "Filter by category", "All categories", cats, f.cat)}${sel('data-inv-f="brand"', "Filter by brand", "All brands", brands, f.brand)}${f.tab === "stocks" ? sel('data-inv-f="status"', "Filter by status", "All status", ["In stock", "Low stock", "Out of stock"], f.status) : ""}${filtered ? `<button class="btn btn-secondary" type="button" data-action="inv-clear">Clear</button>` : ""}</div></div>
+    <div class="table-scroll"><table class="fixed-cols" style="min-width:${cols.length * 92 + 84}px"><colgroup>${cols.map(([k]) => `<col style="width:${(w[k] / sum * 93).toFixed(3)}%">`).join("")}<col style="width:${canEditCatalog() ? 84 : 56}px"></colgroup><thead><tr>${cols.map(([k, l]) => th(k, l)).join("")}<th aria-label="Actions"></th></tr></thead>
+    <tbody>${body || `<tr><td colspan="${cols.length + 1}"><div class="empty-state">${empty}</div></td></tr>`}</tbody></table></div>
+    ${shown.length < rows.length ? `<div class="inv-more"><button class="btn btn-secondary" type="button" data-action="inv-more">Show more (${rows.length - shown.length} left)</button></div>` : ""}
+    <div class="table-footer"><span>${rows.length ? `Showing ${shown.length} of ${rows.length}` : "Showing 0 results"}</span></div>
+    <div class="inv-note">Days left = on hand ÷ average units sold per day over the last ${INV_WINDOW} days (completed bills${state.outlet && state.outlet !== "All outlets" ? ", " + esc(state.outlet) : ""}).${f.tab === "low" ? " Order qty is the suggested amount to buy: it brings stock up to " + INV_WINDOW + " days of sales, or twice the reorder level if there are no sales." : ""}</div></section>`;
+  }
+  function refreshInventory(focusSel) {
+    const old = app.querySelector("#inv-card");
+    if (!old) return rootRender();
+    const active = focusSel && document.activeElement?.matches(focusSel) ? document.activeElement : null;
+    const pos = active?.selectionStart;
+    const wrap = document.createElement("div");
+    wrap.innerHTML = invCardHtml();
+    old.replaceWith(wrap.firstElementChild);
+    const kpi = app.querySelector("[data-inv-lowkpi]");
+    if (kpi) kpi.textContent = String(invRows().filter((r) => r.status !== "In stock").length);
+    if (active) {
+      const next = app.querySelector(focusSel);
+      next?.focus();
+      if (pos != null) next?.setSelectionRange?.(pos, pos);
+    }
+  }
   function renderInventory(meta) {
     const d2 = state.data;
+    const rows = invRows(), low = rows.filter((r) => r.status !== "In stock");
     const th = num(state.settings.lowStockThreshold);
-    const low = d2.products.filter((p) => num(p.stockQty) <= th);
-    const value = d2.products.reduce((sum, p) => sum + num(p.price) * num(p.stockQty), 0);
+    const value = rows.reduce((sum, r) => sum + num(r.p.price) * r.qty, 0);
     const pending = d2.transfers.filter((t) => ["Draft", "Approved", "In transit"].includes(t.status)).length;
-    return `${pageHeading(meta, `<button class="btn btn-secondary" type="button" data-action="export-products">${svgIcon("download", 16)} Export</button>${canEditCatalog() ? `<button class="btn btn-primary" type="button" data-action="new-stock-count">${svgIcon("checklist", 16)} Start stock count</button>` : ""}`)}
-    <section class="inventory-kpis"><article class="card inventory-kpi"><span>Units on hand</span><strong>${d2.products.reduce((s, p) => s + num(p.stockQty), 0).toLocaleString()}</strong><small>Across ${d2.products.length} products</small></article><article class="card inventory-kpi"><span>Stock value</span><strong>${money(value)}</strong><small>Retail value, not cost</small></article><article class="card inventory-kpi"><span>Low stock</span><strong class="red-text">${low.length}</strong><small>At or below ${th} units</small></article><article class="card inventory-kpi"><span>Pending transfers</span><strong>${pending}</strong><small>Draft, approved or in transit</small></article></section>
-    <section class="content-grid inventory-grid"><article class="card"><div class="card-head"><div><h2>Stock health</h2><p>Inventory by product</p></div><button class="text-action" type="button" data-view="products">View products ${svgIcon("arrow", 15)}</button></div><div class="stock-table">${d2.products.slice(0, 8).map((p) => `<button type="button" class="stock-table-row mini-click" data-action="detail" data-key="products" data-index="${d2.products.indexOf(p)}"><span class="product-thumb">${svgIcon("box", 17)}</span><span class="stock-product"><b>${esc(p.name)}</b><small>${esc(p.sku)} \xB7 ${esc(p.category)}</small></span><span class="stock-meter"><i style="width:${Math.min(100, num(p.stockQty) * 2)}%"></i></span><span class="stock-qty ${num(p.stockQty) <= th ? "out" : ""}">${num(p.stockQty)} units</span><span class="status-pill ${statusClass(p.status)}">${esc(p.status)}</span></button>`).join("")}</div></article>
-      <article class="card low-stock-side"><div class="card-head"><div><h2>Needs attention</h2><p>Reorder suggestions</p></div><span class="attention-count">${low.length}</span></div>${low.map((p) => `<div class="attention-row"><span class="attention-icon">${svgIcon("inventory", 17)}</span><span><b>${esc(p.name)}</b><small>${num(p.stockQty) === 0 ? "Out of stock" : `Only ${esc(p.stockQty)} units left`}</small></span><button class="icon-btn" type="button" data-action="detail" data-key="products" data-index="${d2.products.indexOf(p)}" aria-label="Open ${esc(p.name)}">${svgIcon("chevron", 15)}</button></div>`).join("") || '<div class="empty-state">No low-stock items.</div>'}<button class="btn btn-secondary btn-wide" type="button" data-view="purchase-orders">Review purchasing</button></article></section>
+    return `${pageHeading(meta, `<button class="btn btn-secondary" type="button" data-action="inv-export">${svgIcon("download", 16)} Export</button>${canEditCatalog() ? `<button class="btn btn-secondary" type="button" data-action="inv-receive">${svgIcon("checklist", 16)} Receive</button><button class="btn btn-secondary" type="button" data-action="inv-transfer">${svgIcon("transfer", 16)} Transfer</button><button class="btn btn-primary" type="button" data-action="new-stock-count">${svgIcon("checklist", 16)} Start stock count</button>` : ""}`)}
+    <section class="inventory-kpis"><article class="card inventory-kpi"><span>Units on hand</span><strong>${rows.reduce((s, r) => s + r.qty, 0).toLocaleString()}</strong><small>Across ${rows.length} products</small></article><article class="card inventory-kpi"><span>Stock value</span><strong>${money(value)}</strong><small>Retail value, not cost</small></article><article class="card inventory-kpi"><span>Low stock</span><strong class="red-text" data-inv-lowkpi>${low.length}</strong><small>At or below reorder level (${th} units by default)</small></article><article class="card inventory-kpi"><span>Pending transfers</span><strong>${pending}</strong><small>Draft, approved or in transit</small></article></section>
+    ${invCardHtml()}
     <section class="inventory-links">${[["stock-counts", "Stock counts", "Count and reconcile inventory", "checklist"], ["stock-transfers", "Stock transfers", "Move stock between outlets", "transfer"], ["suppliers", "Suppliers", "Manage vendor contacts", "truck"], ["purchase-orders", "Purchase orders", "Create and approve orders", "purchase"], ["receive-stock", "Receive stock", "Record deliveries", "checklist"]].map(([id, title, detail, ic]) => `<button class="card inventory-link" type="button" data-view="${id}"><span class="link-icon">${svgIcon(ic, 19)}</span><span><b>${title}</b><small>${detail}</small></span>${svgIcon("chevron", 16)}</button>`).join("")}</section>`;
   }
   function renderSoon(meta) {
@@ -6519,6 +6789,14 @@ ${body}`);
     rows = rows.filter(({ row }) => (!field || inRange(row[field], range) || row[field] == null && !report) && (dataKey === "orderProducts" || outletMatches(row)));
     if (state.statusFilter !== "all") rows = rows.filter(({ row }) => row.status === state.statusFilter);
     if ((dataKey === "products" || dataKey === "expenses") && state.categoryFilter !== "all") rows = rows.filter(({ row }) => row.category === state.categoryFilter);
+    if (dataKey === "products" && !report) {
+      const pf = state.pf || {};
+      if (pf.brand && pf.brand !== "all") rows = rows.filter(({ row }) => String(row.brand || "").trim().toLowerCase() === pf.brand.toLowerCase());
+      const sn = String(pf.serial || "").trim().toLowerCase();
+      if (sn) rows = rows.filter(({ row }) => prodSerials(row).includes(sn));
+      const f0 = pf.from ? new Date(pf.from + "T00:00:00").getTime() : null, t0 = pf.to ? new Date(pf.to + "T23:59:59.999").getTime() : null;
+      if (f0 != null || t0 != null) rows = rows.filter(({ row }) => { const c = Number(row.createdAt); return c > 0 && (f0 == null || c >= f0) && (t0 == null || c <= t0); });
+    }
     const q = state.query.trim().toLowerCase();
     if (q) rows = rows.filter(({ row }) => Object.entries(row).some(([k, v]) => k !== "lines" && k !== "activity" && k !== "image" && k !== "imageHd" && k !== "proof" && (DATE_COLS.has(k) && typeof v === "number" ? fmtDate(v) : String(v ?? "")).toLowerCase().includes(q)));
     if (state.sort.key && columns.some(([k]) => k === state.sort.key)) {
@@ -6544,6 +6822,27 @@ ${body}`);
     return `<span>${esc(value)}</span>`;
   }
   /* categories shown in the Products filter: the category list plus any name a product still uses */
+  /* ---- Products filter popover: Brand, Category, Serial number, Created at ---- */
+  function prodSerials(row) { return [row.serial, ...(Array.isArray(row.serials) ? row.serials : [])].filter(Boolean).join(" ").toLowerCase(); }
+  function productBrandNames() {
+    const set = new Map();
+    (d().products || []).forEach((p) => { const b = p && String(p.brand || "").trim(); if (b && !set.has(b.toLowerCase())) set.set(b.toLowerCase(), b); });
+    return [...set.values()].sort((a, b) => a.localeCompare(b, void 0, { numeric: true, sensitivity: "base" }));
+  }
+  function pfCount() {
+    const pf = state.pf || {};
+    return (state.categoryFilter !== "all" ? 1 : 0) + (pf.brand && pf.brand !== "all" ? 1 : 0) + (String(pf.serial || "").trim() ? 1 : 0) + (pf.from || pf.to ? 1 : 0);
+  }
+  function productFilterHtml() {
+    const open = state.popover === "pfilter", pf = state.pf || {}, n = pfCount();
+    const brands = productBrandNames();
+    return `<div class="pop-anchor table-more pf-wrap"><button class="btn btn-secondary${n ? " is-active" : ""}" type="button" data-action="pf-toggle" aria-haspopup="dialog" aria-expanded="${open}">${svgIcon("filter", 16)} Filter${n ? `<i class="pf-badge">${n}</i>` : ""}</button>${open ? `<div class="pop pop-filter" role="dialog" aria-label="Filter products">
+      <label class="pf-field"><span>Brand</span><select data-pf="brand"><option value="all">All brands</option>${brands.map((b) => `<option value="${esc(b)}" ${String(pf.brand).toLowerCase() === b.toLowerCase() ? "selected" : ""}>${esc(b)}</option>`).join("")}</select></label>
+      <label class="pf-field"><span>Category</span><select data-pf="category"><option value="all">All categories</option>${productCategoryNames().map((c) => `<option value="${esc(c)}" ${state.categoryFilter === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
+      <label class="pf-field"><span>Serial number</span><input type="text" data-pf="serial" value="${esc(pf.serial || "")}" placeholder="Search a serial number" autocomplete="off" /></label>
+      <div class="pf-field"><span>Created at</span><div class="pf-range"><input type="date" data-pf="from" value="${esc(pf.from || "")}" aria-label="Created from" /><input type="date" data-pf="to" value="${esc(pf.to || "")}" aria-label="Created to" /></div></div>
+      <div class="pf-foot"><button class="btn btn-secondary" type="button" data-action="pf-clear">Clear</button><button class="btn btn-primary" type="button" data-action="pf-apply">Apply</button></div></div>` : ""}</div>`;
+  }
   function productCategoryNames() {
     const set = new Set();
     (d().categories || []).forEach((c) => { if (c && c.name && c.status !== "Archived") set.add(c.name); });
@@ -6558,20 +6857,68 @@ ${body}`);
     return [...set].sort((a, b) => a.localeCompare(b, void 0, { numeric: true, sensitivity: "base" }));
   }
   /* fixed column positions: the columns keep the same width and place on every page, sort and search instead of shifting with whatever text is on the page */
+  /* ---- Table columns: show, hide and re-order the columns of a list. Saved per login and shared live across that login's devices ---- */
+  var COLS_KEY = "table-cols";
+  var colsLocal = () => "afpos-cols:" + String(state.user || "").toLowerCase();
+  function colsAll() {
+    try {
+      const c = cloud.kv[COLS_KEY];
+      if (c && typeof c === "object" && !Array.isArray(c)) return c;
+      const raw = JSON.parse(localStorage.getItem(colsLocal()) || "null");
+      return raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+    } catch (e) { return {}; }
+  }
+  function colsPlan(dataKey, base) {
+    const pref = colsAll()[dataKey] || {};
+    const locked = base.some(([k]) => k === "name") ? "name" : base.length ? base[0][0] : "";
+    const hidden = new Set(Array.isArray(pref.hidden) ? pref.hidden : []);
+    hidden.delete(locked);
+    const byKey = new Map(base.map((c) => [c[0], c]));
+    const order = [];
+    (Array.isArray(pref.order) ? pref.order : []).forEach((k) => { if (byKey.has(k) && order.indexOf(k) < 0) order.push(k); });
+    base.forEach(([k]) => { if (order.indexOf(k) < 0) order.push(k); });
+    return { order, hidden, locked, byKey };
+  }
+  function colsFor(dataKey, base) {
+    const p = colsPlan(dataKey, base);
+    const out = p.order.filter((k) => !p.hidden.has(k)).map((k) => p.byKey.get(k));
+    return out.length ? out : base;
+  }
+  function colsStore(all) {
+    cloud.kv[COLS_KEY] = all;
+    try { localStorage.setItem(colsLocal(), JSON.stringify(all)); } catch (e) {}
+    try { if (cloud.uid && cSb()) cSb().from("pos_user_kv").upsert({ user_id: cloud.uid, key: COLS_KEY, data: all, updated_at: new Date().toISOString() }, { onConflict: "user_id,key" }).then(() => {}, () => {}); } catch (e) {}
+  }
+  function colsSave(dataKey, order, hidden) { const all = { ...colsAll() }; all[dataKey] = { order, hidden }; colsStore(all); }
+  function colsReset(dataKey) { const all = { ...colsAll() }; delete all[dataKey]; colsStore(all); }
+  function tableMoreHtml(dataKey) {
+    const open = state.popover === "tmore";
+    return `<div class="pop-anchor table-more"><button class="btn btn-secondary" type="button" data-action="table-more" aria-haspopup="menu" aria-expanded="${open}">${svgIcon("dots", 16)} More</button>${open ? `<div class="pop pop-more" role="menu"><span class="pop-label">Table</span><button type="button" role="menuitem" data-action="cols-open" data-key="${esc(dataKey)}">${svgIcon("columns", 16)} Columns</button><button type="button" role="menuitem" data-action="table-csv" data-key="${esc(dataKey)}">${svgIcon("download", 16)} Download CSV</button></div>` : ""}</div>`;
+  }
+  function renderColumnsModal(m) {
+    const meta = pageMeta[m.page] || {}, base = meta.columns || [];
+    const byKey = new Map(base.map((c) => [c[0], c]));
+    const rows = m.order.map((k) => {
+      const c = byKey.get(k); if (!c) return "";
+      const lock = k === m.locked;
+      return `<li class="cols-row${lock ? " is-locked" : ""}" data-col="${esc(k)}">${lock ? `<span class="cols-grip" aria-hidden="true"></span>` : `<span class="cols-grip" data-col-grip title="Drag to re-order">${svgIcon("grip", 16)}</span>`}<label><input type="checkbox" data-col-toggle="${esc(k)}" ${m.hidden.indexOf(k) < 0 ? "checked" : ""} ${lock ? "disabled" : ""}/> <span>${esc(c[1])}</span></label>${lock ? `<span class="cols-lock" title="Always shown">${svgIcon("lock", 14)}</span>` : ""}</li>`;
+    }).join("");
+    return `<div class="modal-backdrop" data-action="close-modal"><section class="modal-card cols-card" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><div><span class="eyebrow">TABLE</span><h2 id="modal-title">Table columns</h2></div><button type="button" class="icon-btn" data-action="close-modal" aria-label="Close">${svgIcon("close", 18)}</button></div><p class="modal-lead">Choose which columns to show and drag them into the order you want.</p><ul class="cols-list" data-cols-list>${rows}</ul><div class="modal-foot"><button class="btn btn-secondary cols-reset" type="button" data-action="cols-reset">Reset</button><span class="spacer"></span><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="button" data-action="cols-save">Save</button></div></section></div>`;
+  }
   function tableColgroup(columns) {
-    const wide = /^(name|product|customer|description|title|items|supplier|notes?|address)$/i, mid = /^(sku|id|code|email|reference|ref)$/i;
-    const w = columns.map(([k]) => (wide.test(k) ? 2.2 : mid.test(k) ? 1.3 : 1)), sum = w.reduce((a, b) => a + b, 0);
-    return "<colgroup>" + w.map((x) => `<col style="width:calc((100% - 56px) * ${(x / sum).toFixed(4)})">`).join("") + '<col style="width:56px"></colgroup>';
+    const wide = /^(name|product|customer|description|title|items|supplier|notes?|address)$/i, mid = /^(sku|id|code|email|reference|ref|status|category)$/i;
+    const w = columns.map(([k]) => (/^(name|product|customer)$/i.test(k) ? 2.6 : wide.test(k) ? 2.2 : mid.test(k) ? 1.3 : 1)), sum = w.reduce((a, b) => a + b, 0);
+    return "<colgroup>" + w.map((x) => `<col style="width:${(x / sum * 93).toFixed(3)}%">`).join("") + '<col style="width:56px"></colgroup>';
   }
   function renderTableCard(meta, { dataKey, report = false }) {
-    const columns = meta.columns || [];
+    const columns = report ? meta.columns || [] : colsFor(dataKey, meta.columns || []);
     const all = queryRows(dataKey, columns, { report });
     const pages = Math.max(1, Math.ceil(all.length / state.pageSize));
     state.page = Math.min(state.page, pages - 1);
     /* Products scroll down instead of paging: the list keeps loading as you reach the bottom. It starts again when you search, filter or sort. */
     const infinite = dataKey === "products" && !report;
     if (infinite) {
-      const sig = [dataKey, state.query, state.categoryFilter, state.statusFilter, state.sort.key, state.sort.dir, state.outlet, state.period].join("|");
+      const sig = [dataKey, state.query, state.categoryFilter, JSON.stringify(state.pf || {}), state.statusFilter, state.sort.key, state.sort.dir, state.outlet, state.period].join("|");
       if (state.rowSig !== sig) { state.rowSig = sig; state.rowLimit = 50; }
     }
     const start = infinite ? 0 : state.page * state.pageSize;
@@ -6584,7 +6931,7 @@ ${body}`);
     const pageButtons = pages <= 1 ? "" : "";
     return `<section class="card table-card ${report ? "report-table" : ""}" id="table-card">
     <div class="table-toolbar"><label class="table-search">${svgIcon("search", 16)}<input type="search" data-page-search placeholder="Search ${esc(meta.title.toLowerCase())}" value="${esc(state.query)}" /></label>
-      <div class="table-filters">${dataKey === "expenses" ? `<select data-category-filter aria-label="Filter by category"><option value="all">All categories</option>${expenseCategoryNames().map((c) => `<option value="${esc(c)}" ${state.categoryFilter === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>` : ""}${dataKey === "products" ? `<select data-category-filter aria-label="Filter by category"><option value="all">All categories</option>${productCategoryNames().map((c) => `<option value="${esc(c)}" ${state.categoryFilter === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>` : ""}${statuses.length ? `<select data-status-filter aria-label="Filter by status"><option value="all">All status</option>${statuses.map((s) => `<option value="${esc(s)}" ${state.statusFilter === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select>` : ""}${!report && DATE_FIELD[dataKey] ? `<select data-table-period aria-label="Date range">${TABLE_PERIODS.map((p) => `<option ${state.tablePeriod === p ? "selected" : ""}>${p}</option>`).join("")}</select>` : ""}</div></div>
+      <div class="table-filters">${dataKey === "products" && !report ? productFilterHtml() : ""}${dataKey === "expenses" ? `<select data-category-filter aria-label="Filter by category"><option value="all">All categories</option>${expenseCategoryNames().map((c) => `<option value="${esc(c)}" ${state.categoryFilter === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>` : ""}${dataKey === "products" ? `<select data-category-filter aria-label="Filter by category"><option value="all">All categories</option>${productCategoryNames().map((c) => `<option value="${esc(c)}" ${state.categoryFilter === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>` : ""}${statuses.length ? `<select data-status-filter aria-label="Filter by status"><option value="all">All status</option>${statuses.map((s) => `<option value="${esc(s)}" ${state.statusFilter === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select>` : ""}${!report && DATE_FIELD[dataKey] ? `<select data-table-period aria-label="Date range">${TABLE_PERIODS.map((p) => `<option ${state.tablePeriod === p ? "selected" : ""}>${p}</option>`).join("")}</select>` : ""}${!report ? tableMoreHtml(dataKey) : ""}</div></div>
     <div class="table-scroll${infinite ? " infinite" : ""}"><table class="fixed-cols" style="min-width:${columns.length * 118 + 56}px">${tableColgroup(columns)}<thead><tr>${columns.map(([k, label]) => `<th aria-sort="${state.sort.key === k ? state.sort.dir > 0 ? "ascending" : "descending" : "none"}"><button type="button" class="th-sort" data-sort="${esc(k)}">${esc(label)}<i>${state.sort.key === k ? state.sort.dir > 0 ? "\u2191" : "\u2193" : ""}</i></button></th>`).join("")}<th aria-label="Actions"></th></tr></thead>
     <tbody>${body || `<tr><td colspan="${columns.length + 1}"><div class="empty-state">${(() => {
       if (dataKey === "sessions" && !state.query && state.statusFilter === "all") {
@@ -6758,6 +7105,35 @@ ${body}`);
     const fields = getFields(m.key, row || void 0).map((f2) => m.values && m.values[f2.name] !== void 0 && !m.error ? { ...f2, value: m.values[f2.name] } : f2);
     const title = mode === "edit" ? `Edit ${row?.name || row?.id || row?.code || row?.sku || "record"}` : m.key === "sessions" ? "New session" : CREATE_LABEL[m.key] || "New item";
     return shell(title, mode === "edit" ? "EDIT" : "NEW", `<form data-form="${mode}">${m.restored ? `<div class="draft-note"><span>Draft restored \xB7 your unsaved details were kept.</span><button type="button" class="text-action" data-action="clear-draft">Clear</button></div>` : ""}<div class="form-grid">${fields.map((f2) => fieldHtml(f2, m.error ? m.values : {})).join("")}</div>${errorBox(m)}<div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">${mode === "edit" ? "Save changes" : "Add"}</button></div></form>`);
+  }
+  function renderAdjustStock(m) {
+    const p = d().products[m.index];
+    if (!p) return shell("Adjust stock", "STOCK", '<p class="modal-lead">Product not found.</p>');
+    const outs = adjustOutlets(), v = m.error ? m.values || {} : {}, outlet = outs.includes(v.outlet) ? v.outlet : stockOutlet() && outs.includes(stockOutlet()) ? stockOutlet() : outs[0];
+    const lm = slMap(), have = Object.fromEntries(outs.map((o) => [o, qtyIn(p, o, lm)]));
+    const log = (d().stockLog || []).filter((l) => l && l.sku === p.sku && outletMatches(l)).sort((a, b) => num(b.ts) - num(a.ts));
+    const mode = v.mode || "add";
+    const logHtml = log.slice(0, 25).map((l) => `<li class="adj-log-row"><span class="adj-delta ${l.delta > 0 ? "up" : "down"}">${l.delta > 0 ? "+" : ""}${num(l.delta).toLocaleString()}</span><span class="adj-log-copy"><b>${esc(l.type)}${l.reason ? " · " + esc(l.reason) : ""}</b><small>${esc(fmtDate(l.ts))} · ${esc(l.by || "")}${outs.length > 1 ? " · " + esc(l.outlet || "") : ""}${l.note ? " · “" + esc(l.note) + "”" : ""}</small></span><span class="adj-log-after">${num(l.before).toLocaleString()} → <b>${num(l.after).toLocaleString()}</b></span></li>`).join("");
+    return shell("Adjust stock", "STOCK", `<form data-form="adjust-stock" data-have='${esc(JSON.stringify(have))}'>
+      <div class="adj-head">${prodThumb(p)}<span><b>${esc(p.name)}</b><small>${esc(p.sku)}${p.category ? " · " + esc(p.category) : ""}</small></span></div>
+      <div class="form-grid">
+        ${outs.length > 1 ? `<label class="form-field span-two"><span>Outlet</span><select name="outlet" data-adj>${outs.map((o) => `<option ${o === outlet ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></label>` : `<input type="hidden" name="outlet" value="${esc(outlet)}" />`}
+        <label class="form-field"><span>What are you doing?</span><select name="mode" data-adj><option value="add" ${mode === "add" ? "selected" : ""}>Add stock</option><option value="remove" ${mode === "remove" ? "selected" : ""}>Remove stock</option><option value="set" ${mode === "set" ? "selected" : ""}>Set counted quantity</option></select></label>
+        <label class="form-field"><span>Quantity <i>*</i></span><input name="qty" type="number" min="0" step="1" inputmode="numeric" data-adj value="${esc(v.qty ?? "")}" placeholder="0" required autofocus /></label>
+        <label class="form-field"><span>Reason</span><select name="reason">${ADJ_REASONS.map((r) => `<option ${r === (v.reason || "Recount") ? "selected" : ""}>${esc(r)}</option>`).join("")}</select></label>
+        <label class="form-field"><span>Note (optional)</span><input name="note" type="text" maxlength="120" value="${esc(v.note || "")}" placeholder="e.g. counted at closing" /></label>
+      </div>
+      <div class="adj-preview" data-adj-preview>On hand at ${esc(outlet || "this outlet")}: <b>${num(have[outlet]).toLocaleString()}</b></div>${errorBox(m)}
+      <div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">${svgIcon("check", 16)} Save adjustment</button></div>
+      <div class="adj-log"><h3>Stock history</h3>${logHtml ? `<ul>${logHtml}</ul>` : '<p class="adj-empty">No stock movements recorded yet. Adjustments, deliveries, transfers and counts will show here.</p>'}</div></form>`, { wide: true });
+  }
+  function adjPreview(form) {
+    const box = form.querySelector("[data-adj-preview]"); if (!box) return;
+    let have = {}; try { have = JSON.parse(form.dataset.have || "{}"); } catch (e) {}
+    const o = form.elements.outlet.value, h = num(have[o]), mode = form.elements.mode.value, raw = form.elements.qty.value, q = Math.floor(num(raw));
+    if (raw === "" || !(q >= 0)) { box.innerHTML = `On hand at ${esc(o || "this outlet")}: <b>${h.toLocaleString()}</b>`; return; }
+    const next = mode === "set" ? q : mode === "remove" ? h - q : h + q, diff = next - h;
+    box.innerHTML = `On hand at ${esc(o || "this outlet")}: <b>${h.toLocaleString()}</b> → <b class="${next < 0 ? "adj-neg" : ""}">${next.toLocaleString()}</b> <em>${diff > 0 ? "+" : ""}${diff.toLocaleString()}</em>`;
   }
   function renderPrompt(m) {
     return shell(m.title, "ACTION", `<form data-form="prompt">${m.hint ? `<p class="modal-lead">${esc(m.hint)}</p>` : ""}<div class="form-grid">${m.fields.map((f2) => fieldHtml(f2, m.error ? m.values : {})).join("")}</div>${errorBox(m)}<div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">Confirm</button></div></form>`);
@@ -7081,6 +7457,10 @@ ${body}`);
         return renderCashMove(m);
       case "count":
         return renderCount(m);
+      case "adjust-stock":
+        return renderAdjustStock(m);
+      case "columns":
+        return renderColumnsModal(m);
       default:
         return "";
     }
@@ -7156,6 +7536,34 @@ ${body}`);
       if (nf && of) of.replaceWith(nf);
       delete sc.dataset.busy;
     }, true);
+    app.addEventListener("change", (e) => {
+      const cb = e.target && e.target.matches && e.target.matches("[data-col-toggle]") ? e.target : null;
+      if (!cb || !state.modal || state.modal.type !== "columns") return;
+      const k = cb.getAttribute("data-col-toggle"), h = state.modal.hidden, i = h.indexOf(k);
+      if (cb.checked && i >= 0) h.splice(i, 1); else if (!cb.checked && i < 0) h.push(k);
+    });
+    /* drag a column up or down (mouse or touch) */
+    (function () {
+      let row = null, list = null;
+      app.addEventListener("pointerdown", (e) => {
+        const g = e.target.closest && e.target.closest("[data-col-grip]"); if (!g || !state.modal || state.modal.type !== "columns") return;
+        row = g.closest(".cols-row"); list = row.parentNode; row.classList.add("is-drag"); e.preventDefault();
+        try { g.setPointerCapture(e.pointerId); } catch (x) {}
+      });
+      app.addEventListener("pointermove", (e) => {
+        if (!row) return;
+        const over = document.elementFromPoint(e.clientX, e.clientY), tgt = over && over.closest ? over.closest(".cols-row") : null;
+        if (!tgt || tgt === row || tgt.parentNode !== list || tgt.classList.contains("is-locked")) return;
+        const r = tgt.getBoundingClientRect();
+        list.insertBefore(row, e.clientY < r.top + r.height / 2 ? tgt : tgt.nextSibling);
+      });
+      const done = () => {
+        if (!row) return;
+        row.classList.remove("is-drag"); row = null;
+        if (state.modal && state.modal.type === "columns") state.modal.order = [...list.querySelectorAll(".cols-row")].map((li) => li.getAttribute("data-col"));
+      };
+      app.addEventListener("pointerup", done); app.addEventListener("pointercancel", done);
+    })();
     app.addEventListener("input", (e) => { if (state.modal && state.modal.type === "newadmin" && e.target.id && e.target.id.indexOf("u-") === 0) { state.modal.values = state.modal.values || {}; state.modal.values[e.target.id] = e.target.value; } });
     app.addEventListener("change", (e) => { if (state.modal && state.modal.type === "newadmin" && e.target.id === "u-outlet") { state.modal.values = state.modal.values || {}; state.modal.values["u-outlet"] = e.target.value; } });
     window.addEventListener("afpos-outlets", () => {
@@ -7217,6 +7625,7 @@ ${body}`);
       requestAnimationFrame(tick);
     });
   }
+  function adjInit() { const f = app.querySelector('form[data-form="adjust-stock"]'); if (f) adjPreview(f); }
   function rootRender() {
     deriveAll();
     if (state.sideHidden === undefined) {
@@ -7250,6 +7659,7 @@ ${body}`);
     if (sideScroll) { const sn = app.querySelector(".side-nav"); if (sn) sn.scrollTop = sideScroll; }
     if (tblScroll && state.rowSig === tblSig) { const ts = app.querySelector(".table-scroll.infinite"); if (ts) ts.scrollTop = tblScroll; }
     playCountUps();
+    adjInit();
     /* slide the drawer in only when it opens, not every time the page redraws behind it */
     const dEls = app.querySelectorAll(".modal-backdrop.drawer, .modal-backdrop.drawer .modal-card");
     if (dEls.length && !hadDrawer) drawerOpenedAt = performance.now();
@@ -7439,7 +7849,7 @@ ${body}`);
     rootRender();
   };
   function fail(message) {
-    if (state.modal && ["create", "edit", "quote-edit", "prompt", "confirm", "checkout", "open-register", "close-register", "cash-move", "count"].includes(state.modal.type)) {
+    if (state.modal && ["create", "edit", "quote-edit", "prompt", "confirm", "checkout", "open-register", "close-register", "cash-move", "count", "adjust-stock"].includes(state.modal.type)) {
       state.modal.error = message;
       rootRender();
     } else toast(message, "warn");
@@ -7551,6 +7961,13 @@ ${body}`);
       state.productCategory = cat.dataset.category;
       const tbm = app.querySelector(".catalog-toolbar"); if (tbm) tbm.classList.remove("menu-open");
       refreshProducts();
+      return;
+    }
+    const isort = t.closest("[data-inv-sort]");
+    if (isort) {
+      const f = invS(), k = isort.dataset.invSort, cur = invView();
+      f.sort = { key: k, dir: cur.key === k ? -cur.dir : 1 };
+      refreshInventory();
       return;
     }
     const sort = t.closest("[data-sort]");
@@ -7685,6 +8102,74 @@ ${body}`);
         return exportCurrent();
       case "export-report":
         return exportCurrent();
+      case "inv-tab": {
+        const f = invS(); f.tab = ds.tab === "low" ? "low" : "stocks"; f.sort = { key: null, dir: 1 }; f.limit = 50;
+        if (f.tab === "low") f.status = "all";
+        return refreshInventory();
+      }
+      case "inv-adjust": {
+        if (!canEditCatalog()) return toast(CATALOG_MSG, "warn");
+        return openModal({ type: "adjust-stock", index: Number(ds.index) }, '[data-action="inv-adjust"][data-index="' + ds.index + '"]', true);
+      }
+      case "inv-receive":
+        if (!canEditCatalog()) return toast(CATALOG_MSG, "warn");
+        return go("receive-stock");
+      case "inv-transfer":
+        if (!canEditCatalog()) return toast(CATALOG_MSG, "warn");
+        return openModal({ type: "create", key: "transfers" }, '[data-action="inv-transfer"]', true);
+      case "inv-more": invS().limit += 50; return refreshInventory();
+      case "inv-clear": { const f = invS(); f.q = ""; f.cat = "all"; f.brand = "all"; f.status = "all"; f.limit = 50; return refreshInventory(); }
+      case "inv-export": {
+        const v = invView(), cols = invCols(v.f.tab);
+        const out = v.rows.map((r) => ({ ...r, days: r.qty <= 0 ? "Out" : r.days == null ? "No sales" : r.days, rate: r.rate > 0 ? round2(r.rate) : 0 }));
+        exportCsv(v.f.tab === "low" ? "low-stocks" : "stocks", cols, out, "products");
+        return toast(`Downloaded ${out.length} row${out.length === 1 ? "" : "s"} as CSV.`);
+      }
+      case "pf-toggle":
+        state.popover = state.popover === "pfilter" ? null : "pfilter";
+        return refreshTable();
+      case "pf-apply": {
+        const root = app.querySelector(".pop-filter"); if (!root) return;
+        const g = (k) => { const el = root.querySelector('[data-pf="' + k + '"]'); return el ? el.value : ""; };
+        let from = g("from"), to = g("to");
+        if (from && to && from > to) { const x = from; from = to; to = x; }
+        state.pf = { brand: g("brand") || "all", serial: g("serial").trim(), from, to };
+        state.categoryFilter = g("category") || "all";
+        state.page = 0; state.popover = null;
+        return refreshTable();
+      }
+      case "pf-clear":
+        state.pf = { brand: "all", serial: "", from: "", to: "" };
+        state.categoryFilter = "all"; state.page = 0; state.popover = null;
+        return refreshTable();
+      case "table-more":
+        state.popover = state.popover === "tmore" ? null : "tmore";
+        return refreshTable();
+      case "table-csv": {
+        const ctx = tableCtx(); if (!ctx) return;
+        state.popover = null;
+        const cols = colsFor(ctx.dataKey, ctx.meta.columns || []);
+        const rows = queryRows(ctx.dataKey, cols).map(({ row }) => row);
+        exportCsv(ctx.dataKey, cols, rows, ctx.dataKey);
+        refreshTable();
+        return toast(`Downloaded ${rows.length} row${rows.length === 1 ? "" : "s"} as CSV.`);
+      }
+      case "cols-open": {
+        const ctx = tableCtx(); if (!ctx || ctx.report) return;
+        state.popover = null;
+        const plan = colsPlan(ctx.dataKey, ctx.meta.columns || []);
+        return openModal({ type: "columns", key: ctx.dataKey, page: state.view, order: plan.order.slice(), hidden: [...plan.hidden], locked: plan.locked });
+      }
+      case "cols-reset": {
+        const m = state.modal; if (!m || m.type !== "columns") return;
+        colsReset(m.key); closeModal(); toast("Columns are back to the default."); return rootRender();
+      }
+      case "cols-save": {
+        const m = state.modal; if (!m || m.type !== "columns") return;
+        if (m.order.every((k) => m.hidden.indexOf(k) >= 0 && k !== m.locked)) return toast("Keep at least one column.", "warn");
+        colsSave(m.key, m.order, m.hidden.filter((k) => k !== m.locked));
+        closeModal(); toast("Columns saved."); return rootRender();
+      }
       case "export-products":
         return toast(`Exported products to ${exportTable("products", "Products", pageMeta.products.columns, state.data.products, "products")}.`);
       case "page-prev":
@@ -7830,7 +8315,11 @@ ${body}`);
       ex.querySelector("[data-sku-next]").textContent = pre + "-" + next + ", " + pre + "-" + (next + 1);
       return;
     }
-    if (t.matches("[data-page-search]")) {
+    if (t.matches("[data-adj]")) { const f = t.closest("form"); if (f) adjPreview(f); return; }
+    if (t.matches("[data-inv-search]")) {
+      const f = invS(); f.q = t.value; f.limit = 50;
+      refreshInventory("[data-inv-search]");
+    } else if (t.matches("[data-page-search]")) {
       state.query = t.value;
       state.page = 0;
       refreshTable("[data-page-search]");
@@ -7855,7 +8344,11 @@ ${body}`);
     if (t.matches("[data-qe-cust]")) { const c = (d().customers || []).find((x) => x && String(x.name).toLowerCase() === t.value.trim().toLowerCase()); if (c) t.value = c.name; else { const sp = QE_SPECIAL.find((x) => x[0].toLowerCase() === t.value.trim().toLowerCase()); if (sp) t.value = sp[0]; } }
     else if (t.matches("[data-qe-name]")) qePick(t);
     else if (t.matches("[data-qe-disctype]")) qeRecalc();
-    else if (t.matches("[data-category-filter]")) {
+    else if (t.matches("[data-adj]")) { const f = t.closest("form"); if (f) adjPreview(f); }
+    else if (t.matches("[data-inv-f]")) {
+      const f = invS(); f[t.dataset.invF] = t.value; f.limit = 50;
+      refreshInventory();
+    } else if (t.matches("[data-category-filter]")) {
       state.categoryFilter = t.value;
       state.page = 0;
       refreshTable();
@@ -7992,6 +8485,13 @@ ${body}`);
           rootRender();
           toast("Cash movement recorded.");
         });
+      }
+      case "adjust-stock": {
+        if (withErr(applyStockAdjust(m.index, values))) return;
+        closeModal();
+        rootRender();
+        const pr = d().products[m.index];
+        return toast(`${pr ? pr.name : "Stock"} adjusted. ${pr ? pr.stockQty + " on hand." : ""}`);
       }
       case "count": {
         if (withErr(applyStockCount(m.index, values))) return;
