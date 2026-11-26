@@ -1,0 +1,83 @@
+/* ============================================
+   AFPOS login: WIDE / LANDSCAPE card (desktop + laptop only).
+   Same layout as before, the card is just wider. Load AFTER scale.css.
+   Delete this file + its <link> in pos.html to go back to the old width.
+   Phones / narrow screens (<= 880px) are not touched.
+   ============================================ */
+@media (min-width: 1000px) {
+  /* scale.css zooms the page .75 and scales the card 1.1 / 1.3 / 1.5 by window height:
+     cap the width so the scaled card never goes past the window edge */
+  body.afpos-login .shell { width: min(1080px, calc((100vw - 48px) / .825)); max-width: none; }
+}
+@media (min-width: 1000px) and (min-height: 760px) {
+  body.afpos-login .shell { width: min(1080px, calc((100vw - 48px) / .975)); max-width: none; }
+}
+@media (min-width: 1000px) and (min-height: 900px) {
+  body.afpos-login .shell { width: min(1080px, calc((100vw - 48px) / 1.125)); max-width: none; }
+}
+@media (min-width: 881px) and (max-width: 999px) {
+  body.afpos-login .shell { width: 100%; max-width: 100%; }
+}
+
+/* ---------- shadows: lighter, tighter, and kept on their own layer ----------
+   The old 80px-blur shadow on a scaled + zoomed card could get clipped / left as a
+   hard-edged band (missing dots + cut shadow) while scrolling. This keeps the soft look
+   but with a smaller blur radius so the browser paints it cleanly. */
+@media (min-width: 881px) {
+  body.afpos-login .shell {
+    box-shadow: 0 22px 48px rgba(17,17,17,.10), 0 2px 6px rgba(17,17,17,.04);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  body.afpos-login::before { will-change: transform; transform: translateZ(0); }
+}
+
+/* ---------- dotted background + red glow: drawn on fixed viewport layers ----------
+   The dots used to be painted on the tall <body> (login + plans = 2000+px, zoomed), which
+   made the browser drop dots / cut the shadow in bands while scrolling. Now the dots live on
+   one fixed layer the size of the window, so nothing gets cut. */
+@media (min-width: 881px) {
+  body.afpos-login { background: transparent; background-image: none; }
+  html:has(body.afpos-login)::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(#c9ccd1 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  /* plans glow: let it fade in from above instead of a hard cut at the section edge */
+  body.afpos-login .plans::before {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 55%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 55%);
+  }
+}
+
+/* ---------- sign-up: roomy card that fills the window, always centred ----------
+   Fixed layout size (1080 x 660) so every step fits without an inner scrollbar.
+   The scale is set by the small fitScale() script in pos.html so the card fills the
+   window (about 56px of space above and below) on any screen size. */
+@media (min-width: 1000px) {
+  body.afpos-login .shell:has(.views[data-mode=up]) { width: 1080px; max-width: none; height: 660px; translate: 0 24px; }
+}
+
+/* more breathing room between the sign-up elements */
+@media (min-width: 881px) {
+  body.afpos-login .shell:has(.views[data-mode=up]) .pane { justify-content: center; padding-top: 30px; padding-bottom: 24px; }
+  body.afpos-login .views .v-up .stp { margin-bottom: 24px; }
+  body.afpos-login .views .v-up h1 { margin-bottom: 8px; }
+  body.afpos-login .views .v-up .sub { display: block !important; margin: 0 auto 16px !important; }
+  body.afpos-login .views .v-up .fld { margin-bottom: 16px; }
+  body.afpos-login .views .v-up .hint { margin: -6px 0 16px; }
+  body.afpos-login .views .v-up .row2 { gap: 14px; }
+  body.afpos-login .views .v-up .opts { gap: 10px; margin-bottom: 4px; }
+  body.afpos-login .views .v-up .vact { margin-top: 22px; }
+  body.afpos-login .views .v-up .alt { margin-top: 16px; }
+  body.afpos-login .shell:has(.views[data-mode=up]) .box { max-width: 460px; }
+}
+
+/* the "Plans & pricing" pill would sit on top of the big sign-up card: hide it while signing up */
+@media (min-width: 1000px) {
+  body.afpos-login .shell:has(.views[data-mode=up]) ~ .pl-cue { display: none; }
+}

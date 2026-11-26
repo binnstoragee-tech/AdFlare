@@ -115,6 +115,11 @@
     font-weight:800;
   }
   h1 em{font-style:normal;color:var(--red);position:relative;display:inline-block}
+  /* typewriter: only the red line changes, the black tagline stays */
+  h1 em .tw-c{display:inline-block;width:.07em;height:.82em;margin-left:.05em;vertical-align:-.04em;background:currentColor;border-radius:1px;animation:twblink 1s steps(1) infinite}
+  h1 em.typing .tw-c{animation:none}
+  @keyframes twblink{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){h1 em .tw-c{animation:none;opacity:0}}
   .sub{
     margin-top:22px;max-width:560px;
     color:var(--muted);font-size:14px;line-height:1.7;
@@ -276,7 +281,7 @@
   @media (min-width:1000px){
     /* text left | AI scene right | building picture below */
     .hero{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-rows:1fr auto;align-content:stretch;align-items:center;column-gap:3vw;padding:190px 9vw 0}
-    .copy{grid-column:1;grid-row:1;margin-top:0;max-width:100%;padding-top:20px;top:-70px}
+    .copy{grid-column:1;grid-row:1;margin-top:0;max-width:100%;padding-top:20px;top:-40px}
     h1{font-size:clamp(50px,5.1vw,128px)}
     .sub{margin-top:30px;font-size:clamp(15px,1.2vw,26px);max-width:none}
     .cta{margin-top:44px;gap:20px}
@@ -322,7 +327,7 @@
 
 <main class="hero">
   <section class="copy">
-    <h1>Smarter Marketing.<br><em>Easier Business Management.</em></h1>
+    <h1>Smarter Marketing.<br><em id="tw"><span class="tw-t">Meta Ads.</span><i class="tw-c" aria-hidden="true"></i></em></h1>
     <p class="sub">Boost your sales with powerful Meta Ads and simplify your daily operations with our POS System. Reach more customers, manage sales, keep track of your inventory, and take your business to the next level, all in one place!</p>
 
     <div class="cta">
@@ -560,6 +565,27 @@
     ptr={x:e.clientX,y:e.clientY}; var c=e.target.closest&&e.target.closest('.ai-c'); over=c||null; kick();
   });
   scene.addEventListener('pointerleave',function(e){ if(e.pointerType!=='mouse') return; ptr=null; over=null; kick() });
+})();
+</script>
+<script>
+/* hero headline: the red line types itself, waits, erases, then types the next one (Meta Ads / Web Development / AFPOS System) */
+(function(){
+  var em=document.getElementById('tw'); if(!em) return;
+  var t=em.querySelector('.tw-t');
+  var words=['Meta Ads.','Web Development.','AFPOS System.'];
+  var i=0, reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){ setInterval(function(){ i=(i+1)%words.length; t.textContent=words[i]; },3000); return; }
+  function type(w,n){
+    em.classList.add('typing'); t.textContent=w.slice(0,n);
+    if(n<w.length) return setTimeout(function(){type(w,n+1)},85+Math.random()*50);
+    em.classList.remove('typing'); setTimeout(function(){erase(w,w.length)},2200);
+  }
+  function erase(w,n){
+    em.classList.add('typing'); t.textContent=w.slice(0,n);
+    if(n>0) return setTimeout(function(){erase(w,n-1)},45);
+    i=(i+1)%words.length; setTimeout(function(){type(words[i],1)},350);
+  }
+  setTimeout(function(){erase(words[0],words[0].length)},2200);
 })();
 </script>
 <script src="flare.js" defer></script>

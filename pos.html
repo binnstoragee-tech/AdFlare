@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<script>try{sessionStorage.setItem('af-landed','1')}catch(e){}window.AFS=(function(){var P="afpos.s:",ls=null,mem={};try{ls=window.localStorage;ls.getItem("x")}catch(e){ls=null}return{getItem:function(k){try{if(ls){var v=ls.getItem(P+k);return v===undefined?null:v}}catch(e){}return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null},setItem:function(k,v){v=String(v);try{if(ls){ls.setItem(P+k,v);return}}catch(e){}mem[k]=v},removeItem:function(k){try{ls&&ls.removeItem(P+k)}catch(e){}delete mem[k]}}})();</script>
+<script>try{sessionStorage.setItem('af-landed','1')}catch(e){}window.AFS=(function(){var P="afpos.s:",ls=null,ss=null,mem={},TMP="afpos.tmp";try{ls=window.localStorage;ls.getItem("x")}catch(e){ls=null}try{ss=window.sessionStorage;ss.getItem("x")}catch(e){ss=null}function tmp(){try{return !!(ss&&ss.getItem(TMP))}catch(e){return false}}return{getItem:function(k){try{if(ss){var a=ss.getItem(P+k);if(a!==null&&a!==undefined)return a}}catch(e){}try{if(ls){var v=ls.getItem(P+k);return v===undefined?null:v}}catch(e){}return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null},setItem:function(k,v){v=String(v);try{if(tmp()&&ss){ss.setItem(P+k,v);return}}catch(e){}try{if(ls){ls.setItem(P+k,v);ss&&ss.removeItem(P+k);return}}catch(e){}mem[k]=v},removeItem:function(k){try{ss&&ss.removeItem(P+k)}catch(e){}try{if(!tmp())ls&&ls.removeItem(P+k)}catch(e){}delete mem[k]},keep:function(on){try{if(on){ss&&ss.removeItem(TMP)}else if(ss)ss.setItem(TMP,"1")}catch(e){}}}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
@@ -196,6 +196,43 @@
     .btn-dots i:nth-child(2){animation-delay:.5s}.btn-dots i:nth-child(4){animation-delay:1s}.btn-dots i:nth-child(3){animation-delay:1.5s}
     .ck{width:22px;height:22px}.ck path{stroke-dasharray:24;stroke-dashoffset:24;animation:draw .5s var(--ease) .05s forwards}
 
+    .opts{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 14px;min-height:22px}
+    .rm{display:flex;align-items:center;gap:9px;font-size:13px;line-height:20px;height:20px;color:var(--mu);cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+    .rm input{position:absolute;opacity:0;width:0;height:0}
+    .rm .bx{display:grid;place-items:center;flex:none;width:18px;height:18px;border-radius:6px;border:1.5px solid var(--bd2);background:var(--field);transition:background .2s,border-color .2s}
+    .rm .bx svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s var(--ease)}
+    .rm input:checked+.bx{background:var(--red);border-color:var(--red)}.rm input:checked+.bx svg{stroke-dashoffset:0}
+    .rm input:focus-visible+.bx{box-shadow:0 0 0 4px rgba(255,43,43,.18)}
+    .fgp{display:flex;align-items:center;height:20px;padding:0;background:none;border:0;font:600 13px/20px Inter,sans-serif;color:var(--red);cursor:pointer;white-space:nowrap}.fgp:hover{color:#d91f1f;text-decoration:underline}
+    .fpm{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:18px;background:rgba(10,10,12,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+    .fpm[hidden],.fpc [hidden]{display:none!important}
+    .fpc{width:100%;max-width:520px;max-height:calc(100dvh - 36px);overflow:auto;padding:24px 22px 20px;background:var(--panel);border:1px solid var(--bd);border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.25);animation:pop .3s var(--ease) both}
+    .fpc h2{margin:0 0 6px;font-size:20px;color:var(--tx)}.fpc>p,.fpc form>p.fpt{margin:0 0 16px;font-size:13.5px;line-height:1.5;color:var(--mu)}
+    .fpc .row{display:flex;gap:10px;margin-top:6px}.fpc .row button{flex:1}
+    .fps{margin:14px 0 8px;padding-top:12px;border-top:1px solid var(--bd);font:600 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2)}.fpt+.fps{margin-top:6px;padding-top:0;border-top:0}
+    .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.fgrid .fld{min-width:0}
+    .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 12px;padding:4px;border-radius:99px;background:var(--field);border:1px solid var(--bd)}
+    .seg button{height:34px;border:0;border-radius:99px;background:none;font:600 13px Inter,sans-serif;color:var(--mu);cursor:pointer;transition:background .2s,color .2s}
+    .seg button.on{background:#111;color:#fff}
+    .fpc .row{margin-top:14px}
+    /* "Password changed" success: animated check (same feel as the AdFlare inquiry-sent popup) */
+    .fpc:has(#fp-done:not([hidden])){max-width:400px;position:relative;overflow:hidden}
+    #fp-done{text-align:center;padding:10px 4px 0}
+    .fpok{position:relative;width:84px;height:84px;margin:0 auto 20px}
+    .fpok svg{width:100%;height:100%;overflow:visible}
+    .fpok-ring{fill:rgba(16,185,129,.1);stroke:#10b981;stroke-width:3;stroke-dasharray:252;stroke-dashoffset:252;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;animation:fpok-draw .7s .15s cubic-bezier(.65,0,.35,1) forwards}
+    .fpok-tick{fill:none;stroke:#10b981;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50;animation:fpok-draw .45s .7s cubic-bezier(.65,0,.35,1) forwards}
+    .fpok::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #10b981;opacity:0;animation:fpok-pulse 1.2s .9s ease-out forwards}
+    @keyframes fpok-draw{to{stroke-dashoffset:0}}
+    @keyframes fpok-pulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+    #fp-done h2{font-size:22px;margin:0 0 8px;opacity:0;animation:fpok-in .4s .75s ease forwards}
+    #fp-done>p{margin:0 auto 6px;max-width:300px;opacity:0;animation:fpok-in .4s .85s ease forwards}
+    #fp-done .row{opacity:0;animation:fpok-in .4s .95s ease forwards}
+    @keyframes fpok-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){.fpok-ring,.fpok-tick{animation-duration:.01s;animation-delay:0s}.fpok::after{display:none}#fp-done h2,#fp-done>p,#fp-done .row{animation-duration:.01s;animation-delay:0s}}
+    @media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+    .fpb{height:46px;border-radius:99px;border:0;font:600 14.5px Inter,sans-serif;cursor:pointer;background:#111;color:#fff}.fpb:disabled{opacity:.6;cursor:default}
+    .fpb.sec{background:var(--field);color:var(--tx);border:1px solid var(--bd)}
     .alt{margin:16px 0 0;text-align:center;font-size:12.5px;color:var(--mu)}
     .alt .lnk{margin-left:4px;padding:0;background:none;border:0;font:600 12.5px Inter,sans-serif;color:var(--red);cursor:pointer;transition:color .2s}
     .alt .lnk:hover{color:#d91f1f;text-decoration:underline}
@@ -336,26 +373,167 @@
     .views.go .view>*:nth-child(3){animation-delay:.20s}.views.go .view>*:nth-child(4){animation-delay:.26s}
     .views.go .view>*:nth-child(5){animation-delay:.30s}
     @keyframes vrise{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.su-plan{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px;border:1px solid rgba(128,128,128,.25);border-radius:12px;font-size:13px}
+.su-plan span{opacity:.6}
+.su-plan b{flex:1;min-width:0}
+.su-plan button{border:0;background:none;color:#ff2b2b;font-weight:600;cursor:pointer;padding:4px 6px}
 </style>
   <!-- Match AdFlare index desktop sizing and loading scale. Mobile remains unchanged. -->
   <link rel="stylesheet" href="scale.css?v=20261118">
+  <link rel="stylesheet" href="login-landscape.css?v=20261126">
 <style>
+/* ---------- login page scrolls: sign-in card first screen, plans below ---------- */
+html{scroll-behavior:smooth}
+html,html:has(body.afpos-login){height:auto!important;overflow:visible!important}
+body.afpos-login{display:block!important;height:auto!important;min-height:0!important;overflow:visible!important;overflow-x:clip!important;padding:0!important}
+.login-screen{position:relative;min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top)) 16px 64px}
+@media (min-width:1000px){.login-screen{min-height:calc(100dvh / .75)}}
+@media (max-width:880px){.login-screen{display:block;padding:calc(12px + env(safe-area-inset-top)) 12px 0}}
+.pl-cue{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:9px 16px 9px 18px;border-radius:999px;border:1px solid var(--bd);background:rgba(255,255,255,.9);color:var(--tx2);font:500 13px Inter,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(17,17,17,.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .2s,color .2s,box-shadow .2s}
+.pl-cue svg{width:16px;height:16px;stroke-width:2;color:var(--red);animation:plbob 1.8s ease-in-out infinite}
+.pl-cue:hover{border-color:var(--bd2);color:var(--tx);box-shadow:0 10px 28px rgba(17,17,17,.12)}
+.pl-cue:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+@media (max-width:880px){.pl-cue{position:static;transform:none;margin:14px auto 0;display:flex;width:max-content}}
+@keyframes plbob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(2px)}}
+
+/* ---------- plans & pricing ---------- */
+.plans{position:relative;padding:72px 16px 88px;scroll-margin-top:0}
+.plans::before{content:"";position:absolute;left:50%;top:0;width:min(860px,110vw);height:380px;transform:translateX(-50%);pointer-events:none;background:radial-gradient(50% 60% at 50% 0%,rgba(255,43,43,.10),transparent 72%)}
+.pl-wrap{position:relative;max-width:1040px;margin:0 auto}
+.pl-head{text-align:center;max-width:640px;margin:0 auto 28px}
+.pl-eyebrow{display:inline-block;padding:5px 12px;border-radius:999px;background:rgba(255,43,43,.08);color:var(--red2);font:600 11.5px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+.pl-head h2{margin:14px 0 10px;font:800 clamp(26px,4.2vw,38px)/1.12 Sora,Inter,sans-serif;letter-spacing:-.02em;color:var(--tx)}
+.pl-head p{color:var(--mu);font-size:15.5px;line-height:1.55}
+.pl-cycle{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin:0 0 30px}
+.pl-seg2{display:inline-grid;grid-template-columns:repeat(2,auto);padding:4px;border-radius:999px;background:var(--field);border:1px solid var(--bd)}
+.pl-seg2 button{border:0;background:transparent;padding:9px 16px;border-radius:999px;font:600 13.5px Inter,sans-serif;color:var(--mu);cursor:pointer;transition:color .2s,background .2s,box-shadow .2s}
+.pl-seg2 button[aria-checked=true]{background:#fff;color:var(--tx);box-shadow:0 1px 3px rgba(17,17,17,.12),0 0 0 1px rgba(17,17,17,.05)}
+.pl-seg2 button:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.pl-seg{position:relative;display:inline-grid;grid-template-columns:repeat(3,auto);padding:6px;box-shadow:0 8px 24px rgba(17,17,17,.07);border-radius:999px;background:var(--field);border:1px solid var(--bd)}
+.pl-seg button{position:relative;z-index:1;border:0;background:transparent;padding:14px 30px;border-radius:999px;font:600 17px Inter,sans-serif;color:var(--mu);cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:color .2s}
+.pl-seg button[aria-checked=true]{color:var(--tx);font-weight:700}
+.pl-seg .pl-pill{position:absolute;top:6px;bottom:6px;left:6px;border-radius:999px;background:#fff;box-shadow:0 1px 3px rgba(17,17,17,.12),0 0 0 1px rgba(17,17,17,.05);transition:transform .35s var(--ease),width .35s var(--ease)}
+.pl-seg button:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.pl-save{font:700 12px/1 Inter,sans-serif;padding:5px 8px;border-radius:999px;background:rgba(18,160,92,.12);color:#0b7a45}
+.pl-est{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 auto 18px;max-width:700px;padding:14px;border-radius:20px;background:#fff;border:1px solid var(--bd);box-shadow:0 10px 30px rgba(17,17,17,.05)}
+.pl-ctl{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 14px;border-radius:14px;background:var(--field)}
+.pl-ctl b{display:block;font:600 14px Inter,sans-serif;color:var(--tx)}
+.pl-ctl small{display:block;margin-top:1px;font-size:12px;color:var(--mu);line-height:1.35}
+.pl-step{display:inline-flex;align-items:center;gap:2px;flex:none}
+.pl-step button{width:34px;height:34px;border-radius:10px;border:1px solid var(--bd2);background:#fff;color:var(--tx);cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background .2s,transform .15s}
+.pl-step button:hover:not(:disabled){border-color:var(--tx)}
+.pl-step button:active:not(:disabled){transform:scale(.94)}
+.pl-step button:disabled{opacity:.35;cursor:not-allowed}
+.pl-step button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.pl-step svg{width:16px;height:16px;stroke-width:2}
+.pl-step output{min-width:38px;text-align:center;font:700 17px Sora,Inter,sans-serif;color:var(--tx);font-variant-numeric:tabular-nums}
+.pl-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.pl-card{position:relative;display:flex;flex-direction:column;padding:26px 26px 24px;border-radius:24px;background:#fff;border:1px solid var(--bd);box-shadow:0 18px 50px rgba(17,17,17,.07),0 2px 6px rgba(17,17,17,.03);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+.pl-card:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(17,17,17,.1),0 2px 6px rgba(17,17,17,.03)}
+.pl-card.pop{border-color:rgba(255,43,43,.55);box-shadow:0 22px 60px rgba(255,43,43,.14),0 2px 6px rgba(17,17,17,.03)}
+.pl-card.pop::before{content:"";position:absolute;inset:-1px;border-radius:24px;padding:1px;pointer-events:none;background:linear-gradient(160deg,rgba(255,43,43,.7),rgba(255,120,100,.15) 40%,transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.pl-tag{position:absolute;top:-12px;right:22px;padding:5px 12px;border-radius:999px;background:var(--red);color:#fff;font:600 11.5px/1 Inter,sans-serif;letter-spacing:.02em;box-shadow:0 6px 16px rgba(255,43,43,.35)}
+.pl-name{display:flex;align-items:center;gap:10px;font:700 19px Sora,Inter,sans-serif;color:var(--tx)}
+.pl-ico{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--field);color:var(--tx2)}
+.pl-card.pop .pl-ico{background:rgba(255,43,43,.1);color:var(--red2)}
+.pl-ico svg{width:18px;height:18px}
+.pl-for{margin-top:8px;color:var(--mu);font-size:14px;line-height:1.5;min-height:42px}
+.pl-price{margin:18px 0 4px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.pl-price .cur{font:600 14px Inter,sans-serif;color:var(--mu)}
+.pl-price .amt{font:800 clamp(34px,5vw,42px)/1 Sora,Inter,sans-serif;letter-spacing:-.03em;color:var(--tx);font-variant-numeric:tabular-nums}
+.pl-price .per{font-size:14px;color:var(--mu)}
+.pl-price .was{font:500 14px Inter,sans-serif;color:var(--mu2);text-decoration:line-through}
+.pl-billed{min-height:20px;font-size:13px;color:var(--mu)}
+.pl-lines{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:var(--field);font-size:12.5px;color:var(--tx2);display:grid;gap:5px;list-style:none}
+.pl-lines li{display:flex;justify-content:space-between;gap:12px}
+.pl-lines li span:last-child{font-variant-numeric:tabular-nums;color:var(--tx);font-weight:500;white-space:nowrap}
+.pl-lines .inc{color:var(--mu)}
+.pl-lines .tot{margin:8px -14px -12px;padding:13px 14px;border-radius:0 0 12px 12px;background:var(--red,#ff2b2b);color:#fff;font-weight:700;font-size:13.5px;box-shadow:0 8px 20px -10px rgba(255,43,43,.6)}
+.pl-lines .tot span,.pl-lines .tot span:last-child{color:#fff}
+.pl-lines .tot span:last-child{font-weight:800;font-size:17px;font-variant-numeric:tabular-nums}
+.pl-cta{margin-top:18px;width:100%;height:46px;border:0;border-radius:13px;font:600 14.5px Inter,sans-serif;cursor:pointer;background:#111;color:#fff;transition:transform .15s,background .2s,box-shadow .2s}
+.pl-cta:hover:not(:disabled){background:#000;box-shadow:0 10px 24px rgba(17,17,17,.22)}
+.pl-cta:active:not(:disabled){transform:scale(.98)}
+.pl-cta:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.pl-card.pop .pl-cta{background:var(--red)}
+.pl-card.pop .pl-cta:hover:not(:disabled){background:var(--red2);box-shadow:0 10px 24px rgba(255,43,43,.32)}
+.pl-cta:disabled{background:var(--field);color:var(--mu);cursor:not-allowed}
+.pl-off-h{margin:22px 0 10px;font:600 11.5px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2)}
+.pl-offers{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+.pl-off{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px 11px 14px;border-radius:13px;border:1px solid var(--bd);background:#fff;transition:border-color .2s,background .2s}
+.pl-off.on{border-color:var(--tx);background:var(--field)}
+.pl-card.pop .pl-off.on{border-color:var(--red);background:rgba(255,43,43,.05)}
+.pl-off b{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font:600 13.5px Inter,sans-serif;color:var(--tx)}
+.pl-off small{display:block;margin-top:2px;font-size:12px;color:var(--mu);line-height:1.4}
+.pl-sel{flex:none;height:36px;padding:0 18px;border:0;border-radius:10px;background:#111;color:#fff;font:600 13px Inter,sans-serif;cursor:pointer;transition:transform .15s,background .2s}
+.pl-off{cursor:pointer}.pl-off.on .pl-sel{background:transparent;color:var(--tx);box-shadow:inset 0 0 0 1.5px var(--tx)}.pl-card.pop .pl-off.on .pl-sel{background:transparent;color:var(--red2);box-shadow:inset 0 0 0 1.5px var(--red)}.pl-sel:hover{background:#000}.pl-sel:active{transform:scale(.96)}
+.pl-sel:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.pl-card.pop .pl-sel{background:var(--red)}.pl-card.pop .pl-sel:hover{background:var(--red2)}
+.pl-addbtn{display:flex;align-items:center;gap:10px;width:100%;margin-top:14px;padding:11px 14px;border:1px dashed var(--bd2);border-radius:13px;background:transparent;color:var(--tx);font:600 13.5px Inter,sans-serif;cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.pl-addbtn:hover{border-color:var(--tx);background:var(--field)}.pl-addbtn:focus{outline:none}.pl-addbtn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.pl-addt{display:inline-flex;align-items:center;gap:7px;flex:none}.pl-addt svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.pl-addsum{flex:1;min-width:0;font:500 12px Inter,sans-serif;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-addchev{flex:none;width:16px;height:16px;fill:none;stroke:var(--mu);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transform:rotate(180deg);transition:transform .3s var(--ease)}
+.pl-addbtn.open .pl-addchev{transform:none}.pl-addbtn.open{border-style:solid;border-color:var(--tx)}
+.pl-card.pop .pl-addbtn.open{border-color:var(--red)}
+.pl-adds{padding-top:10px;gap:10px}
+.pl-ar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 14px;border-radius:13px;background:var(--field)}
+.pl-ar b{display:block;font:600 13.5px Inter,sans-serif;color:var(--tx)}.pl-ar small{display:block;margin-top:2px;font-size:12px;color:var(--mu);line-height:1.4}
+.pl-adnote{font-size:12.5px;color:var(--mu);line-height:1.45;padding:0 2px}
+.pl-feat-h{margin:22px 0 10px;font:600 11.5px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mu2)}
+.pl-min{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;padding:0;cursor:pointer;text-align:left}
+.pl-min svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+.pl-min.shut svg{transform:rotate(180deg)}
+.pl-min:hover{color:var(--tx)}.pl-min:focus{outline:none}.pl-min:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}.pl-min:not(:focus-visible){outline:none}
+.pl-feat-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .35s var(--ease),opacity .25s}
+.pl-feat-wrap.shut{grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .35s var(--ease),opacity .25s,visibility 0s .35s}
+.pl-feat-wrap>.pl-feat{overflow:hidden;min-height:0}
+.pl-feat{list-style:none;display:grid;gap:9px;font-size:14px;color:var(--tx2)}
+.pl-feat li{display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+.pl-feat svg{flex:none;width:18px;height:18px;margin-top:1px;stroke-width:2.2;color:#12a05c}
+.pl-feat li.no{color:var(--mu2)}
+.pl-feat li.no svg{color:var(--mu2);stroke-width:1.8}
+.pl-feat li.hd{font-weight:600;color:var(--tx)}
+.pl-lock{padding:12px 14px;margin-top:14px;border-radius:12px;background:rgba(255,43,43,.06);color:var(--red2);font-size:13px;line-height:1.45}
+.pl-addons{margin:18px auto 0;display:grid;grid-template-columns:minmax(0,1fr);max-width:560px;gap:12px}
+.pl-ad{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:18px;background:#fff;border:1px solid var(--bd)}
+.pl-ad .pl-ico{flex:none}
+.pl-ad b{display:block;font:600 14px Inter,sans-serif;color:var(--tx)}
+.pl-ad small{display:block;margin-top:2px;font-size:12.5px;color:var(--mu);line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-ad>div{min-width:0;flex:1}
+.pl-ad em{font-style:normal;color:var(--tx);font-weight:600}
+.pl-note{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mu)}
+.pl-top{display:flex;justify-content:center;margin-top:34px}
+.pl-top a{color:var(--mu);font-size:13px;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.pl-top a:hover{color:var(--tx)}
+.pl-top svg{width:15px;height:15px;stroke-width:2}
+@media (max-width:860px){
+  .plans{padding:52px 14px 64px}
+  .pl-grid{grid-template-columns:1fr}
+  .pl-addons{grid-template-columns:1fr}
+  .pl-est{grid-template-columns:1fr}
+  .pl-for{min-height:0}
+  .pl-seg button{padding:12px 18px;font-size:15px}
+}
+@media (max-width:420px){.pl-seg button{padding:11px 13px;gap:5px;font-size:14.5px}.pl-save{display:none}.pl-card{padding:22px 18px 20px}}
+@media (prefers-reduced-motion:reduce){.pl-cue svg{animation:none}.pl-card,.pl-seg .pl-pill{transition:none}html{scroll-behavior:auto}}
+
 #rs[hidden]{display:none!important}
 
-/* ---------- sign up (3 steps, modeled on the Ewity flow) ---------- */
+/* ---------- sign up (4 steps: business, account, payment, review) ---------- */
 @media (min-width:881px){.shell:has(.views[data-mode=up]){height:clamp(480px,calc(100dvh - 32px),640px)}}
 .views{transition:height .35s var(--ease)}
 .v-up .su-done{display:none}
 .v-up.done .su-main{display:none}.v-up.done .su-done{display:block}
-.v-up .stp{display:flex;align-items:center;gap:7px;margin:0 0 12px;padding:0;list-style:none}
-.v-up .stp li{display:flex;align-items:center;gap:6px;font:500 11.5px Inter,sans-serif;color:var(--mu2);white-space:nowrap}
+.v-up .stp{display:flex;align-items:center;gap:5px;margin:0 0 12px;padding:0;list-style:none}
+.v-up .stp li{display:flex;align-items:center;gap:5px;font:500 11px Inter,sans-serif;color:var(--mu2);white-space:nowrap}
 .v-up .stp li b{font-weight:500}
 .v-up .stp li i{position:relative;display:flex;align-items:center;justify-content:center;line-height:1;box-sizing:border-box;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--bd2);background:#fff;font:600 10.5px Inter,sans-serif;font-style:normal;transition:background .25s,border-color .25s,color .25s}
 .v-up .stp li.on{color:var(--tx)}.v-up .stp li.on i{background:var(--red);border-color:var(--red);color:#fff}
 .v-up .stp li.fin{color:var(--tx2)}.v-up .stp li.fin i{border-color:transparent;background:rgba(255,43,43,.12);color:var(--red)}
 .v-up .stp li.fin i::before{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff2b2b' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat}
 .v-up .stp li.fin i{font-size:0}
-.v-up .stp .sl{flex:1;min-width:10px;height:1.5px;background:var(--bd2);transition:background .3s}.v-up .stp .sl.fill{background:var(--red)}
+.v-up .stp .sl{flex:1;min-width:6px;height:1.5px;background:var(--bd2);transition:background .3s}.v-up .stp .sl.fill{background:var(--red)}
 .v-up .vbody{overflow-x:hidden;overflow-y:auto;padding:3px 5px 3px 3px;margin:-3px -5px -3px -3px;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
 .v-up .step{display:none}.v-up .step.on{display:block;animation:vrise .5s cubic-bezier(.22,1,.36,1) both}
 .v-up .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
@@ -364,6 +542,12 @@
 .v-up .in>input[type=password]{padding-right:40px!important}
 .v-up .eye{right:3px;width:34px;height:34px}
 .v-up .hint{margin:-4px 0 12px;font-size:11px;line-height:1.35;color:var(--mu2)}
+/* live username check: red field + message when the username is already used */
+.fld.bad .in>input,.fld.bad .in>input:focus{border-color:var(--dan);box-shadow:0 0 0 4px rgba(217,43,43,.14)}
+.fld.bad .in>svg{color:var(--dan)}
+.fld .uh{display:block;margin-top:5px;font-size:11.5px;line-height:1.35;font-weight:500;color:var(--mu2)}
+.fld.bad .uh{color:var(--dan)}
+.fld.good .uh{color:#1f8a4c}
 .v-up .sel{display:block;width:100%;height:38px;padding:0 28px 0 11px;font:400 13px Inter,sans-serif;color:var(--tx);background:var(--field) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666b73' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 9px center/14px;border:1px solid var(--bd);border-radius:11px;outline:none;-webkit-appearance:none;appearance:none;text-overflow:ellipsis;cursor:pointer;transition:border-color .2s,box-shadow .2s}
 .v-up .sel:hover{border-color:var(--bd2)}.v-up .sel:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(255,43,43,.16)}
 .v-up .ph{display:grid;grid-template-columns:104px minmax(0,1fr);gap:6px}
@@ -381,6 +565,24 @@
 .v-up .sum>div{display:flex;justify-content:space-between;gap:12px;padding:7px 12px;font-size:12.5px}
 .v-up .sum>div+div{border-top:1px solid var(--bd)}
 .v-up .sum dt{flex:none;color:var(--mu)}.v-up .sum dd{margin:0;min-width:0;font-weight:600;color:var(--tx);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v-up .pay-h{margin:0 0 6px;font:600 12px Inter,sans-serif;color:var(--tx)}
+.v-up .pay-due{margin:0 0 12px;padding:12px 14px;border-radius:12px;background:rgba(255,43,43,.06);border:1px solid rgba(255,43,43,.18)}
+.v-up .pay-due small{display:block;font:500 11px Inter,sans-serif;color:var(--mu);margin-bottom:2px}
+.v-up .pay-due b{font:700 21px Sora,Inter,sans-serif;color:var(--tx);font-variant-numeric:tabular-nums}
+.v-up .pay-due span{margin-left:8px;font-size:11.5px;color:var(--mu)}
+.v-up .pay-bank{margin:0 0 14px}
+.v-up .pay-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.v-up .pay-choice label{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border:1px solid var(--bd,#e6e6e6);border-radius:12px;cursor:pointer;background:#fff}
+.v-up .pay-choice input{margin-top:3px;accent-color:#ff2b2b}
+.v-up .pay-choice b{display:block;font:600 12.5px Inter,sans-serif;color:var(--tx)}
+.v-up .pay-choice small{display:block;font:500 11px Inter,sans-serif;color:var(--mu);margin-top:2px}
+.v-up .pay-choice label:has(input:checked){border-color:#ff2b2b;background:rgba(255,43,43,.05)}
+@media(max-width:420px){.v-up .pay-choice{grid-template-columns:1fr}}
+.v-up .pay-bank .sum{margin:0 0 6px}
+.v-up .pay-bank .hint{margin:0}
+.v-up .sum dd .cp{border:0;background:none;cursor:pointer;color:var(--mu);padding:2px 0 2px 6px;vertical-align:middle;line-height:0}
+.v-up .sum dd .cp:hover{color:var(--red)}
+.v-up .sum dd.wrap{white-space:normal;overflow:visible}
 .v-up .note{display:flex;gap:8px;align-items:flex-start;padding:9px 12px;border-radius:12px;background:rgba(17,17,17,.04);font-size:12px;line-height:1.4;color:var(--tx2)}
 .v-up .note svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--red)}
 .v-up .vact{display:flex;align-items:stretch;gap:10px;margin-top:10px}
@@ -449,8 +651,41 @@
 <div class="boot" id="boot" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p id="boot-t">Loading…</p></div>
 <div class="curtain" id="cur" aria-live="polite"><div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
 
+<div class="fpm" id="fpm" hidden role="dialog" aria-modal="true" aria-labelledby="fp-h">
+  <div class="fpc">
+    <form id="fpf" novalidate autocomplete="off">
+      <h2 id="fp-h">Reset your password</h2>
+      <p class="fpt">Enter your account details and your current password to set a new one. No request to your administrator needed.</p>
+
+      <div class="fps">Your account</div>
+      <div class="fgrid">
+        <label class="fld"><span>Company login name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg><input name="company" type="text" placeholder="adflare" autocomplete="off" autocapitalize="none" spellcheck="false"></span></label>
+        <label class="fld"><span>Username</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="username" type="text" placeholder="Username" autocomplete="off" autocapitalize="none" spellcheck="false"></span></label>
+      </div>
+
+      <div class="fps">Confirm it is you</div>
+      <label class="fld"><span>Full name (as on the account)</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="fullname" type="text" placeholder="Your full name" autocomplete="off" spellcheck="false"></span></label>
+      <label class="fld"><span>Current password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="opw" type="password" placeholder="Your current password" autocomplete="off"></span></label>
+
+      <div class="fps">New password</div>
+      <div class="fgrid">
+        <label class="fld"><span>New password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="npw" type="password" placeholder="Min. 8 characters" autocomplete="new-password"></span></label>
+        <label class="fld"><span>Confirm new password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="npw2" type="password" placeholder="Type again" autocomplete="new-password"></span></label>
+      </div>
+      <p class="msg" id="fpmsg" hidden></p>
+      <div class="row"><button type="button" class="fpb sec" id="fpx">Cancel</button><button type="submit" class="fpb" id="fpb">Change password</button></div>
+    </form>
+    <div id="fp-done" hidden>
+      <div class="fpok"><svg viewBox="0 0 86 86" aria-hidden="true"><circle class="fpok-ring" cx="43" cy="43" r="40"/><path class="fpok-tick" d="M27 44l11 11 22-24"/></svg></div>
+      <h2>Password changed</h2>
+      <p>Your password has been updated. Sign in with your new password.</p>
+      <div class="row"><button type="button" class="fpb" id="fpd">Back to sign in</button></div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="alert" aria-live="assertive"><span id="toast-i"></span><span id="toast-t"></span></div>
 
+<div class="login-screen">
 <main class="shell">
   <aside class="side">
     <div class="glow" aria-hidden="true"></div>
@@ -505,9 +740,10 @@
           <h1>Sign in</h1>
           <p class="sub">Sign in to your AFPOS account.</p>
           <form id="f" novalidate>
-            <label class="fld"><span>Company</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5M9 9.5h.01M12 9.5h.01M15 9.5h.01"/></svg><input name="company" type="text" placeholder="Your company name" autocomplete="organization" autocapitalize="none" spellcheck="false" required></span></label>
+            <label class="fld"><span>Company login name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg><input name="company" type="text" placeholder="adflare" autocomplete="organization" autocapitalize="none" spellcheck="false" required></span></label>
             <label class="fld"><span>Username</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><input name="username" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none" spellcheck="false" required></span></label>
             <label class="fld"><span>Password</span><span class="in"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input name="password" id="pw" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="eye" id="eye" type="button" aria-label="Show password"><svg class="on" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.7A9.9 9.9 0 0112 5.5c6.4 0 10 6.5 10 6.5a17 17 0 01-3.2 3.9M6.6 6.9A16.6 16.6 0 002 12s3.6 6.5 10 6.5c1.5 0 2.8-.3 4-.8M9.9 9.9a2.8 2.8 0 004 4"/></svg></button></span></label>
+            <div class="opts"><label class="rm"><input type="checkbox" id="rm"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Remember me</span></label><button type="button" class="fgp" id="fgp">Forgot password?</button></div>
             <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <p class="msg" id="m" hidden><span id="mt"></span></p>
             <button id="b" type="submit"><span class="bar"></span><span class="t">Sign in</span></button>
@@ -521,18 +757,20 @@
             <ol class="stp" id="stp" aria-label="Sign-up progress">
               <li class="on" data-n="1"><i>1</i><b>Your business</b></li><span class="sl"></span>
               <li data-n="2"><i>2</i><b>Your account</b></li><span class="sl"></span>
-              <li data-n="3"><i>3</i><b>Review</b></li>
+              <li data-n="3"><i>3</i><b>Payment</b></li><span class="sl"></span>
+              <li data-n="4"><i>4</i><b>Review</b></li>
             </ol>
             <h1 id="su-h">Tell us about your business</h1>
-            <p class="sub" id="su-s">Free to start, no credit card needed.</p>
+            <p class="sub" id="su-s">Choose a plan. You can pay now or pay later.</p>
             <form id="f2" novalidate autocomplete="on">
               <div class="vbody" id="vbody">
                 <section class="step on" data-step="1">
+                  <div class="su-plan" id="su-plan" hidden><span>Your plan</span><b></b><button type="button" id="su-plan-chg">Change</button></div>
                   <div class="row2">
                     <label class="fld"><span>Company name</span><span class="in"><svg viewBox="0 0 24 24"><path d="M4 20V6l8-3 8 3v14M9 20v-5h6v5M9 9.5h.01M12 9.5h.01M15 9.5h.01"/></svg><input name="company" type="text" placeholder="AdFlare" autocomplete="organization" maxlength="60" required></span></label>
                     <label class="fld"><span>Company login name</span><span class="in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg><input name="login" type="text" placeholder="adflare" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required></span></label>
                   </div>
-                  <p class="hint">What your team types in the Company box when they sign in.</p>
+                  <p class="hint">Your team types this as the Company login name when they sign in. Lowercase letters and numbers only.</p>
                   <div class="fld" role="radiogroup" aria-labelledby="l-bt"><span id="l-bt">What kind of business is it?</span><div class="opts"><label class="opt"><input type="radio" name="btype" value="Fashion & Apparel"><span>Fashion &amp; Apparel</span></label><label class="opt"><input type="radio" name="btype" value="Groceries"><span>Groceries</span></label><label class="opt"><input type="radio" name="btype" value="Electronics"><span>Electronics</span></label><label class="opt"><input type="radio" name="btype" value="Restaurant & Cafe"><span>Restaurant &amp; Cafe</span></label><label class="opt"><input type="radio" name="btype" value="Something else"><span>Something else</span></label></div></div>
                   <div class="row2">
                     <div class="fld"><span id="l-country">Country</span><select name="country" id="su-country" aria-labelledby="l-country" hidden></select></div>
@@ -553,8 +791,26 @@
                   <p class="hint">At least 8 characters.</p>
                 </section>
                 <section class="step" data-step="3">
+                  <div class="pay-due" id="pay-due" hidden><div><small>Amount to pay</small><b id="pay-amt">-</b><span id="pay-per"></span></div></div>
+                  <div class="pay-bank">
+                    <div class="pay-h">Send the payment to</div>
+                    <dl class="sum" id="pay-bank"><div><dt>Bank</dt><dd>Loading...</dd></div></dl>
+                    <p class="hint" id="pay-ins"></p>
+                  </div>
+                  <div class="pay-choice" role="radiogroup" aria-label="When do you want to pay?">
+                    <label><input type="radio" name="paymode" value="now"><span><b>I already paid</b><small>Send the details now. Approval is faster.</small></span></label>
+                    <label><input type="radio" name="paymode" value="later" checked><span><b>Pay later</b><small>Create the account now and pay after.</small></span></label>
+                  </div>
+                  <div id="pay-fields" hidden>
+                  <div class="pay-h">Payment details</div>
+                  <div class="row2"><label class="fld"><span>Sender name</span><span class="in"><input name="pay_name" type="text" maxlength="80" autocomplete="off"></span></label><label class="fld"><span>Bank you paid from</span><span class="in"><input name="pay_bank" type="text" maxlength="60" autocomplete="off"></span></label></div>
+                  <div class="row2"><label class="fld"><span>Transfer reference</span><span class="in"><input name="pay_ref" type="text" maxlength="60" autocomplete="off"></span></label><label class="fld"><span>Date paid</span><span class="in"><input name="pay_date" type="date"></span></label></div>
+                  </div>
+                  <p class="hint" id="pay-later-hint">Pay later: your account is created and marked <b>Unpaid</b>. AdFlare will contact you with how to pay, or you can send the payment to the bank above any time and message us your reference.</p>
+                </section>
+                <section class="step" data-step="4">
                   <dl class="sum" id="su-sum"></dl>
-                  <p class="note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Your sign-up goes to the AdFlare admin for approval. You can sign in to AFPOS once it is approved.</span></p>
+                  <p class="note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Your sign-up goes to the AdFlare admin. You can sign in to AFPOS once it is approved.</span></p>
                 </section>
               </div>
               <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -575,6 +831,37 @@
     </div>
   </section>
 </main>
+<a class="pl-cue" href="#plans" id="pl-cue"><span>Plans &amp; pricing</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
+</div>
+
+<section class="plans" id="plans" aria-labelledby="pl-h">
+  <div class="pl-wrap">
+    <header class="pl-head">
+      <span class="pl-eyebrow">Plans &amp; pricing</span>
+      <h2 id="pl-h">Start with one outlet. Grow when you are ready.</h2>
+      <p>Every plan includes your first outlet. Add more outlets and staff accounts only when you need them, and pay for just those.</p>
+    </header>
+
+    <div class="pl-cycle">
+      <div class="pl-seg" role="radiogroup" aria-label="Billing period" id="pl-seg">
+        <span class="pl-pill" id="pl-pill" aria-hidden="true"></span>
+        <button type="button" role="radio" aria-checked="true" data-cycle="monthly">Monthly</button>
+        <button type="button" role="radio" aria-checked="false" data-cycle="biannual">6 months <span class="pl-save" id="pl-s6"></span></button>
+        <button type="button" role="radio" aria-checked="false" data-cycle="annual">Yearly <span class="pl-save" id="pl-s12"></span></button>
+      </div>
+    </div>
+
+    <div class="pl-grid" id="pl-grid"></div>
+
+    <div class="pl-addons" aria-label="How it works">
+      <div class="pl-ad"><span class="pl-ico"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>How it works</b><small>Choose a plan. You can pay now or pay later.</small></div></div>
+    </div>
+
+    <p class="pl-note" id="pl-note">All prices are in US dollars (USD) and shown per month. Longer billing periods are paid upfront.</p>
+    <div class="pl-top"><a href="#" id="pl-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Back to sign in</a></div>
+  </div>
+</section>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="supabase-config.js"></script>
@@ -582,7 +869,7 @@
 [].forEach.call(document.querySelectorAll('.yr'),function(e){e.textContent=new Date().getFullYear()});
 var POS_HOME='pos-app.html';
 var C=window.SUPABASE_CONFIG||{},sb=null;
-if(C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.AFS,persistSession:true,autoRefreshToken:true}})}catch(e){}}
+if(C.url&&C.anonKey&&window.supabase&&typeof window.supabase.createClient==='function'){try{sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:window.AFS,storageKey:'sb-afpos-auth',persistSession:true,autoRefreshToken:true}})}catch(e){}}
 function supabaseReady(){return !!(C.url&&C.anonKey&&!/YOUR-/.test(C.url+C.anonKey)&&sb)}
 /* did the person just come back from the email link? (Supabase puts the result in the address) */
 var LANDED=(function(){var h=location.hash||'';if(!h)return'';if(/error_code=|[#&]error=/.test(h))return'bad';if(/access_token=|type=(signup|email|email_change|magiclink)/.test(h))return'ok';return''})();
@@ -625,7 +912,49 @@ function afterBoot(){hideBoot()}
   if(!sb||!has||location.hash)return fresh();
   sb.auth.getSession().then(function(r){if(r&&r.data&&r.data.session)location.replace(POS_HOME);else fresh()}).catch(fresh);
 })();
-/* no 'Remember me' on the AFPOS login: wipe anything an older version saved */
+/* Remember me (per account, nothing is listed or pre-filled for anyone else):
+   checked   -> this device keeps that person signed in
+   unchecked -> the session lives only in this tab and is gone when the tab / app is closed
+   The username is never saved, so another person opening this page never sees whose account was used. */
+var rm=document.getElementById('rm');
+/* Forgot password: the person sets a new password themselves by re-entering details that are already on the account. */
+(function(){
+  var fm=document.getElementById('fpm'),ff=document.getElementById('fpf'),fb=document.getElementById('fpb'),fmsg=document.getElementById('fpmsg'),done=document.getElementById('fp-done'),back=null,lastCo='',lastUs='';
+  function show(t){fmsg.textContent=t;fmsg.hidden=false}
+  function open(){back=document.activeElement;fmsg.hidden=true;ff.hidden=false;done.hidden=true;fb.disabled=false;fb.textContent='Change password';ff.reset();ff.company.value=f.company.value;ff.username.value=f.username.value;fm.hidden=false;setTimeout(function(){(ff.company.value?ff.username:ff.company).focus()},40)}
+  function close(){fm.hidden=true;ff.reset();try{back&&back.focus&&back.focus({preventScroll:true})}catch(e){}}
+  document.getElementById('fgp').addEventListener('click',open);
+  document.getElementById('fpx').addEventListener('click',close);
+  document.getElementById('fpd').addEventListener('click',function(){close();if(lastCo){f.company.value=lastCo;f.username.value=lastUs;f.password.value='';try{f.password.focus()}catch(e){}}});
+  fm.addEventListener('mousedown',function(e){if(e.target===fm)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!fm.hidden)close()});
+  ff.elements.username.addEventListener('input',function(){this.value=this.value.toLowerCase()});
+  ff.addEventListener('submit',function(e){
+    e.preventDefault();fmsg.hidden=true;
+    var v=function(n){return String(ff.elements[n].value||'').trim()},co=v('company').replace(/\s+/g,' '),us=v('username').toLowerCase(),em=loginEmail(co,us),nm=v('fullname'),n1=ff.elements.npw.value,n2=ff.elements.npw2.value;
+    if(!co||!us||!em){show('Enter your company login name and username.');return}
+    if(!nm){show('Enter your full name.');return}
+    if(!ff.elements.opw.value){show('Enter your current password.');return}
+    if(n1.length<8){show('The new password must be at least 8 characters.');return}
+    if(n1===ff.elements.opw.value){show('Choose a new password that is different from the current one.');return}
+    if(n1!==n2){show('The two new passwords are not the same.');return}
+    if(!supabaseReady()){show('The database is not connected. Check supabase-config.js.');return}
+    fb.disabled=true;fb.textContent='Saving…';
+    function again(){fb.disabled=false;fb.textContent='Change password'}
+    sb.rpc('afpos_reset_password',{p_login:em,p_name:nm,p_old:ff.elements.opw.value,p_new:n1}).then(function(r){
+      again();
+      var m=r.error&&String(r.error.message||'');
+      if(m&&/could not find the function|schema cache/i.test(m)){show('Password reset is not set up yet. Ask your administrator to reset your password (Users, then Reset password).');return}
+      if(m){show(r.error.status>=500||/fetch|network/i.test(m)?'Could not reach the server. Try again.':'Could not change the password. Try again.');return}
+      var d=r.data||{};
+      if(d.ok){lastCo=co;lastUs=us;ff.reset();ff.hidden=true;done.hidden=false;return}
+      if(d.locked){show(waitTxt(d.locked*1000));return}
+      if(d.weak){show('The new password must be at least 8 characters.');return}
+      show('These details do not match the account. Check them and try again.');
+    },function(){again();show('Could not reach the server. Try again.')});
+  });
+})();
+/* old versions saved things under these keys: wipe them */
 try{localStorage.removeItem('afpos_rm');localStorage.removeItem('afpos_rm2')}catch(e){}
 /* Login limit: 5 wrong passwords on this device -> locked 15 minutes. The database keeps the same count per device + account
    (private/afpos-security.sql); if that SQL has not been run yet the page still works and only the device lock applies. */
@@ -647,12 +976,13 @@ f.addEventListener('submit',function(e){
   if(document.activeElement&&f.contains(document.activeElement))document.activeElement.blur();
   if(f.website.value)return; // bot
   var co=f.company.value.trim().replace(/\s+/g,' '),us=f.username.value.trim().toLowerCase(),pw0=f.password.value,em0=loginEmail(co,us);
-  if(!co||!us||!pw0){err('Enter your company, username and password.');return}
-  if(!em0){err('Check your company and username.');return}
+  if(!co||!us||!pw0){err('Enter your company login name, username and password.');return}
+  if(!em0){err('Check your company login name and username.');return}
   if(!supabaseReady()){err('The database is not connected. Check supabase-config.js.');return}
   var lk0=lockLeft();if(lk0){f.password.value='';err(waitTxt(lk0));return}
   b.disabled=true;b.className='load';bt.insertAdjacentHTML('beforebegin',dotsMarkup());bt.textContent='Signing in…';
   var s0=Date.now();
+  AFS.keep(rm.checked);   /* decided before the session is written */
   gate(em0).then(function(w){return w>0?{locked:w}:sb.auth.signInWithPassword({email:em0,password:pw0})}).then(function(r){
     var loader=b.querySelector('.btn-dots');
     if(r&&r.locked){loader&&loader.remove();f.password.value='';err(waitTxt(r.locked*1000));return}
@@ -684,7 +1014,17 @@ f.addEventListener('submit',function(e){
 /* keep the card height in step with its content */
 var views=document.getElementById('views'),vUp=document.getElementById('v-up'),vbody=document.getElementById('vbody'),mode='in';
 var wide=window.matchMedia('(min-width:881px)');
+/* sign-up card: scale it to fill the window (login-landscape.css gives it a fixed 1080x660 layout size) */
+var shellEl=document.querySelector('.shell'),wideDesk=window.matchMedia('(min-width:1000px)');
+function fitScale(){
+  if(!shellEl)return;
+  if(mode==='up'&&wideDesk.matches){
+    var s=Math.min(window.innerHeight*.94/(660*.75),(window.innerWidth-48)/(1080*.75),1.9);
+    shellEl.style.scale=Math.max(.6,s).toFixed(3);
+  }else shellEl.style.scale='';
+}
 function fit(){
+  fitScale();
   var a=views.querySelector(mode==='up'?'.v-up':'.v-in');
   /* desktop: the card has a fixed height, so a tall sign-up step scrolls inside itself */
   if(mode==='up'&&wide.matches&&!vUp.classList.contains('done')){
@@ -706,7 +1046,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 var f2=document.getElementById('f2'),b2=document.getElementById('b2'),b2t=b2.querySelector('.t'),suBack=document.getElementById('su-back'),
     stpLi=[].slice.call(document.querySelectorAll('#stp li')),stpSl=[].slice.call(document.querySelectorAll('#stp .sl')),
     steps=[].slice.call(f2.querySelectorAll('.step')),step=1,sending=false,
-    HEAD=[['Tell us about your business','Free to start, no credit card needed.'],['Create your account',"You'll be the owner. You can invite your team afterwards."],['Review and send','Check your details, then send your request.']];
+    HEAD=[['Tell us about your business','Choose a plan. You can pay now or pay later.'],['Create your account',"You'll be the owner. You can invite your team afterwards."],['Pay for your plan','Send the transfer, then add the details. Or pay after sign-up.'],['Review and send','Check your details, then send your request.']];
 var PKS=[];function closePk(except){PKS.forEach(function(k){if(k!==except)k.close()})}
 function suErr(t){toast(t,'err');f2.classList.remove('shake');void f2.offsetWidth;f2.classList.add('shake')}
 function setMode(m,instant){
@@ -724,15 +1064,17 @@ function showStep(n){
   stpLi.forEach(function(li,i){li.classList.toggle('on',i===n-1);li.classList.toggle('fin',i<n-1)});
   stpSl.forEach(function(sl,i){sl.classList.toggle('fill',i<n-1)});
   document.getElementById('su-h').textContent=HEAD[n-1][0];document.getElementById('su-s').textContent=HEAD[n-1][1];
-  suBack.hidden=n===1;b2t.textContent=n===3?'Create account':'Continue';
+  suBack.hidden=n===1;b2t.textContent=n===4?'Create account':(n===3?payBtnText():'Continue');
+  if(n===3)buildPayment();
+  if(n===4)buildReview();
   closePk();vbody.scrollTop=0;fit();
-  if(n===3)buildReview();
 }
 function val(name){var e=f2.elements[name];return e?String(e.value).trim():''}
 function checked(name){var e=f2.querySelector('input[name='+name+']:checked');return e?e.value:''}
 function phoneFull(){return (val('cc')==='+'?'+':val('cc')+' ')+val('phone').replace(/[^0-9]/g,'')}
 function validate(n){
   if(n===1){
+    if(!window.afposPlan){setTimeout(function(){var pe=document.getElementById('plans');if(pe)pe.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})},500);return'Choose a plan first. Taking you to the plans.'}
     if(!checked('btype'))return'Choose what kind of business it is.';
     if(val('company').length<2)return'Enter your company name.';
     var ln=slug(val('login'));
@@ -741,19 +1083,76 @@ function validate(n){
   if(n===2){
     if(val('fullname').length<2)return'Enter your name.';
     if(!/^[A-Za-z0-9._-]{3,30}$/.test(val('username')))return'Username: 3-30 letters, numbers, dot, dash or underscore.';
+    if(unTaken[val('username').toLowerCase()])return'Username "'+val('username').toLowerCase()+'" is already taken. Choose another one.';
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email')))return'Enter a valid business email.';
     var d=val('phone').replace(/[^0-9]/g,'');if(d.length<5||d.length>15)return'Enter a valid mobile number.';
     var pw1=f2.elements.password.value;
     if(pw1.length<8)return'Password must be at least 8 characters.';
     if(pw1!==f2.elements.password2.value)return'The two passwords do not match.';
   }
+  if(n===3&&payNow()){
+    if(val('pay_ref').length<2)return'Enter the transfer reference, or choose Pay later.';
+    if(!val('pay_date'))return'Enter the date you paid.';
+    if(val('pay_date')>new Date().toISOString().slice(0,10))return'The payment date cannot be in the future.';
+  }
   return'';
 }
+var CYC_NAME={monthly:'Monthly',biannual:'Every 6 months',annual:'Yearly'};
+function planText(){
+  var p=window.afposPlan;if(!p)return'Not chosen yet';
+  var mo={monthly:1,biannual:6,annual:12}[p.cycle]||1,per={monthly:'month',biannual:'6 months',annual:'year'}[p.cycle]||'month';
+  var t=p.name+' · '+CYC_NAME[p.cycle]+' · USD '+Math.round(p.total*mo).toLocaleString('en-US')+' / '+per;
+  if(p.o)t+=' · +'+p.o+' outlet'+(p.o>1?'s':'');
+  if(p.a)t+=' · +'+p.a+' account'+(p.a>1?'s':'');
+  return t;
+}
+function paintPlanChip(){
+  var c=document.getElementById('su-plan');if(!c)return;c.hidden=!window.afposPlan;c.querySelector('b').textContent=planText();
+  var os=f2.elements.outlets;if(!os)return;
+  var p=window.afposPlan,allowed=p?(p.id==='starter'?1:1+(p.o||0)):99;
+  var mins={'1':1,'2–5':2,'6–14':6,'15+':15};
+  Array.prototype.forEach.call(os.options,function(o){o.disabled=(mins[o.value]||1)>allowed});
+  if(os.options[os.selectedIndex]&&os.options[os.selectedIndex].disabled){
+    var best='1';Array.prototype.forEach.call(os.options,function(o){if(!o.disabled)best=o.value});os.value=best;
+  }
+}
+window.afposPlanChanged=paintPlanChip;
+document.getElementById('su-plan-chg').addEventListener('click',function(){var pe=document.getElementById('plans');if(pe)pe.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
 function row(dt,dd){var d=document.createElement('div'),a=document.createElement('dt'),b=document.createElement('dd');a.textContent=dt;b.textContent=dd;b.title=dd;d.append(a,b);return d}
 function fill(dl,rows){dl.textContent='';rows.forEach(function(r){dl.appendChild(row(r[0],r[1]))})}
+function payNow(){return checked('paymode')==='now'}
+function payFilled(){return payNow()&&!!(val('pay_ref')||val('pay_date')||val('pay_name')||val('pay_bank'))}
+function payBtnText(){return payNow()?'Continue':'Continue, pay later'}
+function paintPayMode(){var n=payNow();document.getElementById('pay-fields').hidden=!n;document.getElementById('pay-later-hint').hidden=n;if(step===3)b2t.textContent=payBtnText();fit()}
+[].forEach.call(f2.querySelectorAll('input[name=paymode]'),function(r){r.addEventListener('change',paintPayMode)});
+function payDue(){var p=window.afposPlan;if(!p)return 0;return Math.round(p.total*({monthly:1,biannual:6,annual:12}[p.cycle]||1))}
+var PAY_INFO=null;
+function copyBtn(txt,label){var b=document.createElement('button');b.type='button';b.className='cp';b.setAttribute('aria-label','Copy '+label);b.title='Copy '+label;
+  b.innerHTML='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+  b.onclick=function(){navigator.clipboard.writeText(txt).then(function(){toast('Copied: '+txt,'ok')},function(){toast('Could not copy. Copy it manually.','err')})};return b}
+function paintBank(){
+  var dl=document.getElementById('pay-bank'),i=PAY_INFO;dl.textContent='';
+  if(!i){dl.appendChild(row('Bank','Bank details are not available yet. Send the payment after your account is created.'));return}
+  dl.appendChild(row('Bank',i.bank_name));dl.appendChild(row('Account name',i.account_name));
+  var r=row('Account number',i.account_number);r.querySelector('dd').appendChild(copyBtn(i.account_number,'account number'));dl.appendChild(r);
+  document.getElementById('pay-ins').textContent=i.instructions||'';
+}
+function buildPayment(){
+  var p=window.afposPlan,due=document.getElementById('pay-due');
+  due.hidden=!p;
+  if(p){var m={monthly:1,biannual:6,annual:12}[p.cycle]||1;
+    document.getElementById('pay-amt').textContent='USD '+payDue().toLocaleString('en-US');
+    document.getElementById('pay-per').textContent=p.name+' · '+(m===1?'billed monthly':m===6?'billed every 6 months':'billed yearly');}
+  paintBank();
+  if(!PAY_INFO)sb.rpc('get_payment_info').then(function(r){if(r&&r.data){PAY_INFO=r.data;paintBank()}});
+}
+['pay_name','pay_bank','pay_ref','pay_date'].forEach(function(n){var e=f2.elements[n];if(e)e.addEventListener('input',function(){if(step===3)b2t.textContent=payBtnText()})});
 function buildReview(){
   var loc=[checked('btype'),val('outlets')+(val('outlets')==='1'?' outlet':' outlets'),val('country')].join(' · ');
-  fill(document.getElementById('su-sum'),[['Company',val('company')],['Business',loc],['Login','Company: @'+slug(val('login'))+' · '+val('username').toLowerCase()],['Name',val('fullname')],['Email',val('email')],['Mobile',phoneFull()]]);
+  var rows=[['Company name',val('company')],['Plan',planText()]];
+  if(window.afposPlan)rows.push(['Amount due','USD '+payDue().toLocaleString('en-US')]);
+  rows.push(['Payment',payNow()?('Paid · reference '+val('pay_ref')+(val('pay_date')?' · '+val('pay_date'):'')):'Pay later (Unpaid)'],['Business',loc],['Company login name',slug(val('login'))],['Username',val('username').toLowerCase()],['Name',val('fullname')],['Email',val('email')],['Mobile',phoneFull()]);
+  fill(document.getElementById('su-sum'),rows);
 }
 /* the company login name is typed by the person (NOT linked to the company name) and is always lowercase */
 var suLogin=f2.elements.login;
@@ -762,6 +1161,29 @@ suLogin.addEventListener('blur',function(){this.value=this.value.toLowerCase().r
 /* usernames are always lowercase (sign-up and sign-in) */
 function lowerInput(el){if(!el)return;el.addEventListener('input',function(){var a=this.selectionStart,v=this.value.toLowerCase().replace(/\s+/g,'');if(v!==this.value){this.value=v;try{this.setSelectionRange(a,a)}catch(x){}}})}
 lowerInput(f2.elements.username);lowerInput(f.username);
+/* live username check: as soon as the username is already used, say so (red field + message + notification) */
+var unTaken={},unTimer=null,unSeq=0,unEl=f2.elements.username,unFld=unEl.closest('.fld'),unMsg=document.createElement('small');
+unMsg.className='uh';unMsg.setAttribute('aria-live','polite');unFld.appendChild(unMsg);
+function unShow(state,text){unFld.classList.toggle('bad',state==='bad');unFld.classList.toggle('good',state==='good');unEl.setAttribute('aria-invalid',state==='bad'?'true':'false');unMsg.textContent=text||''}
+function unApply(u){
+  if(unTaken[u]){unShow('bad','Already taken. Choose another username.');return true}
+  return false;
+}
+function unCheck(notify){
+  var u=unEl.value.trim().toLowerCase(),seq=++unSeq;clearTimeout(unTimer);
+  if(!/^[a-z0-9._-]{3,30}$/.test(u)){unShow('');return}
+  if(unApply(u)){if(notify)toast('Username "'+u+'" is already taken. Choose another one.','err');return}
+  if(!supabaseReady())return;
+  sb.rpc('afpos_username_available',{p_username:u}).then(function(r){
+    if(r.error){try{console.warn('AFPOS username check is not working. Run private/afpos-username-check.sql in the Supabase SQL Editor. Details:',r.error.message||r.error)}catch(x){}return} /* not installed yet: the server still checks on Create account */
+    if(seq!==unSeq)return; /* typed something else meanwhile */
+    if(r.data===false){unTaken[u]=true;unApply(u);toast('Username "'+u+'" is already taken. Choose another one.','err')}
+    else unShow('good','Username is available.');
+  }).catch(function(){});
+}
+unEl.addEventListener('input',function(){unShow('');clearTimeout(unTimer);unTimer=setTimeout(function(){unCheck(true)},450)});
+unEl.addEventListener('blur',function(){unCheck(false)});
+f2.addEventListener('reset',function(){setTimeout(function(){unShow('');unSeq++},0)});
 /* countries: [iso, name, dial code]. Maldives first, then the nearby ones, then A-Z */
 var COUNTRIES=[["MV","Maldives","960"],["PH","Philippines","63"],["IN","India","91"],["LK","Sri Lanka","94"],["MY","Malaysia","60"],["BD","Bangladesh","880"],["AF","Afghanistan","93"],["AX","Åland Islands","358"],["AL","Albania","355"],["DZ","Algeria","213"],["AS","American Samoa","1684"],["AD","Andorra","376"],["AO","Angola","244"],["AI","Anguilla","1264"],["AQ","Antarctica","672"],["AG","Antigua and Barbuda","1268"],["AR","Argentina","54"],["AM","Armenia","374"],["AW","Aruba","297"],["AC","Ascension Island","247"],["AU","Australia","61"],["AT","Austria","43"],["AZ","Azerbaijan","994"],["BS","Bahamas","1242"],["BH","Bahrain","973"],["BB","Barbados","1246"],["BY","Belarus","375"],["BE","Belgium","32"],["BZ","Belize","501"],["BJ","Benin","229"],["BM","Bermuda","1441"],["BT","Bhutan","975"],["BO","Bolivia","591"],["BQ","Bonaire","5997"],["BA","Bosnia and Herzegovina","387"],["BW","Botswana","267"],["BV","Bouvet Island","47"],["BR","Brazil","55"],["IO","British Indian Ocean Territory","246"],["VG","British Virgin Islands","1284"],["BN","Brunei","673"],["BG","Bulgaria","359"],["BF","Burkina Faso","226"],["BI","Burundi","257"],["CV","Cabo Verde","238"],["KH","Cambodia","855"],["CM","Cameroon","237"],["CA","Canada","1"],["KY","Cayman Islands","1345"],["CF","Central African Republic","236"],["TD","Chad","235"],["CL","Chile","56"],["CN","China","86"],["CX","Christmas Island","61"],["CC","Cocos (Keeling) Islands","61"],["CO","Colombia","57"],["KM","Comoros","269"],["CK","Cook Islands","682"],["CR","Costa Rica","506"],["HR","Croatia","385"],["CU","Cuba","53"],["CW","Curacao","5999"],["CY","Cyprus","357"],["CZ","Czechia","420"],["CD","Democratic Republic of the Congo","243"],["DK","Denmark","45"],["DJ","Djibouti","253"],["DM","Dominica","1767"],["DO","Dominican Republic","1809"],["TL","East Timor","670"],["EC","Ecuador","593"],["EG","Egypt","20"],["SV","El Salvador","503"],["GQ","Equatorial Guinea","240"],["ER","Eritrea","291"],["EE","Estonia","372"],["SZ","Eswatini","268"],["ET","Ethiopia","251"],["FK","Falkland Islands","500"],["FO","Faroe Islands","298"],["FJ","Fiji","679"],["FI","Finland","358"],["FR","France","33"],["GF","French Guiana","594"],["PF","French Polynesia","689"],["TF","French Southern Territories","262"],["GA","Gabon","241"],["GM","Gambia","220"],["GE","Georgia","995"],["DE","Germany","49"],["GH","Ghana","233"],["GI","Gibraltar","350"],["GR","Greece","30"],["GL","Greenland","299"],["GD","Grenada","1473"],["GP","Guadeloupe","590"],["GU","Guam","1671"],["GT","Guatemala","502"],["GG","Guernsey","44"],["GN","Guinea","224"],["GW","Guinea-Bissau","245"],["GY","Guyana","592"],["HT","Haiti","509"],["HM","Heard Island and McDonald Islands","61"],["HN","Honduras","504"],["HK","Hong Kong","852"],["HU","Hungary","36"],["IS","Iceland","354"],["ID","Indonesia","62"],["IR","Iran","98"],["IQ","Iraq","964"],["IE","Ireland","353"],["IM","Isle of Man","44"],["IL","Israel","972"],["IT","Italy","39"],["CI","Ivory Coast","225"],["JM","Jamaica","1876"],["JP","Japan","81"],["JE","Jersey","44"],["JO","Jordan","962"],["KZ","Kazakhstan","7"],["KE","Kenya","254"],["KI","Kiribati","686"],["XK","Kosovo","377"],["KW","Kuwait","965"],["KG","Kyrgyzstan","996"],["LA","Laos","856"],["LV","Latvia","371"],["LB","Lebanon","961"],["LS","Lesotho","266"],["LR","Liberia","231"],["LY","Libya","218"],["LI","Liechtenstein","423"],["LT","Lithuania","370"],["LU","Luxembourg","352"],["MO","Macao","853"],["MG","Madagascar","261"],["MW","Malawi","265"],["ML","Mali","223"],["MT","Malta","356"],["MH","Marshall Islands","692"],["MQ","Martinique","596"],["MR","Mauritania","222"],["MU","Mauritius","230"],["YT","Mayotte","262"],["MX","Mexico","52"],["FM","Micronesia","691"],["MD","Moldova","373"],["MC","Monaco","377"],["MN","Mongolia","976"],["ME","Montenegro","382"],["MS","Montserrat","1664"],["MA","Morocco","212"],["MZ","Mozambique","258"],["MM","Myanmar","95"],["NA","Namibia","264"],["NR","Nauru","674"],["NP","Nepal","977"],["NL","Netherlands","31"],["NC","New Caledonia","687"],["NZ","New Zealand","64"],["NI","Nicaragua","505"],["NE","Niger","227"],["NG","Nigeria","234"],["NU","Niue","683"],["NF","Norfolk Island","672"],["KP","North Korea","850"],["MK","North Macedonia","389"],["MP","Northern Mariana Islands","1670"],["NO","Norway","47"],["OM","Oman","968"],["PK","Pakistan","92"],["PW","Palau","680"],["PS","Palestine","970"],["PA","Panama","507"],["PG","Papua New Guinea","675"],["PY","Paraguay","595"],["PE","Peru","51"],["PN","Pitcairn Islands","64"],["PL","Poland","48"],["PT","Portugal","351"],["PR","Puerto Rico","1787"],["QA","Qatar","974"],["CG","Republic of the Congo","242"],["RE","Reunion","262"],["RO","Romania","40"],["RU","Russia","7"],["RW","Rwanda","250"],["BL","Saint Barthelemy","590"],["SH","Saint Helena","290"],["KN","Saint Kitts and Nevis","1869"],["LC","Saint Lucia","1758"],["MF","Saint Martin","590"],["PM","Saint Pierre and Miquelon","508"],["VC","Saint Vincent and the Grenadines","1784"],["WS","Samoa","685"],["SM","San Marino","378"],["ST","Sao Tome and Principe","239"],["SA","Saudi Arabia","966"],["SN","Senegal","221"],["RS","Serbia","381"],["SC","Seychelles","248"],["SL","Sierra Leone","232"],["SG","Singapore","65"],["SX","Sint Maarten","1721"],["SK","Slovakia","421"],["SI","Slovenia","386"],["SB","Solomon Islands","677"],["SO","Somalia","252"],["ZA","South Africa","27"],["GS","South Georgia and the South Sandwich Islands","500"],["KR","South Korea","82"],["SS","South Sudan","211"],["ES","Spain","34"],["SD","Sudan","249"],["SR","Suriname","597"],["SJ","Svalbard and Jan Mayen","4779"],["SE","Sweden","46"],["CH","Switzerland","41"],["SY","Syria","963"],["TW","Taiwan","886"],["TJ","Tajikistan","992"],["TZ","Tanzania","255"],["TH","Thailand","66"],["TG","Togo","228"],["TK","Tokelau","690"],["TO","Tonga","676"],["TT","Trinidad and Tobago","1868"],["TA","Tristan da Cunha","290"],["TN","Tunisia","216"],["TR","Türkiye","90"],["TM","Turkmenistan","993"],["TC","Turks and Caicos Islands","1649"],["TV","Tuvalu","688"],["UM","U.S. Minor Outlying Islands","1"],["VI","U.S. Virgin Islands","1340"],["UG","Uganda","256"],["UA","Ukraine","380"],["AE","United Arab Emirates","971"],["GB","United Kingdom","44"],["US","United States","1"],["UY","Uruguay","598"],["UZ","Uzbekistan","998"],["VU","Vanuatu","678"],["VA","Vatican City","379"],["VE","Venezuela","58"],["VN","Vietnam","84"],["WF","Wallis and Futuna","681"],["EH","Western Sahara","212"],["YE","Yemen","967"],["ZM","Zambia","260"],["ZW","Zimbabwe","263"]];
 function flagOf(iso){return String.fromCodePoint(127397+iso.charCodeAt(0),127397+iso.charCodeAt(1))}
@@ -857,19 +1279,24 @@ f2.addEventListener('submit',function(e){
   e.preventDefault();if(sending)return;hideToast();
   if(f2.website.value)return; // bot
   var v=validate(step);if(v){suErr(v);return}
-  if(step<3){showStep(step+1);return}
+  if(step<4){showStep(step+1);return}
   if(!supabaseReady()){suErr('The database is not connected. Check supabase-config.js.');return}
   sending=true;b2.disabled=true;b2.className='load';b2t.insertAdjacentHTML('beforebegin',dotsMarkup());b2t.textContent='Sending…';suBack.disabled=true;
   var s0=Date.now(),ln=slug(val('login')),us=val('username').toLowerCase(),nm=val('fullname');
   function reset(){var l=b2.querySelector('.btn-dots');l&&l.remove();b2.className='';b2.disabled=false;b2t.textContent='Create account';suBack.disabled=false;sending=false}
   sb.rpc('request_afpos_account',{
     p_business_name:val('company').replace(/\s+/g,' '),p_login_name:ln,p_username:us,p_name:nm,p_contact_email:val('email').toLowerCase(),p_phone:phoneFull(),
-    p_password:f2.elements.password.value,p_business_type:checked('btype'),p_outlets:val('outlets'),p_country:val('country'),p_heard_from:val('heard')
+    p_password:f2.elements.password.value,p_business_type:checked('btype'),p_outlets:val('outlets'),p_country:val('country'),p_heard_from:val('heard'),
+    p_plan:window.afposPlan?window.afposPlan.id:'',p_plan_cycle:window.afposPlan?window.afposPlan.cycle:'',
+    p_extra_outlets:window.afposPlan?window.afposPlan.o:0,p_extra_accounts:window.afposPlan?window.afposPlan.a:0,
+    p_pay_name:(payNow()?val('pay_name'):''),p_pay_bank:(payNow()?val('pay_bank'):''),p_pay_reference:(payNow()?val('pay_ref'):''),p_pay_date:(payNow()?val('pay_date'):''),
+    p_pay_amount:(payNow()&&window.afposPlan?Math.round(window.afposPlan.total*({monthly:1,biannual:6,annual:12}[window.afposPlan.cycle]||1)):0),p_pay_note:''
   }).then(function(r){
     if(r.error){
       reset();try{console.error('AFPOS sign-up error:',r.error.status,r.error.code,r.error.message)}catch(x){}
       var msg=String(r.error.message||'');
-      if(r.error.status===429)suErr('Too many attempts. Try again later.');
+      if(/username.*already taken/i.test(msg)){unTaken[us]=true;showStep(2);unApply(us);suErr(msg)}
+      else if(r.error.status===429)suErr('Too many attempts. Try again later.');
       else if(/could not find the function|schema cache|does not exist/i.test(msg))suErr('Sign-up is not available yet. Please try again later.');
       else if(r.error.status>=500&&!/exception|taken|valid|Enter|must|Too many/i.test(msg))suErr('Could not reach the server. Try again.');
       else suErr(msg||'Could not send your request. Try again.');
@@ -877,21 +1304,60 @@ f2.addEventListener('submit',function(e){
     }
     setTimeout(function(){
       f2.elements.password.value='';f2.elements.password2.value='';
-      fill(document.getElementById('done-sum'),[['Company login name',ln],['Username',us],['Status','Waiting for approval']]);
-      document.getElementById('done-s').textContent='Thanks, '+nm.split(' ')[0]+'. We will review your account. You can sign in once it is approved.';
+      var paidNow=payNow();
+      fill(document.getElementById('done-sum'),[['Company login name',ln],['Username',us],['Payment',paidNow?'Sent, waiting for confirmation':'Pay later (Unpaid)'],['Status','Waiting for approval']]);
+      document.getElementById('done-s').textContent='Thanks, '+nm.split(' ')[0]+'. '+(paidNow?'We will check your payment and approve your account. You can sign in once it is approved.':'We will review your account and contact you about payment. You can sign in once it is approved.');
       vUp.classList.add('done');fit();toast('Request sent. Waiting for approval.','ok');
       var b3=document.getElementById('b3');vUp.dataset.ln=ln;vUp.dataset.us=us;
+      watchSignup(ln,us,nm,paidNow);
       reset();
     },Math.max(0,700-(Date.now()-s0)));
   }).catch(function(){reset();suErr('Could not reach the server.')});
 });
 document.getElementById('go-up').addEventListener('click',function(){setMode('up')});
 document.getElementById('go-in').addEventListener('click',function(){setMode('in')});
+/* live status on the "Request sent" screen: checks the database every few seconds and repaints the rows.
+   Payment confirmed and Approved show up by themselves, no refresh needed. Stops once approved or rejected. */
+var W={t:null,busy:false,ln:'',us:'',nm:'',pay:'',status:'pending'};
+function stopWatch(){if(W.t){clearInterval(W.t);W.t=null}W.busy=false}
+function payLabel(p){return p==='paid'?'Paid, confirmed':p==='submitted'?'Sent, waiting for confirmation':'Pay later (Unpaid)'}
+function statusLabel(s){return s==='approved'?'Approved':s==='rejected'?'Not approved':'Waiting for approval'}
+function paintDone(){
+  fill(document.getElementById('done-sum'),[['Company login name',W.ln],['Username',W.us],['Payment',payLabel(W.pay)],['Status',statusLabel(W.status)]]);
+  var dd=document.querySelectorAll('#done-sum dd'),st=dd[3],pd=dd[2];
+  if(st){st.style.color=W.status==='approved'?'#16a34a':W.status==='rejected'?'#dc2626':''}
+  if(pd&&W.pay==='paid')pd.style.color='#16a34a';
+  var h=document.querySelector('.su-done h1'),t=document.querySelector('#b3 .t'),s=document.getElementById('done-s');
+  if(W.status==='approved'){h.textContent='Account approved';s.textContent='Good news, '+W.nm.split(' ')[0]+'. Your account is approved. You can sign in now.';t.textContent='Sign in now'}
+  else if(W.status==='rejected'){h.textContent='Request not approved';s.textContent='Sorry, '+W.nm.split(' ')[0]+'. We could not approve this request. Please contact AdFlare.';t.textContent='Back to sign in'}
+  else{h.textContent='Request sent';t.textContent='Back to sign in'}
+  fit();
+}
+function applyStatus(d){
+  var ps=String(d.pay_status||''),st=String(d.status||'pending'),payUp=ps&&ps!==W.pay,stUp=st!==W.status;
+  if(!payUp&&!stUp)return;
+  var wasPaid=W.pay==='paid';
+  if(ps)W.pay=ps;W.status=st;paintDone();
+  if(stUp&&st==='approved'){toast('Your account is approved. You can sign in now.','ok');stopWatch()}
+  else if(stUp&&st==='rejected'){toast('Your request was not approved.','err');stopWatch()}
+  else if(payUp&&W.pay==='paid'&&!wasPaid)toast('Your payment is confirmed.','ok');
+}
+function pollStatus(){
+  if(!W.t||W.busy||document.hidden||!supabaseReady())return;
+  W.busy=true;
+  sb.rpc('afpos_signup_status',{p_login:W.ln,p_username:W.us}).then(function(r){W.busy=false;if(r&&!r.error&&r.data)applyStatus(r.data)},function(){W.busy=false});
+}
+function watchSignup(ln,us,nm,paidNow){
+  stopWatch();W.ln=ln;W.us=us;W.nm=nm;W.status='pending';W.pay=paidNow?'submitted':'unpaid';
+  W.t=setInterval(pollStatus,3000);setTimeout(pollStatus,1200);
+}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)pollStatus()});
 document.getElementById('b3').addEventListener('click',function(){
+  stopWatch();
   f.company.value=vUp.dataset.ln||'';f.username.value=vUp.dataset.us||'';f.password.value='';
   setMode('in');setTimeout(function(){try{f.password.focus({preventScroll:true})}catch(e){}},460);
   /* fresh form for the next sign-up */
-  setTimeout(function(){f2.reset();suLogin.dataset.t='';cc.dataset.t='';vUp.classList.remove('done');showStep(1)},700);
+  setTimeout(function(){f2.reset();suLogin.dataset.t='';cc.dataset.t='';vUp.classList.remove('done');showStep(1);var h=document.querySelector('.su-done h1'),t=document.querySelector('#b3 .t');if(h)h.textContent='Request sent';if(t)t.textContent='Back to sign in'},700);
 });
 if(location.hash==='#signup')setMode('up',true);
 
@@ -959,5 +1425,118 @@ if(location.hash==='#signup')setMode('up',true);
 window.addEventListener('pageshow',function(){document.body.classList.remove('leaving')});
 document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();var h=a.getAttribute('href');document.body.classList.add('leaving');setTimeout(function(){location.href=h},320)})});
 </script>
+<script>
+(function(){
+  /* ---- edit prices and features here. Prices are USD per month, for each billing period. ---- */
+  var CYCLES={monthly:{months:1,label:'monthly',word:'month'},biannual:{months:6,label:'every 6 months'},annual:{months:12,label:'every year'}};
+  var PLANS=[
+    {id:'starter',name:'Starter',icon:'M4 7h16l-1.5 9h-13zM4 7L3 3H1M9 20.5h.01M17 20.5h.01',
+      blurb:'For a single shop that wants fast selling and tidy stock.',
+      price:{monthly:30,biannual:26,annual:23},outlets:{inc:1,max:1},accounts:{inc:2,extra:{monthly:6,biannual:5,annual:5}},
+      cta:'Start with Starter',
+      feats:[['Point of sale with barcode scanning',1],['Up to 1,000 products',1],['Inventory and stock counts',1],['Customer profiles and credit',1],['Expenses and daily sales reports',1],['Live sync across all your devices',1],
+             ['Purchasing and suppliers',0],['Stock transfers between outlets',0],['Quotations and your own PDF template',0],['Loyalty, gift cards and online orders',0]]},
+    {id:'business',name:'Business',icon:'M3 20V8l9-5 9 5v12M8 20v-6h8v6M8 10h.01M12 10h.01M16 10h.01',pop:true,
+      blurb:'For growing shops and anyone running more than one outlet.',
+      price:{monthly:50,biannual:43,annual:38},outlets:{inc:1,extra:{monthly:20,biannual:17,annual:15}},accounts:{inc:5,extra:{monthly:6,biannual:5,annual:5}},
+      cta:'Start with Business',
+      feats:[['Everything in Starter',1,'hd'],['Unlimited products',1],['Run more than one outlet, with stock kept per outlet',1],['Purchase orders, suppliers and receiving stock',1],['Stock transfers between outlets',1],['Quotations and invoices on your own PDF template',1],['Loyalty points, gift cards and online orders',1],['Refunds, voids and register sessions',1],['Full reports and activity history',1],['Restore deleted records from the activity history',1],['Bulk import of products and customers',1],['Backup and restore of all your data',1],['Users and outlets management',1]]}
+  ];
+  var st={cycle:'monthly',pc:{starter:'monthly',business:'monthly'},ex:{starter:{o:0,a:0},business:{o:0,a:0}}};
+  var $=function(id){return document.getElementById(id)};
+  var CU=function(){return 'USD'};
+  var fmt=function(n){return Math.round(n).toLocaleString('en-US')};
+  var chk='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',nox='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12h10"/></svg>';
+
+  function calc(p,cy){
+    var ex=st.ex[p.id],lines=[],tot=p.price[cy];
+    lines.push(['Base plan (per month)',tot,0]);
+    lines.push(['1 outlet and '+p.accounts.inc+' accounts included',null,1]);
+    var xo=p.outlets.extra?ex.o:0;
+    if(xo){var t=xo*p.outlets.extra[cy];tot+=t;lines.push([xo+' extra outlet'+(xo>1?'s':''),t,0])}
+    var xa=p.accounts.extra?ex.a:0;
+    if(xa){var t2=xa*p.accounts.extra[cy];tot+=t2;lines.push([xa+' extra account'+(xa>1?'s':''),t2,0])}
+    return{total:tot,lines:lines};
+  }
+  function build(){
+    $('pl-grid').innerHTML=PLANS.map(function(p){
+      return '<article class="pl-card'+(p.pop?' pop':'')+'" data-plan="'+p.id+'">'+(p.pop?'<span class="pl-tag">Most popular</span>':'')+
+        '<h3 class="pl-name"><span class="pl-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+p.icon+'"/></svg></span>'+p.name+'</h3>'+
+        '<p class="pl-for">'+p.blurb+'</p>'+
+        '<div class="pl-price" aria-live="polite"></div><div class="pl-billed"></div>'+
+        '<ul class="pl-lines"></ul>'+
+        '<button type="button" class="pl-addbtn" aria-expanded="false"><span class="pl-addt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add-ons</span><span class="pl-addsum"></span><svg class="pl-addchev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>'+
+        '<div class="pl-feat-wrap pl-addwrap shut"><div class="pl-feat pl-adds"></div></div>'+
+        '<button type="button" class="pl-cta" data-plan="'+p.id+'">'+p.cta+'</button>'+
+        '<div class="pl-off-h">Other offers</div><ul class="pl-offers"></ul>'+
+        '<button type="button" class="pl-feat-h pl-min shut" aria-expanded="false">What you get<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button><div class="pl-feat-wrap shut"><ul class="pl-feat">'+p.feats.map(function(f){return '<li class="'+(f[1]?'':'no')+(f[2]?' hd':'')+'">'+(f[1]?chk:nox)+'<span>'+f[0]+'</span></li>'}).join('')+'</ul></div></article>';
+    }).join('');
+  }
+  function paint(){
+    var cy=st.cycle,m=CYCLES[cy].months;
+    PLANS.forEach(function(p){
+      var cy=st.pc[p.id],m=CYCLES[cy].months;
+      var el=document.querySelector('.pl-card[data-plan="'+p.id+'"]'),r=calc(p,cy),base=calc(p,'monthly');
+      var offs=el.querySelector('.pl-offers'),offh=el.querySelector('.pl-off-h'),price=el.querySelector('.pl-price'),billed=el.querySelector('.pl-billed'),ul=el.querySelector('.pl-lines'),btn=el.querySelector('.pl-cta');
+      btn.disabled=false;btn.textContent=p.cta;offs.hidden=false;offh.hidden=false;
+      offs.innerHTML=['monthly','biannual','annual'].map(function(k){
+        var rk=calc(p,k),mk=CYCLES[k].months,sv=k==='monthly'?0:Math.round((1-rk.total/base.total)*100),nm=k==='monthly'?'Monthly':k==='biannual'?'6 months':'Yearly';
+        return '<li class="pl-off'+(k===cy?' on':'')+'"><div><b>'+nm+' - '+CU()+' '+fmt(rk.total)+' / month'+(sv>0?'<span class="pl-save">Save '+sv+'%</span>':'')+'</b><small>'+(k==='monthly'?''+CU()+' '+fmt(rk.total)+' billed monthly':''+CU()+' '+fmt(rk.total*mk)+' billed '+CYCLES[k].label)+'</small></div><button type="button" class="pl-sel" data-plan="'+p.id+'" data-cycle="'+k+'" aria-pressed="'+(k===cy)+'">'+(k===cy?'Selected':'Select')+'</button></li>';
+      }).join('');
+      price.innerHTML='<span class="cur">'+CU()+'</span><span class="amt">'+fmt(r.total)+'</span><span class="per">/ month</span>'+(cy!=='monthly'?'<span class="was">'+fmt(base.total)+'</span>':'');
+      billed.textContent=cy==='monthly'?'Billed monthly':''+CU()+' '+fmt(r.total*m)+' billed '+CYCLES[cy].label+(base.total>r.total?' · you save '+CU()+' '+fmt((base.total-r.total)*m):'');
+      ul.innerHTML=r.lines.map(function(l){return '<li class="'+(l[2]?'inc':'')+'"><span>'+l[0]+'</span><span>'+(l[1]==null?'included':''+CU()+' '+fmt(l[1]))+'</span></li>'}).join('')+'<li class="tot"><span>Total to pay '+(cy==='monthly'?'every month':cy==='biannual'?'every 6 months':'every year')+'</span><span>'+CU()+' '+fmt(r.total*m)+'</span></li>';
+      var ex=st.ex[p.id],cnt=(p.outlets.extra?ex.o:0)+(p.accounts.extra?ex.a:0),rows='';
+      el.querySelector('.pl-addsum').textContent=cnt?'+'+((p.outlets.extra?ex.o:0)?ex.o+' outlet'+(ex.o>1?'s':'')+(ex.a?', ':''):'')+(ex.a?ex.a+' account'+(ex.a>1?'s':''):''):'Outlets and staff accounts';
+      var row=function(kind,title,note,val,max){return '<div class="pl-ar"><div><b>'+title+'</b><small>'+note+'</small></div><div class="pl-step" role="group" aria-label="'+title+'"><button type="button" class="pl-st" data-plan="'+p.id+'" data-kind="'+kind+'" data-d="-1" aria-label="Fewer"'+(val<=0?' disabled':'')+'><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><output>'+val+'</output><button type="button" class="pl-st" data-plan="'+p.id+'" data-kind="'+kind+'" data-d="1" aria-label="More"'+(val>=max?' disabled':'')+'><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>'};
+      if(p.outlets.extra)rows+=row('o','Extra outlets',CU()+' '+fmt(p.outlets.extra[cy])+' / month each. 1 outlet included.',ex.o,19);
+      if(p.accounts.extra)rows+=row('a','Extra staff accounts',CU()+' '+fmt(p.accounts.extra[cy])+' / month each. '+p.accounts.inc+' included.',ex.a,50);
+      if(!p.outlets.extra)rows+='<p class="pl-adnote">Starter covers one outlet. Choose Business to run more outlets.</p>';
+      el.querySelector('.pl-adds').innerHTML=rows;
+    });
+    var bu=PLANS[1];
+    ['biannual','annual'].forEach(function(k,i){var ss=PLANS.map(function(p){return Math.round((1-p.price[k]/p.price.monthly)*100)});var lo=Math.min.apply(null,ss),hi=Math.max.apply(null,ss);$(i?'pl-s12':'pl-s6').textContent='Save '+(lo===hi?lo+'%':lo+'–'+hi+'%')});
+    pill();
+  }
+  function pill(){
+    var on=document.querySelector('#pl-seg [aria-checked=true]'),pl=$('pl-pill');if(!on||!on.offsetWidth)return;
+    pl.style.width=on.offsetWidth+'px';pl.style.transform='translateX('+(on.offsetLeft-6)+'px)';
+  }
+  $('pl-seg').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-cycle]');if(!b)return;st.cycle=b.dataset.cycle;st.pc.starter=st.pc.business=st.cycle;
+    document.querySelectorAll('#pl-seg button').forEach(function(x){x.setAttribute('aria-checked',x===b?'true':'false')});paint();
+  });
+  $('pl-seg').addEventListener('keydown',function(e){
+    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var bs=[].slice.call(document.querySelectorAll('#pl-seg button')),i=bs.findIndex(function(x){return x.getAttribute('aria-checked')==='true'});
+    i=(i+(e.key==='ArrowRight'?1:bs.length-1))%bs.length;bs[i].click();bs[i].focus();e.preventDefault();
+  });
+  function toTop(){window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+  $('pl-grid').addEventListener('click',function(e){
+    var ab=e.target.closest('.pl-addbtn');
+    if(ab){var aw=ab.nextElementSibling,ac=!aw.classList.contains('shut');aw.classList.toggle('shut',ac);ab.classList.toggle('open',!ac);ab.setAttribute('aria-expanded',ac?'false':'true');return}
+    var sp=e.target.closest('.pl-st');
+    if(sp){if(sp.disabled)return;var ex=st.ex[sp.dataset.plan],k=sp.dataset.kind;ex[k]=Math.max(0,Math.min(k==='o'?19:50,ex[k]+Number(sp.dataset.d)));paint();return}
+    var mn=e.target.closest('.pl-min');
+    if(mn){var wrap=mn.nextElementSibling,closed=!wrap.classList.contains('shut');wrap.classList.toggle('shut',closed);mn.classList.toggle('shut',closed);mn.setAttribute('aria-expanded',closed?'false':'true');return}
+    var sb=e.target.closest('.pl-sel')||(e.target.closest('.pl-off')&&e.target.closest('.pl-off').querySelector('.pl-sel'));
+    if(sb){st.pc[sb.dataset.plan]=sb.dataset.cycle;paint();return}
+    var b=e.target.closest('.pl-cta');if(!b||b.disabled)return;
+    pickPlan(b.dataset.plan);
+    toTop();var up=$('go-up');if(up)setTimeout(function(){up.click()},260);
+  });
+  $('pl-top').addEventListener('click',function(e){e.preventDefault();toTop()});
+  $('pl-cue').addEventListener('click',function(e){e.preventDefault();$('plans').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
+  window.addEventListener('resize',pill);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(pill);
+  function pickPlan(id){
+    var p=PLANS.filter(function(x){return x.id===id})[0];if(!p)return;
+    var cy=st.pc[id],ex=st.ex[id];
+    window.afposPlan={id:id,name:p.name,cycle:cy,o:p.outlets.extra?ex.o:0,a:p.accounts.extra?ex.a:0,total:calc(p,cy).total};
+    if(window.afposPlanChanged)window.afposPlanChanged();
+  }
+  build();paint();
+})();
+</script>
+
 </body>
 </html>

@@ -128,7 +128,7 @@ var store={
   setItem:function(k,v){try{if(KEEP){localStorage.setItem(k,v);sessionStorage.removeItem(k)}else{sessionStorage.setItem(k,v);localStorage.removeItem(k)}}catch(e){}},
   removeItem:function(k){try{sessionStorage.removeItem(k);localStorage.removeItem(k)}catch(e){}}
 };
-var C=window.SUPABASE_CONFIG||{},sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:store,persistSession:true,autoRefreshToken:true}});
+var C=window.SUPABASE_CONFIG||{},sb=window.supabase.createClient(C.url,C.anonKey,{auth:{storage:store,storageKey:'sb-adflare-master-auth',persistSession:true,autoRefreshToken:true}});
 var f=document.getElementById('f'),m=document.getElementById('m'),mt=document.getElementById('mt'),b=document.getElementById('b'),bt=b.querySelector('.t'),boot=document.getElementById('boot'),cur=document.getElementById('cur'),pw=document.getElementById('pw');
 var CK='<svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 function idle(){b.className='';b.disabled=false;bt.textContent='Sign in'}

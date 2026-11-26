@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script>window.AFS=(function(){var P="afpos.s:",ls=null,mem={};try{ls=window.localStorage;ls.getItem("x")}catch(e){ls=null}return{getItem:function(k){try{if(ls){var v=ls.getItem(P+k);return v===undefined?null:v}}catch(e){}return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null},setItem:function(k,v){v=String(v);try{if(ls){ls.setItem(P+k,v);return}}catch(e){}mem[k]=v},removeItem:function(k){try{ls&&ls.removeItem(P+k)}catch(e){}delete mem[k]}}})();</script>
+    <script>window.AFS=(function(){var P="afpos.s:",ls=null,ss=null,mem={},TMP="afpos.tmp";try{ls=window.localStorage;ls.getItem("x")}catch(e){ls=null}try{ss=window.sessionStorage;ss.getItem("x")}catch(e){ss=null}function tmp(){try{return !!(ss&&ss.getItem(TMP))}catch(e){return false}}return{getItem:function(k){try{if(ss){var a=ss.getItem(P+k);if(a!==null&&a!==undefined)return a}}catch(e){}try{if(ls){var v=ls.getItem(P+k);return v===undefined?null:v}}catch(e){}return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null},setItem:function(k,v){v=String(v);try{if(tmp()&&ss){ss.setItem(P+k,v);return}}catch(e){}try{if(ls){ls.setItem(P+k,v);ss&&ss.removeItem(P+k);return}}catch(e){}mem[k]=v},removeItem:function(k){try{ss&&ss.removeItem(P+k)}catch(e){}try{if(!tmp())ls&&ls.removeItem(P+k)}catch(e){}delete mem[k]},keep:function(on){try{if(on){ss&&ss.removeItem(TMP)}else if(ss)ss.setItem(TMP,"1")}catch(e){}}}})();</script>
     <script>(function(){try{var e=AFS.getItem("afpos-session");if(!e)return;var t=localStorage.getItem("afpos-theme:"+e);if(t)document.documentElement.setAttribute("data-theme",t);var m=localStorage.getItem("afpos-mode:"+e)||"light";if(m==="system")m=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";if(m==="dark")document.documentElement.setAttribute("data-mode","dark")}catch(x){}})()</script>
     <style>html.afgate #app{visibility:hidden}</style>
     <script>document.documentElement.classList.add("afgate")</script>
@@ -14,7 +14,7 @@
         function out() { try { AFS.removeItem("afpos-session"); } catch (e) {} location.replace("pos.html"); }
         var t = setTimeout(out, 8000);
         try {
-          var sb = window.supabase.createClient(C.url, C.anonKey, { auth: { storage: window.AFS, persistSession: true, autoRefreshToken: true } });
+          var sb = window.supabase.createClient(C.url, C.anonKey, { auth: { storage: window.AFS, storageKey: "sb-afpos-auth", persistSession: true, autoRefreshToken: true } });
           window.__afSb = sb;
           var uid = null, watching = false;
           function no() { sb.auth.signOut({ scope: "local" }).catch(function () {}); out(); }
@@ -203,7 +203,7 @@ tr.row-click{cursor:pointer}tr.row-click:hover td{background:var(--dm-bg-fafbfc,
 
 .cart-discount{display:flex;align-items:flex-end;gap:7px;margin:10px 15px 0}.cart-discount label{flex:1;display:grid;gap:4px;font-size:8px;font-weight:650;color:var(--dm-fg-656a75,#656a75)}
 .cart-discount input,.cart-discount select{height:32px;padding:0 8px;border:1px solid var(--line);border-radius:7px;background:var(--paper,#fff);font-size:9px;width:100%}.cart-discount select{width:64px}
-.aud-card{padding:14px}.aud-card .aud-empty{text-align:center;padding:26px 0 18px}.aud-bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.aud-bar input{height:34px;padding:0 10px;border:1px solid var(--line);border-radius:8px;font-size:10px;min-width:200px}.aud-live{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:9px;font-weight:650;color:#16a34a}.aud-live i{width:7px;height:7px;border-radius:50%;background:#16a34a;animation:audPulse 1.6s infinite}@keyframes audPulse{50%{opacity:.35}}.aud-scroll{overflow:auto}.aud-table{width:100%;border-collapse:collapse;font-size:10px}.aud-table th{text-align:left;font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#8a8f9a;padding:8px;border-bottom:1px solid var(--line)}.aud-table td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}.aud-table small{color:#737886}.aud-det{max-width:320px;color:#4b5060;font-size:9.5px}.aud-det s{color:#a0a3ac}
+.aud-card{padding:14px}.aud-card .aud-empty{text-align:center;padding:26px 0 18px}.aud-bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.aud-bar input{height:34px;padding:0 10px;border:1px solid var(--line);border-radius:8px;font-size:10px;min-width:200px}.aud-live{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:9px;font-weight:650;color:#16a34a}.aud-live i{width:7px;height:7px;border-radius:50%;background:#16a34a;animation:audPulse 1.6s infinite}@keyframes audPulse{50%{opacity:.35}}.aud-scroll{overflow:auto}.aud-table{width:100%;border-collapse:collapse;font-size:10px}.aud-table th{text-align:left;font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#8a8f9a;padding:8px;border-bottom:1px solid var(--line)}.aud-table td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}.aud-table small{color:#737886}.aud-det{max-width:320px;color:#4b5060;font-size:9.5px}.aud-det s{color:#a0a3ac}.aud-menu{justify-content:flex-end}.aud-scroll.menu-open{overflow:visible}.aud-menu .pop-more{width:200px}.aud-menu .pop-more button{white-space:nowrap}.aud-full{padding:4px 0 8px}.aud-full h3{margin:16px 0 6px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#737886)}.aud-kv{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:11px}.aud-kv>span{color:var(--muted,#737886);font-weight:650;word-break:break-word}.aud-kv>div{word-break:break-word;white-space:pre-wrap;color:var(--ink)}.aud-kv s{color:#a0a3ac}
 .cart-fxrow.one{grid-template-columns:1fr}.cart-fxrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 15px 0}.cart-fxrow label{display:grid;gap:4px;font-size:8px;font-weight:650;color:var(--dm-fg-656a75,#656a75)}.cart-fxrow select{height:32px;padding:0 8px;border:1px solid var(--line);border-radius:7px;background:var(--paper,#fff);font-size:9px;width:100%}.cart-fxinfo{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 15px 0;padding:7px 9px;border-radius:7px;background:#f6f7f9;font-size:9px}.cart-fxinfo label{display:flex;align-items:center;gap:5px}.cart-fxinfo input{width:64px;height:26px;padding:0 6px;border:1px solid var(--line);border-radius:6px;font-size:9px}
 .cart-redeem{display:flex;align-items:center;gap:7px;margin:9px 15px 0;font-size:9px;color:var(--dm-fg-464a54,#464a54)}
 .modal-wide{width:min(620px,100%)}
@@ -1506,6 +1506,7 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     "settings-taxes": { title: "Taxes & fees", subtitle: "Tax and fee defaults.", type: "settings", key: "taxes" },
     "settings-appearance": { title: "Appearance", subtitle: "Choose a color theme. It is saved to your account only.", type: "settings", key: "appearance" },
     "settings-documents": { title: "Invoice & quotation template", subtitle: "How printed invoices and quotations look. Only the Super Admin can change it.", type: "settings", key: "documents" },
+    "settings-plans": { title: "Plans & billing", subtitle: "Your AFPOS subscription, plus the other plans and offers you can switch to.", type: "settings", key: "plans" },
     "settings-ecommerce": { title: "Ecommerce settings", subtitle: "Storefront and integration preferences.", type: "settings", key: "ecommerce" },
     "receive-stock": { title: "Receive stock", subtitle: "Record a delivery against a purchase order.", type: "receive" }
   };
@@ -1523,6 +1524,7 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     { id: "settings-payments", label: "Payments", detail: "Checkout methods and settlement", icon: "cash" },
     { id: "settings-taxes", label: "Taxes & fees", detail: "Tax rates and service charges", icon: "coins" },
     { id: "settings-documents", label: "Invoice template", detail: "Logo, layout and wording of printed documents", icon: "receipt" },
+    { id: "settings-plans", label: "Plans & billing", detail: "Subscription plan and other offers", icon: "wallet" },
     { id: "settings-ecommerce", label: "Ecommerce", detail: "Storefront and integrations", icon: "shopping" }
   ];
   var settingsFields = {
@@ -2338,7 +2340,7 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
   }
 
   /* ===== Activity history (Super Admin): every add / change / delete is recorded in pos_rows (coll "auditLog"), live ===== */
-  var AUD = { list: [], loaded: false, loading: false, filter: "all", q: "", err: "" };
+  var AUD = { list: [], loaded: false, loading: false, filter: "all", feat: "all", q: "", err: "" };
   var AUD_SKIP = ["stockLevels", "stockLog", "stockBatches", "serialNos", "activity", "customerLog", "auditLog"];
   var AUD_IMG = ["image", "imageHd", "proof", "proofHd", "photo", "photos", "logo", "images"];
   var AUD_IGNORE = ["_rid", "_ts", "activity", "lines", "stockReserved", "stockReleased"];
@@ -2388,7 +2390,9 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     } catch (e) {}
   }
   function audIngest(r, quiet) {
-    if (!isSuperUser() || r.deleted || !r.data) return false;
+    if (!isSuperUser()) return false;
+    if (r.deleted) { const n = AUD.list.length; AUD.list = AUD.list.filter((x) => x.rid !== r.rid); return !quiet && AUD.list.length !== n && state.view === "activity"; }
+    if (!r.data) return false;
     if (AUD.list.some((x) => x.rid === r.rid)) return false;
     AUD.list.push(Object.assign({}, r.data, { rid: r.rid }));
     AUD.list.sort((a, b) => b.ts - a.ts);
@@ -2406,6 +2410,45 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     } catch (e) { AUD.err = "Could not load the history. Check your connection."; AUD.loaded = true; }
     AUD.loading = false;
     if (state.view === "activity") rootRender();
+  }
+  /* delete history entries (the entries only: the records themselves are not touched) */
+  function audAskDelete(rid) {
+    if (!isSuperUser()) return toast("Only the Super Admin can delete history.", "warn");
+    const e = AUD.list.find((x) => x.rid === rid); if (!e) return;
+    openModal({ type: "confirm", title: "Delete this entry?", message: "This removes the entry from the activity history" + (audRestorable(e) ? ", so it can no longer be restored" : "") + ". The record itself is not affected. This cannot be undone.", confirmLabel: "Delete", onConfirm: { kind: "aud-del", rid } });
+  }
+  function audAskDeleteAll() {
+    if (!isSuperUser()) return toast("Only the Super Admin can delete history.", "warn");
+    if (!AUD.list.length) return;
+    openModal({ type: "confirm", title: "Delete all history?", message: "This deletes every entry in the activity history (" + AUD.list.length + " shown, plus any older ones). Nothing can be restored from it afterwards. Your products, sales and other records are not affected. This cannot be undone.", confirmLabel: "Delete all", onConfirm: { kind: "aud-del-all" } });
+  }
+  async function audDelete(rid) {
+    if (!isSuperUser() || !cloud.ctx) return;
+    try {
+      let q = cSb().from("pos_rows").update({ deleted: true }).eq("company_id", cloud.ctx.company_id).eq("coll", "auditLog");
+      q = rid ? q.eq("rid", rid) : q.eq("deleted", false);
+      const r = await q;
+      if (r.error) throw r.error;
+      AUD.list = rid ? AUD.list.filter((x) => x.rid !== rid) : [];
+      toast(rid ? "Entry deleted." : "Activity history cleared.");
+    } catch (x) { toast("Could not delete. Try again.", "warn"); }
+    rootRender();
+  }
+  function audMenu(e) {
+    const open = state.popover === "aud:" + e.rid, r = esc(e.rid);
+    return `<div class="pop-anchor aud-menu"><button class="icon-btn row-menu" type="button" data-action="aud-menu" data-rid="${r}" aria-label="Actions" aria-haspopup="menu" aria-expanded="${open}">${svgIcon("dots", 18)}</button>${open ? `<div class="pop pop-more" role="menu"><button type="button" role="menuitem" data-action="aud-view" data-rid="${r}">${svgIcon("info", 16)} View all details</button>${audRestorable(e) ? `<button type="button" role="menuitem" data-action="aud-restore" data-rid="${r}">${svgIcon("refresh", 16)} Restore</button>` : ""}<button type="button" role="menuitem" class="is-danger" data-action="aud-delete" data-rid="${r}">${svgIcon("trash", 16)} Delete</button></div>` : ""}</div>`;
+  }
+  function audFull(v) { if (v === null || v === undefined || v === "") return "empty"; if (typeof v === "object") { try { return JSON.stringify(v, null, 1); } catch (e) { return "…"; } } return String(v); }
+  function renderAudView(m) {
+    const e = AUD.list.find((x) => x.rid === m.rid);
+    if (!e) return shell("Activity details", "ACTIVITY", '<p class="modal-lead">This entry no longer exists.</p>');
+    const act = e.restored ? "restored" : e.action;
+    const meta = [["When", fmtDate(e.ts)], ["Who", e.by || ""], ["Action", act], ["Item", (AUD_NAMES[e.coll] || e.coll) + (e.label ? " · " + e.label : "")]].concat(e.outlet ? [["Outlet", e.outlet]] : []);
+    const row = (k, vHtml) => `<div class="aud-kv"><span>${esc(k)}</span><div>${vHtml}</div></div>`;
+    let det = "";
+    if (e.action === "updated") det = Object.entries(e.changes || {}).map(([k, c]) => row(k, `<s>${esc(audFull(c[0]))}</s><br>→ ${esc(audFull(c[1]))}`)).join("");
+    else { const s2 = e.snap || {}; det = ["total", "price", "balance", "qty", "customer", "method", "status"].filter((k) => s2[k] !== undefined && s2[k] !== "").map((k) => row(k, esc(audFull(s2[k])))).join(""); }
+    return shell("Activity details", "ACTIVITY", `<div class="aud-full">${meta.map(([k, v]) => row(k, esc(v))).join("")}${det ? `<h3>${e.action === "updated" ? "What changed" : "Details"}</h3>${det}` : ""}</div>`);
   }
   function audFmtVal(v) { if (v === null || v === undefined || v === "") return "empty"; if (typeof v === "object") { try { return JSON.stringify(v).slice(0, 80); } catch (e) { return "…"; } } return String(v).slice(0, 80); }
   function audRestorable(e) {
@@ -2455,14 +2498,20 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     if (!isSuperUser()) return `${pageHeading(meta, "")}<section class="card u-card"><p class="u-empty">Only the Super Admin can see the activity history.</p></section>`;
     if (!AUD.loaded && !AUD.loading) setTimeout(audLoad, 0);
     const q = AUD.q.toLowerCase();
-    const rows = AUD.list.filter((e) => (AUD.filter === "all" || e.action === AUD.filter) && (!q || [e.by, e.label, e.coll, AUD_NAMES[e.coll]].some((x) => String(x || "").toLowerCase().indexOf(q) >= 0)));
+    const rows = AUD.list.filter((e) => (AUD.filter === "all" || e.action === AUD.filter) && (AUD.feat === "all" || e.coll === AUD.feat) && (!q || [e.by, e.label, e.coll, AUD_NAMES[e.coll]].some((x) => String(x || "").toLowerCase().indexOf(q) >= 0)));
     const pill = (a) => `<span class="status-pill ${a === "deleted" ? "status-bad" : a === "created" ? "status-good" : a === "restored" ? "status-neutral" : "status-warn"}">${esc(a)}</span>`;
-    const body = !AUD.loaded ? '<p class="u-empty aud-empty">Loading…</p>' : rows.length ? `<div class="aud-scroll"><table class="aud-table"><thead><tr><th>When</th><th>Who</th><th>Action</th><th>Item</th><th>Details</th><th></th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(fmtDate(e.ts))}</td><td><b>${esc(e.by || "")}</b></td><td>${pill(e.restored ? "restored" : e.action)}</td><td><b>${esc(AUD_NAMES[e.coll] || e.coll)}</b><br><small>${esc(e.label || "")}</small></td><td class="aud-det">${audDetail(e)}</td><td>${audRestorable(e) ? `<button class="btn btn-secondary" type="button" data-action="aud-restore" data-rid="${esc(e.rid)}">Restore</button>` : ""}</td></tr>`).join("")}</tbody></table></div>` : '<p class="u-empty aud-empty">No activity yet.</p>';
-    return `${pageHeading(meta, "")}<section class="card aud-card"><div class="aud-bar"><label class="select-wrap"><select data-aud-filter aria-label="Filter"><option value="all" ${AUD.filter === "all" ? "selected" : ""}>All actions</option><option value="created" ${AUD.filter === "created" ? "selected" : ""}>Added</option><option value="updated" ${AUD.filter === "updated" ? "selected" : ""}>Changed</option><option value="deleted" ${AUD.filter === "deleted" ? "selected" : ""}>Deleted</option></select></label><input type="search" data-aud-search placeholder="Search user or item" value="${esc(AUD.q)}" /></div>${AUD.err ? `<p class="u-empty">${esc(AUD.err)}</p>` : ""}${body}</section>`;
+    const body = !AUD.loaded ? '<p class="u-empty aud-empty">Loading…</p>' : rows.length ? `<div class="aud-scroll${String(state.popover || "").indexOf("aud:") === 0 ? " menu-open" : ""}"><table class="aud-table"><thead><tr><th>When</th><th>Who</th><th>Action</th><th>Item</th><th>Details</th><th></th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(fmtDate(e.ts))}</td><td><b>${esc(e.by || "")}</b></td><td>${pill(e.restored ? "restored" : e.action)}</td><td><b>${esc(AUD_NAMES[e.coll] || e.coll)}</b><br><small>${esc(e.label || "")}</small></td><td class="aud-det">${audDetail(e)}</td><td>${audMenu(e)}</td></tr>`).join("")}</tbody></table></div>` : '<p class="u-empty aud-empty">No activity yet.</p>';
+    const featName = (c) => AUD_NAMES[c] || (c === "bulk" ? "Bulk import" : c);
+    const feats = Array.from(new Set(Object.keys(AUD_NAMES).filter((c) => c !== "_settings").concat(["_settings", "bulk"], AUD.list.map((e) => e.coll), AUD.feat !== "all" ? [AUD.feat] : []))).sort((a, b) => featName(a).localeCompare(featName(b)));
+    const featSel = `<label class="select-wrap"><select data-aud-feat aria-label="Filter by feature"><option value="all" ${AUD.feat === "all" ? "selected" : ""}>All features</option>${feats.map((c) => `<option value="${esc(c)}" ${AUD.feat === c ? "selected" : ""}>${esc(featName(c))}</option>`).join("")}</select></label>`;
+    const delAll = AUD.list.length ? `<button class="btn btn-danger" type="button" data-action="aud-delete-all">Delete all</button>` : "";
+    return `${pageHeading(meta, delAll)}<section class="card aud-card"><div class="aud-bar"><label class="select-wrap"><select data-aud-filter aria-label="Filter"><option value="all" ${AUD.filter === "all" ? "selected" : ""}>All actions</option><option value="created" ${AUD.filter === "created" ? "selected" : ""}>Added</option><option value="updated" ${AUD.filter === "updated" ? "selected" : ""}>Changed</option><option value="deleted" ${AUD.filter === "deleted" ? "selected" : ""}>Deleted</option></select></label>${featSel}<input type="search" data-aud-search placeholder="Search user or item" value="${esc(AUD.q)}" /></div>${AUD.err ? `<p class="u-empty">${esc(AUD.err)}</p>` : ""}${body}</section>`;
   }
   /* save: only what changed since the last save goes to the database (new / edited rows, and deleted ones) */
   async function cPush() {
     if (!cloud.ctx || !state.data) return;
+    /* No active plan (no plan yet): nothing is saved to the cloud, so no database warnings. Sync resumes by itself once a plan is assigned. */
+    if (document.body.classList.contains("af-noplan")) { clearTimeout(cloud.npT); cloud.npT = setTimeout(cPush, 6000); return; }
     if (cloud.pushing) { cloud.again = true; return; }
     cloud.pushing = true;
     try {
@@ -2507,6 +2556,7 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     } catch (e) {
       cloud.again = false;
       cloud.retry = Math.min(cloud.retry + 1, 6);
+      try { console.warn("AFPOS cloud sync error:", e); } catch (x) {}
       toast(cMsg(e), "warn");
       setTimeout(cPush, 3000 * cloud.retry);
     }
@@ -3308,6 +3358,8 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
   function notifications() {
     const d2 = state.data;
     const list = [];
+    const subN = window.__afSub;
+    if (subN && subN.status && subN.status !== "active") list.push({ id: "sub-" + subN.status + (subN.pending ? "-p" : ""), tone: subN.status === "expired" || subN.status === "noplan" ? "red" : "amber", title: subN.status === "noplan" ? "No active plan" : subN.status === "expired" ? "Subscription ended" : `Renewal due in ${Math.max(0, subN.days_left)} day${subN.days_left === 1 ? "" : "s"}`, detail: subN.status === "noplan" ? "Choose a plan in Plan & billing" : subN.pending ? "Renewal waiting for approval and payment" : "Renew in Plan & billing", view: "settings-plans" });
     const out = d2.products.filter((p) => p.tracked !== false && Number(p.stockQty) <= 0).length;
     const low = d2.products.filter((p) => p.tracked !== false && productStatus(p) === "Low stock").length;
     if (out) list.push({ id: "out", tone: "red", title: `${out} product${out > 1 ? "s" : ""} out of stock`, detail: "Reorder to avoid missed sales", view: "inventory" });
@@ -3921,12 +3973,13 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     };
     switch (actionId) {
       case "receipt":
+        DT.paper = DT_PAPER_DEFAULT; DT.zoom = 1;
         return { next: { modal: { type: "receipt", billId: row.id } } };
       case "invoice":
-        DT.paper = DT_PAPER_DEFAULT;
+        DT.paper = DT_PAPER_DEFAULT; DT.zoom = 1;
         return { next: { modal: { type: "doc", kind: "invoice", id: row.id } } };
       case "quote-doc":
-        DT.paper = DT_PAPER_DEFAULT;
+        DT.paper = DT_PAPER_DEFAULT; DT.zoom = 1;
         return { next: { modal: { type: "doc", kind: "quotation", id: row.id } } };
       case "proof": {
         const img = String(values.proofHd || values.proof || "").trim();
@@ -5066,6 +5119,9 @@ ${body}`);
     const root = state.view === "home" ? `<span>Adflare POS</span>` : `<span class="crumb-root"><button type="button" class="crumb" data-view="home">Adflare POS</button></span>`;
     return `<nav class="breadcrumbs" aria-label="Breadcrumb">${root}${chev}${parts}<b aria-current="page">${esc(meta.title)}</b></nav>`;
   }
+  window.__afRender = function () { return rootRender(); };
+  window.__afRefreshPlans = function () { state.planFetchedAt = 0; return rootRender(); };
+  window.__afToast = function (m, t) { return toast(m, t); };
   function renderTopbar(meta) {
     const sig = notificationSignature();
     const unseen = sig && sig !== state.notifSeen;
@@ -5321,6 +5377,7 @@ ${body}`);
     { v: "analytics", n: "Analytics", k: ["analytics", "trend", "chart", "graph", "performance", "insight"], t: "<b>Analytics</b> shows trends across your store: sales over time, busy hours and how you compare with the previous period." },
     { v: "settings-loyalty", n: "Loyalty settings", k: ["loyalty", "points", "rewards", "member"], t: "<b>Loyalty</b> rewards repeat customers. Set how many points they earn per MVR 100 and what each 100 points is worth when redeemed." },
     { v: "settings-taxes", n: "Taxes & fees", k: ["tax", "gst", "vat", "service fee", "service charge"], t: "<b>Taxes & fees</b> sets your tax rate, whether prices already include tax, and any service fee." },
+    { v: "settings-plans", n: "Plans & billing", k: ["plan", "plans", "subscription", "billing", "pricing", "upgrade", "starter", "professional", "annual", "monthly", "offer"], t: "<b>Plans & billing</b> shows your current plan and the other offers. Only the Super Admin can change the plan." },
     { v: "settings-payments", n: "Payment settings", k: ["payment method", "payment methods", "payments setting", "accept card", "accept cash", "bank transfer", "cheque"], t: "<b>Payment settings</b> turn checkout methods on or off: cash, card, bank transfer, online, cheque and customer credit." },
     { v: "settings-documents", n: "Invoice template", k: ["invoice template", "invoice design", "logo on invoice", "print invoice", "printed invoice", "document template"], t: "<b>Invoice template</b> controls how printed invoices and quotations look. Only the Super Admin can change it." },
     { v: "settings-appearance", n: "Appearance", k: ["theme", "color theme", "dark mode", "light mode", "appearance", "change color"], t: "<b>Appearance</b> lets you pick a color theme. It is saved to your own account only. The sun icon at the top switches light and dark." },
@@ -6858,7 +6915,13 @@ ${body}`);
   function outletLock() { try { return AFS.getItem("afpos-outlet") || ""; } catch (e) { return ""; } }
   var SU_ONLY_VIEWS = ["products", "categories", "inventory", "stock-counts", "stock-transfers", "suppliers", "purchase-orders", "receive-stock", "landed-costs", "users", "activity"];
   /* an outlet admin may open Admin settings, but only the Appearance section */
-  function viewRestricted(id) { return !isSuperUser() && (SU_ONLY_VIEWS.indexOf(id) !== -1 || (String(id).indexOf("settings-") === 0 && id !== "settings-appearance")); }
+  /* what the availed plan allows. Read from my_subscription (window.__afSub) so it is known on every page and for staff accounts too. */
+  var STARTER_LOCKED_VIEWS = ["gift-cards", "quotations", "online-payments", "stock-transfers", "suppliers", "purchase-orders", "receive-stock", "landed-costs", "online-orders", "settings-transfers", "settings-gift-cards", "settings-online-orders"];
+  function subPlan() { const d = window.__afSub; return d && d.plan ? d.plan : ""; }
+  function planOutletLimit() { const d = window.__afSub; if (!d || !d.plan) return 0; return d.plan === "business" ? 1 + (Number(d.extra_outlets) || 0) : 1; }
+  function planAccountLimit() { const d = window.__afSub; if (!d || !d.plan) return 0; return (d.plan === "business" ? 5 : 2) + (Number(d.extra_accounts) || 0); }
+  function planBlocks(id) { return subPlan() === "starter" && STARTER_LOCKED_VIEWS.indexOf(id) !== -1; }
+  function viewRestricted(id) { return planBlocks(id) || (!isSuperUser() && (SU_ONLY_VIEWS.indexOf(id) !== -1 || (String(id).indexOf("settings-") === 0 && id !== "settings-appearance"))); }
   function visibleSettingsSections() { return isSuperUser() ? settingsSections : settingsSections.filter((x) => x.id === "settings-appearance"); }
   function isSuperUser() {
     try { const k = AFS.getItem("afpos-rk"); if (k) return k === "super_admin"; return AFS.getItem("afpos-role") === "superadmin"; } catch (e) { return false; }
@@ -6870,10 +6933,18 @@ ${body}`);
     if (/could not find the function|schema cache/i.test(m)) return "Run private/outlets-fix.sql in Supabase once.";
     return m.replace(/^.*?:\s*/, "") || "Try again.";
   }
+  /* the admins plus who asked for a password reset on the sign-in page ("Forgot password?") */
+  function usersFetch() {
+    const sb = usersSb();
+    return Promise.all([sb.rpc("sa_list_outlet_admins"), sb.rpc("sa_reset_requests").then((x) => x, () => ({ data: null }))]).then(([r, q]) => {
+      if (!r.error && Array.isArray(r.data)) { const m = {}; ((!q.error && q.data) || []).forEach((x) => { m[x.user_id] = x.requested_at; }); r.data = r.data.map((u) => Object.assign({}, u, { reset_at: m[u.id] || null })); }
+      return r;
+    });
+  }
   function usersLoad() {
     if (U.loading) return;
     U.loading = true;
-    usersSb().rpc("sa_list_outlet_admins").then((r) => {
+    usersFetch().then((r) => {
       U.loading = false;
       if (r.error) { U.err = usersMsg(r.error); U.list = []; uSig = ""; } else { U.err = ""; U.list = r.data || []; uSig = JSON.stringify(U.list); }
       if (state.view === "users") rootRender();
@@ -6883,7 +6954,7 @@ ${body}`);
   var uSig = "", uLive = false;
   function usersPoll() {
     if (state.view !== "users" || U.loading || U.list === null || document.hidden || !isSuperUser()) return;
-    usersSb().rpc("sa_list_outlet_admins").then((r) => {
+    usersFetch().then((r) => {
       if (r.error) return;
       const data = r.data || [], sig = JSON.stringify(data);
       if (sig === uSig) return;
@@ -6942,14 +7013,14 @@ ${body}`);
     if (U.list === null) { setTimeout(usersLoad, 0); }
     const outletOpts = ["All outlets", ...OUTLETS];
 
-    const last = U.last ? `<section class="card u-card u-ok"><div><b>Account created. Give this to the outlet admin:</b><pre>AFPOS login\nCompany:  ${esc(U.last.company)}\nUsername: ${esc(U.last.user)}\nPassword: ${esc(U.last.pw)}</pre></div><button class="btn btn-secondary" type="button" data-u="copy-last">Copy</button></section>` : "";
+    const last = U.last ? `<section class="card u-card u-ok"><div><b>Account created. Give this to the outlet admin:</b><pre>AFPOS login\nCompany login name:  ${esc(U.last.company)}\nUsername: ${esc(U.last.user)}\nPassword: ${esc(U.last.pw)}</pre></div><button class="btn btn-secondary" type="button" data-u="copy-last">Copy</button></section>` : "";
     let body;
     if (U.list === null) body = `<p class="u-empty">Loading…</p>`;
     else if (U.err) body = `<p class="u-empty u-err">${esc(U.err)}</p>`;
     else if (!U.list.length) body = `<p class="u-empty">No outlet admins yet. Press <b>Add admin</b> to add one.</p>`;
     else body = U.list.map((u) => {
       const on = u.status === "approved", shown = Boolean(U.shown[u.id]), pw = u.password;
-      return `<div class="u-row"><div class="u-who"><b>${esc(u.full_name || u.username)}</b><span class="u-chip ${on ? "on" : ""}">${on ? "Active" : "Disabled"}</span><small>${esc(u.username)} · ${esc(u.outlet || "All outlets")}</small>
+      return `<div class="u-row"><div class="u-who"><b>${esc(u.full_name || u.username)}</b><span class="u-chip ${on ? "on" : ""}">${on ? "Active" : "Disabled"}</span><small>${esc(u.username)} · ${esc(u.outlet || "All outlets")}</small>${u.reset_at ? `<span class="u-chip" style="color:#d4202f;font-weight:600">Changed their own password (Forgot password) · ${esc(new Date(u.reset_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }))} <button class="u-link" type="button" data-u="dismiss" data-id="${esc(u.id)}">Dismiss</button></span>` : ""}
         <small class="u-pwl">Password: ${pw ? `<code>${shown ? esc(pw) : "••••••••"}</code> <button class="u-link" type="button" data-u="show" data-id="${esc(u.id)}">${shown ? "Hide" : "Show"}</button>` : "not saved"}</small></div>
         <div class="u-acts"><select data-u-outlet="${esc(u.id)}" aria-label="Outlet access">${outletOpts.map((o) => `<option ${(u.outlet || "All outlets") === o ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>
         <button class="btn btn-secondary" type="button" data-u="reset" data-id="${esc(u.id)}">Reset password</button>
@@ -6972,12 +7043,12 @@ ${body}`);
   }
   function admCountFor(n) { return (U.list || []).filter((u) => u.outlet && String(u.outlet).toLowerCase() === String(n).toLowerCase()).length; }
   /* "Undo" bar after a delete: stays 12 seconds, shows loading while it restores */
-  function usersUndoBar(msg, onUndo) {
+  function usersUndoBar(msg, onUndo, opt) {
     const old = document.querySelector(".u-undo"); if (old) old.remove();
     const el = document.createElement("div"); el.className = "u-undo"; el.setAttribute("role", "status");
-    el.innerHTML = `<span class="u-ui"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"/></svg></span><span class="u-um"><b>${esc(msg)}</b><small>Your records are kept. You can still undo.</small></span><button class="u-ub" type="button" data-un="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg><span>Undo</span></button><button class="u-ux" type="button" data-un="x" aria-label="Dismiss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><i class="u-ut"></i>`;
+    el.innerHTML = `<span class="u-ui"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"/></svg></span><span class="u-um"><b>${esc(msg)}</b><small>${esc(opt && opt.sub || "Your records are kept. You can still undo.")}</small></span><button class="u-ub" type="button" data-un="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg><span>Undo</span></button><button class="u-ux" type="button" data-un="x" aria-label="Dismiss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><i class="u-ut"></i>`;
     let gone = false; const kill = () => { if (gone) return; gone = true; clearTimeout(tm); el.remove(); };
-    let tm = setTimeout(kill, 12000);
+    let tm = setTimeout(kill, (opt && opt.ms) || 12000);
     el.addEventListener("click", (ev) => {
       const b = ev.target.closest("[data-un]"); if (!b) return;
       if (b.dataset.un === "x") return kill();
@@ -7078,13 +7149,15 @@ ${body}`);
       }, !n);
     }
     if (a === "br-add") {
+      const olim = planOutletLimit();
+      if (olim && OUTLETS.length >= olim) { const om = "Your plan allows " + olim + " outlet" + (olim > 1 ? "s" : "") + ". Add extra outlets or upgrade first."; return isSuperUser() ? openAddons("outlet", om) : toast(om + " Ask your Super Admin.", "warn"); }
       let k = OUTLETS.length + 1, nm = "Outlet " + k; while (OUTLETS.some((x) => x.toLowerCase() === nm.toLowerCase())) nm = "Outlet " + (++k);
       return usersSaveOutlets([...OUTLETS, nm], `Outlet "${nm}" added. You can rename it from the \u22ee menu.`, "ok", () => { U.edit = OUTLETS.length - 1; });
     }
     if (a === "gen") { const i = app.querySelector("#u-pw"); if (i) { i.value = usersGenPw(); usersDrawerVals(); } return; }
     if (a === "show") { U.shown[id] = !U.shown[id]; return rootRender(); }
     if (a === "copy-last" && U.last) {
-      const txt = `AFPOS login\nCompany:  ${U.last.company}\nUsername: ${U.last.user}\nPassword: ${U.last.pw}`;
+      const txt = `AFPOS login\nCompany login name:  ${U.last.company}\nUsername: ${U.last.user}\nPassword: ${U.last.pw}`;
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast("Copied"), () => toast("Could not copy", "warn"));
       return;
     }
@@ -7095,6 +7168,8 @@ ${body}`);
       if (pw.length < 8) return usersDrawerErr("Password must be at least 8 characters.");
       /* instant check against the accounts already listed (the database re-checks everything, including the owner) */
       if ((U.list || []).some((u) => String(u.username || "").toLowerCase() === user.toLowerCase())) return usersDrawerErr('Username "' + user + '" is already taken. Choose another one.');
+      const alim = planAccountLimit();
+      if (alim && (U.list || []).length >= alim) { const am = "Your plan allows " + alim + " staff account" + (alim > 1 ? "s" : "") + ". Add extra staff accounts or upgrade first."; if (isSuperUser()) { usersDrawerErr(am); return openAddons("staff", am); } return usersDrawerErr(am + " Ask your Super Admin."); }
       t.disabled = true;
       return usersSb().rpc("sa_create_outlet_admin", { p_username: user, p_password: pw, p_name: name, p_outlet: br === "All outlets" ? null : br }).then((r) => {
         t.disabled = false;
@@ -7107,7 +7182,8 @@ ${body}`);
         });
       });
     }
-    if (a === "reset") { const v = window.prompt("New password (at least 8 characters):"); if (v == null) return; if (v.length < 8) return toast("Password must be at least 8 characters.", "warn"); return usersCall("sa_set_outlet_admin_password", { target: id, p_password: v }, `Password of ${usersWho(id)} changed.`); }
+    if (a === "dismiss") return usersCall("sa_clear_reset_request", { target: id }, null);
+    if (a === "reset") { const v = window.prompt("New password (at least 8 characters):"); if (v == null) return; if (v.length < 8) return toast("Password must be at least 8 characters.", "warn"); return usersCall("sa_set_outlet_admin_password", { target: id, p_password: v }, `Password of ${usersWho(id)} changed.`, () => { usersSb().rpc("sa_clear_reset_request", { target: id }).then(() => {}, () => {}); }); }
     if (a === "disable" || a === "enable") return usersCall("sa_set_outlet_admin_status", { target: id, p_active: a === "enable" }, a === "enable" ? `Account of ${usersWho(id)} enabled.` : `Account of ${usersWho(id)} disabled.`, a === "enable" ? "ok" : "warn");
     if (a === "delete") { const who = usersWho(id); return usersConfirm("Delete account?", `Are you sure you want to delete the account of ${who}? They can no longer sign in. This cannot be undone.`, "Yes, delete account", () => usersCall("sa_delete_outlet_admin", { target: id }, `Account of ${who} deleted.`, null, "warn")); }
   }
@@ -7203,7 +7279,7 @@ ${body}`);
   /* ===== Document template: invoice / quotation / inquiry. Super Admin edits it live, everyone prints with it ===== */
   /* The logo is always printed at exactly 125px, whatever an older saved template says. */
   var DT_LOGO = 125;
-  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
+  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgAspect: 0, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
   /* Paper sizes for printed invoices / quotations. w/h are CSS px at 96 dpi, pw/ph are PDF points. A5 is the default every time a document is opened. */
   var DT_PAPERS = {
     a5: { label: "A5 (148 × 210 mm)", css: "A5", w: 559, h: 794, pw: 419.53, ph: 595.28 },
@@ -7212,8 +7288,17 @@ ${body}`);
     legal: { label: "Legal / Long bond (8.5 × 13 in)", css: "legal", w: 816, h: 1248, pw: 612, ph: 936 }
   };
   var DT_PAPER_DEFAULT = "a5";
-  var DT = { draft: null, dirty: false, kind: "invoice", paper: DT_PAPER_DEFAULT, guides: true, hist: [], fut: [], lastKey: null, lastT: 0 };
+  var DT = { zoom: 1, draft: null, dirty: false, kind: "invoice", paper: DT_PAPER_DEFAULT, guides: true, hist: [], fut: [], lastKey: null, lastT: 0 };
   function dtPaper() { return DT_PAPERS[DT.paper] || DT_PAPERS[DT_PAPER_DEFAULT]; }
+  var DT_ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2, 3];
+  function dtZoomUI() {
+    return `<span class="dt-zoom no-print"><button class="btn btn-secondary dt-zb" type="button" data-dt-act="zoom-out" title="Zoom out" aria-label="Zoom out">\u2212</button><button class="btn btn-secondary dt-zv" type="button" data-dt-act="zoom-fit" data-dt-zoomval title="Fit to window" aria-label="Fit to window">100%</button><button class="btn btn-secondary dt-zb" type="button" data-dt-act="zoom-in" title="Zoom in" aria-label="Zoom in">+</button></span>`;
+  }
+  function dtZoomStep(dir) {
+    const cur = DT.zoom || 1; let i = DT_ZOOMS.findIndex((z) => z >= cur - 0.001); if (i < 0) i = DT_ZOOMS.length - 1;
+    if (dir > 0) i = DT_ZOOMS[i] > cur + 0.001 ? i : Math.min(DT_ZOOMS.length - 1, i + 1); else i = Math.max(0, DT_ZOOMS[i] < cur - 0.001 ? i : i - 1);
+    DT.zoom = DT_ZOOMS[i]; dtFit();
+  }
   function dtPaperSelect() {
     return `<label class="dt-paper no-print"><span>Paper size</span><select data-dt-paper>${Object.keys(DT_PAPERS).map((k) => `<option value="${k}" ${k === DT.paper ? "selected" : ""}>${DT_PAPERS[k].label}</option>`).join("")}</select></label>`;
   }
@@ -7225,11 +7310,12 @@ ${body}`);
   function dtStyle() {
     if (document.getElementById("dt-style")) return;
     const st = document.createElement("style"); st.id = "dt-style";
-    st.textContent = ".dt-grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px 24px;align-items:start;margin-top:22px}@media(max-width:1100px){.dt-grid{grid-template-columns:1fr}}"
+    st.textContent = ".dt-grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px 24px;align-items:start;margin-top:22px}@media(max-width:1100px){.dt-grid{grid-template-columns:minmax(0,1fr)}}.dt-grid>*{min-width:0}.settings-form-card{min-width:0}"
+      + ".settings-form-card:has(.dt-grid){container-type:inline-size}@container (max-width:800px){.dt-grid{grid-template-columns:minmax(0,1fr)}}"
       + ".dt-ctl{display:grid;gap:10px}.dt-ctl h3{margin:8px 0 0;font-size:13px}.dt-ctl input[type=range]{width:100%}.dt-ctl textarea{min-height:70px;width:100%;resize:vertical;box-sizing:border-box;font-family:inherit;font-size:9px;font-weight:450;line-height:1.5;padding:8px 9px;border:1px solid var(--line,#e7e9ed);border-radius:7px;background:var(--paper,#fff);color:var(--dm-fg-343842,#343842);outline:0}.dt-ctl textarea:focus{border-color:var(--ink,#17191f)}.dt-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}"
       + ".dtp-wrap{overflow:hidden;border:1px solid var(--line,#e7e9ed);border-radius:10px;background:#e9ecef}.dtp-scale{transform-origin:top left;width:794px}"
       + ".dtp{width:794px;min-height:1123px;background:#fff;color:#111;padding:44px 48px;font:11px/1.4 Arial,Helvetica,sans-serif;box-sizing:border-box}"
-      + ".dtp{position:relative}.dtp-clr{position:absolute;left:0;right:0;background:#fff;pointer-events:none}.dtp>*:not(.dtp-clr){position:relative;z-index:1}.dtq{display:grid;gap:12px 24px;align-items:start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #d9dce1}.dtq-title{border-left:3px solid #111;padding-left:9px}.dtq-title h2{margin:0;font-size:19px;line-height:1.1}.dtq-title b{display:block;margin-top:3px;font-size:10.5px;font-weight:600;color:#444}.dtq-meta{display:flex;gap:26px}.dtq-meta small{display:block;font-size:8px;font-weight:700;letter-spacing:.05em;margin-bottom:4px;color:#777}.dtq-meta>div>b{display:block;font-size:11.5px;margin-bottom:2px}.dtq-meta p{margin:0 0 2px}.dtq-r{display:grid;grid-template-columns:auto 1fr;gap:0 10px;margin-bottom:2px}.dtq-r b{font-weight:600;color:#444}.dtq-nm{font-size:17px;font-weight:700;line-height:1.15}.dtq-co p{margin:0 0 2px;color:#333}.dtq-r2{text-align:left}.dtq-co h3{margin:0 0 4px;font-size:15px}.dtp.sm .dtq-co h3{font-size:11.5px}.dtp.sm .dtq{gap:9px 14px;margin-bottom:10px;padding-bottom:9px}.dtp.sm .dtq-title h2{font-size:14px}.dtp.sm .dtq-title b{font-size:8.5px}.dtp.sm .dtq-meta{gap:16px}.dtp.sm .dtq-meta>div>b{font-size:9.5px}.dtp.sm .dtq-meta small{font-size:6.5px}.dtp.sm .dtq-r{gap:0 7px}.dtp.sm .dtq-nm{font-size:12.5px}.dtp-hd{display:flex;justify-content:space-between;gap:24px;padding-bottom:16px;border-bottom:1px solid #111}.dtp-hd.top{flex-direction:column}"
+      + ".dtp{position:relative}.dtp-clr{position:absolute;left:0;right:0;background:#fff;pointer-events:none}.dtp>*:not(.dtp-clr){position:relative;z-index:1}.dtq{display:grid;gap:12px 24px;align-items:start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #d9dce1}.dtq-title{border-left:3px solid #111;padding-left:9px}.dtq-title h2{margin:0;font-size:19px;line-height:1.1}.dtq-title b{display:block;margin-top:3px;font-size:10.5px;font-weight:600;color:#444}.dtq-meta{display:flex;gap:26px}.dtq-meta small{display:block;font-size:8px;font-weight:700;letter-spacing:.05em;margin-bottom:4px;color:#777}.dtq-meta>div>b{display:block;font-size:11.5px;margin-bottom:2px}.dtq-meta p{margin:0 0 2px}.dtq-r{display:grid;grid-template-columns:auto 1fr;gap:0 10px;margin-bottom:2px}.dtq-r b{font-weight:600;color:#444}.dtq-r span{white-space:nowrap}.dtq-meta>div+div{min-width:0}.dtq-co p{overflow-wrap:anywhere}.dtq-nm{font-size:17px;font-weight:700;line-height:1.15}.dtq-co p{margin:0 0 2px;color:#333}.dtq-r2{text-align:left}.dtq-co h3{margin:0 0 4px;font-size:15px}.dtp.sm .dtq-co h3{font-size:11.5px}.dtp.sm .dtq{gap:9px 14px;margin-bottom:10px;padding-bottom:9px}.dtp.sm .dtq-title h2{font-size:14px}.dtp.sm .dtq-title b{font-size:8.5px}.dtp.sm .dtq-meta{gap:14px}.dtp.sm .dtq-meta>div>b{font-size:9.5px}.dtp.sm .dtq-meta small{font-size:7px}.dtp.sm .dtq-meta>div>b{overflow-wrap:anywhere}.dtp.sm .dtq-co p{font-size:8.5px;line-height:1.35}.dtp.sm .dtq-r{gap:0 7px}.dtp.sm .dtq-nm{font-size:12.5px}.dtp-hd{display:flex;justify-content:space-between;gap:24px;padding-bottom:16px;border-bottom:1px solid #111}.dtp-hd.top{flex-direction:column}"
       + ".dtp-co{display:flex;gap:16px;align-items:flex-start}.dtp-co.right{flex-direction:row-reverse;text-align:right}.dtp-co.top{flex-direction:column;align-items:center;text-align:center}"
       + ".dtp-co h3{font-size:19px;margin:0 0 4px}.dtp-co p,.dtp-ttl p{margin:0 0 3px}.dtp-logo{display:block;object-fit:contain;position:relative;flex:none}"
       + ".dtp-ttl{text-align:right;white-space:nowrap}.dtp-ttl.top{text-align:center}.dtp-ttl h2{font-size:26px;margin:0 0 8px}"
@@ -7238,9 +7324,9 @@ ${body}`);
       + ".dtp-tot{width:46%;margin:14px 0 0 auto}.dtp-tot div{display:flex;justify-content:space-between;padding:4px 0}.dtp-tot .g{font-size:13px;font-weight:700;border-top:1px solid #111;margin-top:5px;padding-top:7px}"
       + ".dtp-terms{margin-top:20px;border-top:1px solid #111;padding-top:9px;white-space:pre-wrap;font-size:10px}.dtp-sig{display:flex;gap:44px;margin-top:70px}.dtp-sig div{flex:1;border-top:1px solid #111;text-align:center;padding-top:6px}"
       + ".dtp.sm{padding:28px 30px;font-size:9.5px}.dtp.sm .dtp-hd{gap:14px;padding-bottom:10px}.dtp.sm .dtp-co{gap:10px}.dtp.sm .dtp-co h3{font-size:15px}.dtp.sm .dtp-ttl h2{font-size:19px;margin-bottom:5px}.dtp.sm .dtp-bill{margin:10px 0 8px}.dtp.sm .dtp-bill b{font-size:12.5px}"
-      + ".dtp.sm th,.dtp.sm td{padding:4px 5px}.dtp.sm td small{font-size:7.5px;margin-top:1px}.dtp.sm .r{white-space:nowrap}.dtp.sm .dtp-tot{width:58%;margin-top:10px}.dtp.sm .dtp-tot .g{font-size:11px}.dtp.sm .dtp-terms{font-size:8.5px}.dtp.sm .dtp-terms{margin-top:14px;padding-top:8px}.dtp.sm .dtp-sig{gap:28px;margin-top:44px}"
+      + ".dtp.sm th,.dtp.sm td{padding:4px 5px}.dtp.sm td small{font-size:8px;margin-top:1px}.dtp.sm .r{white-space:nowrap}.dtp.sm .dtp-tot{width:58%;margin-top:10px}.dtp.sm .dtp-tot .g{font-size:11px}.dtp.sm .dtp-terms{font-size:8.5px}.dtp.sm .dtp-terms{margin-top:14px;padding-top:8px}.dtp.sm .dtp-sig{gap:28px;margin-top:44px}"
       + ".dt-ctl *:not(.btn):focus,.dt-ctl *:not(.btn):focus-visible,.dt-ctl *:not(.btn):focus-within{outline:0!important;box-shadow:none!important}.dt-ctl select:focus,.dt-ctl textarea:focus,.dt-ctl input:not([type=range]):not([type=radio]):not([type=checkbox]):focus{border-color:var(--line,#e7e9ed)!important}.dt-sticky{position:sticky;top:12px}.dt-full{margin-top:6px}.dt-mode{display:grid;gap:8px}.dt-mode-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line,#e7e9ed);border-radius:10px;cursor:pointer;background:var(--paper,#fff)}.dt-mode-opt.is-on{background:#f1f2f4}.dt-mode-opt.is-off{opacity:.55;cursor:not-allowed}.dt-mode-opt input{margin-top:3px}.dt-mode-opt b{display:block;font-size:9px}.dt-mode-opt small{display:block;color:#8a8f9a;font-size:8.5px;margin-top:1px}"
-      + ".dt-paper{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted,#737886)}.dt-paper select{height:36px;border:1px solid var(--line,#e7e9ed);border-radius:9px;background:var(--paper,#fff);padding:0 8px;color:var(--ink,#17191f);font:inherit;font-size:12.5px}"
+      + ".dt-zoom{display:inline-flex;align-items:center;gap:4px}.dt-zoom .dt-zb{width:36px;min-width:36px;padding:0;justify-content:center;font-size:17px;line-height:1}.dt-zoom .dt-zv{min-width:62px;padding:0 8px;justify-content:center;font-size:12.5px}.dt-paper{display:inline-flex;align-items:center;gap:8px;max-width:100%;font-size:12px;color:var(--muted,#737886)}.dt-paper>span{white-space:nowrap}.dt-paper select{min-width:0;max-width:100%;text-overflow:ellipsis;height:36px;border:1px solid var(--line,#e7e9ed);border-radius:9px;background:var(--paper,#fff);padding:0 8px;color:var(--ink,#17191f);font:inherit;font-size:12.5px}"
       + ".dtp{position:relative}.dtp>.dt-guides{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:50;overflow:hidden}.dt-g{position:absolute;background:rgba(0,170,255,.75)}.dt-g.v{width:1px;top:0;bottom:0}.dt-g.h{height:1px;left:0;right:0}.dt-g.m{background:none;border:0 dashed #e5197c}.dt-g.m.v{width:0;border-left-width:1px}.dt-g.m.h{height:0;border-top-width:1px}.dt-g.c{background:none;border:0 dotted #8a8f9a}.dt-g.c.v{width:0;border-left-width:1px}.dt-gl{position:absolute;font:700 9px/1 Arial,sans-serif;color:#fff;background:#e5197c;padding:2px 4px;border-radius:3px;white-space:nowrap}.dt-gtog{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted,#737886);cursor:pointer}"
       + ".dtp.dtx table{border:0}.dtp.dtx th,.dtp.dtx td{border:0;border-bottom:1px solid #eceef1;padding:9px 8px}.dtp.dtx th{background:#f7f8fa;color:#1f2430;font-weight:700;border-bottom:1px solid #e3e6ea;padding:8px}.dtp.dtx td small{color:#9aa0ab}.dtp.dtx .r{white-space:nowrap}.dtp.dtx tfoot td{background:#f7f8fa;border:0;padding:7px 8px;font-weight:600}.dtp.dtx tfoot tr.dtt-g td{background:#eceef1;font-weight:800;font-size:1.08em}.dtp.dtx.sm th,.dtp.dtx.sm td{padding:6px 5px}.dtp.dtx.sm tfoot td{padding:5px}"
       + ".dtp-terms-n{border-top:0;padding-top:0;margin-top:22px;font-size:10px;line-height:1.55}.dtp-terms-n b{display:block;margin-bottom:6px;font-size:11px;letter-spacing:.02em}.dtp.sm .dtp-terms-n{font-size:8.5px;margin-top:14px}.dtp>.dt-pgh,.dtp>.dt-pgf{position:absolute;left:0;right:0;text-align:center;color:#2b2f38;line-height:1.3;pointer-events:none;z-index:2}"
@@ -7272,24 +7358,26 @@ ${body}`);
     const info = `<div><h3>${esc(cName)}</h3>${cAddr ? `<p>${esc(cAddr)}</p>` : ""}${cMail ? `<p>${esc(cMail)}</p>` : ""}${cPhone ? `<p>${esc(cPhone)}</p>` : ""}${t.showTin && t.tin ? `<p>TIN: ${esc(t.tin)}</p>` : ""}</div>`;
     const unitCell = (l) => l.unit ? `${esc(l.unit)}${num(l.unitQty) > 0 && l.unit !== "Pcs" ? `<small>1 ${esc(l.unit)} = ${num(l.unitQty)} pcs</small>` : ""}` : "\u2014";
     /* invoices, receipts and quotations all use the same columns: # | Description | Code | Quantity | Unit | Unit Price | Total */
-    const cw = sm ? [22, 50, 50, 66, 60, 66] : [28, 66, 66, 92, 86, 96];
+    const cw = sm ? [20, 44, 48, 62, 56, 62] : [28, 66, 66, 92, 86, 96];
     const rows = (doc.lines || []).map((l, i) => `<tr><td class="c">${i + 1}</td><td>${esc(l.name)}${ptxLineNote(l) ? `<small>${esc(ptxLineNote(l))}</small>` : ""}</td><td>${esc(l.code || l.sku || "")}</td><td class="r">${esc(l.qty)}</td><td class="r">${unitCell(l)}</td><td class="r">${dtAmt(l.price)}</td><td class="r">${dtAmt(num(l.price) * num(l.qty))}</td></tr>`).join("");
     const trow = (lab, val, cls) => `<tr class="dtt ${cls || ""}"><td colspan="4"></td><td colspan="2" class="r">${lab}</td><td class="r">${val}</td></tr>`;
     const taxLab = esc(doc.taxLabel || `GST @ ${rate}%`);
     const foot = trow("Sub Total", dtAmt(doc.subtotal)) + (num(doc.discount) ? trow("Discount", "\u2212" + dtAmt(doc.discount)) : "") + (num(doc.serviceFee) ? trow("Service Fee", dtAmt(doc.serviceFee)) : "") + trow(taxLab, dtAmt(doc.tax)) + trow(`Total (${esc(cur)})`, dtAmt(doc.total), "dtt-g");
     const sz = `width:${pp.w}px;min-height:${pp.h}px;`;
-    const bgs = own ? ` style="${sz}background:#fff url('${esc(t.bgImage)}') 0 0/${pp.w}px ${Math.round(pp.w * 1.4142)}px repeat-y;padding:${Math.round(num(t.bgTop) * k)}px ${Math.round(num(t.bgSide) * k)}px ${sm ? 28 : 44}px"` : ` style="${sz.slice(0, -1)}"`;
+    const bgs = own ? ` style="${sz}background:#fff url('${esc(t.bgImage)}') 0 0/${pp.w}px ${Math.round(pp.w * (num(t.bgAspect) || 1.4142))}px repeat-y;padding:${Math.round(num(t.bgTop) * k)}px ${Math.round(num(t.bgSide) * k)}px ${sm ? 28 : 44}px"` : ` style="${sz.slice(0, -1)}"`;
     const head = own && t.hideHead ? "" : `<div class="dtp-co ${pos}">${logo}${info}</div>`;
-    const useNew = !(own && t.hideHead), side = t.logoSide === "left" ? "left" : "right", cA = side === "left" ? 2 : 1, cB = side === "left" ? 1 : 2;
+    const useNew = true, hideOwn = false, /* header is always the sample one: title + logo, details + customer, company block */ side = t.logoSide === "left" ? "left" : "right", cA = side === "left" ? 2 : 1, cB = side === "left" ? 1 : 2;
     const exs = (doc.extra || []).map((x) => { const i = String(x).indexOf(": "); return i > 0 ? [String(x).slice(0, i), String(x).slice(i + 2)] : ["", String(x)]; });
     const stat = exs.find((e) => e[0] === "Status");
     const det = [["Number", doc.no], ["Date", doc.date], ...exs.filter((e) => e[0] !== "Status")];
-    const logoNew = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="height:${DT_LOGO}px;width:auto;max-width:100%;border-radius:${num(t.logoR)}%;left:${num(t.logoX)}px;top:${num(t.logoY)}px">` : "";
-    const topNew = `<div class="dtq" style="grid-template-columns:${side === "left" ? "auto 1fr" : "1fr auto"}"><div class="dtq-title" style="grid-column:${cA};grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:1;align-self:center;justify-self:${side === "right" ? "end" : "start"}">${logoNew}</div><div class="dtq-meta" style="grid-column:${cA};grid-row:2"><div><small>DETAILS</small>${det.map((e) => `<div class="dtq-r"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div><div><small>${esc(String(doc.partyLabel || "Customer").toUpperCase())}</small><b>${esc(doc.party)}</b>${doc.address ? `<p>${esc(doc.address)}</p>` : ""}${doc.phone ? `<p>${esc(doc.phone)}</p>` : ""}${doc.tin ? `<p>TIN: ${esc(doc.tin)}</p>` : ""}</div></div><div class="${side === "right" ? "dtq-r2" : ""}" style="grid-column:${cB};grid-row:2;justify-self:${side === "right" ? "end" : "start"}">${t.showCoText !== false ? `<div class="dtq-co">${info}</div>` : ""}</div></div>`;
+    const logoNew = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="height:auto;width:auto;max-height:${Math.round(DT_LOGO * k)}px;max-width:100%;border-radius:${num(t.logoR)}%">` : "";
+    const metaInner = `<div><small>DETAILS</small>${det.map((e) => `<div class="dtq-r"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div><div><small>${esc(String(doc.partyLabel || "Customer").toUpperCase())}</small><b>${esc(doc.party)}</b>${doc.address ? `<p>${esc(doc.address)}</p>` : ""}${doc.phone ? `<p>${esc(doc.phone)}</p>` : ""}${doc.tin ? `<p>TIN: ${esc(doc.tin)}</p>` : ""}</div>`;
+    /* same as the sample: 3 equal columns. Row 1: title (left), logo (above the company). Row 2: details, customer, company. */
+    const topNew = `<div class="dtq" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="dtq-title" style="grid-column:1/3;grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div style="position:relative;left:${num(t.logoX)}px;top:${num(t.logoY)}px;grid-column:3;grid-row:1;align-self:center;justify-self:start;min-width:0;max-width:100%">${logoNew}</div><div class="dtq-meta" style="grid-column:1/3;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))">${metaInner}</div><div style="position:relative;left:${num(t.logoX)}px;top:${num(t.logoY)}px;grid-column:3;grid-row:2;min-width:0">${t.showCoText !== false ? `<div class="dtq-co">${info}</div>` : ""}</div></div>`;
     const clr = own && t.bgClear !== false ? `<i class="dtp-clr" style="top:${Math.round(num(t.bgTop) * k)}px;bottom:${Math.round(num(t.bgBottom) * k)}px"></i>` : "";
     /* built-in design (no uploaded letterhead): paginated, with a small header and footer on every page */
-    const paged = useNew && !own;
-    const pgAttr = paged ? ` data-dtn="1" data-hd="${esc(title + " " + doc.no)}" data-gen="${esc("Generated at " + dtStamp() + " by " + userName())}"` : "";
+    const paged = useNew;
+    const pgAttr = paged ? ` data-dtn="1" data-top="${own ? Math.round(num(t.bgTop) * k) : ""}" data-hd="${esc(title + " " + doc.no)}" data-gen="${esc("Generated at " + dtStamp() + " by " + userName())}"` : "";
     const terms = t.terms ? (useNew
       ? `<div class="dtp-terms dtp-terms-n" data-pb="${paged && t.termsPage === true ? 1 : 0}"><b>TERMS &amp; CONDITIONS</b>${esc(t.terms)}</div>`
       : `<div class="dtp-terms" style="border-color:${esc(a)}"><b>TERMS &amp; CONDITIONS</b>\n${esc(t.terms)}</div>`) : "";
@@ -7325,7 +7413,7 @@ ${body}`);
   function dtPaginate(pg) {
     if (!pg) return;
     pg.querySelectorAll(".dt-pgx").forEach((e) => e.remove());
-    const pp = dtPaper(), H = dtStep(), k = pp.w / 794, TOP = Math.round(40 * k), BOT = Math.round(58 * k), GAP = Math.round(14 * k);
+    const pp = dtPaper(), H = dtStep(), k = pp.w / 794, HT = Math.round(40 * k), TOP = pg.dataset.top ? Number(pg.dataset.top) : HT, BOT = Math.round(58 * k), GAP = Math.round(14 * k);
     pg.style.minHeight = H + "px";
     const where = (el) => { const r = el.getBoundingClientRect(), b = pg.getBoundingClientRect(), s = b.width / pg.offsetWidth || 1; return { t: (r.top - b.top) / s, b: (r.bottom - b.top) / s }; };
     const blocks = Array.from(pg.querySelectorAll(".dtq, tbody tr, tfoot, .dtp-terms, .dtp-sig"));
@@ -7352,7 +7440,7 @@ ${body}`);
     const fs = Math.max(6.5, 9 * k), hd = pg.dataset.hd || "", gen = pg.dataset.gen || "";
     let extra = "";
     for (let i = 0; i < N; i++) {
-      extra += `<div class="dt-pgx dt-pgh" style="top:${i * H + Math.round(TOP * 0.35)}px;font-size:${fs}px">${esc(hd)}</div>`;
+      extra += `<div class="dt-pgx dt-pgh" style="top:${i * H + Math.round(HT * 0.35)}px;font-size:${fs}px">${esc(hd)}</div>`;
       extra += `<div class="dt-pgx dt-pgf" style="top:${(i + 1) * H - Math.round(BOT * 0.66)}px;font-size:${fs}px">Page ${i + 1} of ${N}<br>${esc(gen)}</div>`;
     }
     pg.insertAdjacentHTML("beforeend", extra);
@@ -7362,10 +7450,11 @@ ${body}`);
       const inner = w.firstElementChild; if (!inner) return;
       inner.querySelectorAll(".dtp[data-dtn]").forEach(dtPaginate);
       const pw = dtPaper().w; inner.style.width = pw + "px";
-      let sc = Math.min(1, (w.clientWidth || pw) / pw);
+      let sc = Math.min(1, (w.clientWidth || pw) / pw), big = false;
       /* in the receipt / invoice window, shrink so one whole page is visible without scrolling */
-      if (w.closest("#doc-print")) { const pgH = inner.querySelector(".dtp[data-dtn]") ? dtStep() : inner.offsetHeight; sc = Math.min(sc, Math.max(0.45, (window.innerHeight - 240) / pgH)); }
-      inner.style.transform = `scale(${sc})`; inner.style.marginLeft = Math.max(0, Math.round(((w.clientWidth || pw) - pw * sc) / 2)) + "px"; w.style.height = Math.ceil(inner.offsetHeight * sc) + "px";
+      if (w.closest("#doc-print")) { const pgH = inner.querySelector(".dtp[data-dtn]") ? dtStep() : inner.offsetHeight; sc = Math.min(sc, Math.max(0.45, (window.innerHeight - 240) / pgH)); sc *= DT.zoom || 1; big = pw * sc > (w.clientWidth || pw) + 1; document.querySelectorAll("[data-dt-zoomval]").forEach((z) => { z.textContent = Math.round(sc * 100) + "%"; }); }
+      w.style.overflowX = big ? "auto" : "hidden";
+      inner.style.transform = `scale(${sc})`; inner.style.marginLeft = big ? "0px" : Math.max(0, Math.round(((w.clientWidth || pw) - pw * sc) / 2)) + "px"; w.style.height = Math.ceil(inner.offsetHeight * sc) + (big ? 18 : 0) + "px";
     });
     dtGuides();
   }
@@ -7429,7 +7518,19 @@ ${body}`);
     const r = document.createElement("div"); r.id = "dt-printroot"; r.innerHTML = src.outerHTML; document.body.appendChild(r);
     const pp = dtPaper();
     const pg = document.createElement("style"); pg.id = "dt-page"; pg.textContent = `@page{size:${pp.css};margin:0}#dt-printroot{width:${pp.w}px}#dt-printroot .dtp:not([data-dtn]){width:${pp.w}px;min-height:${pp.h - 3}px!important}#dt-printroot .dtp[data-dtn]{width:${pp.w}px}`; document.head.appendChild(pg);
+    const prevTitle = document.title; document.title = src.dataset.hd || prevTitle; window.addEventListener("afterprint", () => { document.title = prevTitle; }, { once: true });
     document.documentElement.classList.add("dt-printing"); window.print();
+  }
+  /* The app runs with :root{zoom:1.25} on desktop. Off-screen export hosts inherit it, so every measured rectangle comes out 1.25x too big
+     while font sizes stay the same: words drift apart, text looks small, and the page is cut off on the right.
+     This cancels the inherited zoom on the host so 1 CSS px measured = 1 CSS px of layout. */
+  function dtNoZoom(host, el, w) {
+    host.style.zoom = "1";
+    for (let i = 0; i < 3; i++) {
+      const z = el.getBoundingClientRect().width / w;
+      if (!z || Math.abs(z - 1) < 0.004) break;
+      host.style.zoom = String((parseFloat(host.style.zoom) || 1) / z);
+    }
   }
   var DT_LIB = {};
   function dtScript(src) {
@@ -7437,63 +7538,172 @@ ${body}`);
   }
   var DT_PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", DT_PDFW = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
   var DT_H2C = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", DT_JSPDF = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-  /* shrink the page picture until it is small (about 250 KB) so it syncs fast and downloads stay light */
+  /* Keep the template as close to the original as the cloud row allows: lossless PNG first, then high-quality JPEG (q .95 down to .82),
+     and only if it is still too big shrink the picture a little at a time. Never the old 0.4-quality / 70% squash. */
   function dtCompress(canvas) {
-    const MAX = 340000;
-    for (const q of [0.72, 0.55, 0.4]) { const u = canvas.toDataURL("image/jpeg", q); if (u.length <= MAX) return u; }
-    const c = document.createElement("canvas"); c.width = Math.round(canvas.width * 0.7); c.height = Math.round(canvas.height * 0.7);
-    c.getContext("2d").drawImage(canvas, 0, 0, c.width, c.height);
-    const u = c.toDataURL("image/jpeg", 0.5);
-    return u.length <= MAX * 1.4 ? u : null;
+    const MAX = 760000;
+    let c = canvas;
+    for (let round = 0; round < 6; round++) {
+      const png = c.toDataURL("image/png"); if (png.length <= MAX) return png;
+      for (const q of [0.95, 0.9, 0.86, 0.82]) { const u = c.toDataURL("image/jpeg", q); if (u.length <= MAX) return u; }
+      const n = document.createElement("canvas"); n.width = Math.round(c.width * 0.85); n.height = Math.round(c.height * 0.85);
+      const g = n.getContext("2d"); g.imageSmoothingQuality = "high"; g.fillStyle = "#fff"; g.fillRect(0, 0, n.width, n.height); g.drawImage(c, 0, 0, n.width, n.height); c = n;
+    }
+    return null;
+  }
+  /* Finds the letterhead's own header and footer so they are kept exactly as designed, and only the empty middle is cleared for the document.
+     Looks for bands of ink at the very top and very bottom that are separated from the rest by a clear gap. Returns px in A4 layout units, or null when unsure. */
+  function dtDetectBands(canvas) {
+    try {
+      const w = canvas.width, h = canvas.height, d = canvas.getContext("2d").getImageData(0, 0, w, h).data, ink = new Array(h);
+      for (let y = 0; y < h; y++) {
+        let n = 0; for (let x = 0; x < w; x += 2) { const i = (y * w + x) * 4; if (d[i + 3] > 20 && (d[i] < 238 || d[i + 1] < 238 || d[i + 2] < 238)) n++; }
+        ink[y] = n > w * 0.004;
+      }
+      const gap = Math.round(h * 0.035), blocks = []; let start = -1, last = -1;
+      for (let y = 0; y < h; y++) if (ink[y]) { if (start < 0) start = y; else if (y - last > gap) { blocks.push([start, last]); start = y; } last = y; }
+      if (start >= 0) blocks.push([start, last]);
+      const u = 794 / w, out = { top: 0, bottom: 0 };
+      if (!blocks.length) return null;
+      if (blocks[0][0] < h * 0.18) out.top = Math.min(600, Math.round((blocks[0][1] + 14) * u));
+      const lb = blocks[blocks.length - 1];
+      if (blocks.length > 1 && lb[0] > h * 0.78) out.bottom = Math.min(400, Math.round((h - lb[0] + 10) * u));
+      if (out.top === 0 && out.bottom === 0) return null;
+      return out;
+    } catch (e) { return null; }
   }
   async function dtLoadBg(file) {
     if (!isSuperUser() || !file) return;
-    if (file.size > 1024 * 1024) { toast("File is too large. Use a PDF or image under 1 MB.", "warn"); return; }
+    if (file.size > 8 * 1024 * 1024) { toast("File is too large. Use a PDF or image under 8 MB.", "warn"); return; }
     toast("Reading your template...");
     try {
-      const W = 1191, canvas = document.createElement("canvas"), cx = canvas.getContext("2d");
+      const W = 1654, canvas = document.createElement("canvas"), cx = canvas.getContext("2d");
       if (file.type === "application/pdf") {
         await dtScript(DT_PDFJS);
         window.pdfjsLib.GlobalWorkerOptions.workerSrc = DT_PDFW;
-        const pdf = await window.pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+        const pdf = await window.pdfjsLib.getDocument({ data: await file.arrayBuffer(), cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/", cMapPacked: true, standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/" }).promise;
         const page = await pdf.getPage(1), v1 = page.getViewport({ scale: 1 }), vp = page.getViewport({ scale: W / v1.width });
         canvas.width = Math.round(vp.width); canvas.height = Math.round(vp.height);
+        cx.fillStyle = "#fff"; cx.fillRect(0, 0, canvas.width, canvas.height);
         await page.render({ canvasContext: cx, viewport: vp, background: "rgb(255,255,255)" }).promise;
-        if (Math.abs(v1.height / v1.width - 1.4142) > 0.06) toast("This PDF is not A4, so it will be stretched to fit.", "warn");
       } else {
         const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = URL.createObjectURL(file); });
-        canvas.width = W; canvas.height = Math.round(W * 1.4142); cx.fillStyle = "#fff"; cx.fillRect(0, 0, canvas.width, canvas.height); cx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const w = Math.min(W, img.naturalWidth || W);
+        canvas.width = w; canvas.height = Math.round(w * (img.naturalHeight / img.naturalWidth)); cx.imageSmoothingQuality = "high"; cx.fillStyle = "#fff"; cx.fillRect(0, 0, canvas.width, canvas.height); cx.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
+      const aspect = canvas.height / canvas.width;
+      const fit = dtDetectBands(canvas);
       const url = dtCompress(canvas);
-      if (!url) { toast("This template is too detailed to shrink. Use a simpler PDF or image.", "warn"); return; }
-      dtPush(); DT.draft.bgImage = url; DT.draft.tplMode = "own"; DT.draft.hideHead = true;
+      if (!url) { toast("This template is too detailed to fit. Use a simpler PDF or image.", "warn"); return; }
+      dtPush(); DT.draft.bgImage = url; DT.draft.bgAspect = Math.round(aspect * 10000) / 10000; DT.draft.tplMode = "own"; DT.draft.hideHead = true;
+      if (fit) { DT.draft.bgTop = fit.top; DT.draft.bgBottom = fit.bottom; }
       state.settings = { ...state.settings, docTemplate: clone(DT.draft) }; DT.dirty = false; save(); render();
-      toast(`Template uploaded (${Math.round(url.length * 0.75 / 1024)} KB) and is now in use. Adjust the position below if needed, then Save.`);
+      const odd = Math.abs(aspect - dtPaper().h / dtPaper().w) > 0.04;
+      toast(`Template uploaded (${Math.round(url.length * 0.75 / 1024)} KB) at full quality and is now in use.${odd ? " Its page shape is different from the selected paper size, so pick the matching Paper size." : " Adjust the position below if needed, then Save."}`);
     } catch (e) { toast("Could not read this file. Try another PDF, or a PNG / JPG.", "warn"); }
+  }
+  /* Crisp PDF: every word, line and colour of the page is drawn into the PDF as real text and vector shapes (like the Mazi sample),
+     not as a picture. Falls back to the picture method only for text the standard PDF fonts cannot show (e.g. Dhivehi). */
+  async function dtDownloadVector(src, hd, name) {
+    if (/[^\u0000-\u00FF\u2013\u2014\u2018\u2019\u201C\u201D\u2022\u2026\u20AC\u2122\u2212]/.test(src.textContent)) return false;
+    await dtScript(DT_JSPDF);
+    const pp = dtPaper(), host = document.createElement("div");
+    host.style.cssText = `position:fixed;left:-10000px;top:0;width:${pp.w}px`; host.innerHTML = src.outerHTML; document.body.appendChild(host);
+    try {
+      const pg = host.firstElementChild; dtNoZoom(host, pg, pp.w);
+      const pr = pg.getBoundingClientRect(), f = pp.pw / pp.w, H = src.dataset.dtn ? dtStep() : pp.h;
+      const N = Math.max(1, Math.ceil((pg.scrollHeight - 1) / H));
+      const pdf = new window.jspdf.jsPDF({ unit: "pt", format: [pp.pw, pp.ph], compress: true });
+      for (let i = 1; i < N; i++) pdf.addPage([pp.pw, pp.ph]);
+      const col = (c) => { const m = String(c).match(/rgba?\(([^)]+)\)/); if (!m) return null; const a = m[1].split(",").map(Number); if (a.length > 3 && a[3] === 0) return null; return a.slice(0, 3); };
+      /* pictures (logo): drawn once into a PNG, with the same rounded corners as on screen */
+      const pics = new Map();
+      for (const im of Array.from(pg.querySelectorAll("img"))) {
+        const r = im.getBoundingClientRect(); if (!r.width || !r.height) continue;
+        const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = im.src; });
+        const c = document.createElement("canvas"); c.width = Math.round(r.width * 3); c.height = Math.round(r.height * 3);
+        const g = c.getContext("2d"), rd = getComputedStyle(im).borderTopLeftRadius, pc = rd.endsWith("%") ? parseFloat(rd) / 100 : 0;
+        if (pc && g.roundRect) { g.beginPath(); g.roundRect(0, 0, c.width, c.height, [{ x: pc * c.width, y: pc * c.height }]); g.clip(); }
+        g.drawImage(img, 0, 0, c.width, c.height); pics.set(im, c.toDataURL("image/png"));
+      }
+      const bgm = getComputedStyle(pg).backgroundImage.match(/url\(["']?(data:image\/(png|jpe?g);[^"')]+)["']?\)/);
+      if (bgm) for (let p = 0; p < N; p++) { pdf.setPage(p + 1); pdf.addImage(bgm[1], bgm[2] === "png" ? "PNG" : "JPEG", 0, 0, pp.pw, Math.min(pp.ph, pp.pw * (num(getTpl().bgAspect) || 1.4142)), undefined, "FAST"); }
+      const rectOut = (x, y, w, h, c) => {
+        if (!c || w <= 0 || h <= 0) return;
+        for (let p = Math.max(0, Math.floor(y / H)), p1 = Math.min(N - 1, Math.floor((y + h - 0.01) / H)); p <= p1; p++) {
+          const ya = Math.max(y, p * H), yb = Math.min(y + h, (p + 1) * H); if (yb <= ya) continue;
+          pdf.setPage(p + 1); pdf.setFillColor(c[0], c[1], c[2]); pdf.rect(x * f, (ya - p * H) * f, w * f, (yb - ya) * f, "F");
+        }
+      };
+      const put = (str, rect, fs, bold, c, ls) => {
+        const y = rect.top - pr.top, p = Math.min(N - 1, Math.max(0, Math.floor((y + rect.height / 2) / H)));
+        pdf.setPage(p + 1); pdf.setFont("helvetica", bold ? "bold" : "normal"); pdf.setFontSize(fs * f); pdf.setTextColor(c[0], c[1], c[2]);
+        pdf.text(str.replace(/\u2212/g, "-"), (rect.left - pr.left) * f, (y - p * H + rect.height * 0.81) * f, ls ? { charSpace: ls * f } : undefined);
+      };
+      const text = (tn, cs) => {
+        const fs = parseFloat(cs.fontSize), bold = parseInt(cs.fontWeight, 10) >= 600, c = col(cs.color) || [0, 0, 0], ls = parseFloat(cs.letterSpacing) || 0, re = /\S+/g;
+        let m;
+        while ((m = re.exec(tn.data))) {
+          const rg = document.createRange(); rg.setStart(tn, m.index); rg.setEnd(tn, m.index + m[0].length);
+          const rs = rg.getClientRects(); if (!rs.length) continue;
+          if (rs.length === 1) { put(m[0], rs[0], fs, bold, c, ls); continue; }
+          let cur = "", first = null, top = null;
+          for (let j = 0; j < m[0].length; j++) {
+            const r1 = document.createRange(); r1.setStart(tn, m.index + j); r1.setEnd(tn, m.index + j + 1);
+            const rc = r1.getClientRects()[0]; if (!rc) continue;
+            if (top !== null && Math.abs(rc.top - top) > 2) { put(cur, first, fs, bold, c, ls); cur = ""; first = null; }
+            if (!first) { first = rc; top = rc.top; } cur += m[0][j];
+          }
+          if (cur) put(cur, first, fs, bold, c, ls);
+        }
+      };
+      const walk = (el) => {
+        const cs = getComputedStyle(el);
+        if (cs.display === "none" || cs.visibility === "hidden" || /^(SCRIPT|STYLE)$/.test(el.tagName) || el.classList.contains("no-print")) return;
+        const r = el.getBoundingClientRect(), x = r.left - pr.left, y = r.top - pr.top;
+        if (el !== pg) {
+          rectOut(x, y, r.width, r.height, col(cs.backgroundColor));
+          const bt = parseFloat(cs.borderTopWidth) || 0, br = parseFloat(cs.borderRightWidth) || 0, bb = parseFloat(cs.borderBottomWidth) || 0, bl = parseFloat(cs.borderLeftWidth) || 0;
+          if (bt && cs.borderTopStyle !== "none") rectOut(x, y, r.width, bt, col(cs.borderTopColor));
+          if (bb && cs.borderBottomStyle !== "none") rectOut(x, y + r.height - bb, r.width, bb, col(cs.borderBottomColor));
+          if (bl && cs.borderLeftStyle !== "none") rectOut(x, y, bl, r.height, col(cs.borderLeftColor));
+          if (br && cs.borderRightStyle !== "none") rectOut(x + r.width - br, y, br, r.height, col(cs.borderRightColor));
+        }
+        if (el.tagName === "IMG") { const u = pics.get(el); if (u) { const p = Math.min(N - 1, Math.floor((y + r.height / 2) / H)); pdf.setPage(p + 1); pdf.addImage(u, "PNG", x * f, (y - p * H) * f, r.width * f, r.height * f, undefined, "FAST"); } return; }
+        for (const n of el.childNodes) { if (n.nodeType === 3) text(n, cs); else if (n.nodeType === 1) walk(n); }
+      };
+      walk(pg);
+      pdf.setProperties({ title: hd });
+      const blob = pdf.output("blob"); download(name, "application/pdf", blob);
+      toast(`PDF downloaded (${Math.round(blob.size / 1024)} KB).`);
+      return true;
+    } catch (e) { return false; } finally { host.remove(); }
   }
   async function dtDownload() {
     const src = document.querySelector("#doc-print .dtp"); if (!src) return;
-    const name = ((document.getElementById("doc-print").dataset.no) || "document") + ".pdf";
+    const hd = src.dataset.hd || document.getElementById("doc-print").dataset.no || "document", name = hd.replace(/[\\\/:*?"<>|]+/g, "-") + ".pdf";
     toast("Preparing PDF...");
     try {
+      if (await dtDownloadVector(src, hd, name)) return;
       await dtScript(DT_H2C); await dtScript(DT_JSPDF);
       const pp = dtPaper();
-      const host = document.createElement("div"); host.style.cssText = `position:fixed;left:-10000px;top:0;width:${pp.w}px`; host.innerHTML = src.outerHTML; document.body.appendChild(host);
-      const canvas = await window.html2canvas(host.firstElementChild, { scale: 1.5, backgroundColor: "#ffffff", logging: false });
+      const host = document.createElement("div"); host.style.cssText = `position:fixed;left:-10000px;top:0;width:${pp.w}px;text-rendering:optimizeSpeed;font-kerning:none;-webkit-font-smoothing:antialiased`; host.innerHTML = src.outerHTML; document.body.appendChild(host); dtNoZoom(host, host.firstElementChild, pp.w);
+      const canvas = await window.html2canvas(host.firstElementChild, { scale: Math.max(2, Math.round(1700 / pp.w)), backgroundColor: "#ffffff", logging: false });
       host.remove();
       const pdf = new window.jspdf.jsPDF({ unit: "pt", format: [pp.pw, pp.ph], compress: true }), pw = pp.pw, pageH = Math.round(canvas.width * (src.dataset.dtn ? dtStep() / pp.w : pp.ph / pw));
       for (let y = 0, n = 0; y < canvas.height - 2; y += pageH, n++) {
         const c = document.createElement("canvas"); c.width = canvas.width; c.height = Math.min(pageH, canvas.height - y);
         const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(canvas, 0, y, canvas.width, c.height, 0, 0, c.width, c.height);
         if (n) pdf.addPage();
-        pdf.addImage(c.toDataURL("image/jpeg", 0.72), "JPEG", 0, 0, pw, c.height * pw / canvas.width, undefined, "FAST");
+        pdf.addImage(c.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, pw, c.height * pw / canvas.width, undefined, "FAST");
       }
-      const blob = pdf.output("blob"); download(name, "application/pdf", blob);
+      pdf.setProperties({ title: hd }); const blob = pdf.output("blob"); download(name, "application/pdf", blob);
       toast(`PDF downloaded (${Math.round(blob.size / 1024)} KB).`);
     } catch (e) { toast("Could not make the PDF. Check your internet connection, or use Print and Save as PDF.", "warn"); }
   }
   function dtInit() {
     if (window.__dtInit) return; window.__dtInit = true;
+    document.addEventListener("wheel", (e) => { if ((e.ctrlKey || e.metaKey) && e.target.closest && e.target.closest("#doc-print")) { e.preventDefault(); dtZoomStep(e.deltaY < 0 ? 1 : -1); } }, { passive: false });
     document.addEventListener("input", (e) => {
       const t = e.target, k = t && t.dataset && t.dataset.dt;
       if (!k || !DT.draft || !isSuperUser()) return;
@@ -7507,7 +7717,7 @@ ${body}`);
     document.addEventListener("change", (e) => {
       if (e.target && e.target.hasAttribute && e.target.hasAttribute("data-dt-guides")) { DT.guides = e.target.checked; dtGuides(); return; }
       if (e.target && e.target.hasAttribute && e.target.hasAttribute("data-dt-paper")) {
-        DT.paper = DT_PAPERS[e.target.value] ? e.target.value : DT_PAPER_DEFAULT;
+        DT.paper = DT_PAPERS[e.target.value] ? e.target.value : DT_PAPER_DEFAULT; DT.zoom = 1;
         /* the editor preview redraws in place; the invoice modal re-renders */
         if (document.getElementById("dt-scale")) { dtRefresh(); dtFit(); } else render();
         return;
@@ -7516,6 +7726,9 @@ ${body}`);
     document.addEventListener("click", (e) => {
       const b = e.target.closest && e.target.closest("[data-dt-act]"); if (!b) return;
       const a = b.dataset.dtAct;
+      if (a === "zoom-in") return dtZoomStep(1);
+      if (a === "zoom-out") return dtZoomStep(-1);
+      if (a === "zoom-fit") { DT.zoom = 1; return dtFit(); }
       if (a === "print") return dtPrint();
       if (a === "download") return dtDownload();
       if (a === "kind") { DT.kind = b.dataset.kind; return render(); }
@@ -7541,6 +7754,356 @@ ${body}`);
     window.addEventListener("resize", dtFit);
     window.addEventListener("afterprint", () => { const r = document.getElementById("dt-printroot"); if (r) r.remove(); const pg = document.getElementById("dt-page"); if (pg) pg.remove(); document.documentElement.classList.remove("dt-printing"); });
   }
+  /* ---- Plans & billing (Settings): current plan, Ewity-style "Change plan" drawer with Select, and every other offer on the page ---- */
+  var PLAN_ORDER = ["starter", "business"];
+  var PLAN_DB = { starter: "starter", business: "business" };
+  var PLAN_INT = [["monthly", "Monthly", 1], ["biannual", "Biannual", 6], ["annual", "Annual", 12]];
+  /* same prices as the sign-up page (pos.html) and the database (afpos_plan_total). Change them in BOTH places. */
+  var PLANS = {
+    starter: {
+      name: "Starter",
+      blurb: "For a single shop that wants fast selling and tidy stock.",
+      limits: [["Products", "Up to 1,000 products"], ["Outlets", "1 outlet"], ["Staff accounts", "2 included"], ["Live sync", "Across all your devices"]],
+      opts: {
+        monthly:  { perMonth: 30, total: 30,  outlet: 0,  account: 6 },
+        biannual: { perMonth: 26, total: 156, outlet: 0,  account: 5 },
+        annual:   { perMonth: 23, total: 276, outlet: 0,  account: 5 }
+      }
+    },
+    business: {
+      name: "Business",
+      blurb: "For growing shops and anyone running more than one outlet.",
+      limits: [["Products", "Unlimited"], ["Outlets", "1 included, more with add-ons"], ["Staff accounts", "5 included, more with add-ons"], ["Stock", "Kept per outlet"]],
+      opts: {
+        monthly:  { perMonth: 50, total: 50,  outlet: 20, account: 6 },
+        biannual: { perMonth: 43, total: 258, outlet: 17, account: 5 },
+        annual:   { perMonth: 38, total: 456, outlet: 15, account: 5 }
+      }
+    }
+  };
+  /* ---- current plan card: status color, end date and days left, refreshed live ---- */
+  function plLiveCss() {
+    if (document.getElementById("pl-live-css")) return;
+    const st = document.createElement("style"); st.id = "pl-live-css";
+    st.textContent =
+      '.pl-live[data-st="active"]{border-color:#86efac!important;background:#f0fdf4!important}' +
+      '.pl-live[data-st="due"]{border-color:#fcd34d!important;background:#fffbeb!important}' +
+      '.pl-live[data-st="expired"]{border-color:#fca5a5!important;background:#fef2f2!important}' +
+      '.pl-st{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px}' +
+      '.pl-st i{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}' +
+      '.pl-live[data-st="active"] .pl-st{background:#dcfce7;color:#15803d}' +
+      '.pl-live[data-st="due"] .pl-st{background:#fef3c7;color:#b45309}' +
+      '.pl-live[data-st="expired"] .pl-st{background:#fee2e2;color:#b91c1c}' +
+      '.pl-live[data-st="active"] .pl-st i{animation:plPulse 1.8s infinite}' +
+      '@keyframes plPulse{0%{box-shadow:0 0 0 0 rgba(21,128,61,.45)}70%{box-shadow:0 0 0 7px rgba(21,128,61,0)}100%{box-shadow:0 0 0 0 rgba(21,128,61,0)}}' +
+      '.pl-valid{margin-top:10px;font-size:13px;color:#374151}' +
+      '.pl-valid b{color:#111}' +
+      '.pl-bar{margin-top:8px;height:8px;border-radius:99px;background:rgba(0,0,0,.07);overflow:hidden;max-width:360px}' +
+      '.pl-bar i{display:block;height:100%;border-radius:99px;background:#16a34a;transition:width .6s}' +
+      '.pl-live[data-st="due"] .pl-bar i{background:#f59e0b}' +
+      '.pl-live[data-st="expired"] .pl-bar i{background:#dc2626}';
+    document.head.appendChild(st);
+  }
+  function plDateTxt(iso) { return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); }
+  function plInfo(end, total) {
+    const left = (new Date(end).getTime() - Date.now()) / 864e5;
+    const days = Math.max(0, Math.ceil(left));
+    const st = left < 0 ? "expired" : left <= 7 ? "due" : "active";
+    return {
+      st: st,
+      pct: Math.max(0, Math.min(100, (left / total) * 100)),
+      txt: left < 0 ? "Expired" : days + (days === 1 ? " day" : " days") + " left",
+      lbl: st === "expired" ? "Expired" : st === "due" ? "Renewal due" : "Active"
+    };
+  }
+  function plStatusCard(cur, P, o, su) {
+    plLiveCss();
+    const d = window.__afSub || {};
+    const end = d.period_end ? new Date(d.period_end).toISOString() : "";
+    const total = { monthly: 30, biannual: 182, annual: 365 }[cur.interval] || 30;
+    const info = end ? plInfo(end, total) : { st: "active", pct: 100, txt: "", lbl: "Active" };
+    const validLine = end
+      ? '<div class="pl-valid">Valid until <b>' + esc(plDateTxt(end)) + '</b> \u00b7 <span class="pl-days">' + esc(info.txt) + '</span></div>'
+        + '<div class="pl-bar"><i class="pl-fill" style="width:' + info.pct + '%"></i></div>'
+      : "";
+    return '<div class="pl-cur pl-live" data-end="' + esc(end) + '" data-total="' + total + '" data-st="' + info.st + '">'
+      + '<div><span class="pl-st"><i></i><span class="pl-lbl">' + esc(info.lbl) + '</span></span>'
+      + '<small style="margin-top:12px">Current plan</small><h3>' + esc(P.name) + '</h3>'
+      + '<p>' + esc(planMv(o.perMonth) + " / month \u00b7 " + planBilled(cur.tier, cur.interval)) + '</p>'
+      + validLine + '</div>'
+      + '<button type="button" class="btn btn-primary" data-action="plan-open" ' + (su ? "" : "disabled") + '>Change plan or billing period</button></div>';
+  }
+  function plLiveTick() {
+    document.querySelectorAll(".pl-live[data-end]").forEach(function (card) {
+      if (!card.getAttribute("data-end")) return;
+      const info = plInfo(card.getAttribute("data-end"), +card.getAttribute("data-total") || 30);
+      card.setAttribute("data-st", info.st);
+      const l = card.querySelector(".pl-lbl"); if (l) l.textContent = info.lbl;
+      const dd = card.querySelector(".pl-days"); if (dd) dd.textContent = info.txt;
+      const f = card.querySelector(".pl-fill"); if (f) f.style.width = info.pct + "%";
+    });
+  }
+  setInterval(plLiveTick, 30000);
+  function planMv(n) { return "USD " + Number(n).toLocaleString("en-US"); }
+  function planCur() {
+    const c = state.planCurrent;
+    if (c && PLANS[c.tier] && PLANS[c.tier].opts[c.interval]) return c;
+    return { tier: "starter", interval: "monthly", none: true };
+  }
+  /* after the first term the discount is gone: 6 months / yearly are billed at the regular monthly rate (no discount).
+     The period the account is on right now keeps the price it actually pays. Same rule as request_plan_change in the database. */
+  function planDisc() { return false; }   /* 6 months / yearly keep their discount on every term, to push people to the longer plans */
+  function planEff(tier, key) {
+    const o = PLANS[tier].opts[key], c = planCur();
+    if (!planDisc() || (!c.none && c.tier === tier && c.interval === key)) return o;
+    const m = PLANS[tier].opts.monthly, mo = PLAN_INT.find((x) => x[0] === key)[2];
+    return { perMonth: m.perMonth, total: m.perMonth * mo, outlet: m.outlet, account: m.account };
+  }
+  function planBilled(tier, key) {
+    const o = planEff(tier, key), row = PLAN_INT.find((x) => x[0] === key);
+    return key === "monthly" ? planMv(o.total) + " billed monthly" : planMv(o.total) + " billed " + (key === "biannual" ? "every 6 months" : "annually");
+  }
+  function planExtra(tier, key) {
+    const o = planEff(tier, key);
+    const per = key === "monthly" ? "" : " - billed " + (key === "biannual" ? "every 6 months" : "annually");
+    const parts = [];
+    if (o.outlet) parts.push("Extra outlet (" + planMv(o.outlet) + " per month)");
+    parts.push("Extra staff account (" + planMv(o.account) + " per month)");
+    return parts.join(" \u00b7 ") + per;
+  }
+  function planSave(tier, key) {
+    if (key === "monthly") return 0;
+    const o = PLANS[tier].opts, e = planEff(tier, key);
+    return Math.round(100 * (1 - e.perMonth / o.monthly.perMonth));
+  }
+  function plStyle() {
+    if (document.getElementById("pl-style")) return;
+    const st = document.createElement("style"); st.id = "pl-style";
+    st.textContent = ".pl-cur{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--wash)}.pl-cur small{display:block;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}.pl-cur h3{margin:0;font-size:18px}.pl-cur p{margin:3px 0 0;font-size:13px;color:var(--muted)}"
+      + ".pl-h{margin:22px 0 10px;font-size:14px}.pl-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}@media(max-width:900px){.pl-offers{grid-template-columns:minmax(0,1fr)}}"
+      + ".pl-card{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:14px 16px;min-width:0}.pl-card.is-sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}.pl-card.is-cur{border-color:var(--green)}"
+      + ".pl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.pl-top h4{margin:0;font-size:15px}.pl-top p{margin:3px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}.pl-pill{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--green-soft);color:var(--green);font-size:11px;font-weight:650;vertical-align:middle}"
+      + ".pl-lim{margin:12px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 18px;font-size:12.5px}.pl-lim dt{color:var(--muted)}.pl-lim dd{margin:0;color:var(--ink-2)}.pl-lim-t{margin:14px 0 0;font-size:12px;font-weight:650}"
+      + ".pl-opts{display:grid;gap:8px;margin-top:12px}.pl-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}.pl-opt.is-cur{border-color:var(--green);background:var(--green-soft)}.pl-opt b{display:block;font-size:13.5px}.pl-opt span{display:block;font-size:12px;color:var(--muted);margin-top:2px}.pl-save{display:inline-block!important;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--green-soft);color:var(--green)!important;font-size:11px!important;font-weight:650;margin-top:0!important}"
+      + ".pl-opt .pl-tot{margin-top:5px;font-size:12.5px;color:var(--ink-2)}.pl-opt .pl-tot b{display:inline-block;margin-right:4px;padding:3px 10px;border-radius:8px;background:var(--brand-soft);color:var(--brand-dark);font-size:15px;font-weight:750}.pl-opt .pl-tot-g b{background:var(--green-soft);color:var(--green)}"
+      + ".pl-drawer{padding:4px 2px 24px;display:grid;gap:14px}.pl-drawer h3{margin:0 0 2px;font-size:13.5px}.pl-pay{display:grid;gap:8px;padding-top:6px}.plans-page{max-width:1100px;margin:0 auto;display:grid;gap:14px;width:100%;box-sizing:border-box;padding:0 4px}";
+    document.head.appendChild(st);
+  }
+  function planLimits(tier) {
+    return '<dl class="pl-lim">' + PLANS[tier].limits.map((l) => "<dt>" + esc(l[0]) + "</dt><dd>" + esc(l[1]) + "</dd>").join("") + "</dl>";
+  }
+  function planOptRow(tier, key, cur, su) {
+    const o = planEff(tier, key), lab = PLAN_INT.find((x) => x[0] === key)[1], is = !cur.none && cur.tier === tier && cur.interval === key, sv = planSave(tier, key), ex = planExtra(tier, key);
+    return '<div class="pl-opt ' + (is ? "is-cur" : "") + '"><div><b>' + esc(lab + " - " + planMv(o.perMonth) + " / month") + (sv ? '<span class="pl-save">Save ' + sv + "%</span>" : "") + "</b><span class=\"pl-tot" + (key === "monthly" ? "" : " pl-tot-g") + "\"><b>Total " + esc(planMv(o.total)) + "</b> " + esc(key === "monthly" ? "billed monthly" : "billed " + (key === "biannual" ? "every 6 months" : "annually")) + "</span>" + (ex ? "<span>" + esc(ex) + "</span>" : "") + "</div>"
+      + (is ? '<span class="pl-pill" style="margin:0">Current</span>' : '<button type="button" class="btn btn-primary" data-action="plan-apply" data-tier="' + tier + '" data-int="' + key + '" ' + (su && !state.planPending ? "" : "disabled") + ">Select</button>") + "</div>";
+  }
+  function planReqText() {
+    const p = state.planPending, q = state.planPendingQ || {};
+    if (!p || !PLANS[p.tier]) return "";
+    const iv = PLAN_INT.find((x) => x[0] === p.interval), parts = [PLANS[p.tier].name + " \u00b7 " + (iv ? iv[1] : p.interval)];
+    const xo = Number(q.to_extra_outlets) || 0, xa = Number(q.to_extra_accounts) || 0;
+    if (xo) parts.push(xo + " extra outlet" + (xo > 1 ? "s" : ""));
+    if (xa) parts.push(xa + " extra staff account" + (xa > 1 ? "s" : ""));
+    if (state.planPendingAmount) parts.push(planMv(state.planPendingAmount) + " to pay");
+    return parts.join(" \u00b7 ");
+  }
+  function planSentGo() { state.modal = null; state.planFetchedAt = Date.now(); go("settings-plans"); try { window.scrollTo(0, 0); const pc = document.getElementById("page-content"); if (pc) pc.scrollTop = 0; } catch (e) {} }
+  function payHtml() {
+    const a = state.planPendingAmount || 0;
+    return '<div class="pl-cur"><div><small>Payment due</small><h3>' + esc(planMv(a)) + '</h3><p>Waiting for your payment details. AdFlare confirms after the transfer.</p></div>' +
+      '<button type="button" class="btn btn-primary" data-action="pay-open">Send payment details</button></div>';
+  }
+  /* popup: bank details on top, the form, and Submit at the bottom. X closes it. */
+  function renderPayModal() {
+    swStyle();
+    const i = state.payInfo || {}, a = state.planPendingAmount || 0;
+    const field = (id, label, type, value, ph) => '<label class="sw-field"><span>' + label + '</span><input id="' + id + '" type="' + (type || "text") + '" value="' + esc(value || "") + '" placeholder="' + esc(ph || "") + '" autocomplete="off"></label>';
+    const body = '<div class="pl-drawer">' +
+      '<div class="pl-cur" style="display:block"><small>Send to</small>' +
+        '<dl class="pl-lim" style="margin-top:8px">' + bankRow("Bank", i.bank_name) + bankRow("Account name", i.account_name) + bankRow("Account number", i.account_number) + '<dt>Amount</dt><dd><b>' + esc(planMv(a)) + '</b></dd></dl>' +
+        '<p class="pl-adnote" style="margin-top:8px">' + esc(i.instructions || "") + '</p></div>' +
+      '<div class="pay-form" style="display:grid;gap:10px">' +
+        field("pay-name", "Sender name", "text", "", "Name on the transfer") +
+        field("pay-bank", "Bank you paid from", "text", "", "Your bank") +
+        field("pay-ref", "Transfer reference", "text", "", "Reference or receipt number") +
+        field("pay-date", "Date paid", "date", "", "") +
+        field("pay-amt", "Amount paid (USD)", "number", a, "") +
+        field("pay-note", "Note (optional)", "text", "", "") +
+      "</div>" +
+      '<button type="button" class="btn btn-primary" data-action="pay-submit" style="width:100%;justify-content:center;margin-top:6px">Submit payment details</button>' +
+    "</div>";
+    return shell("Send payment", "PAYMENT", body, { wide: false, id: "pay-title" });
+  }
+  function renderPlans(meta) {
+    plStyle();
+    /* read the account's real state from the server (refreshed at most every 15 seconds),
+       so what the owner sees always matches the database after the admin confirms */
+    if (!state.planFetchedAt || Date.now() - state.planFetchedAt > 15000) {
+      state.planFetchedAt = Date.now();
+      if (window.__afSb) Promise.all([window.__afSb.rpc("my_plan_change"), window.__afSb.rpc("my_subscription"), window.__afSb.rpc("get_payment_info")]).then((res) => {
+        const q = res[0].data, d = res[1].data;
+        state.planPending = q && q.status === "pending" ? { tier: q.to_plan, interval: q.to_cycle } : null;
+        state.planPendingId = q && q.status === "pending" ? q.id : null;
+        state.planPendingAmount = q && q.status === "pending" ? Number(q.amount_due) || 0 : 0;
+        state.planPendingQ = q && q.status === "pending" ? q : null;
+        state.paySent = !!(q && q.status === "pending" && (q.pay_submitted_at || (state.paySentFor && state.paySentFor === q.id)));
+        state.payInfo = res[2] && res[2].data ? res[2].data : null;
+        state.planCurrent = d && d.plan ? { tier: d.plan, interval: d.cycle || "monthly" } : null;
+        state.discountUsed = !!(d && d.discount_used);
+        state.planLoaded = true;
+        window.__afSb.auth.getSession().then((se) => {
+          const uid = se.data && se.data.session && se.data.session.user.id;
+          if (!uid) return;
+          return null;
+        });
+        rootRender();
+      });
+    }
+    const su = isSuperUser(), cur = planCur(), P = PLANS[cur.tier], o = P.opts[cur.interval], sec = settingsSections.find((x) => x.id === state.view);
+    const banner = su ? "" : '<div style="margin:0 0 14px;padding:12px 14px;border-radius:10px;background:var(--amber-soft);border:1px solid var(--line);color:var(--amber);font-size:13px"><b>View only.</b> Only the Super Admin can change the plan.</div>';
+    const curHtml = (state.planLoaded && !state.planCurrent) ? '<div class="pl-cur"><div><small>Current plan</small><h3>No active plan</h3><p>Waiting for AdFlare to approve your plan.</p></div></div>' : plStatusCard(cur, P, o, su);
+    const offers = PLAN_ORDER.map((k) => '<article class="pl-card ' + (!cur.none && cur.tier === k ? "is-cur" : "") + '"><div class="pl-top"><div><h4>' + esc(PLANS[k].name) + (!cur.none && cur.tier === k ? '<span class="pl-pill">Current</span>' : "") + "</h4><p>" + esc(PLANS[k].blurb) + "</p></div></div>"
+      + planLimits(k) + '<div class="pl-opts">' + PLAN_INT.map((i) => planOptRow(k, i[0], cur, su)).join("") + "</div></article>").join("");
+    const aiP = su && subPlan() ? addonInfo() : null;
+    const addCard = aiP ? '<div class="pl-cur" style="margin-top:14px"><div><small>Add-ons</small><h3>Outlets and staff accounts</h3><p>' + esc("Allowed now: " + planOutletLimit() + " outlet" + (planOutletLimit() > 1 ? "s" : "") + " \u00b7 " + planAccountLimit() + " staff accounts. " + planExtra(aiP.tier, aiP.cy)) + '</p></div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn btn-primary" data-action="addons-open" ' + (state.planPending ? "disabled" : "") + '>Add outlets or staff</button>'
+      + (aiP.tier === "starter" ? '<button type="button" class="btn btn-secondary" data-action="plan-open" data-tier="business">Upgrade to Business</button>' : "") + '</div></div>' : "";
+    const pendBanner = state.planPending ? '<div style="margin:0 0 14px;padding:14px 16px;border-radius:12px;background:var(--amber-soft);border:1px solid var(--line);color:var(--amber);font-size:13px;line-height:1.5"><b style="font-size:15px">Waiting for verification</b><br>' + esc(planReqText()) + '<br>' + (state.paySent ? "Payment details sent. AdFlare is verifying your payment. Your current plan stays the same until it is confirmed." : "Send your payment details so AdFlare can verify it. Your current plan stays the same until it is confirmed.") + '</div>' : "";
+    const discNote = "";
+    const payCard = state.planPending && state.payInfo && !state.paySent ? payHtml() : "";
+    const body = banner + pendBanner + payCard + curHtml + addCard + discNote + '<h3 class="pl-h">Other offers</h3><div class="pl-offers">' + offers + "</div>";
+    return `${pageHeading(meta, `<button class="btn btn-secondary" type="button" data-view="admin">${svgIcon("arrow", 16)} All settings</button>`)}<section class="plans-page">${body}</section>`;
+  }
+  function renderPlanModal(m) {
+    plStyle();
+    const cur = planCur(), su = isSuperUser();
+    const cards = PLAN_ORDER.map((k) => '<div class="pl-card ' + (m.tier === k ? "is-sel" : "") + '"><div class="pl-top"><div><h4>' + esc(PLANS[k].name) + (!cur.none && cur.tier === k ? '<span class="pl-pill">Current</span>' : "") + "</h4><p>" + esc(PLANS[k].blurb) + '</p></div><button type="button" class="btn ' + (m.tier === k ? "btn-secondary" : "btn-primary") + '" data-action="plan-tier" data-tier="' + k + '">' + (m.tier === k ? "Selected" : "Select") + "</button></div>"
+      + '<div class="pl-lim-t">Plan limits</div>' + planLimits(k) + "</div>").join("");
+    const pay = m.tier && PLANS[m.tier] ? '<div class="pl-pay"><h3>Select a Payment Plan for your ' + esc(PLANS[m.tier].name) + " subscription</h3>" + PLAN_INT.map((i) => planOptRow(m.tier, i[0], cur, su)).join("") + "</div>" : "";
+    return shell("Change plan", "SUBSCRIPTION", '<div class="pl-drawer"><h3>Select a subscription plan</h3>' + cards + pay + "</div>", { wide: true });
+  }
+  function planAsk(tier, key) {
+    if (!isSuperUser()) return toast("Only the Super Admin can change the plan.", "warn");
+    if (!PLANS[tier] || !PLANS[tier].opts[key]) return;
+    if (state.planPending) return toast("A plan change is already waiting for approval.", "warn");
+    const cur = planCur();
+    if (!cur.none && cur.tier === tier && cur.interval === key) return toast("That is already your plan.", "warn");
+    state.modal = { type: "switch", tier, int: key };
+    return rootRender();
+  }
+  function swStyle() {
+    if (document.getElementById("sw-style")) return;
+    const st = document.createElement("style"); st.id = "sw-style";
+    st.textContent = ".sw-field{display:grid;gap:6px;width:100%;min-width:0}" +
+      ".sw-field>span{font-size:12.5px;font-weight:600;color:var(--ink-2)}" +
+      ".sw-field input{width:100%;box-sizing:border-box;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:13.5px}" +
+      ".sw-field input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}" +
+      ".pay-form,.sw-form{display:grid;gap:14px}";
+    document.head.appendChild(st);
+  }
+  function copyBtn(v, label) {
+    return '<button type="button" onclick="afposCopy(this)" data-copy="' + esc(v) + '" aria-label="Copy ' + esc(label) + '" title="Copy" style="border:0;background:none;cursor:pointer;color:var(--ink-2);padding:4px;border-radius:6px;display:inline-flex;align-items:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>';
+  }
+  function bankRow(label, value) {
+    return '<dt>' + esc(label) + '</dt><dd style="display:flex;align-items:center;gap:8px;justify-content:space-between"><span>' + esc(value || "") + '</span>' + (value ? copyBtn(value, label) : "") + '</dd>';
+  }
+  /* popup: what they are switching to, the bank details, and the payment details. Submit sends both. */
+  /* ---- Add-ons: buy extra outlets / staff accounts, or go up to Business. Opened from Plans & billing and from the "plan limit" messages. ---- */
+  function addonInfo() {
+    const d = window.__afSub || {}, c = planCur();
+    const tier = d.plan || (c.none ? "" : c.tier), cy0 = d.cycle || c.interval || "monthly";
+    const du = !!(d.discount_used || state.discountUsed);
+    return { tier, cy0, cy: cy0, ownO: Number(d.extra_outlets) || 0, ownA: Number(d.extra_accounts) || 0 };
+  }
+  function addonTotal(ai, xo, xa) {
+    const o = planDisc() ? PLANS[ai.tier].opts.monthly : PLANS[ai.tier].opts[ai.cy];
+    return o.perMonth + (ai.tier === "business" ? xo * o.outlet : 0) + xa * o.account;
+  }
+  /* add-on lang: ang presyo ng mga bagong extra kada buwan, hindi kasama ang plan na bayad na */
+  function addonCharge(ai, ao, aa) {
+    const o = planDisc() ? PLANS[ai.tier].opts.monthly : PLANS[ai.tier].opts[ai.cy];
+    return (ai.tier === "business" ? ao * o.outlet : 0) + aa * o.account;
+  }
+  function addonMonths(cy) { return PLAN_INT.find((x) => x[0] === cy)[2]; }
+  function openAddons(focus, reason) {
+    if (!isSuperUser()) return toast("Only the Super Admin can add outlets or staff accounts. Ask your Super Admin.", "warn");
+    if (state.planPending) return toast("A plan change is already waiting for approval.", "warn");
+    if (!addonInfo().tier) return toast("Choose a plan first in Plans & billing.", "warn");
+    state.modal = { type: "addons", addO: focus === "outlet" ? 1 : 0, addA: focus === "staff" ? 1 : 0, reason: reason || "" };
+    rootRender();
+    if (!state.payInfo && window.__afSb) window.__afSb.rpc("get_payment_info").then((r) => { if (r && r.data) { state.payInfo = r.data; if (state.modal && state.modal.type === "addons") rootRender(); } });
+  }
+  function addonSumHtml(m) {
+    const ai = addonInfo(), xo = ai.ownO + m.addO, xa = ai.ownA + m.addA;
+    const add = addonCharge(ai, m.addO, m.addA), total = addonTotal(ai, xo, xa), months = addonMonths(ai.cy);
+    return '<div><span>Add-on per month</span><b>' + esc(planMv(add)) + '</b></div>'
+      + '<div><span>Total per month after</span><b>' + esc(planMv(total)) + '</b></div>'
+      + '<div><span>Amount to pay now (' + esc(PLAN_INT.find((x) => x[0] === ai.cy)[1].toLowerCase()) + ')</span><b>' + esc(planMv(add * months)) + '</b></div>';
+  }
+  function addonsRefresh() {
+    const m = state.modal; if (!m || m.type !== "addons") return;
+    const set = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+    set("ad-o", m.addO); set("ad-a", m.addA);
+    const sm = document.getElementById("ad-sum"); if (sm) sm.innerHTML = addonSumHtml(m);
+    const ai = addonInfo(), amt = document.getElementById("ad-amt");
+    if (amt) amt.value = addonCharge(ai, m.addO, m.addA) * addonMonths(ai.cy);
+  }
+  function renderAddonsModal(m) {
+    swStyle(); plStyle();
+    const ai = addonInfo(), P = PLANS[ai.tier], o = planDisc() ? P.opts.monthly : P.opts[ai.cy], i = state.payInfo || {}, biz = ai.tier === "business";
+    const field = (id, label, type, value, ph) => '<label class="sw-field"><span>' + label + '</span><input id="' + id + '" type="' + (type || "text") + '" value="' + esc(value || "") + '" placeholder="' + esc(ph || "") + '" autocomplete="off"></label>';
+    const step = (k, title, note, val) => '<div class="pl-opt"><div><b>' + title + '</b><span>' + note + '</span></div><div style="display:flex;align-items:center;gap:10px">'
+      + '<button type="button" class="btn btn-secondary" data-action="ad-step" data-k="' + k + '" data-d="-1" aria-label="Fewer">&minus;</button>'
+      + '<b id="ad-' + k + '" style="min-width:22px;text-align:center">' + val + '</b>'
+      + '<button type="button" class="btn btn-secondary" data-action="ad-step" data-k="' + k + '" data-d="1" aria-label="More">+</button></div></div>';
+    const allowO = 1 + ai.ownO, allowA = (biz ? 5 : 2) + ai.ownA;
+    const outletRow = biz ? step("o", "Extra outlets", esc(planMv(o.outlet)) + " / month each. You can have " + allowO + " outlet" + (allowO > 1 ? "s" : "") + " now.", m.addO) : "";
+    /* Starter: Upgrade to Business is shown at the bottom, after the add-on request */
+    const upgradeCard = biz ? "" : '<div class="pl-cur" style="display:block;margin-top:14px"><small>Need more outlets?</small><p style="margin:6px 0 10px">Starter covers 1 outlet. Go up to Business to run more outlets.</p><button type="button" class="btn btn-primary" data-action="plan-open" data-tier="business" style="width:100%;justify-content:center">Upgrade to Business</button></div>';
+    const staffRow = step("a", "Extra staff accounts", esc(planMv(o.account)) + " / month each. You can have " + allowA + " staff account" + (allowA > 1 ? "s" : "") + " now.", m.addA);
+    const body = '<div class="pl-drawer">'
+      + (m.reason ? '<p class="pl-adnote" style="margin:0"><b>' + esc(m.reason) + '</b></p>' : "")
+      + '<div class="pl-cur" style="display:block"><small>Current plan</small><h3>' + esc(P.name) + " \u00b7 " + esc(PLAN_INT.find((x) => x[0] === ai.cy)[1]) + '</h3>'
+      + (planDisc() && ai.cy !== 'monthly' ? '<p>Add-ons are charged at the regular rate (no discount).</p>' : '<p>' + esc(planMv(o.perMonth)) + ' / month</p>') + '</div>'
+      + '<div class="pl-opts" style="margin-top:0">' + outletRow + staffRow + '</div>'
+      + '<div id="ad-sum" class="pl-cur" style="display:grid;gap:8px">' + addonSumHtml(m) + '</div>'
+      + '<div class="pl-cur" style="display:block"><small>Send the payment to</small><dl class="pl-lim" style="margin-top:8px">' + bankRow("Bank", i.bank_name) + bankRow("Account name", i.account_name) + bankRow("Account number", i.account_number) + '</dl></div>'
+      + '<div class="sw-form">'
+      + field("sw-name", "Sender name", "text", "", "Name on the transfer")
+      + field("sw-bank", "Bank you paid from", "text", "", "Your bank")
+      + field("sw-ref", "Transfer reference", "text", "", "Reference or receipt number")
+      + field("sw-date", "Date paid", "date", "", "")
+      + field("ad-amt", "Amount paid (USD)", "number", addonCharge(ai, m.addO, m.addA) * addonMonths(ai.cy), "")
+      + field("sw-note", "Note (optional)", "text", "", "")
+      + '</div>'
+      + '<p class="pl-adnote">The extra outlets and staff accounts turn on after AdFlare confirms the payment.</p>'
+      + '<button type="button" class="btn btn-primary" data-action="addons-submit" style="width:100%;justify-content:center">Send add-on request</button>'
+      + upgradeCard
+      + '</div>';
+    return shell("Add outlets or staff", "SUBSCRIPTION", body, { wide: false, id: "addons-title" });
+  }
+  function renderSwitchModal(m) {
+    swStyle();
+    const o = planEff(m.tier, m.int), lab = PLAN_INT.find((x) => x[0] === m.int)[1], i = state.payInfo || {};
+    const field = (id, label, type, value, ph) => '<label class="sw-field"><span>' + label + '</span><input id="' + id + '" type="' + (type || "text") + '" value="' + esc(value || "") + '" placeholder="' + esc(ph || "") + '" autocomplete="off"></label>';
+    const body = '<div class="pl-drawer">' +
+      '<div class="pl-cur" style="display:block"><small>Switching to</small><h3>' + esc(PLANS[m.tier].name) + " · " + esc(lab) + '</h3>' +
+        '<p>' + esc(planMv(o.perMonth)) + " / month · " + esc(planBilled(m.tier, m.int)) + '</p></div>' +
+      '<div class="pl-cur" style="display:block"><small>Send ' + esc(planMv(o.total)) + ' to</small>' +
+        '<dl class="pl-lim" style="margin-top:8px">' + bankRow("Bank", i.bank_name) + bankRow("Account name", i.account_name) + bankRow("Account number", i.account_number) + '</dl></div>' +
+      '<div class="sw-form">' +
+        field("sw-name", "Sender name", "text", "", "Name on the transfer") +
+        field("sw-bank", "Bank you paid from", "text", "", "Your bank") +
+        field("sw-ref", "Transfer reference", "text", "", "Reference or receipt number") +
+        field("sw-date", "Date paid", "date", "", "") +
+        field("sw-amt", "Amount paid (USD)", "number", o.total, "") +
+        field("sw-note", "Note (optional)", "text", "", "") +
+      "</div>" +
+      '<p class="pl-adnote">Your plan changes only after AdFlare confirms the payment.</p>' +
+      '<button type="button" class="btn btn-primary" data-action="switch-submit" style="width:100%;justify-content:center">Send change request</button>' +
+    "</div>";
+    return shell("Switch plan", "SUBSCRIPTION", body, { wide: false, id: "switch-title" });
+  }
   function renderDocTemplate(meta) {
     dtStyle(); dtInit();
     const su = isSuperUser();
@@ -7563,7 +8126,7 @@ ${body}`);
     const co = (k, label, ph) => `<label class="form-field"><span>${label}</span><input data-dt="${k}" value="${esc(t[k])}" placeholder="${esc(ph || "")}"></label>`;
     const toolsHtml = `<h3>Company details</h3>${co("coName", "Company name", displayName())}${co("coAddress", "Address", gs.address)}${co("coPhone", "Phone", gs.phone)}${co("coEmail", "Email", gs.email)}<label class="setting-check"><input type="checkbox" data-dt="showCoText" ${t.showCoText !== false ? "checked" : ""}><span class="toggle"><i></i></span><span>Show company name and details (turn off to show only the logo)</span></label><p class="field-hint">Shown at the top of every invoice, quotation and receipt. Leave blank to use General settings.</p>
       <h3>Your own PDF template</h3>
-      <p class="field-hint">Upload your letterhead as a PDF or image (A4 or A5 shape, under 1 MB; it is scaled to the paper size you print on). Page 1 becomes the background and the document prints on top of it.</p>
+      <p class="field-hint">Upload your letterhead as a PDF or image (up to 8 MB). Page 1 is kept at full quality and is never stretched; it is fitted to the width of the paper size you print on. Page 1 becomes the background and the document prints on top of it.</p>
       <div class="dt-row"><button class="btn btn-primary" type="button" data-dt-act="bg-pick">${t.bgImage ? "Replace PDF template" : "Upload PDF template"}</button>${t.bgImage ? '<button class="btn btn-secondary" type="button" data-dt-act="bg-remove">Remove</button>' : ""}</div>
       <input type="file" id="dt-bgfile" accept="application/pdf,image/png,image/jpeg" hidden>
       ${own ? `<label class="setting-check"><input type="checkbox" data-dt="hideHead" ${t.hideHead ? "checked" : ""}><span class="toggle"><i></i></span><span>Hide built-in company header</span></label>${rng("bgTop", "Keep my header down to (from top)", 0, 600, "px")}${rng("bgSide", "Left / right margin", 10, 150, "px")}<label class="setting-check"><input type="checkbox" data-dt="bgClear" ${t.bgClear !== false ? "checked" : ""}><span class="toggle"><i></i></span><span>Clear sample content below my header</span></label>${t.bgClear !== false ? rng("bgBottom", "Keep my footer (height from bottom)", 0, 400, "px") : ""}<p class="field-hint">Your template can be a finished sample page. Everything above the header line (logo, company name) and the footer stays; the body is cleared and filled with the real invoice or quotation.</p>` : ""}
@@ -7594,13 +8157,14 @@ ${body}`);
     if (m.kind === "quotation") { const q = d().quotations.find((x) => x.id === m.id); if (!q) return shell("Quotation", "DOCUMENT", '<div class="empty-state">Quotation not found.</div>'); doc = dtFromQuote(q); title = "Quotation " + q.id; }
     else { const b = state.data.bills.find((x) => x.id === m.id); if (!b) return shell("Invoice", "DOCUMENT", '<div class="empty-state">Invoice not found.</div>'); doc = dtFromBill(b); title = "Invoice " + b.id; }
     requestAnimationFrame(dtFit);
-    const body = `<div id="doc-print" data-no="${esc(doc.no)}"><div class="dtp-wrap"><div class="dtp-scale">${docHtml(m.kind, doc, getTpl())}</div></div></div><div class="modal-foot no-print">${dtPaperSelect()}<button class="btn btn-secondary" type="button" data-dt-act="print">${svgIcon("print", 15)} Print</button><button class="btn btn-secondary" type="button" data-dt-act="download">${svgIcon("download", 15)} Download PDF</button><button class="btn btn-primary" type="button" data-action="close-modal">Done</button></div>`;
+    const body = `<div id="doc-print" data-no="${esc(doc.no)}"><div class="dtp-wrap"><div class="dtp-scale">${docHtml(m.kind, doc, getTpl())}</div></div></div><div class="modal-foot no-print">${dtZoomUI()}${dtPaperSelect()}<button class="btn btn-secondary" type="button" data-dt-act="print">${svgIcon("print", 15)} Print</button><button class="btn btn-secondary" type="button" data-dt-act="download">${svgIcon("download", 15)} Download PDF</button><button class="btn btn-primary" type="button" data-action="close-modal">Done</button></div>`;
     return shell(title, "DOCUMENT", body, { wide: true });
   }
 
   function renderSettings(meta) {
     if (meta.key === "appearance") return renderAppearance(meta);
     if (meta.key === "documents") return renderDocTemplate(meta);
+    if (meta.key === "plans") return renderPlans(meta);
     const fields = settingsFields[meta.key] || [];
     const sec = settingsSections.find((x) => x.id === state.view);
     const soon = meta.key === "onlineOrders";
@@ -9306,7 +9870,7 @@ ${body}`);
     const t = getTpl();
     if (b.note) t.terms = `Note: ${b.note}` + (t.terms ? "\n" + t.terms : "");
     requestAnimationFrame(dtFit);
-    const body = `<div id="doc-print" data-no="${esc(doc.no)}"><div class="dtp-wrap"><div class="dtp-scale">${docHtml("invoice", doc, t)}</div></div></div><div class="modal-foot no-print">${dtPaperSelect()}<button class="btn btn-secondary" type="button" data-dt-act="print">${svgIcon("print", 15)} Print</button><button class="btn btn-secondary" type="button" data-dt-act="download">${svgIcon("download", 15)} Download PDF</button><button class="btn btn-primary" type="button" data-action="close-modal">${m.fresh ? "New sale" : "Done"}</button></div>`;
+    const body = `<div id="doc-print" data-no="${esc(doc.no)}"><div class="dtp-wrap"><div class="dtp-scale">${docHtml("invoice", doc, t)}</div></div></div><div class="modal-foot no-print">${dtZoomUI()}${dtPaperSelect()}<button class="btn btn-secondary" type="button" data-dt-act="print">${svgIcon("print", 15)} Print</button><button class="btn btn-secondary" type="button" data-dt-act="download">${svgIcon("download", 15)} Download PDF</button><button class="btn btn-primary" type="button" data-action="close-modal">${m.fresh ? "New sale" : "Done"}</button></div>`;
     return shell(m.fresh ? "Sale complete" : "Receipt", m.fresh ? "SUCCESS" : "RECEIPT", body, { wide: true });
   }
   function renderOpenRegister(m) {
@@ -9560,6 +10124,14 @@ ${body}`);
     const m = state.modal;
     if (!m) return "";
     switch (m.type) {
+      case "switch":
+        return renderSwitchModal(m);
+      case "addons":
+        return renderAddonsModal(m);
+      case "pay":
+        return renderPayModal();
+      case "plan-pick":
+        return renderPlanModal(m);
       case "newadmin":
         return renderNewAdmin(m);
       case "detail":
@@ -9574,6 +10146,8 @@ ${body}`);
         return renderPrompt(m);
       case "confirm":
         return renderConfirm(m);
+      case "audview":
+        return renderAudView(m);
       case "checkout":
         return renderCheckout(m);
       case "receipt":
@@ -9826,11 +10400,13 @@ ${body}`);
         setTimeout(() => { oldDrawer.remove(); unlock(); }, 340);
       } else unlock();
     }
+    if (!state.modal) state._mk = "";
     if (state.modal) {
       const dialog = app.querySelector('[role="dialog"]');
       if (dialog) {
         const card = app.querySelector(".modal-card");
-        if (card) card.scrollTop = scroll;
+        /* a different window opens at the top; the same window being redrawn keeps its scroll place */
+        const mk = state.modal.type; if (card) card.scrollTop = state._mk === mk ? scroll : 0; state._mk = mk;
         const target = hadDialogFocus && state.modal.tab ? dialog.querySelector(`[data-detail-tab="${CSS.escape(state.modal.tab)}"]`) : hadDialogFocus ? null : dialog.querySelector('input:not([type="hidden"]):not([type="radio"]):not(:disabled), select, textarea, [data-detail-tab][aria-selected="true"], .modal-foot .btn-primary');
         target?.focus({ preventScroll: true }); /* without this the browser scrolls the off-screen drawer into view and the slide jumps */
         syncDynamicModal();
@@ -10169,6 +10745,15 @@ ${body}`);
     if (a.indexOf("cx-") === 0) return cxAction(a, btn, t);
     if (state.popover === "cxrow" || state.popover === "cxmore") state.popover = null;
     switch (a) {
+      case "plan-open":
+        if (!isSuperUser()) return toast("Only the Super Admin can change the plan.", "warn");
+        state.modal = { type: "plan-pick", tier: ds.tier || null };
+        return rootRender();
+      case "plan-tier":
+        if (state.modal && state.modal.type === "plan-pick") { state.modal.tier = ds.tier; rootRender(); requestAnimationFrame(() => { const pe = document.querySelector(".pl-pay"); if (pe && pe.scrollIntoView) pe.scrollIntoView({ block: "nearest", behavior: "smooth" }); }); }
+        return;
+      case "plan-apply":
+        return planAsk(ds.tier, ds.int);
       case "close-nav":
         return setSidebar(false);
       case "toggle-side":
@@ -10252,6 +10837,86 @@ ${body}`);
       case "notifications":
         state.popover = state.popover === "notif" ? null : "notif";
         return rootRender();
+      case "switch-submit": {
+        const v = (id) => (document.getElementById(id) || {}).value || "";
+        const m = state.modal;
+        if (!m || m.type !== "switch") return;
+        if (v("sw-name").trim().length < 2) return toast("Enter the sender name.", "warn");
+        if (v("sw-bank").trim().length < 2) return toast("Enter the bank you paid from.", "warn");
+        if (v("sw-ref").trim().length < 2) return toast("Enter the transfer reference.", "warn");
+        if (!v("sw-date")) return toast("Enter the date paid.", "warn");
+        const s = window.__afSb, cyKey = m.int, o = planEff(m.tier, cyKey);
+        s.rpc("request_plan_change", { p_plan: PLAN_DB[m.tier] || "", p_plan_cycle: cyKey, p_extra_outlets: m.tier === "business" ? (Number((window.__afSub || {}).extra_outlets) || 0) : 0, p_extra_accounts: Number((window.__afSub || {}).extra_accounts) || 0 }).then((r) => {
+          if (r.error) return toast(r.error.message || "Could not send the request.", "warn");
+          const id = r.data && r.data.id;
+          return s.rpc("submit_payment_details", { p_request: id, p_name: v("sw-name"), p_bank: v("sw-bank"), p_reference: v("sw-ref"), p_date: v("sw-date"), p_amount: Number(v("sw-amt")) || o.total, p_note: v("sw-note") }).then((q) => {
+            state.planPending = { tier: m.tier, interval: cyKey };
+            state.planPendingId = id;
+            state.planPendingAmount = o.total;
+            state.planPendingQ = { to_extra_outlets: m.tier === "business" ? (Number((window.__afSub || {}).extra_outlets) || 0) : 0, to_extra_accounts: Number((window.__afSub || {}).extra_accounts) || 0 };
+            state.paySent = !q.error; if (!q.error) state.paySentFor = id;
+            planSentGo();
+            if (q.error) toast("Request sent, but the payment details were not saved. Use Send payment details.", "warn");
+            else toast("Request and payment details sent. Waiting for AdFlare to confirm.");
+          });
+        });
+        return;
+      }
+      case "addons-open":
+        return openAddons(ds.focus || "");
+      case "ad-step": {
+        const m = state.modal; if (!m || m.type !== "addons") return;
+        const ai = addonInfo(), d = Number(ds.d) || 0;
+        if (ds.k === "o") m.addO = Math.max(0, Math.min(19 - ai.ownO, m.addO + d));
+        else m.addA = Math.max(0, Math.min(50 - ai.ownA, m.addA + d));
+        return addonsRefresh();
+      }
+      case "addons-submit": {
+        const v = (id) => (document.getElementById(id) || {}).value || "";
+        const m = state.modal;
+        if (!m || m.type !== "addons") return;
+        if (!m.addO && !m.addA) return toast("Choose how many outlets or staff accounts to add.", "warn");
+        if (v("sw-name").trim().length < 2) return toast("Enter the sender name.", "warn");
+        if (v("sw-bank").trim().length < 2) return toast("Enter the bank you paid from.", "warn");
+        if (v("sw-ref").trim().length < 2) return toast("Enter the transfer reference.", "warn");
+        if (!v("sw-date")) return toast("Enter the date paid.", "warn");
+        const s = window.__afSb, ai = addonInfo(), xo = ai.ownO + m.addO, xa = ai.ownA + m.addA, due = addonCharge(ai, m.addO, m.addA) * addonMonths(ai.cy);
+        s.rpc("request_plan_change", { p_plan: ai.tier, p_plan_cycle: ai.cy, p_extra_outlets: ai.tier === "business" ? xo : 0, p_extra_accounts: xa }).then((r) => {
+          if (r.error) return toast(r.error.message || "Could not send the request.", "warn");
+          const id = r.data && r.data.id;
+          return s.rpc("submit_payment_details", { p_request: id, p_name: v("sw-name"), p_bank: v("sw-bank"), p_reference: v("sw-ref"), p_date: v("sw-date"), p_amount: Number(v("ad-amt")) || due, p_note: v("sw-note") }).then((q) => {
+            state.planPending = { tier: ai.tier, interval: ai.cy };
+            state.planPendingId = id;
+            state.planPendingAmount = due;
+            state.planPendingQ = { to_extra_outlets: ai.tier === "business" ? xo : 0, to_extra_accounts: xa };
+            state.paySent = !q.error; if (!q.error) state.paySentFor = id;
+            planSentGo();
+            if (q.error) toast("Request sent, but the payment details were not saved. Use Send payment details in Plans & billing.", "warn");
+            else toast("Add-on request and payment details sent. Waiting for AdFlare to confirm.");
+          });
+        });
+        return;
+      }
+      case "pay-open":
+        state.modal = { type: "pay" };
+        return rootRender();
+      case "pay-submit": {
+        const v = (id) => (document.getElementById(id) || {}).value || "";
+        if (!state.planPendingId) return toast("No pending request.", "warn");
+        if (v("pay-ref").trim().length < 2) return toast("Enter the transfer reference.", "warn");
+        window.__afSb.rpc("submit_payment_details", { p_request: state.planPendingId, p_name: v("pay-name"), p_bank: v("pay-bank"), p_reference: v("pay-ref"), p_date: v("pay-date"), p_amount: Number(v("pay-amt")) || 0, p_note: v("pay-note") }).then((r) => {
+          if (r.error) return toast(r.error.message || "Could not send the payment details.", "warn");
+          state.paySent = true; state.paySentFor = state.planPendingId;
+          planSentGo();
+          toast("Payment details sent. AdFlare will confirm.");
+        });
+        return;
+      }
+      case "plan-billing":
+        state.popover = null;
+        rootRender();
+        if (window.openPlanBilling) window.openPlanBilling();
+        return;
       case "profile-menu":
         state.popover = state.popover === "profile" ? null : "profile";
         return rootRender();
@@ -10268,11 +10933,23 @@ ${body}`);
         return;
       case "reset-data":
         if (!isSuperUser()) return toast("Only the Super Admin can reset the data.", "warn");
-        return openModal({ type: "confirm", title: "Reset data", message: "This deletes every record in this account (sales, products, customers, orders, expenses and the rest) and starts again from zero. This cannot be undone.", confirmLabel: "Reset data", onConfirm: { kind: "reset" } });
+        return openModal({ type: "confirm", title: "Reset data", message: "This deletes every record in this account (sales, products, customers, orders, expenses and the rest) and starts again from zero. Right after, you get a short time to undo it.", confirmLabel: "Reset data", onConfirm: { kind: "reset" } });
       case "import-data":
         return importStart(ds.key);
+      case "aud-menu":
+        state.popover = state.popover === "aud:" + ds.rid ? null : "aud:" + ds.rid;
+        return rootRender();
+      case "aud-view":
+        state.popover = null;
+        return openModal({ type: "audview", rid: ds.rid });
       case "aud-restore":
+        state.popover = null;
         return audRestore(ds.rid);
+      case "aud-delete":
+        state.popover = null;
+        return audAskDelete(ds.rid);
+      case "aud-delete-all":
+        return audAskDeleteAll();
       case "restore-data": {
         if (!isSuperUser()) return toast("Only the Super Admin can restore a backup.", "warn");
         const inp = document.createElement("input");
@@ -10284,16 +10961,11 @@ ${body}`);
         return rootRender();
       }
       case "export-all":
-        exportAllJson();
-        toast("Exported all data.");
         state.popover = null;
-        return rootRender();
-      case "export-all-xlsx": {
-        let n = 0;
-        try { n = exportAllXlsx(); toast(`Exported ${n} records to Excel.`); } catch (e) { toast("Could not build the Excel file. Use Export JSON instead.", "warn"); }
+        return openModal({ type: "confirm", title: "Export all data (JSON)", message: "This downloads a backup file with every record in this account. Nothing is changed or removed.", confirmLabel: "Export", danger: false, onConfirm: { kind: "export-json" } });
+      case "export-all-xlsx":
         state.popover = null;
-        return rootRender();
-      }
+        return openModal({ type: "confirm", title: "Export all data (Excel)", message: "This downloads an Excel file with every record in this account. Nothing is changed or removed.", confirmLabel: "Export", danger: false, onConfirm: { kind: "export-xlsx" } });
       case "export":
         return exportCurrent();
       case "export-report":
@@ -10469,6 +11141,18 @@ ${body}`);
       case "confirm-yes": {
         const c = state.modal?.onConfirm;
         if (!c) return;
+        if (c.kind === "export-json") {
+          closeModal();
+          exportAllJson();
+          toast("Exported all data.");
+          return rootRender();
+        }
+        if (c.kind === "export-xlsx") {
+          closeModal();
+          let n = 0;
+          try { n = exportAllXlsx(); toast(`Exported ${n} records to Excel.`); } catch (e) { toast("Could not build the Excel file. Use Export JSON instead.", "warn"); }
+          return rootRender();
+        }
         if (c.kind === "brand-delete") { closeModal(); return brandDelete(c.name); }
         if (c.kind === "bulk-delete-outlet") { closeModal(); rootRender(); return bulkDelOutletApply(c.outlet); }
         if (c.kind === "bulk-delete") {
@@ -10511,12 +11195,22 @@ ${body}`);
           closeModal();
           return applyRestore();
         }
+        if (c.kind === "aud-del" || c.kind === "aud-del-all") {
+          closeModal();
+          return audDelete(c.kind === "aud-del" ? c.rid : "");
+        }
         if (c.kind === "reset") {
           if (!isSuperUser()) { closeModal(); return toast("Only the Super Admin can reset the data.", "warn"); }
+          const snap = { rows: {}, settings: clone(state.settings) };
+          CLOUD_COLLS.forEach((k) => { const a = (state.data[k] || []).filter((r) => r && typeof r === "object" && !Array.isArray(r)); if (a.length) snap.rows[k] = clone(a); });
           resetData();
           closeModal();
           go("home");
-          return toast("Data reset.");
+          return usersUndoBar("Data reset.", () => {
+            if (!isSuperUser()) return false;
+            pendingRestore = snap;
+            return applyRestore().then(() => { rootRender(); return true; }, () => false);
+          }, { sub: "Everything was cleared. Undo brings it all back.", ms: 30000 });
         }
         if (c.kind === "delete") {
           const err = deleteRecord(c.key, c.index);
@@ -10627,6 +11321,7 @@ ${body}`);
   function onChange(event) {
     coSaveDraft(event.target);
     if (event.target.matches && event.target.matches("[data-aud-filter]")) { AUD.filter = event.target.value; return rootRender(); }
+    if (event.target.matches && event.target.matches("[data-aud-feat]")) { AUD.feat = event.target.value; return rootRender(); }
     const t = event.target;
     if (t.matches("[data-qe-cust]")) { const c = (d().customers || []).find((x) => x && String(x.name).toLowerCase() === t.value.trim().toLowerCase()); if (c) t.value = c.name; else { const sp = QE_SPECIAL.find((x) => x[0].toLowerCase() === t.value.trim().toLowerCase()); if (sp) t.value = sp[0]; } }
     else if (t.matches("[data-qe-name]")) qePick(t);
@@ -11040,6 +11735,462 @@ ${body}`);
     }
     if (!(e.target.closest && e.target.closest('.pf-ta'))) closeAll();
   });
+})();
+</script>
+<script>
+(function () {
+  var PRICE = { starter: { monthly: 30, biannual: 26, annual: 23 }, business: { monthly: 50, biannual: 43, annual: 38 } };
+  var XA = { monthly: 6, biannual: 5, annual: 5 }, XO = { monthly: 20, biannual: 17, annual: 15 };
+  var MONTHS = { monthly: 1, biannual: 6, annual: 12 };
+  var NAME = { starter: 'Starter', business: 'Business' };
+  var CNAME = { monthly: 'Monthly', biannual: 'Every 6 months', annual: 'Yearly' };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function money(n) { return 'USD ' + Math.round(n || 0).toLocaleString('en-US'); }
+  function total(pl, cy, xo, xa) { return PRICE[pl] ? PRICE[pl][cy] + (pl === 'business' ? xo * XO[cy] : 0) + xa * XA[cy] : 0; }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  function close() { var o = document.getElementById('pb-ov'); if (o) o.remove(); document.removeEventListener('keydown', onKey); }
+  function sum(f) {
+    var pl = f.elements.pl.value, cy = f.elements.cy.value;
+    f.elements.xo.disabled = pl !== 'business';
+    var xo = pl === 'business' ? Math.max(0, Math.min(19, +f.elements.xo.value || 0)) : 0;
+    var xa = Math.max(0, Math.min(50, +f.elements.xa.value || 0));
+    var m = total(pl, cy, xo, xa);
+    document.getElementById('pb-sum').innerHTML = '<div><span>New monthly price</span><b>' + money(m) + '</b></div><div class="due"><span>Amount due now <em>(' + CNAME[cy].toLowerCase() + ')</em></span><b>' + money(m * MONTHS[cy]) + '</b></div>';
+  }
+  function pbCss() {
+    if (document.getElementById('pb-css')) return;
+    var st = document.createElement('style'); st.id = 'pb-css';
+    st.textContent =
+      '#pb-ov{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(17,20,27,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);font:14px/1.45 Inter,system-ui,sans-serif;animation:pbFade .18s ease both}' +
+      '#pb-ov .pb-card{display:flex;flex-direction:column;width:min(440px,100%);max-height:calc((100vh - 32px) / var(--uz,1));max-height:calc((100dvh - 32px) / var(--uz,1));overflow:hidden;border-radius:20px;background:#fff;color:#17191f;box-shadow:0 24px 70px rgba(12,15,23,.28);animation:pbPop .2s cubic-bezier(.2,.72,.28,1) both}' +
+      '#pb-ov .pb-head{flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px 14px;border-bottom:1px solid #eff0f3}' +
+      '#pb-ov .pb-head h2{margin:0;font-size:18px;font-weight:750;letter-spacing:-.3px}' +
+      '#pb-ov .pb-cur{margin:4px 0 0;color:#737886;font-size:13px}#pb-ov .pb-cur b{color:#17191f}' +
+      '#pb-ov #pb-x{flex:none;width:34px;height:34px;display:grid;place-items:center;padding:0;border:0;border-radius:10px;background:#f4f5f7;color:#343741;cursor:pointer;transition:background .15s}#pb-ov #pb-x:hover{background:#e9ebef}#pb-ov #pb-x svg{width:16px;height:16px}' +
+      '#pb-ov .pb-form{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;margin:0}' +
+      '#pb-ov .pb-body{flex:1 1 auto;min-height:0;overflow:auto;display:grid;gap:14px;align-content:start;padding:16px 20px}' +
+      '#pb-ov .pb-l{display:grid;gap:6px;font-size:12.5px;font-weight:650;color:#343741}#pb-ov .pb-l small{font-weight:500;color:#9b9eaa}' +
+      '#pb-ov .pb-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}#pb-ov .pb-l>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
+      '#pb-ov select,#pb-ov input[type=number]{width:100%;height:44px;padding:0 12px;border:1px solid #e1e4ea;border-radius:12px;background:#fff;color:#17191f;font:inherit;font-weight:500;outline:0;transition:border-color .15s,box-shadow .15s}' +
+      '#pb-ov select{appearance:none;-webkit-appearance:none;padding-right:36px;background:#fff url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'none\' stroke=\'%23737886\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' viewBox=\'0 0 24 24\'%3E%3Cpath d=\'m6 9 6 6 6-6\'/%3E%3C/svg%3E") no-repeat right 12px center;cursor:pointer}' +
+      '#pb-ov select:focus,#pb-ov input:focus{border-color:#ef293b;box-shadow:0 0 0 3px rgba(239,41,59,.14)}#pb-ov input:disabled{background:#f4f5f7;color:#9b9eaa;cursor:not-allowed}' +
+      '#pb-ov .pb-sum{display:grid;gap:8px;padding:14px;border-radius:14px;background:#fff0f1;border:1px solid #ffd9dc}' +
+      '#pb-ov .pb-sum>div{display:flex;align-items:baseline;justify-content:space-between;gap:10px;color:#5b5f6b;font-size:13px}#pb-ov .pb-sum em{font-style:normal;color:#9b9eaa}#pb-ov .pb-sum b{color:#17191f;font-size:15px;font-weight:750;white-space:nowrap}' +
+      '#pb-ov .pb-sum .due{padding-top:8px;border-top:1px dashed #f3b9be}#pb-ov .pb-sum .due b{color:#c51d31;font-size:19px}' +
+      '#pb-ov .pb-note{margin:0;color:#737886;font-size:12px}' +
+      '#pb-ov .pb-pending{padding:14px;border-radius:14px;background:#fff6e6;border:1px solid #f4dba8;color:#5b4310}' +
+      '#pb-ov .pb-foot{flex:none;padding:12px 20px 18px;border-top:1px solid #eff0f3;background:#fff}' +
+      '#pb-ov .pb-go{width:100%;height:46px;border:0;border-radius:13px;background:#ef293b;color:#fff;font:inherit;font-weight:750;cursor:pointer;box-shadow:0 8px 18px rgba(239,41,59,.28);transition:background .15s,transform .15s}#pb-ov .pb-go:hover:not(:disabled){background:#c51d31}#pb-ov .pb-go:active:not(:disabled){transform:scale(.98)}#pb-ov .pb-go:disabled{opacity:.6;cursor:wait}' +
+      '@media(max-width:440px){#pb-ov{padding:10px;align-items:flex-end}#pb-ov .pb-card{border-radius:18px}#pb-ov .pb-row{grid-template-columns:1fr}}' +
+      '@keyframes pbFade{from{opacity:0}to{opacity:1}}@keyframes pbPop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}';
+    document.head.appendChild(st);
+  }
+  function draw(me, last) {
+    close(); pbCss();
+    document.addEventListener('keydown', onKey);
+    var cur = me.plan || '', cy = me.plan_cycle || 'monthly';
+    var pending = last && last.status === 'pending';
+    var ov = document.createElement('div');
+    ov.id = 'pb-ov';
+    var xIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+    var head = '<div class="pb-head"><div><h2>Plan &amp; billing</h2><p class="pb-cur">Current: <b>' + (cur ? esc(NAME[cur]) + ' · ' + esc(CNAME[cy]) + ' · ' + money(me.plan_monthly_total) + ' / month' : 'No plan yet') + '</b></p></div><button type="button" id="pb-x" aria-label="Close">' + xIcon + '</button></div>';
+    var body;
+    if (pending) {
+      body = '<div class="pb-body"><div class="pb-pending">Your change to <b>' + esc(NAME[last.to_plan]) + ' · ' + esc(CNAME[last.to_cycle]) + '</b> is waiting for approval. The plan changes after the admin approves it and receives payment.</div></div>';
+    } else {
+      body = '<form id="pb-f" class="pb-form"><div class="pb-body">' +
+        '<label class="pb-l">Plan<select name="pl"><option value="starter">Starter</option><option value="business">Business</option></select></label>' +
+        '<label class="pb-l">Billing<select name="cy"><option value="monthly">Monthly</option><option value="biannual">Every 6 months</option><option value="annual">Yearly</option></select></label>' +
+        '<div class="pb-row">' +
+        '<label class="pb-l"><span>Extra outlets <small>(Business only)</small></span><input name="xo" type="number" inputmode="numeric" min="0" max="19" value="' + (me.plan_extra_outlets || 0) + '"></label>' +
+        '<label class="pb-l"><span>Extra staff accounts</span><input name="xa" type="number" inputmode="numeric" min="0" max="50" value="' + (me.plan_extra_accounts || 0) + '"></label>' +
+        '</div>' +
+        '<div id="pb-sum" class="pb-sum"></div>' +
+        '<p class="pb-note">Sent to the AdFlare admin for approval. The plan changes only after approval and payment.</p>' +
+        '</div><div class="pb-foot"><button type="submit" class="pb-go">Send change request</button></div></form>';
+    }
+    ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Plan &amp; billing" class="pb-card">' + head + body + '</div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
+    document.getElementById('pb-x').onclick = close;
+    if (pending) return;
+    var f = document.getElementById('pb-f');
+    f.elements.pl.value = cur === 'business' ? 'business' : 'starter';
+    f.elements.cy.value = cy;
+    sum(f);
+    f.addEventListener('input', function () { sum(f); });
+    f.addEventListener('change', function () { sum(f); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var pl = f.elements.pl.value, cyv = f.elements.cy.value;
+      var xo = pl === 'business' ? (+f.elements.xo.value || 0) : 0, xa = +f.elements.xa.value || 0;
+      var btn = f.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      window.__afSb.rpc('request_plan_change', { p_plan: pl, p_plan_cycle: cyv, p_extra_outlets: xo, p_extra_accounts: xa }).then(function (r) {
+        if (r.error) { btn.disabled = false; btn.textContent = 'Send change request'; alert(r.error.message || 'Could not send. Try again.'); return; }
+        draw(me, { status: 'pending', to_plan: pl, to_cycle: cyv });
+      });
+    });
+  }
+  window.openPlanBilling = function () {
+    var s = window.__afSb;
+    if (!s) { alert('Still loading. Try again in a moment.'); return; }
+    s.auth.getSession().then(function (r) {
+      var sess = r.data && r.data.session;
+      if (!sess) { alert('Log in first.'); return; }
+      return Promise.all([
+        s.from('profiles').select('plan,plan_cycle,plan_extra_outlets,plan_extra_accounts,plan_monthly_total').eq('id', sess.user.id).maybeSingle(),
+        s.rpc('my_plan_change')
+      ]).then(function (x) { draw((x[0].data) || {}, x[1].data || null); });
+    });
+  };
+})();
+</script>
+<script>
+(function () {
+  var DAY = 86400000;
+  function FMT(d) { return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+  function box(html, id) {
+    var o = document.createElement('div');
+    o.id = id;
+    o.style.cssText = 'position:fixed;inset:0;z-index:999990;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;padding:16px;font:13px Inter,system-ui,sans-serif';
+    o.innerHTML = '<div style="background:#fff;color:#111;border-radius:16px;max-width:420px;width:100%;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);border:1px solid #eee">' + html + '</div>';
+    document.body.appendChild(o);
+    return o;
+  }
+  function sendRenewal(onDone) {
+    window.__afSb.rpc('request_renewal').then(function (r) {
+      if (r.error) { alert(r.error.message || 'Could not send the renewal request.'); return; }
+      onDone();
+    });
+  }
+  function refresh(d) { window.__afSub = d; if (window.__afRender) window.__afRender(); }
+  function remind(d) {
+    var key = 'afpos-sub-remind-' + new Date().toISOString().slice(0, 10);
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch (e) {}
+    var txt = d.pending ? 'Your renewal request is waiting for approval and payment.' : 'Send a renewal request now so your features stay open.';
+    var canSend = d.is_owner && !d.pending;
+    var o = box('<b style="font-size:16px">Renewal due in ' + Math.max(0, d.days_left) + ' day' + (d.days_left === 1 ? '' : 's') + '</b>' +
+      '<p style="color:#555;margin:10px 0">Your subscription ends on ' + FMT(d.period_end) + '. ' + txt + '</p>' +
+      '<div style="display:flex;gap:8px;justify-content:flex-end">' +
+      '<button type="button" id="sr-later" style="padding:10px 14px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer">Later</button>' +
+      (canSend ? '<button type="button" id="sr-go" style="padding:10px 14px;border:0;border-radius:10px;background:#ff2b2b;color:#fff;font-weight:700;cursor:pointer">Send renewal request</button>' : '') +
+      '</div>', 'sub-remind');
+    o.querySelector('#sr-later').onclick = function () { o.remove(); };
+    var go = o.querySelector('#sr-go');
+    if (go) go.onclick = function () {
+      sendRenewal(function () { o.remove(); d.pending = true; refresh(d); alert('Renewal request sent. Waiting for approval and payment.'); });
+    };
+  }
+  function lock(d) {
+    if (document.getElementById('sub-lock')) return;
+    var msg = d.status === 'noplan' ? (d.is_owner ? 'Your account has no active plan. Choose a plan in Plan &amp; billing, or contact AdFlare.' : 'Your account has no active plan. Ask your Super Admin.')
+            : d.pending ? 'Your renewal request is waiting for approval and payment. Features unlock once it is approved.'
+            : (d.is_owner ? 'Send a renewal request to continue using AFPOS.' : 'Ask your Super Admin to renew the subscription.');
+    var noplan = d.status === 'noplan';
+    var canSend = d.is_owner && !d.pending && !noplan;
+    var o = box('<b style="font-size:17px">' + (noplan ? 'No active plan' : 'Subscription ended') + '</b>' +
+      '<p style="color:#555;margin:10px 0">' + (noplan ? '' : 'It ended on ' + FMT(d.period_end) + '. ') + msg + '</p>' +
+      (canSend ? '<button type="button" id="sr-go" style="width:100%;padding:12px;border:0;border-radius:10px;background:#ff2b2b;color:#fff;font-weight:700;cursor:pointer">Send renewal request</button>' : ''),
+      'sub-lock');
+    o.id = 'sub-lock';
+    o.style.zIndex = '999999';
+    o.style.background = 'rgba(255,255,255,.97)';
+    var go = o.querySelector('#sr-go');
+    if (go) go.onclick = function () {
+      sendRenewal(function () { d.pending = true; o.remove(); refresh(d); lock(d); });
+    };
+  }
+  /* ---- PAY LATER: the owner sees what is due and sends the payment details from here ---- */
+  function esc2(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function usd(n) { return 'USD ' + Math.round(Number(n) || 0).toLocaleString('en-US'); }
+  var payDismissed = false;
+  function payBar(d) {
+    var old = document.getElementById('pay-bar'); if (old) old.remove();
+    if (!d || d.pay_status === 'paid' || !d.pay_status) return;
+    if (payLocked) return; /* the lock bar already says it, with its own Pay now button */
+    if (d.pay_status === 'unpaid' && payDismissed) return;
+    var sent = d.pay_status === 'submitted';
+    var b = document.createElement('div');
+    b.id = 'pay-bar';
+    b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:99980;max-width:340px;width:calc(100vw - 32px);padding:14px 16px;border-radius:14px;background:#fff;color:#111;border:1px solid ' + (sent ? '#f3d9a6' : '#ffc9c9') + ';box-shadow:0 12px 34px rgba(0,0,0,.18);font:13px/1.45 Inter,system-ui,sans-serif';
+    b.innerHTML = sent
+      ? '<b style="display:block;font-size:14px">Payment sent</b><span style="color:#555">Reference ' + esc2(d.pay_reference) + '. AdFlare is checking it. This message goes away once it is confirmed.</span>'
+      : '<button type="button" id="pb-x" aria-label="Hide" style="position:absolute;top:8px;right:10px;border:0;background:none;font-size:18px;cursor:pointer;color:#888">&times;</button>'
+        + '<b style="display:block;font-size:14px">Payment due: ' + usd(d.amount_due) + '</b>'
+        + '<span style="color:#555">' + esc2(String(d.plan).charAt(0).toUpperCase() + String(d.plan).slice(1)) + ' plan, billed ' + esc2({ monthly: 'monthly', biannual: 'every 6 months', annual: 'yearly' }[d.cycle] || d.cycle) + '. You chose to pay later.</span>'
+        + '<button type="button" id="pb-go" style="display:block;width:100%;margin-top:10px;padding:10px;border:0;border-radius:10px;background:#ff2b2b;color:#fff;font-weight:700;cursor:pointer">Pay now</button>';
+    document.body.appendChild(b);
+    var x = b.querySelector('#pb-x'); if (x) x.onclick = function () { payDismissed = true; b.remove(); };
+    var go = b.querySelector('#pb-go'); if (go) go.onclick = function () { payForm(d); };
+  }
+  function payCss() {
+    if (document.getElementById('pyf-css')) return;
+    var st = document.createElement('style'); st.id = 'pyf-css';
+    st.textContent = ''
+      + '#pay-form{position:fixed;inset:0;z-index:999990;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(17,20,27,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);font:13px/1.45 Inter,system-ui,sans-serif;animation:pyfIn .2s ease-out}'
+      + '@keyframes pyfIn{from{opacity:0}to{opacity:1}}@keyframes pyfUp{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}'
+      + '#pay-form .pyf-card{display:flex;flex-direction:column;width:min(480px,100%);max-height:100%;background:var(--paper,#fff);color:var(--ink,#17191f);border-radius:20px;box-shadow:0 28px 70px rgba(17,20,27,.35);overflow:hidden;animation:pyfUp .28s cubic-bezier(.2,.72,.28,1)}'
+      + '#pay-form .pyf-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 18px 6px}'
+      + '#pay-form .pyf-head h2{margin:0;font-size:16px;line-height:1.2;font-weight:750;letter-spacing:-.01em}'
+      + '#pay-form .pyf-head p{margin:2px 0 0;color:var(--muted,#737886);font-size:12px}'
+      + '#pay-form .pyf-x{flex:none;width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:10px;background:var(--wash,#f4f5f7);color:var(--ink-2,#343741);cursor:pointer;transition:background .15s}'
+      + '#pay-form .pyf-x:hover{background:var(--line,#e7e9ed)}#pay-form .pyf-x svg{width:16px;height:16px}'
+      + '#pay-form .pyf-body{flex:1;min-height:0;overflow-y:auto;padding:2px 18px 10px;overscroll-behavior:contain}'
+      + '#pay-form .pyf-amt{position:relative;overflow:hidden;margin:4px 0 12px;padding:12px 16px;border-radius:16px;color:#fff;background:linear-gradient(145deg,var(--brand,#ef293b),var(--brand-dark,#c51d31));box-shadow:0 12px 26px rgba(239,41,59,.28)}'
+      + '#pay-form .pyf-amt:after{content:"";position:absolute;right:-30px;top:-40px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.12)}'
+      + '#pay-form .pyf-amt small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.85}'
+      + '#pay-form .pyf-amt b{display:block;margin:1px 0 6px;font-size:26px;line-height:1.1;font-weight:800;letter-spacing:-.02em}'
+      + '#pay-form .pyf-amt span{display:inline-block;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.2);font-size:11.5px;font-weight:600}'
+      + '#pay-form .pyf-step{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:13px;font-weight:700}'
+      + '#pay-form .pyf-step i{flex:none;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--brand-soft,#fff0f1);color:var(--brand-dark,#c51d31);font:700 11px/1 Inter,system-ui,sans-serif;font-style:normal}'
+      + '#pay-form .pyf-bank{margin-bottom:12px;padding:2px 14px;border:1px solid var(--line,#e7e9ed);border-radius:14px;background:var(--wash,#f4f5f7)}'
+      + '#pay-form .pyf-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line,#e7e9ed)}#pay-form .pyf-row:last-child{border-bottom:0}'
+      + '#pay-form .pyf-row span{color:var(--muted,#737886);font-size:12px;white-space:nowrap}'
+      + '#pay-form .pyf-row b{display:flex;align-items:center;gap:8px;min-width:0;font-size:13.5px;font-weight:700;text-align:right;word-break:break-word}'
+      + '#pay-form .pyf-cp{flex:none;display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border:1px solid var(--line,#e7e9ed);border-radius:8px;background:var(--paper,#fff);color:var(--ink-2,#343741);font:600 11px/1 Inter,system-ui,sans-serif;cursor:pointer;transition:border-color .15s,color .15s}'
+      + '#pay-form .pyf-cp:hover{border-color:var(--brand,#ef293b);color:var(--brand-dark,#c51d31)}#pay-form .pyf-cp svg{width:12px;height:12px}'
+      + '#pay-form .pyf-ins{margin:0;padding:10px 0 8px;color:var(--muted,#737886);font-size:12px}'
+      + '#pay-form .pyf-skel{padding:14px 0;color:var(--muted,#737886);font-size:12.5px}'
+      + '#pay-form .pyf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}'
+      + '#pay-form .pyf-f{display:block;min-width:0}#pay-form .pyf-f>span{display:block;margin-bottom:5px;color:var(--ink-2,#343741);font-size:12px;font-weight:600}'
+      + '#pay-form .pyf-f input{display:block;width:100%;box-sizing:border-box;height:40px;padding:0 12px;border:1px solid var(--line,#e7e9ed);border-radius:12px;background:var(--wash,#f4f5f7);color:var(--ink,#17191f);font:400 13.5px Inter,system-ui,sans-serif;outline:none;transition:border-color .15s,box-shadow .15s,background .15s}'
+      + '#pay-form .pyf-f input:focus{background:var(--paper,#fff);border-color:var(--brand,#ef293b);box-shadow:0 0 0 4px rgba(239,41,59,.14)}'
+      + '#pay-form .pyf-f.bad input{border-color:#d92b2b}'
+      + '#pay-form .pyf-err{min-height:18px;margin:10px 0 0;color:#d92b2b;font-size:12.5px;font-weight:500}'
+      + '#pay-form .pyf-foot{display:flex;flex-direction:column;gap:8px;padding:10px 18px 12px;border-top:1px solid var(--line,#e7e9ed);background:var(--paper,#fff)}'
+      + '#pay-form .pyf-note{margin:0;color:var(--muted,#737886);font-size:11.5px;text-align:center}'
+      + '#pay-form .pyf-btns{display:flex;gap:10px}'
+      + '#pay-form .pyf-btns button{height:42px;border-radius:12px;font:650 14px Inter,system-ui,sans-serif;cursor:pointer;transition:background .15s,transform .1s,box-shadow .15s}'
+      + '#pay-form .pyf-btns button:active{transform:scale(.985)}'
+      + '#pay-form .pyf-no{flex:0 0 auto;padding:0 20px;border:1px solid var(--line,#e7e9ed);background:var(--paper,#fff);color:var(--ink-2,#343741)}#pay-form .pyf-no:hover{background:var(--wash,#f4f5f7)}'
+      + '#pay-form .pyf-ok{flex:1;border:0;background:var(--brand,#ef293b);color:#fff;box-shadow:0 8px 18px rgba(239,41,59,.28)}#pay-form .pyf-ok:hover{background:var(--brand-dark,#c51d31)}#pay-form .pyf-ok:disabled{opacity:.6;cursor:default;box-shadow:none}'
+      + '#pay-form button:focus-visible{outline:2px solid var(--brand,#ef293b);outline-offset:2px}'
+      + '#pay-form .pyf-cols{display:grid;grid-template-columns:1fr;gap:0}'
+      + '@media(min-width:720px){#pay-form .pyf-card{width:min(760px,100%)}#pay-form .pyf-cols{grid-template-columns:1fr 1fr;gap:22px;align-items:start}#pay-form .pyf-grid{grid-template-columns:1fr}#pay-form .pyf-amt{margin-top:2px}}'
+      + '@media(max-height:560px){#pay-form{padding:8px}#pay-form .pyf-head{padding:10px 16px 4px}#pay-form .pyf-note{display:none}#pay-form .pyf-foot{padding:8px 16px}#pay-form .pyf-btns button{height:38px}#pay-form .pyf-amt{padding:10px 14px;margin-bottom:10px}#pay-form .pyf-amt b{font-size:22px;margin-bottom:4px}#pay-form .pyf-row{padding:6px 0}#pay-form .pyf-f input{height:36px}}'
+      + '@media(max-width:480px){#pay-form{padding:0;align-items:flex-end}#pay-form .pyf-card{width:100%;max-height:94dvh;border-radius:20px 20px 0 0}#pay-form .pyf-grid{grid-template-columns:1fr}#pay-form .pyf-amt b{font-size:26px}}'
+      + '@media(prefers-reduced-motion:reduce){#pay-form,#pay-form .pyf-card{animation:none}}';
+    document.head.appendChild(st);
+  }
+  function payForm(d) {
+    payCss();
+    var old = document.getElementById('pay-form'); if (old) old.remove();
+    var planName = String(d.plan || '').charAt(0).toUpperCase() + String(d.plan || '').slice(1);
+    var cyc = { monthly: 'billed monthly', biannual: 'billed every 6 months', annual: 'billed yearly' }[d.cycle] || '';
+    var today = new Date().toISOString().slice(0, 10);
+    var copyIc = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A1.5 1.5 0 016.5 5H15"/></svg>';
+    var fld = function (id, label, extra) { return '<label class="pyf-f"><span>' + label + '</span><input id="' + id + '" autocomplete="off" ' + extra + '></label>'; };
+    var o = document.createElement('div'); o.id = 'pay-form';
+    o.setAttribute('role', 'dialog'); o.setAttribute('aria-modal', 'true'); o.setAttribute('aria-labelledby', 'pyf-title');
+    o.innerHTML = '<div class="pyf-card">'
+      + '<div class="pyf-head"><div><h2 id="pyf-title">Pay for your plan</h2><p>Send the transfer, then tell us about it.</p></div>'
+      + '<button type="button" class="pyf-x" id="pyf-x" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
+      + '<div class="pyf-body"><div class="pyf-cols"><div class="pyf-c1">'
+      + '<div class="pyf-amt"><small>Amount to pay</small><b>' + usd(d.amount_due) + '</b><span>' + esc2(planName) + ' plan' + (cyc ? ' · ' + cyc : '') + '</span></div>'
+      + '<div class="pyf-step"><i>1</i>Send the transfer to</div>'
+      + '<div class="pyf-bank" id="pyf-bank"><div class="pyf-skel">Loading bank details...</div></div>'
+      + '</div><div class="pyf-c2">'
+      + '<div class="pyf-step"><i>2</i>Then tell us about it</div>'
+      + '<div class="pyf-grid">'
+      + fld('pyf-name', 'Sender name', 'maxlength="80"') + fld('pyf-bank-in', 'Bank you paid from', 'maxlength="60"')
+      + fld('pyf-ref', 'Transfer reference', 'maxlength="60"') + fld('pyf-date', 'Date paid', 'type="date" max="' + today + '" value="' + today + '"')
+      + '</div><p class="pyf-err" id="pyf-err" role="alert"></p></div></div></div>'
+      + '<div class="pyf-foot"><div class="pyf-btns"><button type="button" class="pyf-no" id="pyf-no">' + (payLocked ? 'Close' : 'Later') + '</button><button type="button" class="pyf-ok" id="pyf-ok">Send payment details</button></div>'
+      + '<p class="pyf-note">AdFlare checks the transfer and unlocks your account once it is confirmed.</p></div></div>';
+    document.body.appendChild(o);
+    var close = function () { o.remove(); document.removeEventListener('keydown', onKey, true); };
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    document.addEventListener('keydown', onKey, true);
+    o.addEventListener('mousedown', function (e) { if (e.target === o) close(); });
+    o.querySelector('#pyf-x').onclick = close; o.querySelector('#pyf-no').onclick = close;
+    setTimeout(function () { var f = o.querySelector('#pyf-name'); if (f) try { f.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    window.__afSb.rpc('get_payment_info').then(function (r) {
+      var i = r && r.data, el = o.querySelector('#pyf-bank'); if (!el) return;
+      if (!i) { el.innerHTML = '<div class="pyf-skel">Bank details are not available yet. Please contact AdFlare.</div>'; return; }
+      var rows = [['Bank', i.bank_name, 0], ['Account name', i.account_name, 1], ['Account number', i.account_number, 1]].filter(function (x) { return x[1]; });
+      el.innerHTML = rows.map(function (x) {
+        return '<div class="pyf-row"><span>' + x[0] + '</span><b>' + esc2(x[1]) + (x[2] ? '<button type="button" class="pyf-cp" data-copy="' + esc2(x[1]) + '" onclick="afposCopy(this)" aria-label="Copy ' + x[0].toLowerCase() + '">' + copyIc + 'Copy</button>' : '') + '</b></div>';
+      }).join('') + (i.instructions ? '<p class="pyf-ins">' + esc2(i.instructions) + '</p>' : '');
+    });
+    o.querySelector('#pyf-ok').onclick = function () {
+      var v = function (id) { return o.querySelector('#' + id).value.trim(); }, err = o.querySelector('#pyf-err'), btn = o.querySelector('#pyf-ok');
+      [].forEach.call(o.querySelectorAll('.pyf-f'), function (f) { f.classList.remove('bad'); });
+      var bad = function (id, m) { var f = o.querySelector('#' + id); f.closest('.pyf-f').classList.add('bad'); f.focus(); err.textContent = m; };
+      if (v('pyf-ref').length < 2) { bad('pyf-ref', 'Enter the transfer reference.'); return; }
+      if (!v('pyf-date')) { bad('pyf-date', 'Enter the date you paid.'); return; }
+      err.textContent = '';
+      btn.disabled = true; btn.textContent = 'Sending...';
+      window.__afSb.rpc('submit_my_payment', { p_name: v('pyf-name'), p_bank: v('pyf-bank-in'), p_reference: v('pyf-ref'), p_date: v('pyf-date'), p_amount: Number(d.amount_due) || 0 }).then(function (r) {
+        if (r.error) { btn.disabled = false; btn.textContent = 'Send payment details'; err.textContent = r.error.message || 'Could not send. Try again.'; return; }
+        close(); window.__afToast && window.__afToast('Payment details sent. AdFlare will confirm it.', 'ok'); checkPay(); checkAccess();
+      });
+    };
+  }
+  /* ---- NO PLAN YET: sign in and look around, but nothing can be clicked except the avatar menu, Plan & billing and Sign out ---- */
+  var noPlan = false, npToastAt = 0;
+  /* PAY LATER lock: an approved "pay later" account stays locked (same lock as no plan) until AdFlare marks it Paid */
+  var payLocked = false, payState = '', payData = null;
+  (function () {
+    var st = document.createElement('style');
+    st.textContent = '.af-noplan .sidebar,.af-noplan .topbar-left,.af-noplan .topbar .notification-btn,.af-noplan .top-user,.af-noplan .mobile-scrim{pointer-events:none}'
+      + '.af-noplan .sidebar{opacity:.55;filter:grayscale(.4)}'
+      + '.af-noplan .page-content:not(:has(.pl-cur)){pointer-events:none;user-select:none}'
+      + '.af-noplan .pop-profile button:not([data-action="plan-billing"]):not([data-action="logout"]){opacity:.4;pointer-events:none}'
+      + '#np-bar{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:99970;display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 24px);padding:9px 9px 9px 16px;border-radius:16px;background:#111;color:#fff;font:13px/1.4 Inter,system-ui,sans-serif;box-shadow:0 14px 36px rgba(0,0,0,.3);transition:opacity .2s,transform .2s}'
+      + '#np-bar .np-t{min-width:0}'
+      + '#np-bar .np-t b{font-weight:750}'
+      + '#np-bar button{flex:none;border:0;cursor:pointer;font:inherit}'
+      + '#np-bar #np-go{padding:9px 14px;border-radius:10px;background:#ff2b2b;color:#fff;font-weight:700;white-space:nowrap;transition:background .15s}#np-bar #np-go:hover{background:#e11d1d}'
+      + '#np-bar .np-min{width:32px;height:32px;display:grid;place-items:center;padding:0;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;transition:background .15s}#np-bar .np-min:hover{background:rgba(255,255,255,.22)}#np-bar .np-min svg{width:16px;height:16px}'
+      + '#np-bar .np-pill{display:none;align-items:center;gap:8px;padding:0;background:none;color:#fff;font-weight:700}#np-bar .np-pill i{width:8px;height:8px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 0 3px rgba(255,43,43,.28)}#np-bar .np-pill svg{width:14px;height:14px;opacity:.7}'
+      + '#np-bar.min{padding:9px 13px;gap:0;border-radius:999px;cursor:pointer}#np-bar.min .np-t,#np-bar.min #np-go,#np-bar.min .np-min{display:none}#np-bar.min .np-pill{display:inline-flex}'
+      + 'body:has(#pb-ov) #np-bar,body:has(#pay-form) #np-bar,body:has(#sub-lock) #np-bar{opacity:0;pointer-events:none}'
+      + 'body.af-noplan .toast{top:calc(16px + env(safe-area-inset-top,0px));bottom:auto;right:auto;left:50%;z-index:100000;transform:translate(-50%,-10px)}body.af-noplan .toast.show{transform:translate(-50%,0)}'
+      + 'body.af-noplan .page-content{padding-bottom:96px}body.af-noplan.np-min .page-content{padding-bottom:70px}'
+      + '@media(max-width:520px){#np-bar:not(.min){left:12px;right:12px;width:auto;transform:none;flex-wrap:wrap;padding:12px}#np-bar:not(.min) .np-t{flex:1 1 100%;order:1;padding-right:40px}#np-bar:not(.min) .np-min{position:absolute;top:8px;right:8px}#np-bar:not(.min) #np-go{flex:1 1 100%;order:2;padding:11px}#np-bar.min{left:auto;right:12px;transform:none}}';
+    document.head.appendChild(st);
+  })();
+  function npAllowed(t) {
+    if (!t || !t.closest) return true;
+    if (t.closest('.top-avatar,.modal-backdrop,#pb-ov,#pay-form,#pay-bar,#np-bar,#sub-lock,#sub-remind')) return true;
+    var pb = t.closest('.pop-profile button');
+    if (pb) return pb.matches('[data-action="plan-billing"],[data-action="logout"]');
+    if (t.closest('.pop-profile')) return true;
+    if (t.closest('#page-content') && document.querySelector('#page-content .pl-cur')) return true;
+    return false;
+  }
+  function npBlock(e) {
+    if (!noPlan || npAllowed(e.target)) return;
+    e.preventDefault(); e.stopPropagation();
+    if (e.type === 'click' && Date.now() - npToastAt > 3000) { npToastAt = Date.now(); window.__afToast && window.__afToast(payLocked ? (payState === 'submitted' ? 'Payment received, waiting for AdFlare to confirm it. This unlocks once it is confirmed.' : 'Payment required. Pay your plan to unlock this: open Plan & billing from your profile menu.') : 'No active plan. Choose a plan to unlock this: open Plan & billing from your profile menu.', 'warn'); }
+  }
+  ['click', 'mousedown', 'dblclick', 'contextmenu', 'submit', 'change'].forEach(function (ev) { document.addEventListener(ev, npBlock, true); });
+  document.addEventListener('keydown', function (e) { if (noPlan && e.key !== 'Tab' && e.key !== 'Escape') npBlock(e); }, true);
+  function npBar() {
+    var old = document.getElementById('np-bar');
+    document.body.classList.toggle('af-noplan', noPlan);
+    if (!noPlan) { if (old) old.remove(); document.body.classList.remove('np-min'); return; }
+    var mode = payLocked ? 'pay-' + payState : 'plan';
+    if (old && old.dataset.mode === mode) return;
+    if (old) old.remove();
+    var pb0 = document.getElementById('pay-bar'); if (pb0 && payLocked) pb0.remove();
+    var owner = window.__afIsOwner;
+    var title = payLocked ? (payState === 'submitted' ? 'Payment sent.' : 'Payment required.') : 'No active plan.';
+    var line = payLocked
+      ? (payState === 'submitted' ? 'AdFlare is confirming your payment. AFPOS unlocks once it is confirmed.' : (owner ? 'Pay for your plan to unlock AFPOS.' : 'Ask your account owner to pay the plan.'))
+      : (owner ? 'Choose a plan to unlock AFPOS.' : 'Ask your account owner to choose a plan.');
+    var btnText = payLocked ? (payState === 'submitted' || !owner ? '' : 'Pay now') : (owner ? 'Choose a plan' : '');
+    var b = document.createElement('div'); b.id = 'np-bar'; b.dataset.mode = mode;
+    var chev = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+    var up = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>';
+    b.innerHTML = '<span class="np-t"><b>' + title + '</b> ' + line + '</span>' + (btnText ? '<button type="button" id="np-go">' + btnText + '</button>' : '')
+      + '<button type="button" class="np-min" id="np-min" aria-label="Minimize" title="Minimize">' + chev + '</button>'
+      + '<span class="np-pill"><i></i>' + title.replace(/\.$/, '') + up + '</span>';
+    document.body.appendChild(b);
+    function setMin(v) {
+      b.classList.toggle('min', v); document.body.classList.toggle('np-min', v);
+      if (v) { b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0'); b.setAttribute('aria-label', 'No active plan. Tap to expand'); } else { b.removeAttribute('role'); b.removeAttribute('tabindex'); b.removeAttribute('aria-label'); }
+      try { sessionStorage.setItem('afpos-np-min', v ? '1' : '0'); } catch (e) {}
+    }
+    var wasMin = false; try { wasMin = sessionStorage.getItem('afpos-np-min') === '1'; } catch (e) {}
+    setMin(wasMin);
+    b.querySelector('#np-min').onclick = function (e) { e.stopPropagation(); setMin(true); };
+    b.addEventListener('click', function () { if (b.classList.contains('min')) setMin(false); });
+    b.addEventListener('keydown', function (e) { if (b.classList.contains('min') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setMin(false); } });
+    var go = b.querySelector('#np-go');
+    if (go) go.onclick = function () {
+      if (payLocked) {
+        if (payData && payData.pay_status === 'unpaid') { payForm(payData); return; }
+        window.__afSb.rpc('my_payment_status').then(function (r) {
+          payData = r && !r.error ? r.data : null;
+          if (payData && payData.pay_status === 'unpaid') payForm(payData);
+          else window.__afToast && window.__afToast(r && r.error ? (r.error.message || 'Could not load your payment details. Try again.') : 'Could not load your payment details. Refresh the page and try again.', 'warn');
+        });
+        return;
+      }
+      if (window.openPlanBilling) { window.openPlanBilling(); return; }
+      var av = document.querySelector('.top-avatar'); if (av) av.click();
+      setTimeout(function () { var pbtn = document.querySelector('[data-action="plan-billing"]'); if (pbtn) pbtn.click(); }, 60);
+    };
+  }
+  /* PAYMENT SUCCESS pop-up (animated check): shown to the client when AdFlare confirms their Pay Later payment. Stays until Close or Finish. */
+  function afPaySuccess(detail) {
+    var old = document.getElementById('pps'); if (old) old.remove();
+    if (!document.getElementById('pps-css')) { var st = document.createElement('style'); st.id = 'pps-css'; st.textContent = '.pps{position:fixed;inset:0;z-index:100002;display:grid;place-items:center;padding:20px;background:rgba(22,25,33,.45)}.pps-bx{width:min(320px,100%);padding:28px 20px 20px;border-radius:16px;background:#fff;color:#161921;text-align:center;font:14px/1.45 Inter,system-ui,sans-serif;animation:ppsPop .35s cubic-bezier(.2,1.3,.4,1) both}.pps-ic{width:84px;height:84px;display:block;margin:0 auto 14px}.pps-bg{fill:#e7f6ed;transform-origin:50% 50%;animation:ppsBg .5s .1s ease-out both}.pps-ring{fill:none;stroke:#1f9d55;stroke-width:4;stroke-linecap:round;stroke-dasharray:226;stroke-dashoffset:226;transform:rotate(-90deg);transform-origin:50% 50%;animation:ppsDraw .6s .1s ease-out forwards}.pps-tick{fill:none;stroke:#1f9d55;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50;animation:ppsDraw .4s .6s ease-out forwards}.pps-bx h3{margin:0 0 4px;font-size:18px;font-weight:700;color:#161921}.pps-bx p{margin:0 0 18px;color:#6b6e76}.pps-row{display:flex;gap:8px}.pps-row button{flex:1;height:44px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}.pps-row .pps-c{background:#fff;color:#161921;border:1px solid #d9d9df}.pps-row .pps-f{background:#161921;color:#fff;border:0}@keyframes ppsPop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}@keyframes ppsDraw{to{stroke-dashoffset:0}}@keyframes ppsBg{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}@media(prefers-reduced-motion:reduce){.pps-bx,.pps-bg,.pps-ring,.pps-tick{animation-duration:.01s;animation-delay:0s}}'; document.head.appendChild(st); }
+    var o = document.createElement('div'); o.id = 'pps'; o.className = 'pps';
+    o.innerHTML = '<div class="pps-bx" role="dialog" aria-modal="true" aria-labelledby="pps-t"><svg class="pps-ic" viewBox="0 0 84 84" aria-hidden="true"><circle class="pps-bg" cx="42" cy="42" r="36"/><circle class="pps-ring" cx="42" cy="42" r="36"/><path class="pps-tick" d="M27 43l10 10 20-22"/></svg><h3 id="pps-t">Payment successful</h3><p></p><div class="pps-row"><button type="button" class="pps-c">Close</button><button type="button" class="pps-f">Finish</button></div></div>';
+    o.querySelector('p').textContent = detail || '';
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    function close() { document.removeEventListener('keydown', onKey); o.remove(); }
+    o.querySelector('.pps-c').onclick = close;
+    var fin = o.querySelector('.pps-f'); fin.onclick = close;
+    document.addEventListener('keydown', onKey);
+    document.body.appendChild(o);
+    fin.focus();
+  }
+  /* remember a locked account; when the lock lifts (AdFlare pressed Mark paid), show the pop-up once */
+  function afPayWatch(d) {
+    try {
+      if (!d) return;
+      if (payLocked) { localStorage.setItem('afpos-pay-wait', '1'); return; }
+      if (localStorage.getItem('afpos-pay-wait') === '1') {
+        localStorage.removeItem('afpos-pay-wait');
+        afPaySuccess('AdFlare confirmed your payment. AFPOS is unlocked.');
+      }
+    } catch (e) {}
+  }
+  function checkAccess() {
+    var s = window.__afSb; if (!s) return;
+    s.rpc('my_account_state').then(function (r) {
+      var d = r && !r.error ? r.data : null;
+      payLocked = !!(d && d.unpaid); payState = payLocked ? String(d.pay_status || 'unpaid') : '';
+      afPayWatch(d);
+      noPlan = !!(d && (d.no_plan || d.unpaid)); window.__afIsOwner = !!(d && d.is_owner);
+      var o = document.getElementById('np-bar'); if (o && !noPlan) o.remove();
+      npBar();
+    });
+  }
+  setInterval(function () { if (noPlan) document.body.classList.add('af-noplan'); }, 1500);
+  function checkPay() {
+    var s = window.__afSb; if (!s) return;
+    s.rpc('my_payment_status').then(function (r) { payData = r && !r.error ? r.data : null; payBar(payData); });
+  }
+  window.afposCopy = function (btn) {
+    var v = btn.getAttribute("data-copy") || "";
+    var fail = function () { window.__afToast && window.__afToast("Could not copy. Select and copy it manually.", "warn"); };
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(v).then(function () { window.__afToast && window.__afToast("Copied: " + v, "ok"); }, fail);
+  };
+  var liveOn = false;
+  function live(uid) {
+    if (liveOn || !window.__afSb) return;
+    liveOn = true;
+    try {
+      window.__afSb.channel('afpos-plan-live-' + uid).on('postgres_changes', { event: '*', schema: 'public', table: 'profiles', filter: 'id=eq.' + uid }, function () {
+        if (window.__afRefreshPlans) window.__afRefreshPlans();
+        check();checkPay();checkAccess();
+      }).subscribe();
+    } catch (e) {}
+  }
+  function check() {
+    var s = window.__afSb;
+    if (!s) return setTimeout(check, 800);
+    s.auth.getSession().then(function (r) {
+      if (!r.data || !r.data.session) return;
+      live(r.data.session.user.id);
+      checkPay();checkAccess();
+      return s.rpc('my_subscription').then(function (x) {
+        var d = x.data;
+        if (!d || !d.status) { refresh(null); return; }
+        refresh(d);
+        if (d.status === 'expired' || d.status === 'noplan') lock(d);
+        else if (d.status === 'due') remind(d);
+      });
+    });
+  }
+  check();
+  setInterval(check, 60 * 60 * 1000);
 })();
 </script>
 </body>
