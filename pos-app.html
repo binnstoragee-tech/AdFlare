@@ -130,7 +130,7 @@
 .qe-lab{display:block;margin-bottom:4px;font-size:11px;font-weight:600;color:var(--muted,#6b7280)}.qe-num{display:block}.qe-line b{display:block;height:38px;line-height:38px;font-size:13px;white-space:nowrap}
 .qe-del{align-self:end;height:38px;width:34px}.qe-hint{grid-column:1 / -1;display:none;font-size:11.5px;color:var(--muted,#6b7280)}.qe-hint.on{display:block}.qe-hint.off{color:#16794a;font-weight:600}
 .qe-add{margin-top:10px}.qe-disc{margin-top:16px}.qe-disc-in{display:flex;gap:8px}.qe-disc-in input{flex:1}.qe-disc-in select{width:84px}
-.qe-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.qe-sum>div{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper,#fff)}.qe-sum span{display:block;font-size:11px;color:var(--muted,#6b7280);margin-bottom:3px}.qe-sum b{font-size:14px}.qe-sum .qe-total{border-color:var(--red,#ff2b2b)}
+.qe-sum{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}.qe-sum>div{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper,#fff)}.qe-sum span{display:block;font-size:11px;color:var(--muted,#6b7280);margin-bottom:3px}.qe-sum b{font-size:14px}.qe-sum .qe-total{border-color:var(--red,#ff2b2b)}
 .qe-row select{width:100%;height:38px;padding:0 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff);font:inherit;font-size:13px;color:inherit;min-width:0}
 .qe-sub{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:8px;padding-top:2px}
 .qe-sug[data-qe-csug]{padding:2px;border-radius:6px;max-height:240px;box-shadow:0 8px 24px rgba(20,24,35,.22)}
@@ -7395,10 +7395,13 @@ ${body}`);
     return { no: b.id, date: dtDate(b.date), extra: [...(b.cashier ? [`Issued By: ${b.cashier}`] : []), `Payment: ${b.method || "\u2014"}`, `Status: ${b.status}`], partyLabel: "Customer", party: b.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (b.lines || []).map((l) => ({ name: l.name, sku: l.sku, code: l.code || l.sku, unit: l.unit, unitScale: l.unitScale, unitQty: l.unitQty || l.unitScale, qty: l.qty, price: l.price, serials: l.serials, batches: l.batches, parts: l.parts })), subtotal: b.subtotal ?? b.total, discount: num(b.discount), serviceFee: num(b.serviceFee), tax: num(b.tax), taxLabel: b.taxLabel, total: b.total, fx: b.payCurrency && b.payCurrency !== "MVR" && num(b.fxRate) > 0 ? { cur: b.payCurrency, rate: num(b.fxRate) } : null };
   }
   function dtFromQuote(q) {
-    const rate = num(state.settings.taxRate), incl = state.settings.pricesIncludeTax !== false, base = num(q.total);
-    const tax = incl ? base * rate / (100 + rate) : base * rate / 100;
-    const c = customerByName(q.customer);
-    return { no: q.id, date: dtDate(q.createdAt), extra: [...(q.issuedBy ? [`Issued By: ${q.issuedBy}`] : []), `Status: ${q.status}`], partyLabel: "Customer", party: q.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (q.lines || [{ name: `Quoted items (${q.items || 0})`, qty: 1, price: base }]).map((l) => ({ name: l.name, sku: l.sku, code: l.code, unit: l.unit, unitQty: l.unitQty, qty: l.qty, price: l.price })), subtotal: num(q.discountAmount) > 0 ? num(q.subtotal) || base + num(q.discountAmount) : incl ? base - tax : base, discount: num(q.discountAmount), tax, total: incl ? base : base + tax };
+    /* Quotation math: Sub Total = sum of the line totals (unit price x quantity), GST is added on top, Total = Sub Total - Discount + GST */
+    const rate = num(state.settings.taxRate), c = customerByName(q.customer);
+    const qlines = Array.isArray(q.lines) && q.lines.length ? q.lines : null;
+    const subtotal = qlines ? round2(qlines.reduce((n, l) => n + num(l.price) * num(l.qty), 0)) : num(q.subtotal) || num(q.total);
+    const discount = Math.min(num(q.discountAmount), subtotal), net = round2(subtotal - discount);
+    const tax = round2(net * rate / 100);
+    return { no: q.id, date: dtDate(q.createdAt), extra: [...(q.issuedBy ? [`Issued By: ${q.issuedBy}`] : []), `Status: ${q.status}`], partyLabel: "Customer", party: q.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (qlines || [{ name: `Quoted items (${q.items || 0})`, qty: 1, price: subtotal }]).map((l) => ({ name: l.name, sku: l.sku, code: l.code, unit: l.unit, unitQty: l.unitQty, qty: l.qty, price: l.price })), subtotal, discount, tax, taxLabel: `GST @ ${rate}%`, total: round2(net + tax) };
   }
   function dtSample(kind) {
     const lines = [{ name: "Sample product A", sku: "SKU-0001", code: "01061", unit: "Ctn", unitQty: 4, qty: 1, price: 351.85 }, { name: "Sample product B", sku: "SKU-0002", code: "01038", unit: "Ctn", unitQty: 12, qty: 2, price: 462.96 }];
@@ -9934,7 +9937,7 @@ ${body}`);
       <div class="qe-list" data-qe-list>${v.lines.map(qeRowHtml).join("")}</div>
       <button type="button" class="btn btn-secondary qe-add" data-action="qe-add">${svgIcon("plus", 16)} Add item</button>
       <div class="qe-disc"><label class="form-field"><span>Discount on the whole quote</span><div class="qe-disc-in"><input name="discount" type="number" min="0" step="any" placeholder="0" value="${esc(v.discount)}" data-qe-disc /><select name="discountType" data-qe-disctype><option value="amount" ${v.discountType !== "percent" ? "selected" : ""}>MVR</option><option value="percent" ${v.discountType === "percent" ? "selected" : ""}>%</option></select></div></label></div>
-      <div class="qe-sum"><div><span>Units</span><b data-qe-units>0</b></div><div><span>Subtotal</span><b data-qe-sub>${money(0)}</b></div><div><span>Discount</span><b data-qe-discamt>${money(0)}</b></div><div class="qe-total"><span>Quote total</span><b data-qe-total>${money(0)}</b></div></div>
+      <div class="qe-sum"><div><span>Units</span><b data-qe-units>0</b></div><div><span>Subtotal</span><b data-qe-sub>${money(0)}</b></div><div><span>Discount</span><b data-qe-discamt>${money(0)}</b></div><div><span>GST @ ${num(state.settings.taxRate)}%</span><b data-qe-gst>${money(0)}</b></div><div class="qe-total"><span>Quote total</span><b data-qe-total>${money(0)}</b></div></div>
       <label class="form-field"><span>Notes (shown to the customer)</span><input name="note" value="${esc(v.note)}" placeholder="e.g. Bulk order price, delivery included" /></label>
       ${errorBox(m)}
       <div class="modal-foot"><button class="btn btn-secondary" type="button" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">${edit ? "Save changes" : "Create quotation"}</button></div>
@@ -9957,7 +9960,8 @@ ${body}`);
     const subtotal = round2(lines.reduce((n, l) => n + num(l.qty) * num(l.price), 0));
     const dv = Math.max(0, num(discount));
     const discountAmount = round2(discountType === "percent" ? subtotal * Math.min(dv, 100) / 100 : Math.min(dv, subtotal));
-    return { subtotal, discountAmount, total: round2(subtotal - discountAmount), units: round2(lines.reduce((n, l) => n + num(l.qty), 0)) };
+    const gst = round2((subtotal - discountAmount) * num(state.settings.taxRate) / 100);
+    return { subtotal, discountAmount, gst, total: round2(subtotal - discountAmount + gst), units: round2(lines.reduce((n, l) => n + num(l.qty), 0)) };
   }
   function qeRecalc() {
     const form = app.querySelector("[data-quote-edit]"); if (!form) return;
@@ -9974,7 +9978,7 @@ ${body}`);
       else { hint.textContent = ""; hint.className = "qe-hint"; }
     });
     const set = (s, v) => { const e = form.querySelector(s); if (e) e.textContent = v; };
-    set("[data-qe-units]", String(t.units)); set("[data-qe-sub]", money(t.subtotal)); set("[data-qe-discamt]", t.discountAmount ? "−" + money(t.discountAmount) : money(0)); set("[data-qe-total]", money(t.total));
+    set("[data-qe-units]", String(t.units)); set("[data-qe-sub]", money(t.subtotal)); set("[data-qe-discamt]", t.discountAmount ? "−" + money(t.discountAmount) : money(0)); set("[data-qe-gst]", money(t.gst)); set("[data-qe-total]", money(t.total));
   }
   /* product suggestions: our own list under the field (replaces the browser's plain drop-down) */
   function qeMatches(text) {
