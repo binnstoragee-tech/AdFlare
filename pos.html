@@ -635,7 +635,7 @@ body.afpos-login{display:block!important;height:auto!important;min-height:0!impo
 .pkp .sr svg{position:absolute;left:17px;top:50%;width:14px;height:14px;margin-top:-7px;fill:none;stroke:#8b9098;stroke-width:2.2;stroke-linecap:round;pointer-events:none}
 .pkp .sr input{display:block;width:100%;height:30px;padding:0 10px 0 30px;font:400 12.5px Inter,sans-serif;color:var(--tx);background:var(--field);border:1px solid var(--bd);border-radius:9px;outline:none}
 .pkp .sr input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,43,43,.14)}
-.pkp ul{flex:1;min-height:0;margin:0;padding:4px;list-style:none;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+.pkp ul{flex:1;min-height:0;margin:0;padding:4px;list-style:none;overflow-y:auto;overscroll-behavior-x:contain;overscroll-behavior-y:auto;scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
 .pkp li{display:flex;align-items:center;gap:9px;height:32px;padding:0 9px;border-radius:8px;font:400 12.5px Inter,sans-serif;color:var(--tx2);cursor:pointer}
 .pkp li .n{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pkp li .d{flex:none;color:var(--mu);font-variant-numeric:tabular-nums}
@@ -1438,7 +1438,7 @@ document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('c
              ['Purchasing and suppliers',0],['Stock transfers between outlets',0],['Quotations and your own PDF template',0],['Loyalty, gift cards and online orders',0]]},
     {id:'business',name:'Business',icon:'M3 20V8l9-5 9 5v12M8 20v-6h8v6M8 10h.01M12 10h.01M16 10h.01',pop:true,
       blurb:'For growing shops and anyone running more than one outlet.',
-      price:{monthly:50,biannual:43,annual:38},outlets:{inc:1,extra:{monthly:20,biannual:17,annual:15}},accounts:{inc:5,extra:{monthly:6,biannual:5,annual:5}},
+      price:{monthly:50,biannual:43,annual:38},outlets:{inc:3,extra:{monthly:20,biannual:17,annual:15}},accounts:{inc:5,extra:{monthly:6,biannual:5,annual:5}},
       cta:'Start with Business',
       feats:[['Everything in Starter',1,'hd'],['Unlimited products',1],['Run more than one outlet, with stock kept per outlet',1],['Purchase orders, suppliers and receiving stock',1],['Stock transfers between outlets',1],['Quotations and invoices on your own PDF template',1],['Loyalty points, gift cards and online orders',1],['Refunds, voids and register sessions',1],['Full reports and activity history',1],['Restore deleted records from the activity history',1],['Bulk import of products and customers',1],['Backup and restore of all your data',1],['Users and outlets management',1]]}
   ];
@@ -1451,7 +1451,7 @@ document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('c
   function calc(p,cy){
     var ex=st.ex[p.id],lines=[],tot=p.price[cy];
     lines.push(['Base plan (per month)',tot,0]);
-    lines.push(['1 outlet and '+p.accounts.inc+' accounts included',null,1]);
+    lines.push([(p.outlets.inc>1?p.outlets.inc+' outlets':'1 outlet')+' and '+p.accounts.inc+' accounts included',null,1]);
     var xo=p.outlets.extra?ex.o:0;
     if(xo){var t=xo*p.outlets.extra[cy];tot+=t;lines.push([xo+' extra outlet'+(xo>1?'s':''),t,0])}
     var xa=p.accounts.extra?ex.a:0;
@@ -1489,7 +1489,7 @@ document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('c
       var ex=st.ex[p.id],cnt=(p.outlets.extra?ex.o:0)+(p.accounts.extra?ex.a:0),rows='';
       el.querySelector('.pl-addsum').textContent=cnt?'+'+((p.outlets.extra?ex.o:0)?ex.o+' outlet'+(ex.o>1?'s':'')+(ex.a?', ':''):'')+(ex.a?ex.a+' account'+(ex.a>1?'s':''):''):'Outlets and staff accounts';
       var row=function(kind,title,note,val,max){return '<div class="pl-ar"><div><b>'+title+'</b><small>'+note+'</small></div><div class="pl-step" role="group" aria-label="'+title+'"><button type="button" class="pl-st" data-plan="'+p.id+'" data-kind="'+kind+'" data-d="-1" aria-label="Fewer"'+(val<=0?' disabled':'')+'><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><output>'+val+'</output><button type="button" class="pl-st" data-plan="'+p.id+'" data-kind="'+kind+'" data-d="1" aria-label="More"'+(val>=max?' disabled':'')+'><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>'};
-      if(p.outlets.extra)rows+=row('o','Extra outlets',CU()+' '+fmt(p.outlets.extra[cy])+' / month each. 1 outlet included.',ex.o,19);
+      if(p.outlets.extra)rows+=row('o','Extra outlets',CU()+' '+fmt(p.outlets.extra[cy])+' / month each. '+p.outlets.inc+' outlets included.',ex.o,19);
       if(p.accounts.extra)rows+=row('a','Extra staff accounts',CU()+' '+fmt(p.accounts.extra[cy])+' / month each. '+p.accounts.inc+' included.',ex.a,50);
       if(!p.outlets.extra)rows+='<p class="pl-adnote">Starter covers one outlet. Choose Business to run more outlets.</p>';
       el.querySelector('.pl-adds').innerHTML=rows;
