@@ -7279,7 +7279,7 @@ ${body}`);
   /* ===== Document template: invoice / quotation / inquiry. Super Admin edits it live, everyone prints with it ===== */
   /* The logo is always printed at exactly 125px, whatever an older saved template says. */
   var DT_LOGO = 125;
-  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgAspect: 0, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
+  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, accountDetails: "Bank: \nAccount name: \nAccount number: ", termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgAspect: 0, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
   /* Paper sizes for printed invoices / quotations. w/h are CSS px at 96 dpi, pw/ph are PDF points. A5 is the default every time a document is opened. */
   var DT_PAPERS = {
     a5: { label: "A5 (148 × 210 mm)", css: "A5", w: 559, h: 794, pw: 419.53, ph: 595.28 },
@@ -7388,7 +7388,7 @@ ${body}`);
     <div class="dtp-ttl ${pos === "top" ? "top" : ""}"><h2 style="color:${esc(a)}">${esc(title)}</h2><p>${kind === "quotation" ? "Quote" : "Invoice"} #: ${esc(doc.no)}</p><p>Date: ${esc(doc.date)}</p>${(doc.extra || []).map((x) => `<p>${esc(x)}</p>`).join("")}</div></div>
     <div class="dtp-bill"><small>${esc(doc.partyLabel)}</small><b>${esc(doc.party)}</b>${doc.address ? `<small>${esc(doc.address)}</small>` : ""}${doc.phone ? `<small>${esc(doc.phone)}</small>` : ""}${doc.tin ? `<small>TIN: ${esc(doc.tin)}</small>` : ""}</div>`}
     ${tbl}${legacyTot}
-    ${terms}${t.showSig ? '<div class="dtp-sig"><div>Authorized Signature</div><div>Received By</div></div>' : ""}</div>`;
+    ${terms}${kind === "quotation" ? `<div class="dtp-terms dtp-terms-n dtp-acct" data-pb="0"><b>ACCOUNT DETAILS</b>${esc(t.accountDetails != null ? t.accountDetails : "")}</div>` : t.showSig ? '<div class="dtp-sig"><div>Authorized Signature</div><div>Received By</div></div>' : ""}</div>`;
   }
   function dtFromBill(b) {
     const c = customerByName(b.customer);
@@ -8141,7 +8141,8 @@ ${body}`);
       <label class="setting-check"><input type="checkbox" data-dt="showTin" ${t.showTin ? "checked" : ""}><span class="toggle"><i></i></span><span>Show GST TIN</span></label>
       <label class="form-field"><span>Header and table color</span><input type="color" data-dt="accent" value="${esc(t.accent)}"></label>
       <label class="form-field"><span>Terms and conditions</span><textarea data-dt="terms">${esc(t.terms)}</textarea></label>
-      <label class="setting-check"><input type="checkbox" data-dt="showSig" ${t.showSig ? "checked" : ""}><span class="toggle"><i></i></span><span>Show signature lines</span></label>
+      <label class="form-field"><span>Account details (quotations only)</span><textarea data-dt="accountDetails" placeholder="Bank, account name, account number">${esc(t.accountDetails != null ? t.accountDetails : "")}</textarea></label>
+      <label class="setting-check"><input type="checkbox" data-dt="showSig" ${t.showSig ? "checked" : ""}><span class="toggle"><i></i></span><span>Show signature lines (invoices and receipts only)</span></label>
       <label class="setting-check"><input type="checkbox" data-dt="termsPage" ${t.termsPage === true ? "checked" : ""}><span class="toggle"><i></i></span><span>Always print terms and conditions on their own page</span></label>
       <div class="dt-row"><button class="btn btn-primary" type="button" data-dt-act="save">Save template</button><button class="btn btn-secondary" type="button" data-dt-act="reset">Reset to default</button></div>
       `;
