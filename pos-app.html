@@ -2695,6 +2695,8 @@ button.inv-kpi.is-on{border-color:#ef2b3a;box-shadow:0 0 0 3px rgba(239,41,59,.1
     const cid = cloud.ctx.company_id;
     try { cSb().channel("afpos-data-" + cid).on("postgres_changes", { event: "*", schema: "public", table: "pos_rows", filter: "company_id=eq." + cid }, (p) => { if (p.new && p.new.coll) { cloud.queue.push(p.new); cDrain(); } }).subscribe(); } catch (e) {}
     if (cloud.uid) try { cSb().channel("afpos-kv-" + cloud.uid).on("postgres_changes", { event: "*", schema: "public", table: "pos_user_kv", filter: "user_id=eq." + cloud.uid }, (p) => { const r = p.new; if (!r || r.key !== COLS_KEY) return; if (JSON.stringify(cloud.kv[COLS_KEY]) === JSON.stringify(r.data)) return; cloud.kv[COLS_KEY] = r.data; if (!state.modal) rootRender(); }).subscribe(); } catch (e) {}
+    /* the master admin can rename the company: the new name shows here at once */
+    if (cloud.uid) try { cSb().channel("afpos-biz-" + cloud.uid).on("postgres_changes", { event: "UPDATE", schema: "public", table: "profiles", filter: "id=eq." + cloud.uid }, (p) => { const nm = p.new && String(p.new.business_name || "").trim(); if (nm && state.settings && state.settings.storeName !== nm) { state.settings.storeName = nm; save(); render(); } }).subscribe(); } catch (e) {}
     setInterval(cPoll, 20000);
     setInterval(cDrain, 1000);
     document.addEventListener("visibilitychange", () => { if (!document.hidden) cPoll(); });
@@ -7279,7 +7281,7 @@ ${body}`);
   /* ===== Document template: invoice / quotation / inquiry. Super Admin edits it live, everyone prints with it ===== */
   /* The logo is always printed at exactly 125px, whatever an older saved template says. */
   var DT_LOGO = 125;
-  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, accountDetails: "Bank: \nAccount name: \nAccount number: ", termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgAspect: 0, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
+  var DT_DEF = { logo: "", logoPos: "left", logoSide: "right", showCoText: true, logoSize: 125, logoX: 0, logoY: 0, logoR: 12, accent: "#111111", showTin: true, tin: "", invTitle: "Tax Invoice", quoteTitle: "Quotation", terms: "Please check the goods before accepting them.\nThank you for shopping with us.", showSig: true, payInstructions: "1. Full payment is required upon purchase unless otherwise agreed.\n2. Wholesale credit facilities are available only to approved customers.\n3. All credit invoices must be settled within the agreed payment period.\n4. Outstanding balances must be cleared before additional credit purchases are approved.\n5. The company reserves the right to suspend credit facilities for overdue accounts.\n6. Partial payments are subject to management approval.\n7. All payments must be made through authorized company payment channels.", conditions: "1. All goods are subject to availability.\n2. Please verify all items and quantities upon receipt.\n3. Returns and exchanges are subject to company policy and applicable laws.\n4. All invoices must be settled within the agreed payment period.\n5. Wholesale purchases are subject to separate pricing, minimum order and payment conditions.\n6. Any discrepancies or damaged goods must be reported promptly (within 48 hours of receipt of the goods)\n7. Please retain your invoice as proof of purchase.", accountDetails: "Bank: \nAccount name: \nAccount number: ", termsPage: false, bgImage: "", tplMode: "", coName: "", coAddress: "", coPhone: "", coEmail: "", hideHead: true, bgAspect: 0, bgTop: 160, bgSide: 48, bgClear: true, bgBottom: 0 };
   /* Paper sizes for printed invoices / quotations. w/h are CSS px at 96 dpi, pw/ph are PDF points. A5 is the default every time a document is opened. */
   var DT_PAPERS = {
     a5: { label: "A5 (148 × 210 mm)", css: "A5", w: 559, h: 794, pw: 419.53, ph: 595.28 },
@@ -7329,7 +7331,7 @@ ${body}`);
       + ".dt-zoom{display:inline-flex;align-items:center;gap:4px}.dt-zoom .dt-zb{width:36px;min-width:36px;padding:0;justify-content:center;font-size:17px;line-height:1}.dt-zoom .dt-zv{min-width:62px;padding:0 8px;justify-content:center;font-size:12.5px}.dt-paper{display:inline-flex;align-items:center;gap:8px;max-width:100%;font-size:12px;color:var(--muted,#737886)}.dt-paper>span{white-space:nowrap}.dt-paper select{min-width:0;max-width:100%;text-overflow:ellipsis;height:36px;border:1px solid var(--line,#e7e9ed);border-radius:9px;background:var(--paper,#fff);padding:0 8px;color:var(--ink,#17191f);font:inherit;font-size:12.5px}"
       + ".dtp{position:relative}.dtp>.dt-guides{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:50;overflow:hidden}.dt-g{position:absolute;background:rgba(0,170,255,.75)}.dt-g.v{width:1px;top:0;bottom:0}.dt-g.h{height:1px;left:0;right:0}.dt-g.m{background:none;border:0 dashed #e5197c}.dt-g.m.v{width:0;border-left-width:1px}.dt-g.m.h{height:0;border-top-width:1px}.dt-g.c{background:none;border:0 dotted #8a8f9a}.dt-g.c.v{width:0;border-left-width:1px}.dt-gl{position:absolute;font:700 9px/1 Arial,sans-serif;color:#fff;background:#e5197c;padding:2px 4px;border-radius:3px;white-space:nowrap}.dt-gtog{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted,#737886);cursor:pointer}"
       + ".dtp.dtx table{border:0}.dtp.dtx th,.dtp.dtx td{border:0;border-bottom:1px solid #eceef1;padding:9px 8px}.dtp.dtx th{background:#f7f8fa;color:#1f2430;font-weight:700;border-bottom:1px solid #e3e6ea;padding:8px}.dtp.dtx td small{color:#9aa0ab}.dtp.dtx .r{white-space:nowrap}.dtp.dtx tfoot td{background:#f7f8fa;border:0;padding:7px 8px;font-weight:600}.dtp.dtx tfoot tr.dtt-g td{background:#eceef1;font-weight:800;font-size:1.08em}.dtp.dtx.sm th,.dtp.dtx.sm td{padding:6px 5px}.dtp.dtx.sm tfoot td{padding:5px}"
-      + ".dtp-terms-n{border-top:0;padding-top:0;margin-top:22px;font-size:10px;line-height:1.55}.dtp-terms-n b{display:block;margin-bottom:6px;font-size:11px;letter-spacing:.02em}.dtp.sm .dtp-terms-n{font-size:8.5px;margin-top:14px}.dtp>.dt-pgh,.dtp>.dt-pgf{position:absolute;left:0;right:0;text-align:center;color:#2b2f38;line-height:1.3;pointer-events:none;z-index:2}"
+      + ".dtp-terms-n{border-top:0;padding-top:0;margin-top:22px;font-size:10px;line-height:1.55}.dtp-paystat{text-align:center;font-size:15px;font-weight:700;margin:0 0 16px;letter-spacing:.01em}.dtp.sm .dtp-paystat{font-size:11px;margin-bottom:10px}.dtp-terms-n b{display:block;margin-bottom:6px;font-size:11px;letter-spacing:.02em}.dtp.sm .dtp-terms-n{font-size:8.5px;margin-top:14px}.dtp>.dt-pgh,.dtp>.dt-pgf{position:absolute;left:0;right:0;text-align:center;color:#2b2f38;line-height:1.3;pointer-events:none;z-index:2}"
       + "@media print{html.dt-printing #dt-printroot,html.dt-printing #dt-printroot *{visibility:visible}html.dt-printing body>*:not(#dt-printroot){display:none!important}#dt-printroot{position:absolute;left:0;top:0}}.dtp{-webkit-print-color-adjust:exact;print-color-adjust:exact}";
     document.head.appendChild(st);
   }
@@ -7352,7 +7354,8 @@ ${body}`);
     const title = kind === "quotation" ? t.quoteTitle : t.invTitle;
     const cur = dtFx ? dtFx.cur : curCode();
     const pos = t.logoPos === "right" || t.logoPos === "top" ? t.logoPos : "left";
-    const logo = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="width:${DT_LOGO}px;height:${DT_LOGO}px;border-radius:${num(t.logoR)}%;left:${num(t.logoX)}px;top:${num(t.logoY)}px">` : "";
+    const lsz = Math.min(250, Math.max(40, num(t.logoSize) || DT_LOGO));
+    const logo = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="width:${lsz}px;height:${lsz}px;border-radius:${num(t.logoR)}%;left:${num(t.logoX)}px;top:${num(t.logoY)}px">` : "";
     const cName = t.coName || displayName(), cAddr = t.coAddress || st.address, cPhone = t.coPhone || st.phone, cMail = t.coEmail || st.email;
     /* company block, same order as the sample quotation: name, address, email, phone, TIN */
     const info = `<div><h3>${esc(cName)}</h3>${cAddr ? `<p>${esc(cAddr)}</p>` : ""}${cMail ? `<p>${esc(cMail)}</p>` : ""}${cPhone ? `<p>${esc(cPhone)}</p>` : ""}${t.showTin && t.tin ? `<p>TIN: ${esc(t.tin)}</p>` : ""}</div>`;
@@ -7370,10 +7373,10 @@ ${body}`);
     const exs = (doc.extra || []).map((x) => { const i = String(x).indexOf(": "); return i > 0 ? [String(x).slice(0, i), String(x).slice(i + 2)] : ["", String(x)]; });
     const stat = exs.find((e) => e[0] === "Status");
     const det = [["Number", doc.no], ["Date", doc.date], ...exs.filter((e) => e[0] !== "Status")];
-    const logoNew = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="height:auto;width:auto;max-height:${Math.round(DT_LOGO * k)}px;max-width:100%;border-radius:${num(t.logoR)}%">` : "";
+    const logoNew = t.logo ? `<img class="dtp-logo" src="${esc(t.logo)}" alt="" style="height:${Math.round(lsz * k)}px;width:auto;max-width:100%;object-fit:contain;object-position:left center;border-radius:${num(t.logoR)}%">` : "";
     const metaInner = `<div><small>DETAILS</small>${det.map((e) => `<div class="dtq-r"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div><div><small>${esc(String(doc.partyLabel || "Customer").toUpperCase())}</small><b>${esc(doc.party)}</b>${doc.address ? `<p>${esc(doc.address)}</p>` : ""}${doc.phone ? `<p>${esc(doc.phone)}</p>` : ""}${doc.tin ? `<p>TIN: ${esc(doc.tin)}</p>` : ""}</div>`;
     /* same as the sample: 3 equal columns. Row 1: title (left), logo (above the company). Row 2: details, customer, company. */
-    const topNew = `<div class="dtq" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="dtq-title" style="grid-column:1/3;grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div style="position:relative;left:${num(t.logoX)}px;top:${num(t.logoY)}px;grid-column:3;grid-row:1;align-self:center;justify-self:start;min-width:0;max-width:100%">${logoNew}</div><div class="dtq-meta" style="grid-column:1/3;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))">${metaInner}</div><div style="position:relative;left:${num(t.logoX)}px;top:${num(t.logoY)}px;grid-column:3;grid-row:2;min-width:0">${t.showCoText !== false ? `<div class="dtq-co">${info}</div>` : ""}</div></div>`;
+    const topNew = `<div class="dtq" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:${num(t.logoY)}px"><div class="dtq-title" style="grid-column:1/3;grid-row:1;align-self:center;border-color:${esc(a)}"><h2 style="color:${esc(a)}">${esc(title)}</h2>${stat ? `<b>${esc(stat[1])}</b>` : ""}</div><div style="position:relative;left:${num(t.logoX)}px;grid-column:3;grid-row:1;align-self:center;justify-self:start;min-width:0;max-width:100%">${logoNew}</div><div class="dtq-meta" style="grid-column:1/3;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))">${metaInner}</div><div style="position:relative;left:${num(t.logoX)}px;grid-column:3;grid-row:2;min-width:0">${t.showCoText !== false ? `<div class="dtq-co">${info}</div>` : ""}</div></div>`;
     const clr = own && t.bgClear !== false ? `<i class="dtp-clr" style="top:${Math.round(num(t.bgTop) * k)}px;bottom:${Math.round(num(t.bgBottom) * k)}px"></i>` : "";
     /* built-in design (no uploaded letterhead): paginated, with a small header and footer on every page */
     const paged = useNew;
@@ -7388,11 +7391,20 @@ ${body}`);
     <div class="dtp-ttl ${pos === "top" ? "top" : ""}"><h2 style="color:${esc(a)}">${esc(title)}</h2><p>${kind === "quotation" ? "Quote" : "Invoice"} #: ${esc(doc.no)}</p><p>Date: ${esc(doc.date)}</p>${(doc.extra || []).map((x) => `<p>${esc(x)}</p>`).join("")}</div></div>
     <div class="dtp-bill"><small>${esc(doc.partyLabel)}</small><b>${esc(doc.party)}</b>${doc.address ? `<small>${esc(doc.address)}</small>` : ""}${doc.phone ? `<small>${esc(doc.phone)}</small>` : ""}${doc.tin ? `<small>TIN: ${esc(doc.tin)}</small>` : ""}</div>`}
     ${tbl}${legacyTot}
-    ${terms}${kind === "quotation" ? `<div class="dtp-terms dtp-terms-n dtp-acct" data-pb="0"><b>ACCOUNT DETAILS</b>${esc(t.accountDetails != null ? t.accountDetails : "")}</div>` : t.showSig ? '<div class="dtp-sig"><div>Authorized Signature</div><div>Received By</div></div>' : ""}</div>`;
+    ${kind === "quotation" ? terms : ""}${kind === "quotation" ? `<div class="dtp-terms dtp-terms-n dtp-acct" data-pb="0"><b>ACCOUNT DETAILS</b>${esc(t.accountDetails != null ? t.accountDetails : "")}</div>` : `<div class="dtp-terms dtp-terms-n dtp-pay" data-pb="0"><div class="dtp-paystat">PAYMENT: ${esc(doc.payStatus || "")}</div>${t.payInstructions ? `<b>PAYMENT INSTRUCTIONS</b>${esc(t.payInstructions)}` : ""}</div>${t.conditions ? `<div class="dtp-terms dtp-terms-n" data-pb="0"><b>CONDITIONS</b>${esc(t.conditions)}</div>` : ""}`}</div>`;
+  }
+  function dtPayStatus(b) {
+    /* shown on invoices/receipts and always follows the bill: it is never typed in */
+    const tot = num(b.total), paid = num(b.paid), st = b.status;
+    if (st === "Voided" || st === "Void") return "VOIDED";
+    if (st === "Refunded") return "REFUNDED";
+    if (st === "Completed") return "PAID";
+    if (paid > 0 && paid < tot) return "PARTIALLY PAID (" + dtAmt(paid) + " of " + dtAmt(tot) + ")";
+    return "NOT PAID";
   }
   function dtFromBill(b) {
     const c = customerByName(b.customer);
-    return { no: b.id, date: dtDate(b.date), extra: [...(b.cashier ? [`Issued By: ${b.cashier}`] : []), `Payment: ${b.method || "\u2014"}`, `Status: ${b.status}`], partyLabel: "Customer", party: b.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (b.lines || []).map((l) => ({ name: l.name, sku: l.sku, code: l.code || l.sku, unit: l.unit, unitScale: l.unitScale, unitQty: l.unitQty || l.unitScale, qty: l.qty, price: l.price, serials: l.serials, batches: l.batches, parts: l.parts })), subtotal: b.subtotal ?? b.total, discount: num(b.discount), serviceFee: num(b.serviceFee), tax: num(b.tax), taxLabel: b.taxLabel, total: b.total, fx: b.payCurrency && b.payCurrency !== "MVR" && num(b.fxRate) > 0 ? { cur: b.payCurrency, rate: num(b.fxRate) } : null };
+    return { payStatus: dtPayStatus(b), no: b.id, date: dtDate(b.date), extra: [...(b.cashier ? [`Issued By: ${b.cashier}`] : []), `Payment: ${b.method || "\u2014"}`, `Status: ${b.status}`], partyLabel: "Customer", party: b.customer, phone: (c && (c.mobile || c.phone)) || "", address: (c && c.address) || "", tin: (c && c.tin) || "", lines: (b.lines || []).map((l) => ({ name: l.name, sku: l.sku, code: l.code || l.sku, unit: l.unit, unitScale: l.unitScale, unitQty: l.unitQty || l.unitScale, qty: l.qty, price: l.price, serials: l.serials, batches: l.batches, parts: l.parts })), subtotal: b.subtotal ?? b.total, discount: num(b.discount), serviceFee: num(b.serviceFee), tax: num(b.tax), taxLabel: b.taxLabel, total: b.total, fx: b.payCurrency && b.payCurrency !== "MVR" && num(b.fxRate) > 0 ? { cur: b.payCurrency, rate: num(b.fxRate) } : null };
   }
   function dtFromQuote(q) {
     /* Quotation math: Sub Total = sum of the line totals (unit price x quantity), GST is added on top, Total = Sub Total - Discount + GST */
@@ -7408,7 +7420,7 @@ ${body}`);
     const sub = lines.reduce((n, l) => n + l.price * l.qty, 0), rate = num(state.settings.taxRate), tax = sub * rate / 100;
     const o = { lines, subtotal: sub, discount: 0, tax, total: sub + tax, party: "Customer name", phone: "+960 000 0000", address: "Customer address", tin: "0000000GST000", partyLabel: "Customer", date: dtDate(Date.now()) };
     if (kind === "quotation") return { ...o, no: "QT-00001", extra: ["Issued By: Your name", "Status: Draft"] };
-    return { ...o, no: "INV-00001", extra: ["Issued By: Your name", "Payment: Bank transfer", "Status: Completed"] };
+    return { ...o, payStatus: "PAID", no: "INV-00001", extra: ["Issued By: Your name", "Payment: Bank transfer", "Status: Completed"] };
   }
   /* Page layout for the built-in design: a row is never cut between two pages, the terms can sit on their own page,
      and every page gets a small header (title + number) and footer (Page X of Y, when and by whom it was generated). */
@@ -7743,7 +7755,7 @@ ${body}`);
       if (a === "bg-pick") { const f = document.getElementById("dt-bgfile"); if (f) f.click(); return; }
       if (a === "bg-remove") { dtPush(); DT.draft.bgImage = ""; DT.draft.tplMode = "default"; DT.dirty = true; return render(); }
       if (a === "pick") { const f = document.getElementById("dt-file"); if (f) f.click(); return; }
-      if (a === "logo-reset") { dtPush(); ["logoSide", "logoX", "logoY", "logoR"].forEach((k) => { DT.draft[k] = DT_DEF[k]; }); DT.dirty = true; return render(); }
+      if (a === "logo-reset") { dtPush(); ["logoSide", "logoSize", "logoX", "logoY", "logoR"].forEach((k) => { DT.draft[k] = DT_DEF[k]; }); DT.dirty = true; return render(); }
       if (a === "logo-remove") { dtPush(); DT.draft.logo = ""; DT.dirty = true; return render(); }
       if (a === "reset") return openModal({ type: "confirm", title: "Reset template", message: "Reset the invoice and quotation template to the default design? Your logo and all changes will be removed for everyone.", confirmLabel: "Reset template", onConfirm: { kind: "dt-reset" } });
       if (a === "save") return openModal({ type: "confirm", title: "Save template", message: "Save these changes? Every invoice and quotation printed from now on, on all devices and outlets, will use this template.", confirmLabel: "Save template", danger: false, onConfirm: { kind: "dt-save" } });
@@ -7751,7 +7763,8 @@ ${body}`);
     document.addEventListener("keydown", (e) => {
       if (!(e.ctrlKey || e.metaKey) || e.altKey || !DT.edit || !document.getElementById("dt-scale") || !isSuperUser()) return;
       const k = String(e.key).toLowerCase();
-      if (k === "z" && !e.shiftKey) { e.preventDefault(); dtUndo(); }
+      if (k === "s" && !e.shiftKey) { e.preventDefault(); if (!state.modal) openModal({ type: "confirm", title: "Save template", message: "Save these changes? Every invoice and quotation printed from now on, on all devices and outlets, will use this template.", confirmLabel: "Save template", danger: false, onConfirm: { kind: "dt-save" } }); }
+      else if (k === "z" && !e.shiftKey) { e.preventDefault(); dtUndo(); }
       else if ((k === "z" && e.shiftKey) || k === "y") { e.preventDefault(); dtRedo(); }
     });
     window.addEventListener("resize", dtFit);
@@ -8136,14 +8149,14 @@ ${body}`);
       <h3>Logo</h3><div class="dt-row"><button class="btn btn-primary" type="button" data-dt-act="pick">${t.logo ? "Change logo" : "Upload logo"}</button>${t.logo ? '<button class="btn btn-secondary" type="button" data-dt-act="logo-remove">Remove</button>' : ""}</div>
       <input type="file" id="dt-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
       <label class="form-field"><span>Placement</span><select data-dt="logoSide"><option value="right" ${t.logoSide !== "left" ? "selected" : ""}>Top right</option><option value="left" ${t.logoSide === "left" ? "selected" : ""}>Top left</option></select></label>
-      <div class="form-field"><span>Size: <b>125px</b> (fixed)</span></div>${rng("logoX", "Move left / right", -80, 80, "px")}${rng("logoY", "Move up / down", -60, 60, "px")}${rng("logoR", "Corner rounding", 0, 50, "%")}<div class="dt-row"><button class="btn btn-secondary" type="button" data-dt-act="logo-reset" ${(t.logoSide || "right") === DT_DEF.logoSide && num(t.logoX) === DT_DEF.logoX && num(t.logoY) === DT_DEF.logoY && num(t.logoR) === DT_DEF.logoR ? "disabled" : ""}>Reset logo position</button></div>
-      <h3>Wording and style</h3>${txt("invTitle", "Invoice title")}${txt("quoteTitle", "Quotation title")}${txt("tin", "GST TIN")}
+      ${rng("logoSize", "Logo size", 40, 250, "px")}${rng("logoX", "Move left / right", -80, 80, "px")}${rng("logoY", "Move up / down (whole header together)", -60, 60, "px")}${rng("logoR", "Corner rounding", 0, 50, "%")}<div class="dt-row"><button class="btn btn-secondary" type="button" data-dt-act="logo-reset" ${(t.logoSide || "right") === DT_DEF.logoSide && num(t.logoX) === DT_DEF.logoX && num(t.logoY) === DT_DEF.logoY && num(t.logoR) === DT_DEF.logoR ? "disabled" : ""}>Reset logo position</button></div>
+      <h3>Wording and style</h3>${DT.kind === "quotation" ? txt("quoteTitle", "Quotation title") : txt("invTitle", "Invoice title")}${txt("tin", "GST TIN")}
       <label class="setting-check"><input type="checkbox" data-dt="showTin" ${t.showTin ? "checked" : ""}><span class="toggle"><i></i></span><span>Show GST TIN</span></label>
       <label class="form-field"><span>Header and table color</span><input type="color" data-dt="accent" value="${esc(t.accent)}"></label>
-      <label class="form-field"><span>Terms and conditions</span><textarea data-dt="terms">${esc(t.terms)}</textarea></label>
-      <label class="form-field"><span>Account details (quotations only)</span><textarea data-dt="accountDetails" placeholder="Bank, account name, account number">${esc(t.accountDetails != null ? t.accountDetails : "")}</textarea></label>
-      <label class="setting-check"><input type="checkbox" data-dt="showSig" ${t.showSig ? "checked" : ""}><span class="toggle"><i></i></span><span>Show signature lines (invoices and receipts only)</span></label>
-      <label class="setting-check"><input type="checkbox" data-dt="termsPage" ${t.termsPage === true ? "checked" : ""}><span class="toggle"><i></i></span><span>Always print terms and conditions on their own page</span></label>
+      ${DT.kind === "quotation" ? `<label class="form-field"><span>Terms and conditions</span><textarea data-dt="terms">${esc(t.terms)}</textarea></label>
+      <label class="form-field"><span>Account details</span><textarea data-dt="accountDetails" placeholder="Bank, account name, account number">${esc(t.accountDetails != null ? t.accountDetails : "")}</textarea></label>
+      <label class="setting-check"><input type="checkbox" data-dt="termsPage" ${t.termsPage === true ? "checked" : ""}><span class="toggle"><i></i></span><span>Always print terms and conditions on their own page</span></label>` : `<label class="form-field"><span>Payment instructions (the payment status itself is automatic)</span><textarea data-dt="payInstructions">${esc(t.payInstructions != null ? t.payInstructions : "")}</textarea></label>
+      <label class="form-field"><span>Conditions</span><textarea data-dt="conditions">${esc(t.conditions != null ? t.conditions : "")}</textarea></label>`}
       <div class="dt-row"><button class="btn btn-primary" type="button" data-dt-act="save">Save template</button><button class="btn btn-secondary" type="button" data-dt-act="reset">Reset to default</button></div>
       `;
     const preview = `<div><div class="dt-row" style="margin-bottom:10px">${dtPaperSelect()}${DT.edit ? `<button type="button" class="btn btn-secondary" data-dt-act="undo" title="Undo (Ctrl+Z)" ${DT.hist.length ? "" : "disabled"}>Undo</button><button type="button" class="btn btn-secondary" data-dt-act="redo" title="Redo (Ctrl+Shift+Z)" ${DT.fut.length ? "" : "disabled"}>Redo</button><label class="dt-gtog"><input type="checkbox" data-dt-guides ${DT.guides !== false ? "checked" : ""}><span>Show guides</span></label>` : ""}${kinds.map(([id, l]) => `<button type="button" class="btn ${DT.kind === id ? "btn-primary" : "btn-secondary"}" data-dt-act="kind" data-kind="${id}">${l}</button>`).join("")}</div><div class="dtp-wrap"><div class="dtp-scale" id="dt-scale">${docHtml(DT.kind, dtSample(DT.kind), t)}</div></div></div>`;
